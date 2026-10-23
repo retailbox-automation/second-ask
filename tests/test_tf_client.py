@@ -65,6 +65,7 @@ def test_reasoning_is_not_text_when_the_model_called_a_tool(ledger, monkeypatch)
     r = c.chat(SUPER, [{"role": "user", "content": "book"}], max_tokens=512)
     assert r.text == "" and not r.from_reasoning
     assert tf.tool_args(r.tool_calls[0]) == {}
+    assert r.raw["choices"][0]["message"]["tool_calls"][0]["function"]["arguments"] == ""  # evidence keeps the server's ""
 
 
 def test_length_finish_is_flagged(ledger, monkeypatch):

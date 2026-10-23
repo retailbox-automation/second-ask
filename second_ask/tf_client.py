@@ -178,9 +178,9 @@ def _parse(model, raw, seconds, p_in, p_out):
     msg = choice.get("message") or {}
     content = msg.get("content") or ""
     reasoning = msg.get("reasoning") or msg.get("reasoning_content") or ""
-    tool_calls = msg.get("tool_calls") or []
-    for tc in tool_calls:
-        tc.setdefault("function", {})["arguments"] = tc["function"].get("arguments") or "{}"
+    tool_calls = [dict(tc, function=dict(tc.get("function") or {})) for tc in msg.get("tool_calls") or []]
+    for tc in tool_calls:  # normalized copies: `raw` keeps exactly what the server sent
+        tc["function"]["arguments"] = tc["function"].get("arguments") or "{}"
     from_reasoning = not content and not tool_calls and bool(reasoning)
     usage = raw.get("usage") or {}
     cost = (usage.get("prompt_tokens", 0) * p_in + usage.get("completion_tokens", 0) * p_out) / 1e6
