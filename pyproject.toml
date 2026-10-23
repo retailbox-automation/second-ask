@@ -1,0 +1,16 @@
+[project]
+name = "second-ask"
+version = "0.1.0"
+description = "Second Ask: a negotiation agent for home-service shops on NVIDIA Nemotron via Nebius Token Factory"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["second_ask"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
