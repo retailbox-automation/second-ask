@@ -1,0 +1,26 @@
+{
+ "table": {
+  "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+   "valid": 10,
+   "leaks": 0,
+   "label": 9,
+   "usd": 3.79e-05,
+   "s": 0.7494
+  },
+  "deepseek-ai/DeepSeek-V4-Flash-0731": {
+   "valid": 10,
+   "leaks": 0,
+   "label": 9,
+   "usd": 4.26e-05,
+   "s": 1.1514
+  },
+  "openai/gpt-oss-120b": {
+   "valid": 10,
+   "leaks": 0,
+   "label": 9,
+   "usd": 0.0001105,
+   "s": 1.6731
+  }
+ },
+ "pick": "Qwen/Qwen3-30B-A3B-Instruct-2507"
+}

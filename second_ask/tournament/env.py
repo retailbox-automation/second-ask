@@ -41,7 +41,6 @@ class BuyerState:
     clarity: str
     seen: bool
     ready_like: bool = False      # a channel buyer who has now seen the estimate
-    info_at: float | None = None  # family: when a written breakdown or a smaller option arrived
     decided: bool = False         # family: has told the shop the household's answer
     opted_out_at: float | None = None
     notes: str = ""
@@ -55,15 +54,13 @@ class Reaction:
     reason: str = ""
 
 
-INFO_KINDS = ("answer", "drop", "concede", "offer_slot", "earlier_slot", "resend")  # restate the job and price in writing
-
-
 def react(card, st, offer, move, t, replying, rng):
     """The buyer's response to one seller message, decided entirely from the hidden card.
 
     Buyers are lost to time (after `hire_by_days` they have hired someone else), to a closed conversation, or, while
     negotiating price, to offers that keep missing (`patience` = failed offers they tolerate). Reminders without anything
-    new are ignored: they do not lose the job, they just do not win it.
+    new are ignored: they do not lose the job, they just do not win it. A household that has to talk it over decides
+    `family_delay_days` after its first message whatever the shop sends (run_one schedules it); until then nothing books.
     """
     if st.opted_out_at is not None:
         return Reaction("silent")
@@ -90,9 +87,9 @@ def react(card, st, offer, move, t, replying, rng):
         if move.proposes_booking and day(offer.slot.start) <= card.need_by_days and price_ok:
             return Reaction("book", t)
     elif typ == "family" and not st.decided:
-        if st.info_at is None and move.kind in INFO_KINDS:
-            st.info_at = t  # something in writing to show the household
-            return Reaction("deliberate", t + card.family_delay_days, "family_decided")
+        if move.kind == "ask_why" and replying:
+            return Reaction("msg", t + delay, "again")
+        return Reaction("silent")  # still talking it over; a discount now only lowers the price they will book at
     elif move.proposes_booking and price_ok:  # price, decided family, ready, channel once seen
         return Reaction("book", t)
     negotiating = typ == "price" or (typ == "family" and st.decided)
@@ -102,10 +99,11 @@ def react(card, st, offer, move, t, replying, rng):
             return Reaction("lost", reason="stopped negotiating")
     if move.kind == "ask_why":
         st.clarity = "clear"
-    if typ == "family" and st.info_at is not None and not st.decided:
-        return Reaction("silent")  # still talking it over
+    wants_action = typ in ("ready", "timing_slot") or st.ready_like
+    if move.kind == "checkin" and not wants_action:
+        return Reaction("silent")  # "I will check back in N days": they wait
     if typ == "timing_pause" and not (move.kind in ("ask_why", "answer") or move.proposes_booking):
-        return Reaction("silent")  # a check-in or reminder before they are ready: nothing to say
+        return Reaction("silent")  # a reminder before they are ready: nothing to say
     if move.kind in ("reminder", "checkin") and not replying:
         return Reaction("silent")  # unprompted reminders are ignored
     return Reaction("msg", t + delay, "again")
@@ -168,9 +166,10 @@ class LLMWriter:
     """Buyer text from a non-NVIDIA model on Token Factory. Validated; one retry; then the template (counted)."""
     SYSTEM = ("You write one text message from a homeowner to a home-service shop that sent them an estimate. You do not "
               "decide anything: the card says what the homeowner does this turn. Write it the way a real homeowner "
-              "texts: 1-3 short sentences, plain, no emojis. Use only numbers that appear on the card. Keep short private "
-              "notes for your next message (under 40 words). Answer only with a JSON object: "
-              '{"message": "...", "notes": "..."}')
+              "texts: 1-3 short sentences, plain, no emojis. Say only what 'This turn' says: do not ask for a visit, a "
+              "call, a time, details or documents, and do not accept or refuse anything, unless 'This turn' says so. "
+              "Use only numbers that appear on the card. Keep short private notes for your next message (under 40 "
+              'words). Answer only with a JSON object: {"message": "...", "notes": "..."}')
 
     def __init__(self, client, model, params):
         self.client, self.model, self.params = client, model, params
@@ -226,6 +225,7 @@ class Outcome:
     unsure: int                   # decisions the agent flagged (low confidence, fallbacks, template, ambiguous opt-out)
     transcript: list = field(default_factory=list)
     steps: list = field(default_factory=list)
+    flags: list = field(default_factory=list)   # what the agent flagged on each message it sent (the "unsure" list)
 
 
 def coarse_act(card, spec):
@@ -244,7 +244,7 @@ def run_one(card, policy, writer, repeat):
     conv.views = 0 if card.type == "channel" else 1 + rng.randrange(3)
     pending = [] if card.type == "channel" else [(card.first_reply_hours / 24, "first")]
     next_check = 3.0 if card.type == "channel" else None
-    owner, moves, end, violations, unsure, buyer_steps, fallbacks = OwnerTapStub(), 0, None, 0, 0, [], 0
+    owner, moves, end, violations, unsure, buyer_steps, fallbacks, flag_log = OwnerTapStub(), 0, None, 0, 0, [], 0, []
     booked = False
     while end is None:
         pending.sort()
@@ -277,6 +277,8 @@ def run_one(card, policy, writer, repeat):
                 fallbacks += fb
             reply_channel = est.channel if card.reads_channel == "both" else card.reads_channel
             conv.events.append(Event(at(t), "customer", reply_channel, text))
+            if card.type == "family" and spec == "first":
+                pending.append((t + card.family_delay_days, "family_decided"))  # the household decides on its own clock
             now, hint, replying = t + SELLER_LATENCY_DAYS, ("objection" if card.type == "opt_out" else coarse_act(card, spec)), True
         else:
             if next_check is None:
@@ -296,7 +298,10 @@ def run_one(card, policy, writer, repeat):
         if decision.move is None or decision.message is None:
             end = "policy stopped: " + (decision.stop_reason or "")
             break
-        unsure += any(not f.startswith("delayed to") for f in decision.flags)  # sent despite a flag
+        notes = [f for f in decision.flags if not f.startswith("delayed to")]
+        unsure += bool(notes)  # sent despite a flag
+        if notes:
+            flag_log.append({"day": round(day(decision.send_at), 3), "move": decision.move.id, "flags": notes})
         if not apply_decision(conv, decision, owner):
             end = "owner declined"
             break
@@ -321,4 +326,4 @@ def run_one(card, policy, writer, repeat):
                    violations, unsure,
                    [{"day": round(day(e.at), 3), "who": e.who, "channel": e.channel, "text": e.text, "move": e.move_id}
                     for e in conv.events],
-                   [s.__dict__ for s in seller] + [dict(s.__dict__, step="buyer") for s in buyer_steps])
+                   [s.__dict__ for s in seller] + [dict(s.__dict__, step="buyer") for s in buyer_steps], flag_log)

@@ -87,6 +87,14 @@ def build(buyers_path, n_buyers, k_llm, subsample, buyer_model, buyer_params, sm
                          "booking_rate_per_policy": "between 0.30 and 0.80 (rule policies, dry run and full run)",
                          "price_buyers_booking_rate": "rises with walkaway tercile",
                          "booking_rate_by_type": "spread >= 0.20"},
+        "provenance": {
+            "real": ["Token Factory calls and their usage-based cost", "Nemotron labels, move choices and message text",
+                     "the compliance rules (statutes cited in second_ask/compliance.py)"],
+            "seeded": ["buyer archetypes paraphrased from ten real home-service negotiations (seeds/home_cases.json)",
+                       "speaking styles from CaSiNo strategy-label counts (seeds/casino_profiles.json)"],
+            "simulated": ["the shop, its estimates, prices, costs and calendar", "every buyer's hidden parameters and "
+                          "every buyer decision (code)", "the buyers' words (a non-NVIDIA model)", "the owner's one-tap "
+                          "approval (a stub that approves at or above the floor)", "time (a simulated clock)"]},
         "smoke": smoke,
         "projection": projection,
         "platform": {"base_url": "https://api.tokenfactory.nebius.com/v1/", "ledger_tag": "b2",

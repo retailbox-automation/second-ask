@@ -260,7 +260,7 @@ true
 "archetype": "generic",
 "style": [
 "mentions what other people in the household need",
-"asks a question back",
+"asks which option the shop recommends",
 "adds a bit of friendly small talk"
 ],
 "casino_ref": "dialogue 576 / mturk_agent_2",
@@ -311,7 +311,7 @@ true
 "type": "family",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "adds a bit of friendly small talk"
 ],
@@ -407,7 +407,7 @@ false
 "archetype": "generic",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 471 / mturk_agent_1",
@@ -454,7 +454,7 @@ false
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 13 / mturk_agent_1",
@@ -660,7 +660,7 @@ true
 "archetype": "H08",
 "style": [
 "mentions what other people in the household need",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 602 / mturk_agent_2",
@@ -912,7 +912,7 @@ true
 "type": "price",
 "archetype": "H02",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "adds a bit of friendly small talk"
 ],
@@ -1063,7 +1063,7 @@ true
 "archetype": "H08",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 29 / mturk_agent_2",
@@ -1120,7 +1120,7 @@ true
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 89 / mturk_agent_2",
@@ -1176,7 +1176,7 @@ true
 "type": "timing_slot",
 "archetype": "H06",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need",
 "explains their own situation and needs"
 ],
@@ -1280,7 +1280,7 @@ true
 "archetype": "H03",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 514 / mturk_agent_1",
 "trade": "HVAC",
@@ -1383,7 +1383,7 @@ true
 "archetype": "H06",
 "style": [
 "says they could do without part of it",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 77 / mturk_agent_1",
@@ -1540,7 +1540,7 @@ true
 "archetype": "H01",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 579 / mturk_agent_1",
@@ -1643,7 +1643,7 @@ true
 "type": "timing_pause",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "adds a bit of friendly small talk"
 ],
@@ -1747,7 +1747,7 @@ true
 "type": "price",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "adds a bit of friendly small talk"
 ],
@@ -1800,7 +1800,7 @@ true
 "archetype": "generic",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "acknowledges the shop's side"
 ],
 "casino_ref": "dialogue 166 / mturk_agent_2",
@@ -1852,7 +1852,7 @@ true
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it"
 ],
 "casino_ref": "dialogue 444 / mturk_agent_1",
@@ -1898,7 +1898,7 @@ false
 "type": "channel",
 "archetype": "H05",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need",
 "explains their own situation and needs"
 ],
@@ -2003,7 +2003,7 @@ true
 "archetype": "H07",
 "style": [
 "mentions what other people in the household need",
-"asks a question back",
+"asks which option the shop recommends",
 "acknowledges the shop's side"
 ],
 "casino_ref": "dialogue 80 / mturk_agent_2",
@@ -2054,7 +2054,7 @@ true
 "type": "timing_pause",
 "archetype": "H04",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 584 / mturk_agent_2",
@@ -2157,7 +2157,7 @@ true
 "archetype": "generic",
 "style": [
 "suggests working something out together",
-"asks a question back",
+"asks which option the shop recommends",
 "adds a bit of friendly small talk"
 ],
 "casino_ref": "dialogue 216 / mturk_agent_1",
@@ -2658,7 +2658,7 @@ false
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 13 / mturk_agent_1",
@@ -2710,7 +2710,7 @@ true
 "archetype": "H08",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need"
 ],
 "casino_ref": "dialogue 463 / mturk_agent_1",
@@ -2761,7 +2761,7 @@ true
 "type": "channel",
 "archetype": "H05",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "explains their own situation and needs"
 ],
@@ -2964,7 +2964,7 @@ true
 "archetype": "H02",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it"
 ],
 "casino_ref": "dialogue 40 / mturk_agent_2",
@@ -3068,7 +3068,7 @@ true
 "archetype": "generic",
 "style": [
 "acknowledges the shop's side",
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it"
 ],
 "casino_ref": "dialogue 81 / mturk_agent_2",
@@ -3326,7 +3326,7 @@ true
 "type": "timing_slot",
 "archetype": "H06",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it",
 "suggests working something out together"
 ],
@@ -3530,7 +3530,7 @@ true
 "style": [
 "mentions what other people in the household need",
 "explains their own situation and needs",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 104 / mturk_agent_2",
 "trade": "electrical",
@@ -3838,7 +3838,7 @@ true
 "type": "ready",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 115 / mturk_agent_2",
@@ -3884,7 +3884,7 @@ false
 "type": "timing_pause",
 "archetype": "H04",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need",
 "acknowledges the shop's side"
 ],
@@ -3937,7 +3937,7 @@ true
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 449 / mturk_agent_2",
@@ -4143,7 +4143,7 @@ true
 "type": "timing_slot",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "explains their own situation and needs"
 ],
@@ -4254,7 +4254,7 @@ true
 "archetype": "generic",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "adds a bit of friendly small talk"
 ],
 "casino_ref": "dialogue 575 / mturk_agent_2",
@@ -4507,7 +4507,7 @@ true
 "type": "price",
 "archetype": "H10",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "adds a bit of friendly small talk"
 ],
@@ -4705,7 +4705,7 @@ true
 "type": "ready",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it",
 "appeals to what seems fair"
 ],
@@ -4758,7 +4758,7 @@ true
 "archetype": "H10",
 "style": [
 "mentions what other people in the household need",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 602 / mturk_agent_2",
@@ -5165,7 +5165,7 @@ true
 "type": "channel",
 "archetype": "H05",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "appeals to what seems fair"
 ],
@@ -5316,7 +5316,7 @@ true
 "type": "ready",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "adds a bit of friendly small talk",
 "explains their own situation and needs"
 ],
@@ -5670,7 +5670,7 @@ false
 "type": "price",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need",
 "explains their own situation and needs"
 ],
@@ -5780,7 +5780,7 @@ true
 "archetype": "H05",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it"
 ],
 "casino_ref": "dialogue 444 / mturk_agent_1",
@@ -5833,7 +5833,7 @@ true
 "style": [
 "explains their own situation and needs",
 "adds a bit of friendly small talk",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 35 / mturk_agent_1",
 "trade": "electrical",
@@ -5883,7 +5883,7 @@ true
 "type": "price",
 "archetype": "H10",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "adds a bit of friendly small talk"
 ],
@@ -6045,7 +6045,7 @@ true
 "archetype": "H07",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "adds a bit of friendly small talk"
 ],
 "casino_ref": "dialogue 471 / mturk_agent_2",
@@ -6206,7 +6206,7 @@ true
 "archetype": "generic",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 135 / mturk_agent_1",
@@ -6357,7 +6357,7 @@ true
 "style": [
 "adds a bit of friendly small talk",
 "suggests working something out together",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 217 / mturk_agent_2",
 "trade": "electrical",
@@ -6407,7 +6407,7 @@ true
 "type": "opt_out",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "suggests the work is worth less than quoted"
 ],
@@ -6506,7 +6506,7 @@ false
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 13 / mturk_agent_1",
@@ -6608,7 +6608,7 @@ false
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 215 / mturk_agent_2",
@@ -6700,7 +6700,7 @@ false
 "archetype": "generic",
 "style": [
 "explains their own situation and needs",
-"asks a question back",
+"asks which option the shop recommends",
 "appeals to what seems fair"
 ],
 "casino_ref": "dialogue 500 / mturk_agent_1",
@@ -6752,7 +6752,7 @@ true
 "archetype": "H01",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need"
 ],
 "casino_ref": "dialogue 569 / mturk_agent_2",
@@ -6808,7 +6808,7 @@ true
 "type": "timing_pause",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it",
 "explains their own situation and needs"
 ],
@@ -6856,7 +6856,7 @@ false
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 74 / mturk_agent_2",
@@ -6954,7 +6954,7 @@ false
 "type": "channel",
 "archetype": "H05",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it",
 "explains their own situation and needs"
 ],
@@ -7053,7 +7053,7 @@ true
 "type": "timing_pause",
 "archetype": "H04",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "adds a bit of friendly small talk"
 ],
@@ -7101,7 +7101,7 @@ false
 "archetype": "H10",
 "style": [
 "appeals to what seems fair",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 586 / mturk_agent_1",
@@ -7153,7 +7153,7 @@ true
 "archetype": "H01",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 612 / mturk_agent_2",
 "trade": "roofing",
@@ -7257,7 +7257,7 @@ true
 "style": [
 "suggests working something out together",
 "appeals to what seems fair",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 4 / mturk_agent_1",
 "trade": "HVAC",
@@ -7463,7 +7463,7 @@ true
 "archetype": "generic",
 "style": [
 "explains their own situation and needs",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 129 / mturk_agent_1",
 "trade": "electrical",
@@ -7669,7 +7669,7 @@ true
 "type": "family",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need",
 "suggests working something out together"
 ],
@@ -7721,7 +7721,7 @@ true
 "type": "timing_pause",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs",
 "adds a bit of friendly small talk"
 ],
@@ -7827,7 +7827,7 @@ true
 "style": [
 "mentions what other people in the household need",
 "adds a bit of friendly small talk",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 167 / mturk_agent_2",
 "trade": "electrical",
@@ -8086,7 +8086,7 @@ true
 "style": [
 "adds a bit of friendly small talk",
 "suggests working something out together",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 595 / mturk_agent_1",
 "trade": "roofing",
@@ -8298,7 +8298,7 @@ true
 "style": [
 "suggests working something out together",
 "appeals to what seems fair",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 494 / mturk_agent_2",
 "trade": "roofing",
@@ -8553,7 +8553,7 @@ true
 "style": [
 "adds a bit of friendly small talk",
 "explains their own situation and needs",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 26 / mturk_agent_1",
 "trade": "plumbing",
@@ -8708,7 +8708,7 @@ true
 "archetype": "generic",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 533 / mturk_agent_1",
@@ -8759,7 +8759,7 @@ true
 "type": "price",
 "archetype": "H01",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "appeals to what seems fair"
 ],
@@ -9014,7 +9014,7 @@ true
 "type": "opt_out",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "explains their own situation and needs"
 ],
@@ -9123,7 +9123,7 @@ true
 "type": "channel",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "explains their own situation and needs"
 ],
 "casino_ref": "dialogue 584 / mturk_agent_2",
@@ -9485,7 +9485,7 @@ true
 "archetype": "H06",
 "style": [
 "adds a bit of friendly small talk",
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together"
 ],
 "casino_ref": "dialogue 29 / mturk_agent_2",
@@ -9584,7 +9584,7 @@ false
 "type": "timing_pause",
 "archetype": "H04",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "mentions what other people in the household need",
 "explains their own situation and needs"
 ],
@@ -9731,7 +9731,7 @@ true
 "type": "family",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "adds a bit of friendly small talk"
 ],
@@ -10088,7 +10088,7 @@ false
 "type": "timing_pause",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "says they could do without part of it",
 "suggests the work is worth less than quoted"
 ],
@@ -10147,7 +10147,7 @@ true
 "style": [
 "adds a bit of friendly small talk",
 "suggests working something out together",
-"asks a question back"
+"asks which option the shop recommends"
 ],
 "casino_ref": "dialogue 217 / mturk_agent_2",
 "trade": "roofing",
@@ -10197,7 +10197,7 @@ true
 "type": "timing_pause",
 "archetype": "generic",
 "style": [
-"asks a question back",
+"asks which option the shop recommends",
 "suggests working something out together",
 "explains their own situation and needs"
 ],

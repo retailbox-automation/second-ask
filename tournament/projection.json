@@ -1,0 +1,114 @@
+{
+ "per_call_usd_from_smoke": {
+  "shop_rule": 0.0,
+  "routed": 0.00042533333333333334,
+  "super_only": 0.0005746666666666667,
+  "ultra_only": 0.003290666666666667,
+  "super_vl": 0.0005271666666666667
+ },
+ "buyer_usd_per_message": 4.406666666666667e-05,
+ "safety_factor": 1.3,
+ "per_conversation_usd": {
+  "shop_rule": {
+   "seller": 0.0,
+   "buyer": 0.00011500298333333336
+  },
+  "concession_heuristic": {
+   "seller": 0.0,
+   "buyer": 0.00013485281333333336
+  },
+  "super_only": {
+   "seller": 0.003145150666666667,
+   "buyer": 0.00010649591333333335
+  },
+  "ultra_only": {
+   "seller": 0.018052597333333333,
+   "buyer": 0.00010870145000000002
+  },
+  "routed": {
+   "seller": 0.0023112613333333334,
+   "buyer": 0.00010681099000000003
+  },
+  "super_vl": {
+   "seller": 0.002905742666666667,
+   "buyer": 0.00010901652666666669
+  }
+ },
+ "dry_run_calls": {
+  "shop_rule": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.415,
+   "buyer_msgs_per_conv": 1.825
+  },
+  "concession_heuristic": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.595,
+   "buyer_msgs_per_conv": 2.14
+  },
+  "super_only": {
+   "seller_calls_per_conv": 4.21,
+   "seller_msgs_per_conv": 2.105,
+   "buyer_msgs_per_conv": 1.69
+  },
+  "ultra_only": {
+   "seller_calls_per_conv": 4.22,
+   "seller_msgs_per_conv": 2.11,
+   "buyer_msgs_per_conv": 1.725
+  },
+  "routed": {
+   "seller_calls_per_conv": 4.18,
+   "seller_msgs_per_conv": 2.09,
+   "buyer_msgs_per_conv": 1.695
+  },
+  "super_vl": {
+   "seller_calls_per_conv": 4.24,
+   "seller_msgs_per_conv": 2.12,
+   "buyer_msgs_per_conv": 1.73
+  }
+ },
+ "options": [
+  {
+   "option": "A",
+   "buyers": 200,
+   "K_llm": 3,
+   "subsample_for_K": 200,
+   "projected_usd": 16.16
+  },
+  {
+   "option": "B",
+   "buyers": 200,
+   "K_llm": 3,
+   "subsample_for_K": 100,
+   "projected_usd": 10.79
+  },
+  {
+   "option": "C",
+   "buyers": 200,
+   "K_llm": 3,
+   "subsample_for_K": 60,
+   "projected_usd": 8.64
+  },
+  {
+   "option": "D",
+   "buyers": 200,
+   "K_llm": 1,
+   "subsample_for_K": 0,
+   "projected_usd": 5.42
+  },
+  {
+   "option": "E",
+   "buyers": 120,
+   "K_llm": 3,
+   "subsample_for_K": 120,
+   "projected_usd": 9.69
+  }
+ ],
+ "budget_usd": 12.0,
+ "pick": {
+  "option": "B",
+  "buyers": 200,
+  "K_llm": 3,
+  "subsample_for_K": 100,
+  "projected_usd": 10.79
+ }
+}

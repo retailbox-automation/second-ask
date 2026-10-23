@@ -44,7 +44,7 @@ CATALOG = {  # trade -> [(job, list price range, [(optional item, price range)])
 }
 STYLE_HINTS = {  # CaSiNo strategy label -> how this homeowner tends to talk
     "small-talk": "adds a bit of friendly small talk", "self-need": "explains their own situation and needs",
-    "other-need": "mentions what other people in the household need", "elicit-pref": "asks a question back",
+    "other-need": "mentions what other people in the household need", "elicit-pref": "asks which option the shop recommends",
     "promote-coordination": "suggests working something out together", "vouch-fair": "appeals to what seems fair",
     "showing-empathy": "acknowledges the shop's side", "no-need": "says they could do without part of it",
     "uv-part": "suggests the work is worth less than quoted",

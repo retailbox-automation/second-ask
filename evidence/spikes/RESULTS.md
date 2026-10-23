@@ -106,3 +106,43 @@ Every call returned a valid `choose_move` (300/300). Message check: the models' 
 2–5 of 60 calls per config, almost always because they quoted the customer's own number back ("under your $3,600
 budget"). After this run (post hoc) the check was changed to allow a customer-stated amount when it is at or above the
 move's price; with that rule 6 of 300 messages would still be replaced.
+
+## S8. Buyer simulator
+### S8a. Buyer model — pick: Qwen3-30B-A3B-Instruct-2507
+Each candidate wrote the first message for the same 10 buyer cards (`s8_buyer_writers/raw.jsonl`); Lightning then
+labelled each message.
+
+| Candidate | valid JSON | leaks of the hidden walkaway | Lightning reads the intended type | $ per message | mean s |
+|---|---|---|---|---|---|
+| **Qwen3-30B-A3B-Instruct-2507** | 10/10 | 0 | 9/10 | 0.000038 | 0.75 |
+| DeepSeek-V4-Flash-0731 | 10/10 | 0 | 9/10 | 0.000043 | 1.15 |
+| gpt-oss-120b | 10/10 | 0 | 9/10 | 0.000111 | 1.67 |
+
+Rule (cheapest with ≥ 9/10 valid and 0 leaks) → Qwen3-30B. The walkaway is never in the writer's prompt, so 0 leaks is
+expected; the check still runs on every message. The one miss for every model was a deliberately vague family message
+("I need to think it over").
+
+### S8b. Sanity gates — PASS (dry run, 200 buyers, rule policies; `tournament/dryrun/summary.json`)
+- Bookings above the buyer's hidden walkaway: **0**; below the owner's floor: **0** (both gates are proven able to fire
+  by a unit test with synthetic violations).
+- Booking rate: shop rule 0.455, concession heuristic 0.330 (gate 0.30–0.80).
+- Price buyers' booking rate by walkaway tercile: 0.00 → 0.03 → 0.47 (rises).
+- Booking rate by objection type spans 0 to 1 for both rule policies (gate: spread ≥ 0.20).
+The first dry run failed the 30–80 % gate (15 % and 13 %): every unhelpful message cost "patience" for every buyer
+type. The buyer model was changed before any live run to lose buyers to time (a hidden "hires someone else by" day),
+with patience only for failed price offers; then the gate passed. Both versions are in git history.
+
+### Live smoke (10 conversations: 2 pre-registered buyers × 5 policies; `tournament/smoke/`)
+All 10 ran end to end through Token Factory. Shop-side cost per conversation: routed $0.0009–0.0017, Super-only
+$0.0013–0.0022, Super-VL $0.0010–0.0053, Ultra-only $0.0056–0.0142; buyer messages $0.00003–0.00005 each.
+What the smoke exposed (fixed before the manifest; the smoke was not re-run, per the phase A limit of 10 conversations):
+1. The buyer writer invented requests not on its card ("can you come back tomorrow afternoon?"), which steered the agent.
+   The writer prompt now forbids anything 'This turn' does not say.
+2. A family buyer replied to every "I'll check back next week" within hours, so Super-VL spent all 5 messages in 3 days.
+   Buyers who are told "I will check back" now wait silently (price, pause and family types).
+3. Family deliberation only started after an "info" message, contradicting the S7 gold sets (check-ins acceptable).
+   The household now decides on its own clock from its first message; a discount before then only lowers the price it
+   books at.
+One honest loss already visible: on the price buyer (B018) all four Nemotron policies dropped the optional module
+($1,480, margin $666) while the shop rule's floor price ($1,765, margin $687) earned $21 more; the buyer would also
+have accepted the 5 % concession ($1,860).

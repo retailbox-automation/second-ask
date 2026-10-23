@@ -14,3 +14,4 @@ packages = ["second_ask"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["live: calls Nebius Token Factory (skipped without NEBIUS_API_KEY)"]

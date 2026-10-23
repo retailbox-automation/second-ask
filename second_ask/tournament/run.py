@@ -226,7 +226,11 @@ def cmd_manifest(a):
     random.Random(B.GENERATOR_SEED + 1).shuffle(order)
     sub = sorted(order[: pick["subsample_for_K"]]) if pick["subsample_for_K"] < len(cs) else "all"
     smoke = {"buyers": [c.id for c in smoke_buyers(cs)], "policies": list(SMOKE_POLICIES),
-             "outcomes": "tournament/smoke/outcomes.jsonl"}
+             "outcomes": "tournament/smoke/outcomes.jsonl",
+             "note": "ran before three simulator fixes it exposed (the buyer writer invented requests; a family buyer "
+                     "answered every check-in, looping to the message cap; family deliberation waited for an 'info' "
+                     "message). Per-call prices are unaffected. Proposed first step of the full run: re-run these 10 "
+                     "conversations on the frozen code and compare."}
     m = MF.build(OUT / "buyers.json", pick["buyers"], pick["K_llm"], sub, a.buyer_model, BUYER_PARAMS[a.buyer_model],
                  smoke, {"file": "tournament/PROJECTION.md", "projected_usd": pick["projected_usd"],
                          "option": pick["option"], "budget_usd": proj["budget_usd"]})

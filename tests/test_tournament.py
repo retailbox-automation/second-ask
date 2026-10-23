@@ -93,17 +93,30 @@ def test_channel_buyer_does_not_see_the_wrong_channel_until_they_notice(cards):
     assert E.react(c, st, resend.offer(offer), resend, early, False, rng).kind == "book"
 
 
-def test_family_decides_after_something_in_writing(cards):
-    rng = random.Random(0)
-    c = first(cards, "family")
-    est = c.estimate()
-    from second_ask.menu import build_menu, initial_offer
-    menu = {m.id: m for m in build_menu(est, initial_offer(est), c.open_slots())}
+def test_family_decides_on_its_own_clock_and_a_discount_only_lowers_the_price(cards):
+    c = next(x for x in cards if x.type == "family" and x.walkaway >= x.estimate().list_price())
+    rule = E.run_one(c, ShopRule(), E.TemplateWriter(), 0)  # discounts to the floor at the first message
+    first_msg = c.first_reply_hours / 24
+    assert rule.booked and rule.price == c.estimate().floor()
+    assert rule.transcript[-1]["day"] == pytest.approx(first_msg + c.family_delay_days, abs=1e-3)
     st = E.BuyerState(c.patience, "clear", True)
+    from second_ask.menu import build_menu, initial_offer
+    est = c.estimate()
+    menu = {m.id: m for m in build_menu(est, initial_offer(est), c.open_slots())}
     offer = Offer(frozenset(), est.list_price(), est.default_slot, est.channel)
-    assert E.react(c, st, offer, menu["reminder"], 1.0, False, rng).kind == "silent"
-    r = E.react(c, st, offer, menu["answer"], 1.0, True, rng)
-    assert r.kind == "deliberate" and r.t == pytest.approx(1.0 + c.family_delay_days)
+    assert E.react(c, st, offer, menu["offer_slot"], first_msg + 0.1, True, random.Random(0)).kind == "silent"
+
+
+def test_check_in_makes_a_waiting_buyer_wait(cards):
+    rng = random.Random(0)
+    from second_ask.menu import build_menu, initial_offer
+    for typ in ("price", "timing_pause"):
+        c = first(cards, typ)
+        est = c.estimate()
+        menu = {m.id: m for m in build_menu(est, initial_offer(est), c.open_slots())}
+        st = E.BuyerState(c.patience, "clear", True)
+        offer = Offer(frozenset(), est.list_price(), est.default_slot, est.channel)
+        assert E.react(c, st, offer, menu["checkin_3"], c.first_reply_hours / 24 + 0.01, True, rng).kind == "silent"
 
 
 @pytest.mark.parametrize("name", ALL)
