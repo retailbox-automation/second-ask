@@ -119,3 +119,11 @@ def test_customer_amounts_may_be_quoted_back_only_at_or_above_the_move_price():
     text = "That beats the $650 quote: the repair alone is $560."
     assert M.check_message(text, drop, e, offer) and M.check_message(text, drop, e, offer, [650.0]) == []
     assert M.check_message("Sure, $500 works.", drop, e, offer, [500.0])  # below the move's price: refused
+
+
+def test_code_built_concession_is_floor_checked():
+    e = estimate()
+    offer = M.initial_offer(e)
+    assert M.concession(e, offer, 700).price == 700
+    with pytest.raises(M.FloorViolation):
+        M.concession(e, offer, 650)

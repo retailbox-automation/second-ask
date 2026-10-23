@@ -1,0 +1,23 @@
+Second Ask
+Copyright (c) 2026 RetailBox Automation. Code licensed under the MIT License (see LICENSE).
+
+Third-party data
+----------------
+seeds/casino_profiles.json is derived from the CaSiNo dataset:
+  Kushal Chawla, Jaysa Ramirez, Rene Clever, Gale Lucas, Jonathan May, Jonathan Gratch.
+  "CaSiNo: A Corpus of Campsite Negotiation Dialogues for Automatic Negotiation Systems." NAACL 2021.
+  https://github.com/kushalchawla/CaSiNo (data/casino.json, commit 2f6ed4a6a55110152a7699fbaa8150d6036314be)
+  Licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0):
+  https://creativecommons.org/licenses/by/4.0/
+  Modified: we keep only, per annotated participant, the counts of the annotated persuasion-strategy labels.
+  No dialogue text is included. The tournament uses these profiles as speaking-style hints for simulated
+  homeowners; the original corpus is about campsite supplies, not home services.
+
+Not used: CraigslistBargain (dataset license unknown; Craigslist terms forbid derivative works) and
+Deal or No Deal (CC BY-NC).
+
+Models
+------
+Agent decisions run on NVIDIA Nemotron models served by Nebius Token Factory (Nemotron 3 Super and Nano: NVIDIA
+Nemotron Open Model License; Nemotron 3 Ultra, 3.5 Lightning and 3.5 Super-VL: OpenMDW-1.1). Model weights are not
+redistributed here. The simulated buyers in the evaluation are played by a non-NVIDIA open model on Token Factory.

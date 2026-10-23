@@ -1,0 +1,10247 @@
+[
+{
+"id": "B001",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 185 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+890,
+false
+],
+[
+"Surge protector",
+190,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+3.0,
+6.0,
+8.0,
+10.0,
+14.0
+],
+"walkaway": 1160,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 32.52,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.24,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.24,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B002",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 604 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+460,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+3.0,
+7.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 530,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 25.67,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.78,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B003",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 189 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+9260,
+false
+],
+[
+"Smart thermostat",
+360,
+true
+],
+[
+"UV air purifier",
+780,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+6.0,
+8.0,
+11.0,
+14.0
+],
+"walkaway": 8710,
+"anchor": 8380,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 10.57,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.36,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B004",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"acknowledges the shop's side",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 183 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+450,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+6.0,
+11.0,
+12.0,
+13.0,
+14.0
+],
+"walkaway": 480,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 16.3,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.62,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B005",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"suggests working something out together",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 130 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+620,
+false
+],
+[
+"Surge protector",
+240,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+4.0,
+5.0,
+10.0,
+11.0,
+13.0
+],
+"walkaway": 870,
+"anchor": null,
+"anchor_kind": null,
+"patience": 1,
+"first_reply_hours": 19.11,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.2,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.2,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B006",
+"type": "family",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"asks a question back",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 576 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+740,
+false
+],
+[
+"Surge protector",
+150,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+3.0,
+4.0,
+7.0,
+9.0,
+10.0
+],
+"walkaway": 990,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 37.49,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.8,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 35.48,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B007",
+"type": "family",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 177 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+370,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+1.0,
+7.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 320,
+"anchor": 310,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 47.17,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 3.33,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 41.32,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B008",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 100 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+480,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+2.0,
+6.0,
+9.0,
+13.0,
+14.0
+],
+"walkaway": 540,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 4.41,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": 2.05,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.05,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B009",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 471 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+510,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+4.0,
+5.0,
+6.0,
+9.0
+],
+"walkaway": 460,
+"anchor": 430,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 33.66,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.11,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B010",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 13 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8360,
+false
+],
+[
+"Smart thermostat",
+330,
+true
+],
+[
+"UV air purifier",
+710,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+4.0,
+6.0,
+7.0,
+12.0
+],
+"walkaway": 10370,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 1.07,
+"clarity": "clear",
+"ready_after_days": 25.02,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 46.02,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B011",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 68 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+880,
+false
+],
+[
+"Surge protector",
+230,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+3.0,
+6.0,
+7.0,
+9.0,
+13.0
+],
+"walkaway": 1210,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 32.48,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 15.35,
+"notice_day": 16.24,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B012",
+"type": "family",
+"archetype": "H08",
+"style": [
+"suggests working something out together",
+"mentions what other people in the household need",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 490 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+440,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+8.0,
+9.0,
+10.0,
+13.0
+],
+"walkaway": 460,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 32.36,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.86,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 23.58,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B013",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"suggests working something out together"
+],
+"casino_ref": "dialogue 460 / mturk_agent_2",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+930,
+false
+],
+[
+"Gutter cleaning",
+190,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+6.0,
+9.0,
+11.0,
+14.0
+],
+"walkaway": 1220,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 7.7,
+"clarity": "clear",
+"ready_after_days": 26.51,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 47.51,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B014",
+"type": "family",
+"archetype": "H08",
+"style": [
+"mentions what other people in the household need",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 602 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+480,
+false
+],
+[
+"Surge protector",
+180,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+6.0,
+7.0,
+8.0,
+14.0
+],
+"walkaway": 690,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 22.6,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.4,
+"family_who": "my dad",
+"opt_out_style": null,
+"hire_by_days": 15.62,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B015",
+"type": "family",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 158 / mturk_agent_2",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+2050,
+false
+],
+[
+"Ridge vent",
+510,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+3.0,
+6.0,
+10.0,
+12.0,
+13.0
+],
+"walkaway": 2580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 38.75,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.48,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 31.29,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B016",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 436 / mturk_agent_2",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3110,
+false
+],
+[
+"Ridge vent",
+530,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+5.0,
+6.0,
+8.0,
+12.0
+],
+"walkaway": 3820,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 30.09,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 15.12,
+"notice_day": 13.88,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B017",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 108 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+640,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+3.0,
+4.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 650,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 5.72,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 1.31,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.31,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B018",
+"type": "price",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 99 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1480,
+false
+],
+[
+"Load management module",
+480,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+4.0,
+5.0,
+7.0,
+8.0
+],
+"walkaway": 1900,
+"anchor": 1700,
+"anchor_kind": "competitor quote",
+"patience": 3,
+"first_reply_hours": 31.92,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.61,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B019",
+"type": "price",
+"archetype": "H02",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 547 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+390,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+4.0,
+6.0,
+12.0,
+14.0
+],
+"walkaway": 320,
+"anchor": 290,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 34.94,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.82,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B020",
+"type": "price",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 587 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+590,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+7.0,
+8.0,
+11.0,
+12.0,
+14.0
+],
+"walkaway": 480,
+"anchor": 450,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 11.47,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.47,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B021",
+"type": "price",
+"archetype": "generic",
+"style": [
+"says they could do without part of it",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 607 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+9980,
+false
+],
+[
+"Smart thermostat",
+340,
+true
+],
+[
+"UV air purifier",
+530,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+6.0,
+7.0,
+9.0,
+10.0
+],
+"walkaway": 10310,
+"anchor": 9400,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 42.55,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.75,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B022",
+"type": "family",
+"archetype": "H08",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 29 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8770,
+false
+],
+[
+"Smart thermostat",
+340,
+true
+],
+[
+"UV air purifier",
+700,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+4.0,
+6.0,
+8.0,
+12.0
+],
+"walkaway": 10130,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 11.14,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.06,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 24.5,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B023",
+"type": "family",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 89 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+10720,
+false
+],
+[
+"Smart thermostat",
+390,
+true
+],
+[
+"UV air purifier",
+510,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+8.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 11100,
+"anchor": 10220,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 39.37,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.96,
+"family_who": "my dad",
+"opt_out_style": null,
+"hire_by_days": 31.72,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B024",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"asks a question back",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 542 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+3630,
+false
+],
+[
+"Whole-home shutoff valve",
+400,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+10.0
+],
+"walkaway": 4130,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.93,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 3.43,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.43,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B025",
+"type": "family",
+"archetype": "H07",
+"style": [
+"suggests working something out together",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 527 / mturk_agent_2",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+11590,
+false
+],
+[
+"Gutter guards",
+1550,
+true
+]
+],
+"max_discount": 0.06,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+4.0,
+9.0,
+10.0,
+11.0,
+13.0
+],
+"walkaway": 11210,
+"anchor": 10260,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 16.26,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.02,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 16.63,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B026",
+"type": "price",
+"archetype": "H03",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back"
+],
+"casino_ref": "dialogue 514 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+790,
+false
+],
+[
+"Surge protector",
+150,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+3.0,
+7.0,
+8.0,
+11.0
+],
+"walkaway": 440,
+"anchor": 400,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 18.16,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.4,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B027",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"suggests working something out together",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 437 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+570,
+false
+],
+[
+"Annual maintenance plan",
+200,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+5.0,
+6.0,
+8.0,
+9.0
+],
+"walkaway": 790,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 36.15,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": 3.33,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.33,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B028",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"says they could do without part of it",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 77 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+1780,
+false
+],
+[
+"Ridge vent",
+610,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+2.0,
+6.0,
+7.0,
+9.0,
+11.0
+],
+"walkaway": 2550,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 4.05,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.16,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.16,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B029",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"explains their own situation and needs",
+"says they could do without part of it",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 433 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2500,
+false
+],
+[
+"Expansion tank",
+190,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+6.0,
+7.0,
+8.0,
+11.0,
+12.0
+],
+"walkaway": 3010,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.01,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 18.14,
+"notice_day": 26.71,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B030",
+"type": "family",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 24 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+1980,
+false
+],
+[
+"Expansion tank",
+220,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+4.0,
+7.0,
+9.0,
+13.0,
+14.0
+],
+"walkaway": 2290,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 2.06,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.72,
+"family_who": "my husband",
+"opt_out_style": null,
+"hire_by_days": 34.31,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B031",
+"type": "price",
+"archetype": "H01",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 579 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3900,
+false
+],
+[
+"Whole-home surge protection",
+420,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+5.0,
+7.0,
+8.0,
+12.0,
+14.0
+],
+"walkaway": 3180,
+"anchor": 3030,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 15.54,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.42,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B032",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"says they could do without part of it",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 607 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+530,
+false
+],
+[
+"Surge protector",
+170,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+1.0,
+4.0,
+10.0,
+13.0,
+14.0
+],
+"walkaway": 780,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 36.52,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.25,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B033",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 571 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+300,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+6.0,
+8.0,
+10.0,
+12.0
+],
+"walkaway": 330,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 19.25,
+"clarity": "vague",
+"ready_after_days": 34.12,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 55.12,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B034",
+"type": "price",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 119 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+7890,
+false
+],
+[
+"Smart thermostat",
+390,
+true
+],
+[
+"UV air purifier",
+640,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+5.0,
+6.0,
+9.0,
+11.0
+],
+"walkaway": 7450,
+"anchor": 6750,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 47.15,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.48,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B035",
+"type": "price",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 576 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+1760,
+false
+],
+[
+"Ridge vent",
+740,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+6.0,
+7.0,
+8.0,
+14.0
+],
+"walkaway": 2020,
+"anchor": 1960,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 30.33,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.49,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B036",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 166 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+460,
+false
+],
+[
+"Annual maintenance plan",
+220,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+9.0,
+10.0,
+12.0,
+13.0
+],
+"walkaway": 730,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 21.65,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 6.05,
+"notice_day": 27.63,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B037",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 444 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+420,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+4.0,
+8.0,
+9.0,
+11.0
+],
+"walkaway": 470,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 22.5,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.14,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B038",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"asks a question back",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 190 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+2080,
+false
+],
+[
+"Ridge vent",
+440,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+6.0,
+7.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 2580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 39.62,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 12.86,
+"notice_day": 15.23,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B039",
+"type": "price",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 36 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1580,
+false
+],
+[
+"Load management module",
+360,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+5.0,
+8.0,
+12.0,
+14.0
+],
+"walkaway": 1880,
+"anchor": 1730,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 9.27,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.24,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B040",
+"type": "family",
+"archetype": "H07",
+"style": [
+"mentions what other people in the household need",
+"asks a question back",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 80 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+520,
+false
+],
+[
+"Annual maintenance plan",
+190,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+3.0,
+7.0,
+8.0,
+9.0,
+14.0
+],
+"walkaway": 590,
+"anchor": 550,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 27.41,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.16,
+"family_who": "my wife",
+"opt_out_style": null,
+"hire_by_days": 23.55,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B041",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 584 / mturk_agent_2",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1120,
+false
+],
+[
+"Gutter cleaning",
+180,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+4.0,
+5.0,
+8.0,
+9.0
+],
+"walkaway": 1370,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 19.62,
+"clarity": "clear",
+"ready_after_days": 19.97,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 40.97,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B042",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"acknowledges the shop's side",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 25 / mturk_agent_2",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+13530,
+false
+],
+[
+"Gutter guards",
+1280,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+4.0,
+6.0,
+8.0,
+9.0,
+14.0
+],
+"walkaway": 16530,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 43.74,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.79,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B043",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"asks a question back",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 216 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+450,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+3.0,
+6.0,
+10.0,
+12.0
+],
+"walkaway": 480,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 12.55,
+"clarity": "clear",
+"ready_after_days": 18.32,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 39.32,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B044",
+"type": "family",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 596 / mturk_agent_2",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+2910,
+false
+],
+[
+"Whole-home surge protection",
+400,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+3.0,
+6.0,
+9.0,
+11.0
+],
+"walkaway": 3500,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 25.69,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 3.44,
+"family_who": "my wife",
+"opt_out_style": null,
+"hire_by_days": 36.56,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B045",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 185 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1410,
+false
+],
+[
+"Gutter cleaning",
+160,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+4.0,
+9.0,
+11.0,
+14.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 29.8,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B046",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 41 / mturk_agent_1",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+15010,
+false
+],
+[
+"Gutter guards",
+1390,
+true
+]
+],
+"max_discount": 0.06,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+3.0,
+6.0,
+9.0,
+13.0,
+14.0
+],
+"walkaway": 17130,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 16.98,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.51,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.51,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B047",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 89 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+730,
+false
+],
+[
+"Surge protector",
+230,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+4.0,
+6.0,
+9.0,
+14.0
+],
+"walkaway": 1060,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 9.88,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 15.85,
+"notice_day": 9.67,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B048",
+"type": "price",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"says they could do without part of it",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 526 / mturk_agent_2",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1680,
+false
+],
+[
+"Gutter cleaning",
+240,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+7.0,
+9.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 1660,
+"anchor": 1480,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 11.35,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.4,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B049",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"says they could do without part of it",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 77 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+350,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+4.0,
+7.0,
+9.0,
+12.0,
+13.0
+],
+"walkaway": 360,
+"anchor": null,
+"anchor_kind": null,
+"patience": 1,
+"first_reply_hours": 9.17,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": 2.18,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.18,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B050",
+"type": "family",
+"archetype": "H09",
+"style": [
+"explains their own situation and needs",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 33 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+320,
+false
+],
+[
+"Annual maintenance plan",
+190,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+3.0,
+4.0,
+7.0,
+9.0
+],
+"walkaway": 460,
+"anchor": 440,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 13.01,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 3.7,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 30.42,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B051",
+"type": "family",
+"archetype": "H07",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 100 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1060,
+false
+],
+[
+"Gutter cleaning",
+190,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+4.0,
+5.0,
+6.0,
+10.0,
+11.0
+],
+"walkaway": 1030,
+"anchor": 930,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 47.47,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.75,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 22.74,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B052",
+"type": "price",
+"archetype": "H01",
+"style": [
+"adds a bit of friendly small talk",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 521 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+480,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+4.0,
+6.0,
+8.0,
+11.0,
+14.0
+],
+"walkaway": 360,
+"anchor": 330,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 35.89,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.11,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B053",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 13 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1030,
+false
+],
+[
+"Load management module",
+320,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+5.0,
+8.0,
+9.0,
+11.0
+],
+"walkaway": 1470,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.3,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.71,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B054",
+"type": "family",
+"archetype": "H08",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 463 / mturk_agent_1",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+16360,
+false
+],
+[
+"Gutter guards",
+1610,
+true
+]
+],
+"max_discount": 0.06,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+2.0,
+3.0,
+8.0,
+13.0
+],
+"walkaway": 19050,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 44.05,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.33,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 33.82,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B055",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 475 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+400,
+false
+],
+[
+"Annual maintenance plan",
+150,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+6.0,
+7.0,
+10.0,
+14.0
+],
+"walkaway": 580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 46.2,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 13.62,
+"notice_day": 10.95,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B056",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"suggests working something out together",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 155 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+600,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+3.0,
+6.0,
+7.0,
+12.0
+],
+"walkaway": 660,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 9.75,
+"clarity": "clear",
+"ready_after_days": 9.48,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 30.48,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B057",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 528 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1240,
+false
+],
+[
+"Load management module",
+530,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+3.0,
+5.0,
+8.0,
+12.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 47.76,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "phrase",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B058",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"appeals to what seems fair",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 83 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1760,
+false
+],
+[
+"Load management module",
+310,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+4.0,
+6.0,
+7.0,
+9.0,
+11.0
+],
+"walkaway": 2130,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 41.58,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 10.59,
+"notice_day": 18.8,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B059",
+"type": "price",
+"archetype": "H02",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 40 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1570,
+false
+],
+[
+"Load management module",
+330,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+9.0,
+11.0,
+13.0,
+14.0
+],
+"walkaway": 1540,
+"anchor": 1370,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 39.09,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.11,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B060",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"says they could do without part of it",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 16 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+550,
+false
+],
+[
+"Annual maintenance plan",
+160,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+4.0,
+6.0,
+9.0,
+10.0
+],
+"walkaway": 730,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 20.34,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.24,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B061",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"acknowledges the shop's side",
+"asks a question back",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 81 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+320,
+false
+],
+[
+"Annual maintenance plan",
+190,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+4.0,
+5.0,
+6.0,
+8.0,
+9.0
+],
+"walkaway": 560,
+"anchor": null,
+"anchor_kind": null,
+"patience": 1,
+"first_reply_hours": 28.78,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.41,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.41,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B062",
+"type": "family",
+"archetype": "generic",
+"style": [
+"says they could do without part of it",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 178 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+4440,
+false
+],
+[
+"Whole-home shutoff valve",
+380,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+5.0,
+6.0,
+7.0,
+9.0,
+10.0
+],
+"walkaway": 5340,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 37.89,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 3.01,
+"family_who": "my wife",
+"opt_out_style": null,
+"hire_by_days": 29.38,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B063",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 432 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+770,
+false
+],
+[
+"Surge protector",
+220,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+11.0,
+13.0
+],
+"walkaway": 900,
+"anchor": 820,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 1.61,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 0.83,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B064",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 157 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+820,
+false
+],
+[
+"Surge protector",
+160,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+10.0,
+13.0
+],
+"walkaway": 1110,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 24.82,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.36,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B065",
+"type": "price",
+"archetype": "H01",
+"style": [
+"explains their own situation and needs",
+"mentions what other people in the household need",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 127 / mturk_agent_2",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3660,
+false
+],
+[
+"Whole-home surge protection",
+410,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+4.0,
+6.0,
+8.0,
+9.0
+],
+"walkaway": 2800,
+"anchor": 2540,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 34.52,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.0,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B066",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"asks a question back",
+"says they could do without part of it",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 480 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+500,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+4.0,
+7.0,
+8.0,
+12.0,
+14.0
+],
+"walkaway": 530,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 26.88,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 3.11,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.11,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B067",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 534 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+580,
+false
+],
+[
+"Annual maintenance plan",
+170,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+5.0,
+7.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 790,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 35.53,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.99,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B068",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 72 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+2210,
+false
+],
+[
+"Ridge vent",
+870,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+4.0,
+5.0,
+7.0,
+12.0,
+14.0
+],
+"walkaway": 3260,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 34.11,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.82,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B069",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 173 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+440,
+false
+],
+[
+"Annual maintenance plan",
+180,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+4.0,
+7.0,
+9.0,
+12.0
+],
+"walkaway": 570,
+"anchor": 520,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 46.19,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.29,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B070",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"asks a question back"
+],
+"casino_ref": "dialogue 104 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+490,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+7.0,
+9.0,
+10.0,
+13.0
+],
+"walkaway": 540,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 44.11,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.03,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B071",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"mentions what other people in the household need",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 100 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2450,
+false
+],
+[
+"Expansion tank",
+220,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+4.0,
+9.0,
+13.0,
+14.0
+],
+"walkaway": 2310,
+"anchor": 2100,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 35.84,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.81,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B072",
+"type": "price",
+"archetype": "H01",
+"style": [
+"suggests working something out together",
+"mentions what other people in the household need",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 557 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3490,
+false
+],
+[
+"Ridge vent",
+740,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+4.0,
+8.0,
+11.0,
+13.0,
+14.0
+],
+"walkaway": 3130,
+"anchor": 2900,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 38.8,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.65,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B073",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 510 / mturk_agent_2",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3270,
+false
+],
+[
+"Ridge vent",
+620,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+4.0,
+7.0,
+9.0,
+10.0,
+13.0
+],
+"walkaway": 4320,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 10.5,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 13.6,
+"notice_day": 10.59,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B074",
+"type": "price",
+"archetype": "H10",
+"style": [
+"adds a bit of friendly small talk",
+"suggests the work is worth less than quoted",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 422 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5780,
+false
+],
+[
+"Whole-home shutoff valve",
+270,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+2.0,
+7.0,
+8.0,
+13.0
+],
+"walkaway": 3120,
+"anchor": 2960,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 13.19,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 0.87,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B075",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 422 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+10430,
+false
+],
+[
+"Smart thermostat",
+340,
+true
+],
+[
+"UV air purifier",
+600,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+9.0,
+14.0
+],
+"walkaway": 11840,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 8.39,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 19.26,
+"notice_day": 20.02,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B076",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 115 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+430,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+6.0,
+11.0,
+12.0,
+14.0
+],
+"walkaway": 440,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 45.49,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.07,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B077",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"asks a question back",
+"mentions what other people in the household need",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 156 / mturk_agent_1",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+12680,
+false
+],
+[
+"Gutter guards",
+1290,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+4.0,
+6.0,
+7.0,
+12.0
+],
+"walkaway": 15980,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 10.6,
+"clarity": "clear",
+"ready_after_days": 7.3,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 28.3,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B078",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 449 / mturk_agent_2",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+10750,
+false
+],
+[
+"Gutter guards",
+1180,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+6.0,
+8.0,
+9.0,
+14.0
+],
+"walkaway": 12340,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 8.22,
+"clarity": "clear",
+"ready_after_days": 33.28,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 54.28,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B079",
+"type": "price",
+"archetype": "H01",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 427 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1070,
+false
+],
+[
+"Load management module",
+510,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+7.0,
+8.0,
+9.0,
+13.0
+],
+"walkaway": 1110,
+"anchor": 990,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 2.17,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.92,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B080",
+"type": "family",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"mentions what other people in the household need",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 161 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+380,
+false
+],
+[
+"Annual maintenance plan",
+210,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+3.0,
+9.0,
+11.0,
+12.0
+],
+"walkaway": 520,
+"anchor": 490,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 4.49,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.92,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 31.65,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B081",
+"type": "price",
+"archetype": "H10",
+"style": [
+"explains their own situation and needs",
+"suggests the work is worth less than quoted",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 59 / mturk_agent_2",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+1780,
+false
+],
+[
+"Ridge vent",
+580,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+4.0,
+6.0,
+8.0,
+10.0,
+13.0
+],
+"walkaway": 1260,
+"anchor": 1110,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 24.3,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.85,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B082",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 120 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8260,
+false
+],
+[
+"Smart thermostat",
+440,
+true
+],
+[
+"UV air purifier",
+580,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+5.0,
+7.0,
+10.0,
+11.0,
+13.0
+],
+"walkaway": 9750,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 7.89,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 1.02,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.02,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B083",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 49 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+530,
+false
+],
+[
+"Surge protector",
+220,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+5.0,
+9.0,
+10.0,
+14.0
+],
+"walkaway": 750,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.1,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.51,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B084",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 575 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5190,
+false
+],
+[
+"Whole-home shutoff valve",
+310,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+4.0,
+5.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 5270,
+"anchor": 4950,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 20.7,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.86,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B085",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"acknowledges the shop's side",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 85 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3400,
+false
+],
+[
+"Ridge vent",
+440,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+5.0,
+6.0,
+10.0,
+13.0
+],
+"walkaway": 4160,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 41.75,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 16.84,
+"notice_day": 26.13,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B086",
+"type": "family",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 49 / mturk_agent_2",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+1660,
+false
+],
+[
+"Ridge vent",
+460,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+3.0,
+10.0,
+11.0,
+13.0
+],
+"walkaway": 1880,
+"anchor": 1720,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 12.72,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 1.74,
+"family_who": "my husband",
+"opt_out_style": null,
+"hire_by_days": 32.56,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B087",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 447 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+550,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+4.0,
+7.0,
+8.0,
+13.0
+],
+"walkaway": 580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 44.48,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 9.16,
+"notice_day": 15.64,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B088",
+"type": "family",
+"archetype": "H08",
+"style": [
+"says they could do without part of it",
+"explains their own situation and needs",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 160 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5150,
+false
+],
+[
+"Whole-home shutoff valve",
+280,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+6.0,
+7.0,
+10.0,
+11.0,
+12.0
+],
+"walkaway": 5860,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 18.59,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.32,
+"family_who": "my husband",
+"opt_out_style": null,
+"hire_by_days": 34.38,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B089",
+"type": "price",
+"archetype": "H10",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 542 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1710,
+false
+],
+[
+"Gutter cleaning",
+210,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+5.0,
+9.0,
+10.0,
+12.0
+],
+"walkaway": 890,
+"anchor": 800,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 13.86,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.89,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B090",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 99 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+520,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+6.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 19.45,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "phrase",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B091",
+"type": "family",
+"archetype": "H07",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 540 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+410,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+3.0,
+7.0,
+11.0,
+12.0
+],
+"walkaway": 370,
+"anchor": 350,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 18.32,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.3,
+"family_who": "my husband",
+"opt_out_style": null,
+"hire_by_days": 26.16,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B092",
+"type": "family",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 568 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+510,
+false
+],
+[
+"Surge protector",
+170,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+2.0,
+9.0,
+10.0,
+13.0
+],
+"walkaway": 650,
+"anchor": 590,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 28.64,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 2.82,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 36.06,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B093",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"says they could do without part of it",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 12 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1790,
+false
+],
+[
+"Load management module",
+310,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+13.0,
+14.0
+],
+"walkaway": 2200,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 23.87,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.91,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B094",
+"type": "price",
+"archetype": "H10",
+"style": [
+"mentions what other people in the household need",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 602 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1320,
+false
+],
+[
+"Load management module",
+530,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+6.0,
+9.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 940,
+"anchor": 830,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 8.76,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.27,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B095",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 547 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+6470,
+false
+],
+[
+"Whole-home shutoff valve",
+280,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+5.0,
+9.0,
+11.0,
+13.0
+],
+"walkaway": 7720,
+"anchor": null,
+"anchor_kind": null,
+"patience": 1,
+"first_reply_hours": 21.49,
+"clarity": "clear",
+"ready_after_days": 37.85,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 58.85,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B096",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 516 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+370,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+5.0,
+7.0,
+10.0,
+14.0
+],
+"walkaway": 300,
+"anchor": 270,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 22.29,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.17,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B097",
+"type": "family",
+"archetype": "H08",
+"style": [
+"says they could do without part of it",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 16 / mturk_agent_2",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+2990,
+false
+],
+[
+"Whole-home surge protection",
+390,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+3.0,
+6.0,
+7.0,
+10.0,
+11.0
+],
+"walkaway": 3590,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 22.64,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.54,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 26.73,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B098",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 175 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2000,
+false
+],
+[
+"Expansion tank",
+280,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+9.0,
+10.0,
+12.0,
+13.0
+],
+"walkaway": 2350,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 29.86,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.66,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B099",
+"type": "price",
+"archetype": "H03",
+"style": [
+"adds a bit of friendly small talk",
+"mentions what other people in the household need",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 427 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5290,
+false
+],
+[
+"Whole-home shutoff valve",
+240,
+true
+]
+],
+"max_discount": 0.06,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+6.0,
+9.0,
+10.0,
+12.0
+],
+"walkaway": 1890,
+"anchor": 1740,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 20.31,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.31,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B100",
+"type": "family",
+"archetype": "H09",
+"style": [
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 573 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+4100,
+false
+],
+[
+"Whole-home surge protection",
+510,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+8.0,
+9.0,
+10.0,
+14.0
+],
+"walkaway": 4160,
+"anchor": 4020,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 45.98,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 1.29,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 33.11,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B101",
+"type": "family",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 100 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1460,
+false
+],
+[
+"Load management module",
+330,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+5.0,
+6.0,
+7.0,
+8.0
+],
+"walkaway": 1660,
+"anchor": 1540,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 37.62,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.9,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 28.92,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B102",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 115 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+560,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+6.0,
+8.0,
+10.0,
+11.0,
+13.0
+],
+"walkaway": 630,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 21.55,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 13.26,
+"notice_day": 5.95,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B103",
+"type": "price",
+"archetype": "H10",
+"style": [
+"suggests working something out together",
+"mentions what other people in the household need",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 490 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+1610,
+false
+],
+[
+"Expansion tank",
+290,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+4.0,
+5.0,
+7.0,
+10.0,
+11.0
+],
+"walkaway": 950,
+"anchor": 920,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 23.98,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.42,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B104",
+"type": "family",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 105 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+2890,
+false
+],
+[
+"Whole-home surge protection",
+330,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+6.0,
+8.0,
+11.0,
+12.0
+],
+"walkaway": 2890,
+"anchor": 2740,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 10.15,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 6.68,
+"family_who": "my dad",
+"opt_out_style": null,
+"hire_by_days": 18.97,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B105",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 122 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3400,
+false
+],
+[
+"Ridge vent",
+490,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+4.0,
+5.0,
+9.0,
+10.0,
+11.0
+],
+"walkaway": 4020,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 11.17,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.27,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B106",
+"type": "family",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 44 / mturk_agent_2",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+14680,
+false
+],
+[
+"Gutter guards",
+1560,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+3.0,
+7.0,
+8.0,
+13.0,
+14.0
+],
+"walkaway": 16130,
+"anchor": 15610,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 12.85,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 3.59,
+"family_who": "my husband",
+"opt_out_style": null,
+"hire_by_days": 29.39,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B107",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 49 / mturk_agent_2",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3150,
+false
+],
+[
+"Whole-home surge protection",
+480,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+10.0,
+14.0
+],
+"walkaway": 3950,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 45.78,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 15.54,
+"notice_day": 7.12,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B108",
+"type": "family",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 591 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+350,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+4.0,
+9.0,
+12.0,
+14.0
+],
+"walkaway": 370,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 8.03,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.71,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 19.94,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B109",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 443 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+1750,
+false
+],
+[
+"Expansion tank",
+230,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+1.0,
+5.0,
+10.0,
+13.0,
+14.0
+],
+"walkaway": 2180,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 8.07,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 15.53,
+"notice_day": 23.64,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B110",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"acknowledges the shop's side",
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 64 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3360,
+false
+],
+[
+"Ridge vent",
+790,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+4.0,
+7.0,
+8.0,
+10.0,
+13.0
+],
+"walkaway": 4770,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 10.43,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 8.35,
+"notice_day": 9.04,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B111",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"adds a bit of friendly small talk",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 559 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+440,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+6.0,
+10.0,
+13.0,
+14.0
+],
+"walkaway": 480,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 31.46,
+"clarity": "clear",
+"ready_after_days": 8.5,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 29.5,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B112",
+"type": "price",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 134 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+540,
+false
+],
+[
+"Surge protector",
+240,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+7.0,
+9.0,
+10.0,
+13.0
+],
+"walkaway": 670,
+"anchor": 600,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 9.21,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.83,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B113",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"appeals to what seems fair",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 550 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+9410,
+false
+],
+[
+"Smart thermostat",
+370,
+true
+],
+[
+"UV air purifier",
+570,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+4.0,
+5.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 12070,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 40.02,
+"clarity": "vague",
+"ready_after_days": 19.98,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 40.98,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B114",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 444 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+4090,
+false
+],
+[
+"Whole-home surge protection",
+520,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+7.0,
+8.0,
+9.0,
+12.0,
+14.0
+],
+"walkaway": 5180,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 33.71,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 19.89,
+"notice_day": 6.33,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B115",
+"type": "price",
+"archetype": "H02",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"asks a question back"
+],
+"casino_ref": "dialogue 35 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1640,
+false
+],
+[
+"Load management module",
+590,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+6.0,
+8.0,
+9.0,
+11.0
+],
+"walkaway": 1760,
+"anchor": 1570,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 27.9,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.92,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B116",
+"type": "price",
+"archetype": "H10",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 558 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+10160,
+false
+],
+[
+"Smart thermostat",
+350,
+true
+],
+[
+"UV air purifier",
+570,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+6.0,
+9.0,
+10.0,
+11.0
+],
+"walkaway": 5280,
+"anchor": 5010,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 32.11,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.28,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B117",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"suggests the work is worth less than quoted",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 422 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1770,
+false
+],
+[
+"Load management module",
+320,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+6.0,
+7.0,
+9.0,
+10.0
+],
+"walkaway": 2310,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 30.06,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 21.54,
+"notice_day": 20.37,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B118",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"suggests working something out together",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 107 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+560,
+false
+],
+[
+"Surge protector",
+180,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+5.0,
+7.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 640,
+"anchor": 580,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 38.69,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.5,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B119",
+"type": "family",
+"archetype": "H07",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 471 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+11280,
+false
+],
+[
+"Smart thermostat",
+350,
+true
+],
+[
+"UV air purifier",
+790,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+5.0,
+7.0,
+8.0,
+12.0,
+13.0
+],
+"walkaway": 11690,
+"anchor": 11110,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 37.79,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.59,
+"family_who": "my dad",
+"opt_out_style": null,
+"hire_by_days": 24.9,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B120",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 554 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1180,
+false
+],
+[
+"Load management module",
+480,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+9.0,
+11.0,
+13.0,
+14.0
+],
+"walkaway": 1900,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 29.28,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.6,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B121",
+"type": "family",
+"archetype": "H09",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 558 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2520,
+false
+],
+[
+"Expansion tank",
+190,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+6.0,
+10.0,
+13.0,
+14.0
+],
+"walkaway": 2380,
+"anchor": 2180,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 9.0,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.15,
+"family_who": "my dad",
+"opt_out_style": null,
+"hire_by_days": 40.2,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B122",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 135 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1520,
+false
+],
+[
+"Load management module",
+460,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+4.0,
+7.0,
+9.0,
+13.0,
+14.0
+],
+"walkaway": 1700,
+"anchor": 1610,
+"anchor_kind": "competitor quote",
+"patience": 3,
+"first_reply_hours": 46.86,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.69,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B123",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 41 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+540,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+3.0,
+5.0,
+8.0,
+9.0
+],
+"walkaway": 580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 8.42,
+"clarity": "vague",
+"ready_after_days": 18.95,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 39.95,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B124",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 535 / mturk_agent_2",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1790,
+false
+],
+[
+"Gutter cleaning",
+190,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+8.0,
+9.0,
+11.0,
+13.0
+],
+"walkaway": 2260,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 38.57,
+"clarity": "clear",
+"ready_after_days": 8.32,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 29.32,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B125",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"suggests working something out together",
+"asks a question back"
+],
+"casino_ref": "dialogue 217 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1550,
+false
+],
+[
+"Load management module",
+490,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+5.0,
+6.0,
+9.0,
+11.0,
+13.0
+],
+"walkaway": 2150,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.09,
+"clarity": "clear",
+"ready_after_days": 14.51,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 35.51,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B126",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 109 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1120,
+false
+],
+[
+"Load management module",
+350,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+6.0,
+7.0,
+10.0,
+12.0,
+13.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 25.12,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B127",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"suggests working something out together",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 571 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+630,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+4.0,
+6.0,
+7.0,
+9.0
+],
+"walkaway": 670,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 16.76,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 19.21,
+"notice_day": 8.72,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B128",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 13 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+10270,
+false
+],
+[
+"Smart thermostat",
+410,
+true
+],
+[
+"UV air purifier",
+790,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+2.0,
+9.0,
+10.0,
+12.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 15.22,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B129",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 596 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+440,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+4.0,
+7.0,
+8.0,
+13.0
+],
+"walkaway": 470,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 20.03,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 17.74,
+"notice_day": 15.84,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B130",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 215 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+460,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+8.0,
+11.0,
+13.0,
+14.0
+],
+"walkaway": 490,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 12.8,
+"clarity": "vague",
+"ready_after_days": 21.14,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 42.14,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B131",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 164 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+520,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+4.0,
+10.0,
+11.0,
+12.0,
+13.0
+],
+"walkaway": 580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 22.22,
+"clarity": "vague",
+"ready_after_days": 13.19,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 34.19,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B132",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"asks a question back",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 500 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3740,
+false
+],
+[
+"Whole-home surge protection",
+530,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+5.0,
+7.0,
+9.0,
+12.0,
+14.0
+],
+"walkaway": 3550,
+"anchor": 3440,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 6.57,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.69,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B133",
+"type": "price",
+"archetype": "H01",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 569 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+11390,
+false
+],
+[
+"Smart thermostat",
+310,
+true
+],
+[
+"UV air purifier",
+780,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+4.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 8560,
+"anchor": 7700,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 3.65,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.88,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B134",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"says they could do without part of it",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 121 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+260,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+6.0,
+7.0,
+8.0,
+10.0,
+14.0
+],
+"walkaway": 270,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 46.23,
+"clarity": "vague",
+"ready_after_days": 43.89,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 64.89,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B135",
+"type": "price",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 74 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5940,
+false
+],
+[
+"Whole-home shutoff valve",
+230,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+7.0,
+8.0,
+9.0,
+10.0,
+14.0
+],
+"walkaway": 5380,
+"anchor": 4890,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 3.4,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.43,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B136",
+"type": "price",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 181 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+430,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+6.0,
+7.0,
+8.0,
+10.0
+],
+"walkaway": 410,
+"anchor": 380,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 28.84,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.9,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B137",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"asks a question back",
+"says they could do without part of it",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 170 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+540,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+2.0,
+8.0,
+13.0,
+14.0
+],
+"walkaway": 620,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 21.23,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 23.71,
+"notice_day": 10.66,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B138",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"mentions what other people in the household need",
+"acknowledges the shop's side",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 468 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1210,
+false
+],
+[
+"Gutter cleaning",
+150,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+5.0,
+6.0,
+8.0,
+9.0
+],
+"walkaway": 1540,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 29.07,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 12.27,
+"notice_day": 5.26,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B139",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 177 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+450,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+5.0,
+6.0,
+11.0,
+14.0
+],
+"walkaway": 540,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 29.97,
+"clarity": "vague",
+"ready_after_days": 8.35,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 29.35,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B140",
+"type": "price",
+"archetype": "H10",
+"style": [
+"appeals to what seems fair",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 586 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+580,
+false
+],
+[
+"Surge protector",
+170,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+1.0,
+4.0,
+5.0,
+10.0,
+14.0
+],
+"walkaway": 320,
+"anchor": 290,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 6.73,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.74,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B141",
+"type": "price",
+"archetype": "H01",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back"
+],
+"casino_ref": "dialogue 612 / mturk_agent_2",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+2240,
+false
+],
+[
+"Ridge vent",
+610,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+5.0,
+6.0,
+8.0,
+9.0
+],
+"walkaway": 2090,
+"anchor": 1900,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 24.72,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.95,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B142",
+"type": "price",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 591 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+4040,
+false
+],
+[
+"Whole-home surge protection",
+350,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+5.0,
+6.0,
+8.0,
+10.0,
+13.0
+],
+"walkaway": 3900,
+"anchor": 3650,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 14.11,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.21,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B143",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"suggests working something out together",
+"appeals to what seems fair",
+"asks a question back"
+],
+"casino_ref": "dialogue 4 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+830,
+false
+],
+[
+"Surge protector",
+200,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+1.0,
+4.0,
+8.0,
+10.0,
+13.0
+],
+"walkaway": 1040,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 34.4,
+"clarity": "vague",
+"ready_after_days": 12.78,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 33.78,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B144",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 458 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+2950,
+false
+],
+[
+"Whole-home surge protection",
+390,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+4.0,
+7.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 3430,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 24.33,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 9.72,
+"notice_day": 5.48,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B145",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"says they could do without part of it",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 147 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5970,
+false
+],
+[
+"Whole-home shutoff valve",
+390,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+5.0,
+8.0,
+11.0,
+12.0
+],
+"walkaway": 5970,
+"anchor": 5340,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 5.25,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.26,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B146",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 87 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5930,
+false
+],
+[
+"Whole-home shutoff valve",
+270,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+2.0,
+7.0,
+8.0,
+10.0
+],
+"walkaway": 6590,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 5.02,
+"clarity": "vague",
+"ready_after_days": 9.53,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 30.53,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B147",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"asks a question back"
+],
+"casino_ref": "dialogue 129 / mturk_agent_1",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3770,
+false
+],
+[
+"Whole-home surge protection",
+380,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+7.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 4750,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 40.99,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.88,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B148",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"adds a bit of friendly small talk",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 521 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+500,
+false
+],
+[
+"Surge protector",
+160,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+3.0,
+4.0,
+6.0,
+9.0,
+10.0
+],
+"walkaway": 710,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 39.48,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.52,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B149",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"appeals to what seems fair",
+"mentions what other people in the household need",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 537 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+520,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+3.0,
+4.0,
+7.0,
+9.0
+],
+"walkaway": 550,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 20.24,
+"clarity": "vague",
+"ready_after_days": 20.52,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 41.52,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B150",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"says they could do without part of it",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 167 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8960,
+false
+],
+[
+"Smart thermostat",
+320,
+true
+],
+[
+"UV air purifier",
+540,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+4.0,
+6.0,
+7.0,
+12.0,
+13.0
+],
+"walkaway": 10120,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 7.04,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 6.92,
+"notice_day": 15.04,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B151",
+"type": "family",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"mentions what other people in the household need",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 599 / mturk_agent_2",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+15270,
+false
+],
+[
+"Gutter guards",
+930,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+4.0,
+7.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 17100,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 18.68,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 1.05,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 16.36,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B152",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 128 / mturk_agent_1",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+12020,
+false
+],
+[
+"Gutter guards",
+1370,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+6.0,
+9.0,
+10.0,
+13.0
+],
+"walkaway": 13840,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 2.82,
+"clarity": "vague",
+"ready_after_days": 31.59,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 52.59,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B153",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"acknowledges the shop's side",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 74 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+5520,
+false
+],
+[
+"Whole-home shutoff valve",
+270,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+3.0,
+4.0,
+6.0,
+11.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 10.2,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B154",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"mentions what other people in the household need",
+"adds a bit of friendly small talk",
+"asks a question back"
+],
+"casino_ref": "dialogue 167 / mturk_agent_2",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3180,
+false
+],
+[
+"Whole-home surge protection",
+340,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+4.0,
+8.0,
+9.0,
+14.0
+],
+"walkaway": 3580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 39.15,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 9.7,
+"notice_day": 7.29,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B155",
+"type": "family",
+"archetype": "generic",
+"style": [
+"appeals to what seems fair",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 477 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+4820,
+false
+],
+[
+"Whole-home shutoff valve",
+250,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+5.0,
+7.0,
+8.0,
+12.0,
+14.0
+],
+"walkaway": 4370,
+"anchor": 4180,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 26.64,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.83,
+"family_who": "my wife",
+"opt_out_style": null,
+"hire_by_days": 29.31,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B156",
+"type": "family",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 46 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2320,
+false
+],
+[
+"Expansion tank",
+230,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+8.0,
+9.0,
+11.0,
+12.0
+],
+"walkaway": 2680,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 23.29,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 4.28,
+"family_who": "my wife",
+"opt_out_style": null,
+"hire_by_days": 30.96,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B157",
+"type": "price",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 118 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+870,
+false
+],
+[
+"Surge protector",
+190,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+3.0,
+7.0,
+8.0,
+11.0
+],
+"walkaway": 850,
+"anchor": 820,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 44.15,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.61,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B158",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 531 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+3760,
+false
+],
+[
+"Whole-home shutoff valve",
+240,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+6.0,
+8.0,
+11.0,
+14.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.77,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B159",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"adds a bit of friendly small talk",
+"suggests working something out together",
+"asks a question back"
+],
+"casino_ref": "dialogue 595 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1750,
+false
+],
+[
+"Gutter cleaning",
+230,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+6.0,
+7.0,
+10.0,
+12.0
+],
+"walkaway": 2250,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 14.42,
+"clarity": "clear",
+"ready_after_days": 19.54,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 40.54,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B160",
+"type": "price",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 113 / mturk_agent_1",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+14140,
+false
+],
+[
+"Gutter guards",
+1420,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+3.0,
+6.0,
+9.0,
+10.0
+],
+"walkaway": 14390,
+"anchor": 13270,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 5.61,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 0.61,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B161",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"appeals to what seems fair",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 451 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1070,
+false
+],
+[
+"Gutter cleaning",
+200,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+4.0,
+6.0,
+12.0,
+13.0,
+14.0
+],
+"walkaway": 1320,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 13.88,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.36,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B162",
+"type": "price",
+"archetype": "generic",
+"style": [
+"appeals to what seems fair",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 466 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8760,
+false
+],
+[
+"Smart thermostat",
+320,
+true
+],
+[
+"UV air purifier",
+690,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+2.0,
+3.0,
+7.0,
+11.0
+],
+"walkaway": 8930,
+"anchor": 8250,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 22.07,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.26,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B163",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"appeals to what seems fair",
+"asks a question back"
+],
+"casino_ref": "dialogue 494 / mturk_agent_2",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+14840,
+false
+],
+[
+"Gutter guards",
+1150,
+true
+]
+],
+"max_discount": 0.06,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+3.0,
+6.0,
+8.0,
+10.0
+],
+"walkaway": 17960,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 20.33,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 3.28,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.28,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B164",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"mentions what other people in the household need",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 509 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+1690,
+false
+],
+[
+"Expansion tank",
+190,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+7.0,
+8.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 2020,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 1.46,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.68,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.68,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B165",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"says they could do without part of it",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 433 / mturk_agent_2",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+800,
+false
+],
+[
+"Surge protector",
+240,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+8.0,
+9.0,
+11.0,
+12.0,
+13.0
+],
+"walkaway": 1170,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 35.42,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.97,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B166",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"appeals to what seems fair",
+"suggests working something out together",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 479 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+630,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+7.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 4.27,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "phrase",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B167",
+"type": "ready",
+"archetype": "generic",
+"style": [
+"suggests the work is worth less than quoted",
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 443 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+1870,
+false
+],
+[
+"Expansion tank",
+270,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+7.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 2170,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 10.98,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 5.11,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B168",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"adds a bit of friendly small talk",
+"explains their own situation and needs",
+"asks a question back"
+],
+"casino_ref": "dialogue 26 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2440,
+false
+],
+[
+"Expansion tank",
+220,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+5.0,
+6.0,
+7.0,
+8.0
+],
+"walkaway": 2770,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 28.95,
+"clarity": "clear",
+"ready_after_days": 9.05,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 30.05,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B169",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"explains their own situation and needs",
+"says they could do without part of it",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 496 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1530,
+false
+],
+[
+"Load management module",
+500,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+3.0,
+5.0,
+10.0,
+11.0,
+13.0
+],
+"walkaway": 2260,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 27.65,
+"clarity": "clear",
+"ready_after_days": 15.07,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 36.07,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B170",
+"type": "price",
+"archetype": "generic",
+"style": [
+"appeals to what seems fair",
+"suggests working something out together",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 485 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1170,
+false
+],
+[
+"Load management module",
+430,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+8.0,
+9.0,
+11.0,
+12.0
+],
+"walkaway": 1500,
+"anchor": 1400,
+"anchor_kind": "competitor quote",
+"patience": 1,
+"first_reply_hours": 33.85,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.35,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B171",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 533 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+420,
+false
+],
+[
+"Annual maintenance plan",
+170,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+1.0,
+2.0,
+5.0,
+9.0,
+14.0
+],
+"walkaway": 690,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 18.87,
+"clarity": "clear",
+"ready_after_days": 12.09,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 33.09,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B172",
+"type": "price",
+"archetype": "H01",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 496 / mturk_agent_2",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1600,
+false
+],
+[
+"Load management module",
+340,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+3.0,
+7.0,
+9.0,
+10.0,
+11.0
+],
+"walkaway": 1350,
+"anchor": 1290,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 5.93,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 1.09,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B173",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"explains their own situation and needs",
+"acknowledges the shop's side",
+"says they could do without part of it"
+],
+"casino_ref": "dialogue 125 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+280,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+3.0,
+5.0,
+6.0,
+8.0,
+12.0
+],
+"walkaway": 320,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 27.86,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.9,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.9,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B174",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 532 / mturk_agent_2",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1350,
+false
+],
+[
+"Gutter cleaning",
+160,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+3.0,
+7.0,
+9.0,
+11.0,
+12.0
+],
+"walkaway": 1530,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 4.52,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 9.72,
+"notice_day": 11.83,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B175",
+"type": "family",
+"archetype": "generic",
+"style": [
+"suggests working something out together",
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 456 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+530,
+false
+],
+[
+"Annual maintenance plan",
+190,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+7.0,
+9.0,
+13.0,
+14.0
+],
+"walkaway": 740,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 7.97,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 2.36,
+"family_who": "my wife",
+"opt_out_style": null,
+"hire_by_days": 32.22,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B176",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 61 / mturk_agent_1",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1150,
+false
+],
+[
+"Gutter cleaning",
+190,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+4.0,
+6.0,
+9.0,
+12.0
+],
+"walkaway": 1190,
+"anchor": 1070,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 20.21,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.81,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B177",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 76 / mturk_agent_1",
+"trade": "HVAC",
+"title": "AC capacitor and contactor replacement",
+"items": [
+[
+"AC capacitor and contactor replacement",
+540,
+false
+],
+[
+"Surge protector",
+220,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+2.0,
+5.0,
+7.0,
+8.0,
+13.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 6.16,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B178",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"suggests working something out together",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 428 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8560,
+false
+],
+[
+"Smart thermostat",
+410,
+true
+],
+[
+"UV air purifier",
+590,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+3.0,
+4.0,
+5.0,
+6.0,
+7.0,
+11.0
+],
+"walkaway": 10830,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 44.74,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 3.25,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.25,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B179",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 584 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+370,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+2.0,
+7.0,
+12.0,
+14.0
+],
+"walkaway": 400,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 17.0,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 22.64,
+"notice_day": 28.96,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B180",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 559 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+2690,
+false
+],
+[
+"Ridge vent",
+800,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+2.0,
+5.0,
+6.0,
+7.0,
+10.0
+],
+"walkaway": 2830,
+"anchor": 2620,
+"anchor_kind": "budget",
+"patience": 1,
+"first_reply_hours": 31.81,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.13,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B181",
+"type": "opt_out",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 180 / mturk_agent_1",
+"trade": "electrical",
+"title": "Install EV charger circuit",
+"items": [
+[
+"Install EV charger circuit",
+1110,
+false
+],
+[
+"Load management module",
+480,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+3.0,
+7.0,
+8.0,
+12.0
+],
+"walkaway": 0.0,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 15.98,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": "keyword",
+"hire_by_days": null,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B182",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"adds a bit of friendly small talk",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 559 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2150,
+false
+],
+[
+"Expansion tank",
+270,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+6.0,
+8.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 2450,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 42.99,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 12.72,
+"notice_day": 19.39,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B183",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 544 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+3690,
+false
+],
+[
+"Whole-home shutoff valve",
+300,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+4.0,
+5.0,
+6.0,
+9.0,
+10.0
+],
+"walkaway": 4330,
+"anchor": null,
+"anchor_kind": null,
+"patience": 1,
+"first_reply_hours": 3.99,
+"clarity": "clear",
+"ready_after_days": 39.64,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 60.64,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B184",
+"type": "channel",
+"archetype": "H05",
+"style": [
+"acknowledges the shop's side",
+"says they could do without part of it",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 131 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+8180,
+false
+],
+[
+"Smart thermostat",
+400,
+true
+],
+[
+"UV air purifier",
+750,
+true
+]
+],
+"max_discount": 0.06,
+"channel": "email",
+"reads_channel": "sms",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+2.0,
+8.0,
+11.0,
+14.0
+],
+"walkaway": 10460,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 39.27,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 9.36,
+"notice_day": 14.07,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B185",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"says they could do without part of it",
+"mentions what other people in the household need"
+],
+"casino_ref": "dialogue 59 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+3040,
+false
+],
+[
+"Ridge vent",
+470,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+5.0,
+8.0,
+11.0,
+13.0
+],
+"walkaway": 4030,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 39.23,
+"clarity": "vague",
+"ready_after_days": 11.41,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 32.41,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B186",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"adds a bit of friendly small talk",
+"asks a question back",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 29 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+500,
+false
+],
+[
+"Annual maintenance plan",
+210,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+2.0,
+6.0,
+7.0,
+11.0,
+14.0
+],
+"walkaway": 810,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 18.13,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 2.04,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.04,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B187",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"mentions what other people in the household need",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 498 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+300,
+false
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+5.0,
+9.0,
+10.0,
+12.0
+],
+"walkaway": 340,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 18.21,
+"clarity": "clear",
+"ready_after_days": 22.67,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 43.67,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B188",
+"type": "timing_pause",
+"archetype": "H04",
+"style": [
+"asks a question back",
+"mentions what other people in the household need",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 454 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+260,
+false
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+3.0,
+4.0,
+7.0,
+9.0,
+12.0
+],
+"walkaway": 310,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 29.55,
+"clarity": "vague",
+"ready_after_days": 7.29,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 28.29,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B189",
+"type": "timing_slot",
+"archetype": "generic",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 539 / mturk_agent_2",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+650,
+false
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+2.0,
+3.0,
+6.0,
+12.0,
+13.0
+],
+"walkaway": 680,
+"anchor": null,
+"anchor_kind": null,
+"patience": 1,
+"first_reply_hours": 44.87,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 4.94,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.94,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B190",
+"type": "price",
+"archetype": "H03",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 417 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Replace 40-gallon water heater",
+"items": [
+[
+"Replace 40-gallon water heater",
+2550,
+false
+],
+[
+"Expansion tank",
+210,
+true
+]
+],
+"max_discount": 0.12,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+1.0,
+6.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 1590,
+"anchor": 1540,
+"anchor_kind": "competitor quote",
+"patience": 2,
+"first_reply_hours": 12.54,
+"clarity": "vague",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 2.58,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B191",
+"type": "family",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 610 / mturk_agent_2",
+"trade": "plumbing",
+"title": "Repipe kitchen and bath supply lines",
+"items": [
+[
+"Repipe kitchen and bath supply lines",
+6180,
+false
+],
+[
+"Whole-home shutoff valve",
+270,
+true
+]
+],
+"max_discount": 0.05,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+1.0,
+3.0,
+7.0,
+10.0,
+13.0
+],
+"walkaway": 6710,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 24.19,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 5.75,
+"family_who": "my landlord",
+"opt_out_style": null,
+"hire_by_days": 39.15,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B192",
+"type": "price",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 436 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+10440,
+false
+],
+[
+"Smart thermostat",
+420,
+true
+],
+[
+"UV air purifier",
+550,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+6.0,
+8.0,
+9.0,
+12.0,
+14.0
+],
+"walkaway": 10400,
+"anchor": 9980,
+"anchor_kind": "budget",
+"patience": 3,
+"first_reply_hours": 45.92,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 4.53,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B193",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"explains their own situation and needs",
+"suggests working something out together",
+"acknowledges the shop's side"
+],
+"casino_ref": "dialogue 158 / mturk_agent_1",
+"trade": "electrical",
+"title": "Add GFCI outlets in kitchen and baths",
+"items": [
+[
+"Add GFCI outlets in kitchen and baths",
+490,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "sms",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+3.0,
+5.0,
+7.0,
+9.0,
+13.0
+],
+"walkaway": 560,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 36.34,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 3.96,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.96,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B194",
+"type": "channel",
+"archetype": "generic",
+"style": [
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 432 / mturk_agent_1",
+"trade": "HVAC",
+"title": "Furnace igniter and flame sensor",
+"items": [
+[
+"Furnace igniter and flame sensor",
+340,
+false
+],
+[
+"Annual maintenance plan",
+200,
+true
+]
+],
+"max_discount": 0.1,
+"channel": "sms",
+"reads_channel": "email",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+2.0,
+4.0,
+8.0,
+9.0,
+10.0
+],
+"walkaway": 580,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 39.77,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 13.25,
+"notice_day": 23.71,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B195",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"suggests the work is worth less than quoted",
+"explains their own situation and needs",
+"adds a bit of friendly small talk"
+],
+"casino_ref": "dialogue 57 / mturk_agent_1",
+"trade": "roofing",
+"title": "Full asphalt roof replacement",
+"items": [
+[
+"Full asphalt roof replacement",
+14640,
+false
+],
+[
+"Gutter guards",
+1090,
+true
+]
+],
+"max_discount": 0.07,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+1.0,
+6.0,
+8.0,
+9.0,
+12.0
+],
+"walkaway": 15810,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 44.74,
+"clarity": "vague",
+"ready_after_days": 26.82,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 47.82,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B196",
+"type": "timing_slot",
+"archetype": "H06",
+"style": [
+"mentions what other people in the household need",
+"explains their own situation and needs",
+"appeals to what seems fair"
+],
+"casino_ref": "dialogue 108 / mturk_agent_2",
+"trade": "electrical",
+"title": "Replace 100A panel with 200A",
+"items": [
+[
+"Replace 100A panel with 200A",
+3240,
+false
+],
+[
+"Whole-home surge protection",
+470,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 10.0,
+"open_slot_days": [
+8.0,
+10.0,
+12.0,
+14.0
+],
+"walkaway": 3910,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 27.09,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": 3.45,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 3.45,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B197",
+"type": "family",
+"archetype": "H09",
+"style": [
+"adds a bit of friendly small talk",
+"says they could do without part of it",
+"suggests working something out together"
+],
+"casino_ref": "dialogue 99 / mturk_agent_1",
+"trade": "plumbing",
+"title": "Fix leaking shower valve",
+"items": [
+[
+"Fix leaking shower valve",
+380,
+false
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 7.0,
+"open_slot_days": [
+1.0,
+2.0,
+4.0,
+5.0,
+7.0
+],
+"walkaway": 330,
+"anchor": 320,
+"anchor_kind": "budget",
+"patience": 2,
+"first_reply_hours": 23.85,
+"clarity": "clear",
+"ready_after_days": null,
+"need_by_days": null,
+"family_delay_days": 2.06,
+"family_who": "my partner",
+"opt_out_style": null,
+"hire_by_days": 22.44,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B198",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"says they could do without part of it",
+"suggests the work is worth less than quoted"
+],
+"casino_ref": "dialogue 109 / mturk_agent_2",
+"trade": "HVAC",
+"title": "Replace 3-ton AC and air handler",
+"items": [
+[
+"Replace 3-ton AC and air handler",
+7950,
+false
+],
+[
+"Smart thermostat",
+310,
+true
+],
+[
+"UV air purifier",
+550,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 9.0,
+"open_slot_days": [
+2.0,
+4.0,
+9.0,
+11.0,
+12.0
+],
+"walkaway": 9310,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 42.62,
+"clarity": "vague",
+"ready_after_days": 42.37,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 63.37,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B199",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"adds a bit of friendly small talk",
+"suggests working something out together",
+"asks a question back"
+],
+"casino_ref": "dialogue 217 / mturk_agent_2",
+"trade": "roofing",
+"title": "Repair leak at chimney flashing",
+"items": [
+[
+"Repair leak at chimney flashing",
+1590,
+false
+],
+[
+"Gutter cleaning",
+220,
+true
+]
+],
+"max_discount": 0.08,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 6.0,
+"open_slot_days": [
+2.0,
+6.0,
+8.0,
+9.0,
+13.0
+],
+"walkaway": 2070,
+"anchor": null,
+"anchor_kind": null,
+"patience": 2,
+"first_reply_hours": 9.68,
+"clarity": "clear",
+"ready_after_days": 9.43,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 30.43,
+"notice_day": null,
+"tz": "America/Chicago",
+"state": "FL",
+"notes": {}
+},
+{
+"id": "B200",
+"type": "timing_pause",
+"archetype": "generic",
+"style": [
+"asks a question back",
+"suggests working something out together",
+"explains their own situation and needs"
+],
+"casino_ref": "dialogue 439 / mturk_agent_1",
+"trade": "roofing",
+"title": "Replace damaged shingles on one slope",
+"items": [
+[
+"Replace damaged shingles on one slope",
+2160,
+false
+],
+[
+"Ridge vent",
+710,
+true
+]
+],
+"max_discount": 0.15,
+"channel": "email",
+"reads_channel": "both",
+"quoted_slot_day": 8.0,
+"open_slot_days": [
+6.0,
+8.0,
+10.0,
+13.0,
+14.0
+],
+"walkaway": 3410,
+"anchor": null,
+"anchor_kind": null,
+"patience": 3,
+"first_reply_hours": 23.82,
+"clarity": "clear",
+"ready_after_days": 18.33,
+"need_by_days": null,
+"family_delay_days": null,
+"family_who": null,
+"opt_out_style": null,
+"hire_by_days": 39.33,
+"notice_day": null,
+"tz": "America/New_York",
+"state": "FL",
+"notes": {}
+}
+]

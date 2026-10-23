@@ -10,7 +10,7 @@ from datetime import datetime
 from . import models as M
 from .chooser import Choice, choose, default_move
 from .classifier import Label, classify, render_state
-from .compliance import Recipient, gate, opt_out_status
+from .compliance import Recipient, gate, opt_out_status  # noqa: F401 (Recipient re-exported)
 from .menu import amounts_in, build_menu, initial_offer, template_message, validate
 from .tf_client import TFError, tool_args
 from .trace import Step, Trace
@@ -80,6 +80,36 @@ def _stop(reason, label=None, flags=()):
     return Decision(None, None, None, False, {}, label, None, [], list(flags), reason)
 
 
+def make_decision(conv, move, message, now, shop_state, label=None, choice=None, menu=(), flags=()):
+    """Shared by the agent and the rule baselines: floor check, compliance gate, disclosure, $ effect."""
+    est, flags = conv.estimate, list(flags)
+    move = validate(move, est)
+    g = gate(message, move.channel, conv.recipient, est.shop, shop_state, est.sent_at, now, conv.sent_times)
+    flags += g.reasons
+    effect = {"price_before": conv.offer.price, "price_after": move.price, "change": move.price - conv.offer.price,
+              "margin_after": move.price - est.cost(move.dropped)}
+    if not g.ok:
+        return Decision(move, None, None, move.needs_owner, effect, label, choice, list(menu), flags,
+                        "blocked by compliance: " + "; ".join(g.reasons))
+    return Decision(move, g.text, g.send_at, move.needs_owner, effect, label, choice, list(menu), flags)
+
+
+def apply_decision(conv, decision, owner):
+    """Owner tap (for concessions), then record the sent message. Returns True when a message went out."""
+    if decision.move is None or decision.message is None:
+        return False
+    if decision.needs_owner and not owner(conv, decision.move):
+        decision.flags.append("owner declined the concession; nothing sent")
+        return False
+    move = decision.move
+    conv.events.append(Event(decision.send_at, "shop", move.channel, decision.message, move.id))
+    conv.sent_times.append(decision.send_at)
+    conv.offer = move.offer(conv.offer)
+    if move.kind == "close_out":
+        conv.status = "closed"
+    return True
+
+
 class OwnerTapStub:
     """Stands in for the owner's one-tap approval of a concession. Records every request; approves by default."""
 
@@ -96,7 +126,7 @@ class OwnerTapStub:
 class AgentConfig:
     classifier_model: str = M.SUPER      # S2 rule: Lightning failed the 8/10 bar, so the default label model is Super
     classifier_method: str = "tool"
-    chooser: object = "super_nothink"    # a chooser.CONFIGS name or a (model, params) pair
+    chooser: object = "super_think"      # S7: Super with reasoning chose best; Ultra was not better (pre-registered rule)
     booker_model: str = M.SUPER
     shop_state: str = "FL"
 
@@ -107,7 +137,9 @@ class Agent:
 
     def decide(self, conv, now):
         est, flags = conv.estimate, []
-        if conv.status != "open" or conv.recipient.opted_out:
+        if conv.recipient.opted_out:
+            return _stop("recipient opted out; no further messages")
+        if conv.status != "open":
             return _stop(f"conversation is {conv.status}")
         last = conv.last_customer_text()
         status = opt_out_status(last) if last else None
@@ -139,31 +171,10 @@ class Agent:
             flags.append(f"move choice failed ({choice.problems}); code default {choice.move.id} used")
         elif choice.template_used:
             flags.append(f"model's message replaced by the template: {choice.problems}")
-        move = validate(choice.move, est)
-        g = gate(choice.message, move.channel, conv.recipient, est.shop, self.cfg.shop_state, est.sent_at, now,
-                 conv.sent_times)
-        flags += g.reasons
-        effect = {"price_before": conv.offer.price, "price_after": move.price, "change": move.price - conv.offer.price,
-                  "margin_after": move.price - est.cost(move.dropped)}
-        if not g.ok:
-            return Decision(move, None, None, move.needs_owner, effect, label, choice, menu, flags,
-                            "blocked by compliance: " + "; ".join(g.reasons))
-        return Decision(move, g.text, g.send_at, move.needs_owner, effect, label, choice, menu, flags)
+        return make_decision(conv, choice.move, choice.message, now, self.cfg.shop_state, label, choice, menu, flags)
 
     def apply(self, conv, decision, owner):
-        """Owner tap (for concessions), then record the sent message. Returns True when a message went out."""
-        if decision.move is None or decision.message is None:
-            return False
-        if decision.needs_owner and not owner(conv, decision.move):
-            decision.flags.append("owner declined the concession; nothing sent")
-            return False
-        move = decision.move
-        conv.events.append(Event(decision.send_at, "shop", move.channel, decision.message, move.id))
-        conv.sent_times.append(decision.send_at)
-        conv.offer = move.offer(conv.offer)
-        if move.kind == "close_out":
-            conv.status = "closed"
-        return True
+        return apply_decision(conv, decision, owner)
 
     def book(self, conv, now, max_rounds=8):
         """Super tool loop: find a slot, book it at the agreed price, record the job. Returns the job dict or None."""

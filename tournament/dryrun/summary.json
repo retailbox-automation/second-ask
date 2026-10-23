@@ -1,0 +1,441 @@
+{
+ "gates": {
+  "bookings_above_walkaway": 0,
+  "bookings_below_floor": 0,
+  "booking_rate_by_policy": {
+   "super_only": 0.655,
+   "concession_heuristic": 0.33,
+   "super_vl": 0.65,
+   "shop_rule": 0.455,
+   "routed": 0.66,
+   "ultra_only": 0.665
+  },
+  "booking_rate_in_30_80": {
+   "super_only": true,
+   "concession_heuristic": true,
+   "super_vl": true,
+   "shop_rule": true,
+   "routed": true,
+   "ultra_only": true
+  },
+  "price_buyers_booking_rate_by_walkaway_tercile": [
+   0,
+   0.029411764705882353,
+   0.47058823529411764
+  ],
+  "rises_with_walkaway": true,
+  "booking_rate_by_type": {
+   "shop_rule": {
+    "channel": 0.23333333333333334,
+    "family": 0.7647058823529411,
+    "opt_out": 0,
+    "price": 0.26,
+    "ready": 1,
+    "timing_pause": 0.6764705882352942,
+    "timing_slot": 0
+   },
+   "concession_heuristic": {
+    "channel": 0.36666666666666664,
+    "family": 0.7647058823529411,
+    "opt_out": 0,
+    "price": 0.08,
+    "ready": 1,
+    "timing_pause": 0.08823529411764706,
+    "timing_slot": 0
+   }
+  },
+  "type_spread": {
+   "shop_rule": 1,
+   "concession_heuristic": 1
+  },
+  "differs_by_type": true
+ },
+ "calls": {
+  "shop_rule": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.415,
+   "buyer_msgs_per_conv": 1.825
+  },
+  "concession_heuristic": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.605,
+   "buyer_msgs_per_conv": 2.14
+  },
+  "super_only": {
+   "seller_calls_per_conv": 4.22,
+   "seller_msgs_per_conv": 2.11,
+   "buyer_msgs_per_conv": 1.7
+  },
+  "ultra_only": {
+   "seller_calls_per_conv": 4.23,
+   "seller_msgs_per_conv": 2.115,
+   "buyer_msgs_per_conv": 1.73
+  },
+  "routed": {
+   "seller_calls_per_conv": 4.19,
+   "seller_msgs_per_conv": 2.095,
+   "buyer_msgs_per_conv": 1.695
+  },
+  "super_vl": {
+   "seller_calls_per_conv": 4.25,
+   "seller_msgs_per_conv": 2.125,
+   "buyer_msgs_per_conv": 1.735
+  }
+ },
+ "aggregate": {
+  "concession_heuristic": {
+   "bookings": {
+    "mean": 66,
+    "min": 66,
+    "max": 66
+   },
+   "booking_rate": {
+    "mean": 0.33,
+    "min": 0.33,
+    "max": 0.33
+   },
+   "margin": {
+    "mean": 84398.5,
+    "min": 84398.5,
+    "max": 84398.5
+   },
+   "given_away": {
+    "mean": 7844.0,
+    "min": 7844.0,
+    "max": 7844.0
+   },
+   "lost": {
+    "mean": 160797.5,
+    "min": 160797.5,
+    "max": 160797.5
+   },
+   "lost_price": {
+    "mean": 41611.5,
+    "min": 41611.5,
+    "max": 41611.5
+   },
+   "model_usd": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "usd_per_booking": {
+    "mean": 0.0,
+    "min": 0.0,
+    "max": 0.0
+   },
+   "net": {
+    "mean": 84398.5,
+    "min": 84398.5,
+    "max": 84398.5
+   },
+   "violations": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "unsure": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "n": 200,
+   "K": 1
+  },
+  "routed": {
+   "bookings": {
+    "mean": 132,
+    "min": 132,
+    "max": 132
+   },
+   "booking_rate": {
+    "mean": 0.66,
+    "min": 0.66,
+    "max": 0.66
+   },
+   "margin": {
+    "mean": 194509.0,
+    "min": 194509.0,
+    "max": 194509.0
+   },
+   "given_away": {
+    "mean": 1212.5,
+    "min": 1212.5,
+    "max": 1212.5
+   },
+   "lost": {
+    "mean": 57318.5,
+    "min": 57318.5,
+    "max": 57318.5
+   },
+   "lost_price": {
+    "mean": 16638.5,
+    "min": 16638.5,
+    "max": 16638.5
+   },
+   "model_usd": {
+    "mean": 0.225282,
+    "min": 0.225282,
+    "max": 0.225282
+   },
+   "usd_per_booking": {
+    "mean": 0.0017066818181818183,
+    "min": 0.0017066818181818183,
+    "max": 0.0017066818181818183
+   },
+   "net": {
+    "mean": 194508.7762,
+    "min": 194508.7762,
+    "max": 194508.7762
+   },
+   "violations": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "unsure": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "n": 200,
+   "K": 1
+  },
+  "shop_rule": {
+   "bookings": {
+    "mean": 91,
+    "min": 91,
+    "max": 91
+   },
+   "booking_rate": {
+    "mean": 0.455,
+    "min": 0.455,
+    "max": 0.455
+   },
+   "margin": {
+    "mean": 113053.0,
+    "min": 113053.0,
+    "max": 113053.0
+   },
+   "given_away": {
+    "mean": 18524.5,
+    "min": 18524.5,
+    "max": 18524.5
+   },
+   "lost": {
+    "mean": 121462.5,
+    "min": 121462.5,
+    "max": 121462.5
+   },
+   "lost_price": {
+    "mean": 22072.0,
+    "min": 22072.0,
+    "max": 22072.0
+   },
+   "model_usd": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "usd_per_booking": {
+    "mean": 0.0,
+    "min": 0.0,
+    "max": 0.0
+   },
+   "net": {
+    "mean": 113053.0,
+    "min": 113053.0,
+    "max": 113053.0
+   },
+   "violations": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "unsure": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "n": 200,
+   "K": 1
+  },
+  "super_only": {
+   "bookings": {
+    "mean": 131,
+    "min": 131,
+    "max": 131
+   },
+   "booking_rate": {
+    "mean": 0.655,
+    "min": 0.655,
+    "max": 0.655
+   },
+   "margin": {
+    "mean": 187511.5,
+    "min": 187511.5,
+    "max": 187511.5
+   },
+   "given_away": {
+    "mean": 1309.0,
+    "min": 1309.0,
+    "max": 1309.0
+   },
+   "lost": {
+    "mean": 64219.5,
+    "min": 64219.5,
+    "max": 64219.5
+   },
+   "lost_price": {
+    "mean": 15707.0,
+    "min": 15707.0,
+    "max": 15707.0
+   },
+   "model_usd": {
+    "mean": 0.283762,
+    "min": 0.283762,
+    "max": 0.283762
+   },
+   "usd_per_booking": {
+    "mean": 0.0021661221374045803,
+    "min": 0.0021661221374045803,
+    "max": 0.0021661221374045803
+   },
+   "net": {
+    "mean": 187511.215,
+    "min": 187511.215,
+    "max": 187511.215
+   },
+   "violations": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "unsure": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "n": 200,
+   "K": 1
+  },
+  "super_vl": {
+   "bookings": {
+    "mean": 130,
+    "min": 130,
+    "max": 130
+   },
+   "booking_rate": {
+    "mean": 0.65,
+    "min": 0.65,
+    "max": 0.65
+   },
+   "margin": {
+    "mean": 189761.0,
+    "min": 189761.0,
+    "max": 189761.0
+   },
+   "given_away": {
+    "mean": 782.5,
+    "min": 782.5,
+    "max": 782.5
+   },
+   "lost": {
+    "mean": 62496.5,
+    "min": 62496.5,
+    "max": 62496.5
+   },
+   "lost_price": {
+    "mean": 20381.0,
+    "min": 20381.0,
+    "max": 20381.0
+   },
+   "model_usd": {
+    "mean": 0.285228,
+    "min": 0.285228,
+    "max": 0.285228
+   },
+   "usd_per_booking": {
+    "mean": 0.002194061538461538,
+    "min": 0.002194061538461538,
+    "max": 0.002194061538461538
+   },
+   "net": {
+    "mean": 189760.7135,
+    "min": 189760.7135,
+    "max": 189760.7135
+   },
+   "violations": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "unsure": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "n": 200,
+   "K": 1
+  },
+  "ultra_only": {
+   "bookings": {
+    "mean": 133,
+    "min": 133,
+    "max": 133
+   },
+   "booking_rate": {
+    "mean": 0.665,
+    "min": 0.665,
+    "max": 0.665
+   },
+   "margin": {
+    "mean": 197005.5,
+    "min": 197005.5,
+    "max": 197005.5
+   },
+   "given_away": {
+    "mean": 1287.0,
+    "min": 1287.0,
+    "max": 1287.0
+   },
+   "lost": {
+    "mean": 54747.5,
+    "min": 54747.5,
+    "max": 54747.5
+   },
+   "lost_price": {
+    "mean": 20745.5,
+    "min": 20745.5,
+    "max": 20745.5
+   },
+   "model_usd": {
+    "mean": 0.955806,
+    "min": 0.955806,
+    "max": 0.955806
+   },
+   "usd_per_booking": {
+    "mean": 0.007186511278195489,
+    "min": 0.007186511278195489,
+    "max": 0.007186511278195489
+   },
+   "net": {
+    "mean": 197004.545,
+    "min": 197004.545,
+    "max": 197004.545
+   },
+   "violations": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "unsure": {
+    "mean": 0,
+    "min": 0,
+    "max": 0
+   },
+   "n": 200,
+   "K": 1
+  }
+ }
+}

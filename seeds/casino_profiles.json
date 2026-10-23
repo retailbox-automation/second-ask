@@ -1,0 +1,7621 @@
+{
+"source": "CaSiNo (Chawla et al., NAACL 2021), github.com/kushalchawla/CaSiNo data/casino.json",
+"source_commit": "2f6ed4a6a55110152a7699fbaa8150d6036314be",
+"source_sha256": "4f2c4560a0070906ed018c3f0766e35f8f8f31b36274ebf35b608621915744ab",
+"license": "CC BY 4.0",
+"modified": "Only per-participant counts of the annotated strategy labels are kept; no dialogue text.",
+"profiles": [
+{
+"dialogue_id": 0,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 0,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 2,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 1,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 1,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 2,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 2,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 3,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"small-talk": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 3,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 4,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"vouch-fair": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 4,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 5,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 4,
+"self-need": 3,
+"other-need": 2,
+"uv-part": 2,
+"elicit-pref": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 5,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 5,
+"elicit-pref": 1,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 6,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 6,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 7,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"showing-empathy": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 7,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 8,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 8,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 9,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 9,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 10,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 2,
+"self-need": 2,
+"no-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 10,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 11,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 11,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 12,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"no-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 12,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 13,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 13,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 14,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 14,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"no-need": 2,
+"self-need": 2,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 15,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 15,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 16,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 16,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 17,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 17,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 18,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 18,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"uv-part": 2,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 19,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"promote-coordination": 2,
+"self-need": 2,
+"no-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 19,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 20,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"other-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 20,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"uv-part": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 21,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 21,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"self-need": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 22,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 22,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 23,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 23,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 24,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 24,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 25,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 25,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 2,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 26,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 26,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"elicit-pref": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 27,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 27,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 28,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 28,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 29,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 29,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 30,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 30,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 31,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 31,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 32,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 32,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 33,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 33,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 34,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 34,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 35,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 35,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 36,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 36,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 37,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 37,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 38,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 38,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"small-talk": 3,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 39,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 39,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 40,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 3,
+"uv-part": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 40,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 1,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 41,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 41,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 42,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 42,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 43,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 2,
+"showing-empathy": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 43,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"elicit-pref": 2,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 44,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 44,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 4,
+"self-need": 4,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 45,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"small-talk": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 45,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 2,
+"vouch-fair": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 46,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 46,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 47,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 47,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 48,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 48,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"showing-empathy": 2,
+"no-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 49,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 49,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"self-need": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 50,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 50,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 51,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"showing-empathy": 3,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 51,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"no-need": 2,
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 52,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 52,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 53,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"showing-empathy": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 53,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 54,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 54,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 55,
+"participant": "mturk_agent_1",
+"strategies": {
+"uv-part": 2,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 55,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 56,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 56,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 57,
+"participant": "mturk_agent_1",
+"strategies": {
+"uv-part": 2,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 57,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 5,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 58,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 58,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 59,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"no-need": 2,
+"other-need": 2,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 59,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 4,
+"uv-part": 3,
+"showing-empathy": 2,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 60,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 60,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"small-talk": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 61,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"small-talk": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 61,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"uv-part": 2,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 62,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 62,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 2,
+"showing-empathy": 2,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 63,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 3,
+"small-talk": 2,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 63,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"promote-coordination": 2,
+"self-need": 2,
+"no-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 64,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 2,
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 64,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"showing-empathy": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 65,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 65,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"showing-empathy": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 66,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"other-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 66,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"small-talk": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 67,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 67,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 68,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"self-need": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 68,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"no-need": 2,
+"self-need": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 69,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 69,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"showing-empathy": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 70,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 70,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 71,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 71,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 72,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 72,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 73,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 73,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"small-talk": 2,
+"no-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 74,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"showing-empathy": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 74,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 75,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 76,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 2,
+"self-need": 2,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 76,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"self-need": 2,
+"other-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 77,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 77,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 4,
+"no-need": 2,
+"promote-coordination": 2,
+"uv-part": 2,
+"elicit-pref": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 78,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 2
+}
+},
+{
+"dialogue_id": 78,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 79,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 79,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 80,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1
+}
+},
+{
+"dialogue_id": 80,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 81,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"no-need": 1,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 81,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 3,
+"elicit-pref": 2,
+"no-need": 2,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 82,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 82,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"uv-part": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 83,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 83,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"vouch-fair": 3,
+"self-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 84,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 84,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 85,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 85,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 86,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 86,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 87,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 87,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 88,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 88,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 89,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 89,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 90,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 2,
+"other-need": 2,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 90,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 91,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 91,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 92,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 92,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 93,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 93,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 94,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 94,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 95,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 95,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 96,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2
+}
+},
+{
+"dialogue_id": 96,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"other-need": 2,
+"promote-coordination": 2,
+"self-need": 2,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 97,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 6,
+"other-need": 5,
+"elicit-pref": 2,
+"small-talk": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 97,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 5,
+"other-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 98,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 98,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 99,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 99,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 100,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"showing-empathy": 3,
+"promote-coordination": 2,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 100,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"other-need": 2,
+"promote-coordination": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 101,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 3,
+"self-need": 2,
+"showing-empathy": 2,
+"no-need": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 101,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"showing-empathy": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 102,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 102,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 103,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"no-need": 2,
+"other-need": 2,
+"self-need": 2,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 103,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 104,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"vouch-fair": 2,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 104,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 105,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 105,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"other-need": 1,
+"promote-coordination": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 106,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 106,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 107,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 107,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 108,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 108,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 109,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 109,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"no-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 110,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 110,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 111,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 111,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"no-need": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 112,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 1
+}
+},
+{
+"dialogue_id": 112,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1
+}
+},
+{
+"dialogue_id": 113,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 113,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 114,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 3,
+"vouch-fair": 3,
+"no-need": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 114,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 4,
+"self-need": 3,
+"no-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 115,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 115,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 116,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 116,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 117,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 117,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2
+}
+},
+{
+"dialogue_id": 118,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 118,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"self-need": 2,
+"showing-empathy": 2,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 119,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"other-need": 2,
+"promote-coordination": 2,
+"uv-part": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 119,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 120,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 120,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 121,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 121,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 122,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 122,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 123,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 3,
+"self-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 123,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 124,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 2,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 124,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 125,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"other-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 125,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"showing-empathy": 3,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 126,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"other-need": 3,
+"self-need": 3,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 126,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"other-need": 2,
+"self-need": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 127,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"vouch-fair": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 127,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 4,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 128,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 128,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 129,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 129,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2
+}
+},
+{
+"dialogue_id": 130,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 130,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"promote-coordination": 2,
+"vouch-fair": 2,
+"elicit-pref": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 131,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 2,
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 131,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 132,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"no-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 132,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 133,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"no-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 133,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 134,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 134,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 135,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 135,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 136,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 136,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 137,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 137,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 138,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 138,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 2,
+"other-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 139,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 3,
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 139,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 140,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 140,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 141,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 141,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"other-need": 2,
+"showing-empathy": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 142,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 5,
+"showing-empathy": 3,
+"uv-part": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 142,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 5,
+"no-need": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 143,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 143,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 4,
+"self-need": 4,
+"small-talk": 2,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 144,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 144,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"elicit-pref": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 145,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"elicit-pref": 3,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 145,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 146,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 146,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2
+}
+},
+{
+"dialogue_id": 147,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 147,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 148,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"other-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 148,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"self-need": 2,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 149,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 149,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 150,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 150,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 151,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 151,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 152,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"vouch-fair": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 152,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 153,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 3,
+"vouch-fair": 3,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 154,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 154,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 155,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 155,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 156,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 156,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"small-talk": 2,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 157,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 157,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 158,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"promote-coordination": 2,
+"showing-empathy": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 158,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 4
+}
+},
+{
+"dialogue_id": 159,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"showing-empathy": 3,
+"no-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 159,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"showing-empathy": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 160,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 160,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 161,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 161,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2
+}
+},
+{
+"dialogue_id": 162,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 2,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 162,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 163,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 164,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 164,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 165,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 165,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 166,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 2,
+"small-talk": 2,
+"no-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 166,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 2,
+"showing-empathy": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 167,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 167,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 168,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 168,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 169,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"other-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 169,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"self-need": 3,
+"small-talk": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 170,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 170,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 171,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 171,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 172,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 172,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 173,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 173,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 4,
+"other-need": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 174,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 174,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3
+}
+},
+{
+"dialogue_id": 175,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"vouch-fair": 3,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 175,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 176,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"no-need": 2,
+"self-need": 2,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 176,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"other-need": 2,
+"self-need": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 177,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 177,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 178,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 178,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"vouch-fair": 2,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 179,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"vouch-fair": 2,
+"no-need": 1,
+"other-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 179,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 180,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1
+}
+},
+{
+"dialogue_id": 180,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"no-need": 1,
+"other-need": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 181,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"self-need": 2,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 181,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"no-need": 3,
+"showing-empathy": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 182,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"no-need": 2,
+"showing-empathy": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 182,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 183,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 183,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 3,
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 184,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 184,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2
+}
+},
+{
+"dialogue_id": 185,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 185,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 186,
+"participant": "mturk_agent_1",
+"strategies": {
+"showing-empathy": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 186,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 4,
+"small-talk": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 187,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 187,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 188,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 188,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 189,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 189,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 190,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 190,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 191,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 4,
+"self-need": 3,
+"showing-empathy": 2,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 191,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 215,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 215,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 2,
+"promote-coordination": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 216,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 216,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 217,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 217,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"promote-coordination": 3,
+"elicit-pref": 1,
+"other-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 218,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 218,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 2,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 415,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 415,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"vouch-fair": 3,
+"showing-empathy": 2,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 416,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 416,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 417,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 417,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 418,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 418,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 419,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"vouch-fair": 4,
+"promote-coordination": 2,
+"self-need": 2,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 419,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 420,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"uv-part": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 420,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"self-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 421,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"promote-coordination": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 421,
+"participant": "mturk_agent_2",
+"strategies": {
+"uv-part": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 422,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 422,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 423,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"self-need": 3,
+"small-talk": 2,
+"other-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 423,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 4,
+"vouch-fair": 3,
+"other-need": 2,
+"small-talk": 2,
+"self-need": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 424,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 424,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 425,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 425,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 426,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 5,
+"other-need": 3,
+"promote-coordination": 3,
+"small-talk": 2,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 426,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"uv-part": 3,
+"promote-coordination": 2,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 427,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 427,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 428,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 3,
+"no-need": 2,
+"other-need": 2,
+"promote-coordination": 2,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 428,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 429,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"vouch-fair": 3,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 429,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 430,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 430,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3
+}
+},
+{
+"dialogue_id": 431,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 431,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 432,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 432,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 433,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 433,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 434,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 434,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 435,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 435,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 436,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 436,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 437,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 4,
+"self-need": 3,
+"small-talk": 3,
+"vouch-fair": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 437,
+"participant": "mturk_agent_2",
+"strategies": {
+"showing-empathy": 3,
+"vouch-fair": 3,
+"other-need": 2,
+"promote-coordination": 2,
+"self-need": 2,
+"small-talk": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 438,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 438,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 439,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 439,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 440,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 440,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 441,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 442,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 442,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 443,
+"participant": "mturk_agent_1",
+"strategies": {
+"uv-part": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 443,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 444,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"elicit-pref": 1,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 444,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 445,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 445,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"self-need": 2,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 446,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"small-talk": 2,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 446,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 447,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 447,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 448,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 448,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 449,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 449,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 450,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"promote-coordination": 3,
+"vouch-fair": 3,
+"no-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 450,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"elicit-pref": 2,
+"no-need": 1,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 451,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 451,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2
+}
+},
+{
+"dialogue_id": 452,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 452,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 453,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"showing-empathy": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 453,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 454,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 454,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 455,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 455,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 456,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"other-need": 2,
+"vouch-fair": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 456,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 457,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 457,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 458,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 458,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 459,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 459,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 4,
+"promote-coordination": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 460,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 460,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 461,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 461,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"other-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 462,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 462,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 463,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 463,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 464,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 464,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 465,
+"participant": "mturk_agent_1",
+"strategies": {
+"uv-part": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 465,
+"participant": "mturk_agent_2",
+"strategies": {
+"uv-part": 3,
+"self-need": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 466,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 3,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 466,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 467,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 5,
+"promote-coordination": 3,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 467,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 4
+}
+},
+{
+"dialogue_id": 468,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 468,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 469,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 469,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 470,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 470,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 471,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 471,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 472,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 472,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 473,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 473,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"other-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 474,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 474,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 475,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 475,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 476,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 476,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 477,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 4,
+"promote-coordination": 2,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 477,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 478,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 478,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 479,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 479,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 480,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 480,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"vouch-fair": 2,
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 481,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 481,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"elicit-pref": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 482,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 482,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 483,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 483,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 484,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 484,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 485,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 1,
+"other-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 485,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 486,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 486,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 487,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 487,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 488,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 488,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 489,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 489,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 490,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 490,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"other-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 491,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"self-need": 2,
+"other-need": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 491,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 5,
+"other-need": 3,
+"promote-coordination": 2,
+"uv-part": 2,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 492,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 6,
+"no-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 492,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 493,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 493,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 494,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 494,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"vouch-fair": 2,
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 495,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"promote-coordination": 2,
+"uv-part": 2,
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 495,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 496,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"no-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 496,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 2,
+"vouch-fair": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 497,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 497,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 498,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 2,
+"vouch-fair": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 498,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 2,
+"promote-coordination": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 499,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 499,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 500,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 500,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 501,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"small-talk": 2,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 501,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 502,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 502,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 503,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 503,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"no-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 504,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 504,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 505,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 505,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 506,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 506,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 507,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 507,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 508,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 508,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 509,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 509,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 510,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"no-need": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 510,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 511,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 511,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 512,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"elicit-pref": 1,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 512,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"other-need": 3,
+"self-need": 2
+}
+},
+{
+"dialogue_id": 513,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 513,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 514,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 514,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"vouch-fair": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 515,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 515,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 516,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 4,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 516,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 517,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 517,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 518,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"no-need": 2,
+"other-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 518,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 519,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 3,
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 519,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 520,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 520,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"small-talk": 2,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 521,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 4,
+"small-talk": 4,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 521,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 522,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 522,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 523,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 523,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 524,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 524,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 525,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 525,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 526,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"small-talk": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 526,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"no-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 527,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 527,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 528,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 528,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 529,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"showing-empathy": 3,
+"elicit-pref": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 529,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"self-need": 2,
+"no-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 530,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 530,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 531,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"showing-empathy": 2,
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 531,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 2,
+"self-need": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 532,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 532,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 533,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 533,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 534,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 2,
+"other-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 534,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 535,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 535,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"no-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 536,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 536,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 5,
+"elicit-pref": 4,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 537,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 537,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 538,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 538,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 539,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 539,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 540,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"small-talk": 3,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 540,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 541,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"other-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 541,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 542,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 542,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 543,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"self-need": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 543,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 544,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 544,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 545,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 5
+}
+},
+{
+"dialogue_id": 545,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 5,
+"promote-coordination": 4,
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 546,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 546,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 547,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 547,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 548,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 548,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 549,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 549,
+"participant": "mturk_agent_2",
+"strategies": {
+"uv-part": 2,
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 550,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"vouch-fair": 2,
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 550,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 551,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"vouch-fair": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 551,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"self-need": 3,
+"other-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 552,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 552,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 553,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 553,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"no-need": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 554,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"showing-empathy": 2,
+"other-need": 1,
+"self-need": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 554,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 555,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 1
+}
+},
+{
+"dialogue_id": 555,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 556,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 4,
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 556,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 557,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 5,
+"other-need": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 557,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 4,
+"self-need": 3,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 558,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 558,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 559,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 559,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 560,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 560,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 561,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 561,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 562,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 562,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 563,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 563,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 564,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 564,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 565,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 565,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 2,
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 566,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"vouch-fair": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 566,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3
+}
+},
+{
+"dialogue_id": 567,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 567,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"self-need": 1,
+"small-talk": 1,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 568,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 568,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"elicit-pref": 2,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 569,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 569,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 570,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"small-talk": 2,
+"self-need": 1,
+"showing-empathy": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 570,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"self-need": 2,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 571,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 571,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 572,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"vouch-fair": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 572,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 573,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 573,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 574,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 574,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 575,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 575,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 576,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 576,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 4,
+"elicit-pref": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 577,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 577,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 578,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 2,
+"self-need": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 578,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"uv-part": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 579,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"elicit-pref": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 579,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"self-need": 3,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 580,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 580,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 581,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"other-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 581,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"small-talk": 3,
+"no-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 582,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 1,
+"promote-coordination": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 582,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 583,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 583,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 584,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 584,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 585,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"small-talk": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 585,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 2,
+"promote-coordination": 2,
+"showing-empathy": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 586,
+"participant": "mturk_agent_1",
+"strategies": {
+"vouch-fair": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 586,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 587,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 587,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 588,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"self-need": 1,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 588,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"other-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 589,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"no-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 589,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 590,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 590,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 3,
+"other-need": 2,
+"self-need": 2,
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 591,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 591,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 592,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 4,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 592,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 4,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 593,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"self-need": 2,
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 593,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 594,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 594,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"no-need": 1,
+"other-need": 1,
+"self-need": 1,
+"showing-empathy": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 595,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"promote-coordination": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 595,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 3,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 596,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"elicit-pref": 1,
+"self-need": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 596,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 1
+}
+},
+{
+"dialogue_id": 597,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 597,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 598,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 598,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 599,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2
+}
+},
+{
+"dialogue_id": 599,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 600,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 2,
+"self-need": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 600,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 601,
+"participant": "mturk_agent_1",
+"strategies": {
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 601,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 4,
+"other-need": 2,
+"small-talk": 2,
+"elicit-pref": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 602,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 3,
+"other-need": 2,
+"elicit-pref": 1,
+"showing-empathy": 1,
+"small-talk": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 602,
+"participant": "mturk_agent_2",
+"strategies": {
+"other-need": 3,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 603,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 5,
+"uv-part": 2,
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 603,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 5,
+"promote-coordination": 2,
+"self-need": 1,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 604,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 3,
+"self-need": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 604,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 4,
+"other-need": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 605,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 2,
+"small-talk": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 605,
+"participant": "mturk_agent_2",
+"strategies": {
+"vouch-fair": 3,
+"promote-coordination": 2,
+"small-talk": 2,
+"uv-part": 1
+}
+},
+{
+"dialogue_id": 606,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1,
+"other-need": 1,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 606,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2
+}
+},
+{
+"dialogue_id": 607,
+"participant": "mturk_agent_1",
+"strategies": {
+"promote-coordination": 1,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 607,
+"participant": "mturk_agent_2",
+"strategies": {
+"no-need": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 608,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 3,
+"self-need": 1
+}
+},
+{
+"dialogue_id": 608,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 609,
+"participant": "mturk_agent_1",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 2
+}
+},
+{
+"dialogue_id": 609,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 3,
+"promote-coordination": 2,
+"vouch-fair": 2,
+"no-need": 1
+}
+},
+{
+"dialogue_id": 610,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"promote-coordination": 1
+}
+},
+{
+"dialogue_id": 610,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 1,
+"promote-coordination": 1,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 611,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 2,
+"other-need": 1
+}
+},
+{
+"dialogue_id": 611,
+"participant": "mturk_agent_2",
+"strategies": {
+"promote-coordination": 2,
+"self-need": 2,
+"small-talk": 1,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 612,
+"participant": "mturk_agent_1",
+"strategies": {
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 612,
+"participant": "mturk_agent_2",
+"strategies": {
+"small-talk": 2,
+"elicit-pref": 1
+}
+},
+{
+"dialogue_id": 613,
+"participant": "mturk_agent_1",
+"strategies": {
+"other-need": 3,
+"showing-empathy": 1
+}
+},
+{
+"dialogue_id": 613,
+"participant": "mturk_agent_2",
+"strategies": {
+"self-need": 2,
+"vouch-fair": 1
+}
+},
+{
+"dialogue_id": 614,
+"participant": "mturk_agent_1",
+"strategies": {
+"no-need": 1,
+"other-need": 1,
+"promote-coordination": 1,
+"self-need": 1,
+"small-talk": 1
+}
+},
+{
+"dialogue_id": 614,
+"participant": "mturk_agent_2",
+"strategies": {
+"elicit-pref": 2,
+"small-talk": 2
+}
+}
+]
+}

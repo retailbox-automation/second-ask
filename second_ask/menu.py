@@ -154,6 +154,16 @@ def build_menu(est, offer, open_slots, channels=("sms", "email"), max_checkin_da
     return moves
 
 
+def concession(est, offer, price):
+    """A concession on the standing package at a price chosen by code (the rule baselines); floor-checked."""
+    price = float(price)
+    lst = est.list_price(offer.dropped)
+    move = Move(f"concede_to_{price:.0f}", "concede", f"Lower this package to {_money(price)} "
+                f"({(1 - price / lst) * 100:.0f}% below list); owner approves with one tap.", offer.dropped, price, None,
+                offer.channel, needs_owner=price < lst, proposes_booking=True)
+    return validate(move, est)
+
+
 def validate(move, est):
     """Raise FloorViolation for any move priced outside [floor, list] of its package."""
     flo, lst = est.floor(move.dropped), est.list_price(move.dropped)
