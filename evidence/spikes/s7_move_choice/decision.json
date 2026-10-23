@@ -1,0 +1,12 @@
+{
+ "means": {
+  "super_nothink": 0.8166666666666667,
+  "super_think": 0.95,
+  "ultra_think": 0.8833333333333333,
+  "super_vl_nothink": 0.9333333333333333,
+  "super_vl_think": 0.9
+ },
+ "super_config": "super_think",
+ "price_move_model": "super_think",
+ "super_vl_config": "super_vl_nothink"
+}

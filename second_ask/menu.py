@@ -166,15 +166,22 @@ _AMOUNT = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{1,2})?)|\b(\d[\d,]*(?:\.\d{1,2})?)\
 _PERCENT = re.compile(r"(\d+(?:\.\d+)?)\s?(?:%|percent)", re.I)
 
 
-def check_message(text, move, est, offer):
-    """Problems with a model-written message: any $ amount or % that is not part of this move, or excess length."""
+def amounts_in(text):
+    return [float((m.group(1) or m.group(2)).replace(",", "")) for m in _AMOUNT.finditer(text or "")]
+
+
+def check_message(text, move, est, offer, customer_amounts=()):
+    """Problems with a model-written message: any $ amount or % that is not part of this move, or excess length.
+
+    Amounts the customer wrote may be quoted back only when they are at or above the move's price ("under your $3,600
+    budget"), so a message can never seem to offer less than the move does.
+    """
     allowed = {round(x, 2) for x in (move.price, est.list_price(move.dropped), est.list_price(), offer.price,
-                                     *(i.price for i in est.items))}
+                                     *(i.price for i in est.items), *(a for a in customer_amounts if a >= move.price))}
     lst = est.list_price(move.dropped)
     pct_ok = {round((1 - move.price / lst) * 100)} if move.price < lst else set()
     problems = []
-    for m in _AMOUNT.finditer(text or ""):
-        val = float((m.group(1) or m.group(2)).replace(",", ""))
+    for val in amounts_in(text):
         if round(val, 2) not in allowed:
             problems.append(f"amount ${val:,.2f} is not part of move {move.id}")
     for m in _PERCENT.finditer(text or ""):

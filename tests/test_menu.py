@@ -110,3 +110,12 @@ def test_two_optional_items_also_get_a_drop_all_move():
     menu = {m.id: m for m in M.build_menu(e, M.initial_offer(e), SLOTS)}
     assert {"drop_smart_thermostat", "drop_uv_air_purifier", "drop_all_optional"} <= set(menu)
     assert menu["drop_all_optional"].price == 560 and not menu["drop_all_optional"].needs_owner
+
+
+def test_customer_amounts_may_be_quoted_back_only_at_or_above_the_move_price():
+    e = estimate()
+    offer = M.initial_offer(e)
+    drop = next(m for m in M.build_menu(e, offer, SLOTS) if m.id == "drop_surge_protector")  # $560
+    text = "That beats the $650 quote: the repair alone is $560."
+    assert M.check_message(text, drop, e, offer) and M.check_message(text, drop, e, offer, [650.0]) == []
+    assert M.check_message("Sure, $500 works.", drop, e, offer, [500.0])  # below the move's price: refused

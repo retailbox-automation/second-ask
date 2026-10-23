@@ -80,7 +80,7 @@ def request(shop, state_text, label, menu, est, offer):
     return [{"role": "system", "content": SYSTEM.format(shop=shop)}, {"role": "user", "content": user}], [tool_for(menu)]
 
 
-def choose(client, config, state_text, label, menu, est, offer, trace):
+def choose(client, config, state_text, label, menu, est, offer, trace, customer_amounts=()):
     model, params = CONFIGS[config] if isinstance(config, str) else config
     messages, tools = request(est.shop, state_text, label, menu, est, offer)
     by_id = {m.id: m for m in menu}
@@ -103,7 +103,7 @@ def choose(client, config, state_text, label, menu, est, offer, trace):
             problems.append(f"invalid choice {args.get('move_id')!r}" if calls else "no choose_move call")
             continue
         text = str(args.get("message") or "")
-        msg_problems = check_message(text, move, est, offer)
+        msg_problems = check_message(text, move, est, offer, customer_amounts)
         if msg_problems:
             return Choice(move, template_message(move, est, offer), str(args.get("reason") or ""), reply.model, True, True,
                           problems + msg_problems)

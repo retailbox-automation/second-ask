@@ -11,7 +11,7 @@ from . import models as M
 from .chooser import Choice, choose, default_move
 from .classifier import Label, classify, render_state
 from .compliance import Recipient, gate, opt_out_status
-from .menu import build_menu, initial_offer, template_message, validate
+from .menu import amounts_in, build_menu, initial_offer, template_message, validate
 from .tf_client import TFError, tool_args
 from .trace import Step, Trace
 
@@ -130,7 +130,8 @@ class Agent:
             max_checkin = 90 - (now - est.sent_at).days
         menu = build_menu(est, conv.offer, conv.slots_after(now), max_checkin_days=max_checkin)
         if label.valid:
-            choice = choose(self.client, self.cfg.chooser, state_text, label, menu, est, conv.offer, conv.trace)
+            said = [a for e in conv.events if e.who == "customer" for a in amounts_in(e.text)]
+            choice = choose(self.client, self.cfg.chooser, state_text, label, menu, est, conv.offer, conv.trace, said)
         else:
             move = default_move(None, menu)
             choice = Choice(move, template_message(move, est, conv.offer), "no valid label", None, False, True)

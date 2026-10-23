@@ -171,3 +171,9 @@ def test_label_parsing_rejects_bad_objects(content, problem):
 def test_render_state_says_when_the_customer_never_opened_the_estimate():
     text = CL.render_state(estimate(), [], NOW, views=0)
     assert "opened 0 time(s)" in text and "has not replied" in text
+
+
+def test_agent_lets_the_message_quote_the_customers_higher_number():
+    ag, _ = agent([label("price"), choice("drop_surge_protector", "That beats the $640 quote: the repair alone is $560.")])
+    d = ag.decide(conv(), NOW)
+    assert "$640" in d.message and not d.choice.template_used

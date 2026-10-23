@@ -57,3 +57,52 @@ No model sent `arguments: ""` for the no-argument tool here; the client still ma
   `-dynamic-period-remaining`, `-dynamic-period-usage-*`.
 - `n: 3` bills the prompt once: prompt 30 tokens for both `n: 1` and `n: 3`; completion 29 vs 75 tokens over 3 choices.
 - Projection against the $25 bar: see the tournament projection in `tournament/PROJECTION.md`.
+
+## S3. Structured output for the label — PASS for every shipped method
+20 states (`states.json`, committed before the run), reasoning off, one call per state per cell.
+
+| Model | Method | valid | correct (gold set) | correct (primary label) | low confidence | mean s | $ for 20 calls |
+|---|---|---|---|---|---|---|---|
+| Lightning | named tool | 20/20 | 18/20 | 17/20 | 3 | 1.25 | 0.0012 |
+| Lightning | `json_object` | 20/20 | **19/20** | 18/20 | 3 | 1.24 | 0.0008 |
+| Lightning | strict `json_schema` | 20/20 | 17/20 | 17/20 | 6 | 1.44 | 0.0009 |
+| Super | named tool | 20/20 | 19/20 | 19/20 | 1 | 1.45 | 0.0062 |
+| Super | `json_object` | **17/20 (FAIL)** | 17/20 | 17/20 | 0 | 1.30 | 0.0035 |
+| Ultra | `json_object` | 20/20 | 20/20 | 20/20 | 0 | 0.87 | 0.0123 |
+| Super-VL | named tool | 20/20 | 20/20 | 20/20 | 2 | 0.98 | 0.0057 |
+
+- Strict `json_schema` is accepted on Lightning (20/20 valid), contrary to the OpenAPI field description; it was the least
+  accurate of the three Lightning methods here.
+- Super with `json_object` invented `confidence: "medium"` 3 times (schema says high/low): the validator caught it.
+- Lightning's misses: "We already went with another electrician, thanks" labelled `opt_out` by all three methods
+  (gold `other`); a silent, never-opened estimate labelled `price` once; a warranty question labelled `price` once; "Still
+  thinking." labelled `ready_to_book` once.
+- Shipped: Lightning with `json_object` (routed policy), Super with the named tool (default label model and fallback),
+  Ultra with `json_object` (Ultra-only policy), Super-VL with the named tool (policy 6).
+
+## S7. Move choice — routing decision: Ultra is NOT routed in; Super with reasoning chooses
+20 states × K = 3; the chooser gets each state's gold primary label, so this measures move choice alone.
+
+| Config | correct (mean of K) | per repeat | valid calls | mean s | mean reasoning tokens | $ per call |
+|---|---|---|---|---|---|---|
+| Super, reasoning off | 0.817 | 0.85, 0.85, 0.75 | 60/60 | 2.70 | 0 | 0.00075 |
+| **Super, reasoning on** | **0.950** | 0.90, 1.00, 0.95 | 60/60 | 2.80 | 143 | 0.00083 |
+| Ultra, reasoning on | 0.883 | 0.90, 0.90, 0.85 | 60/60 | 2.65 | 304 | 0.00326 |
+| Super-VL, reasoning off | 0.933 | 0.95, 0.95, 0.90 | 60/60 | 1.28 | 0 | 0.00068 |
+| Super-VL, reasoning on | 0.900 | 0.90, 0.90, 0.90 | 60/60 | 3.30 | 489 | 0.00113 |
+
+Pre-registered rules applied (`s7_move_choice/decision.json`):
+1. Super configuration: reasoning on beats reasoning off by 13.3 points (> 5) → **Super with reasoning on**.
+2. Ultra vs that Super: 0.883 vs 0.950 → Ultra does not beat Super by more than 5 points → **the routed policy uses Super
+   for every move, including the price move.** Named limitation: in our 20 states Ultra's role is empty. On the five
+   price states alone Ultra got 14/15 and Super 15/15. Ultra costs ~3.9× more per choice here.
+3. Super-VL: reasoning on does not beat reasoning off (0.900 vs 0.933) → **Super-VL with reasoning off** for policy 6.
+
+Where the models lost (all configs): S06 "not until after the 15th of next month" (gold `checkin_30`; models often
+answered or checked in at 14 days); S20 "Still thinking." (gold `ask_why`; Ultra and Super-VL with reasoning checked in
+instead, 0/3); S19 "already went with another electrician" (Super without reasoning answered instead of closing out, 0/3);
+S11 Super-VL with reasoning checked in at 3 days instead of dropping the item the wife questioned (0/3).
+Every call returned a valid `choose_move` (300/300). Message check: the models' texts were replaced by a template in
+2–5 of 60 calls per config, almost always because they quoted the customer's own number back ("under your $3,600
+budget"). After this run (post hoc) the check was changed to allow a customer-stated amount when it is at or above the
+move's price; with that rule 6 of 300 messages would still be replaced.
