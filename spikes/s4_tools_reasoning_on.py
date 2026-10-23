@@ -55,7 +55,7 @@ def empty_args(rec):
 
 
 recs = run("s4_tools_reasoning_on", jobs, workers=8)
-print("\n| Config | Model | parsed tool calls | first tool names | calls with arguments "" | mean s | mean reasoning | $ total |")
+print('\n| Config | Model | parsed tool calls | first tool names | calls with arguments "" | mean s | mean reasoning | $ total |')
 print("|---|---|---|---|---|---|---|---|")
 for name, (model, _) in CONFIGS.items():
     rs = [r for r in recs if r["meta"]["config"] == name]
