@@ -5,7 +5,7 @@ floor (list price minus the owner's maximum discount, rounded up to $5, never be
 its package is ever built, and `validate` re-checks every move before anything is sent.
 """
 import math, re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 
 CHECKIN_DAYS = (3, 7, 14, 30)
@@ -127,6 +127,11 @@ def build_menu(est, offer, open_slots, channels=("sms", "email"), max_checkin_da
         price = min(est.list_price(nd), max(est.floor(nd), _round5(p - item.price)))
         moves.append(Move(f"drop_{_slug(item.name)}", "drop",
                           f"Same job without the optional {item.name} ({_money(item.price)}): {pkg(nd)} for {_money(price)}.",
+                          nd, price, None, ch, needs_owner=price < est.list_price(nd), proposes_booking=True))
+    if len(est.optional_items(d)) >= 2:
+        nd = d | {i.name for i in est.optional_items(d)}
+        price = min(est.list_price(nd), max(est.floor(nd), _round5(p - sum(i.price for i in est.optional_items(d)))))
+        moves.append(Move("drop_all_optional", "drop", f"Same job without any optional items: {pkg(nd)} for {_money(price)}.",
                           nd, price, None, ch, needs_owner=price < est.list_price(nd), proposes_booking=True))
     targets = [(d, "pkg", "this package", p)]  # concessions on the standing package must beat the standing price
     core = frozenset(i.name for i in est.items if i.optional)

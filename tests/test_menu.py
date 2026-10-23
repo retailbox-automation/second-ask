@@ -103,3 +103,10 @@ def test_every_move_kind_has_a_template():
     for m in M.build_menu(e, offer, SLOTS):
         text = M.template_message(m, e, offer)
         assert text and M.check_message(text, m, e, offer) == []
+
+
+def test_two_optional_items_also_get_a_drop_all_move():
+    e = estimate(optional=(("Smart thermostat", 380.0), ("UV air purifier", 650.0)))
+    menu = {m.id: m for m in M.build_menu(e, M.initial_offer(e), SLOTS)}
+    assert {"drop_smart_thermostat", "drop_uv_air_purifier", "drop_all_optional"} <= set(menu)
+    assert menu["drop_all_optional"].price == 560 and not menu["drop_all_optional"].needs_owner

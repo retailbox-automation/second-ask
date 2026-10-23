@@ -1,0 +1,2257 @@
+[
+ {
+  "id": "S01",
+  "estimate": "E-S01",
+  "trade": "HVAC",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Another company quoted $650 for the same repair. Can you get closer to that?"
+   ]
+  ],
+  "gold_labels": [
+   "price"
+  ],
+  "gold_moves": [
+   "drop_surge_protector",
+   "concede_pkg_floor",
+   "concede_pkg_5"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 740,
+    "description": "Written answer: explain what the $740 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 740,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 740,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 740,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $740."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 740,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 740,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "resend_sms",
+    "price": 740,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_surge_protector",
+    "price": 560,
+    "description": "Same job without the optional Surge protector ($180): Capacitor and contactor replacement for $560."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 720,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $720 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 705,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $705 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 690,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $690 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 545,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $545 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 530,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $530 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 525,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $525 (6% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 740,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S02",
+  "estimate": "E-S02",
+  "trade": "plumbing",
+  "now": "2026-10-22T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Got a quote for $1,600 installed. Yours is way more than that."
+   ]
+  ],
+  "gold_labels": [
+   "price"
+  ],
+  "gold_moves": [
+   "answer",
+   "concede_core_floor",
+   "drop_expansion_tank"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 2190,
+    "description": "Written answer: explain what the $2,190 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 2190,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 2190,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 2190,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $2,190."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 2190,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $2,190."
+   },
+   {
+    "id": "resend_sms",
+    "price": 2190,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_expansion_tank",
+    "price": 1950,
+    "description": "Same job without the optional Expansion tank ($240): Water heater replacement for $1,950."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 2125,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,125 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 2080,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,080 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 2040,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,040 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1890,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,890 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1850,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,850 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1815,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,815 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 2190,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S03",
+  "estimate": "E-S03",
+  "trade": "electrical",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Our budget is $3,600 max. If you can do that we'll book."
+   ]
+  ],
+  "gold_labels": [
+   "price"
+  ],
+  "gold_moves": [
+   "concede_pkg_floor",
+   "drop_whole_home_surge_protection"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 3820,
+    "description": "Written answer: explain what the $3,820 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 3820,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 3820,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 3820,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $3,820."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 3820,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $3,820."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 3820,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $3,820."
+   },
+   {
+    "id": "resend_sms",
+    "price": 3820,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_whole_home_surge_protection",
+    "price": 3400,
+    "description": "Same job without the optional Whole-home surge protection ($420): 200A panel upgrade for $3,400."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 3705,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,705 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 3630,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,630 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 3555,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,555 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 3300,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 3230,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,230 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 3165,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,165 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 3820,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S04",
+  "estimate": "E-S04",
+  "trade": "roofing",
+  "now": "2026-10-20T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Honestly that's a lot more than we expected."
+   ]
+  ],
+  "gold_labels": [
+   "price"
+  ],
+  "gold_moves": [
+   "drop_gutter_cleaning",
+   "ask_why"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 1340,
+    "description": "Written answer: explain what the $1,340 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 1340,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 1340,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 1340,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $1,340."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 1340,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $1,340."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 1340,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $1,340."
+   },
+   {
+    "id": "resend_email",
+    "price": 1340,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_gutter_cleaning",
+    "price": 1150,
+    "description": "Same job without the optional Gutter cleaning ($190): Chimney flashing repair for $1,150."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 1300,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 1275,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,275 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 1250,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,250 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1115,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,115 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1090,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,090 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1070,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,070 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 1340,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S05",
+  "estimate": "E-S05",
+  "trade": "HVAC",
+  "now": "2026-10-22T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Do we really need the UV purifier and the smart thermostat? That's a lot of extra money."
+   ]
+  ],
+  "gold_labels": [
+   "price",
+   "other"
+  ],
+  "gold_moves": [
+   "drop_all_optional",
+   "drop_uv_air_purifier",
+   "drop_smart_thermostat",
+   "answer"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 9930,
+    "description": "Written answer: explain what the $9,930 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 9930,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 9930,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 9930,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $9,930."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 9930,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $9,930."
+   },
+   {
+    "id": "resend_sms",
+    "price": 9930,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_smart_thermostat",
+    "price": 9550,
+    "description": "Same job without the optional Smart thermostat ($380): 3-ton AC and air handler, UV air purifier for $9,550."
+   },
+   {
+    "id": "drop_uv_air_purifier",
+    "price": 9280,
+    "description": "Same job without the optional UV air purifier ($650): 3-ton AC and air handler, Smart thermostat for $9,280."
+   },
+   {
+    "id": "drop_all_optional",
+    "price": 8900,
+    "description": "Same job without any optional items: 3-ton AC and air handler for $8,900."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 9630,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,630 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 9435,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,435 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 9235,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,235 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 8635,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,635 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 8455,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,455 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 8280,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,280 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 9930,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S06",
+  "estimate": "E-S06",
+  "trade": "plumbing",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "We want to do it, but not until after the 15th of next month when we get paid. Can it wait till then?"
+   ]
+  ],
+  "gold_labels": [
+   "timing"
+  ],
+  "gold_moves": [
+   "checkin_30"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 2190,
+    "description": "Written answer: explain what the $2,190 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 2190,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 2190,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 2190,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $2,190."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 2190,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $2,190."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 2190,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $2,190."
+   },
+   {
+    "id": "resend_email",
+    "price": 2190,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_expansion_tank",
+    "price": 1950,
+    "description": "Same job without the optional Expansion tank ($240): Water heater replacement for $1,950."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 2125,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,125 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 2080,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,080 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 2040,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,040 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1890,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,890 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1850,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,850 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1815,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,815 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 2190,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S07",
+  "estimate": "E-S07",
+  "trade": "HVAC",
+  "now": "2026-10-22T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "We're away for the next ten days. Can we pick this up when we're back?"
+   ]
+  ],
+  "gold_labels": [
+   "timing"
+  ],
+  "gold_moves": [
+   "checkin_14"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 740,
+    "description": "Written answer: explain what the $740 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 740,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 740,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 740,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $740."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 740,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "resend_email",
+    "price": 740,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_surge_protector",
+    "price": 560,
+    "description": "Same job without the optional Surge protector ($180): Capacitor and contactor replacement for $560."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 720,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $720 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 705,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $705 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 690,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $690 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 545,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $545 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 530,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $530 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 525,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $525 (6% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 740,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S08",
+  "estimate": "E-S08",
+  "trade": "HVAC",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "The AC is out and it's 92 in the house. Your slot is next week and someone else can come tomorrow."
+   ]
+  ],
+  "gold_labels": [
+   "timing"
+  ],
+  "gold_moves": [
+   "earlier_slot_1"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 740,
+    "description": "Written answer: explain what the $740 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 740,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 740,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 740,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $740."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 740,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 740,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "resend_email",
+    "price": 740,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_surge_protector",
+    "price": 560,
+    "description": "Same job without the optional Surge protector ($180): Capacitor and contactor replacement for $560."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 720,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $720 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 705,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $705 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 690,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $690 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 545,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $545 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 530,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $530 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 525,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $525 (6% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 740,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S09",
+  "estimate": "E-S09",
+  "trade": "roofing",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Rain is coming this weekend. Can you get here before Saturday?"
+   ]
+  ],
+  "gold_labels": [
+   "timing"
+  ],
+  "gold_moves": [
+   "earlier_slot_1",
+   "earlier_slot_2"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 1340,
+    "description": "Written answer: explain what the $1,340 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 1340,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 1340,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 1340,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $1,340."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 1340,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $1,340."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 1340,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $1,340."
+   },
+   {
+    "id": "resend_sms",
+    "price": 1340,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_gutter_cleaning",
+    "price": 1150,
+    "description": "Same job without the optional Gutter cleaning ($190): Chimney flashing repair for $1,150."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 1300,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 1275,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,275 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 1250,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,250 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1115,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,115 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1090,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,090 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1070,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,070 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 1340,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S10",
+  "estimate": "E-S10",
+  "trade": "electrical",
+  "now": "2026-10-22T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "My husband wants to go over it with me this weekend before we decide."
+   ]
+  ],
+  "gold_labels": [
+   "family"
+  ],
+  "gold_moves": [
+   "answer",
+   "checkin_3",
+   "checkin_7"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 3820,
+    "description": "Written answer: explain what the $3,820 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 3820,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 3820,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 3820,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $3,820."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 3820,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $3,820."
+   },
+   {
+    "id": "resend_sms",
+    "price": 3820,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_whole_home_surge_protection",
+    "price": 3400,
+    "description": "Same job without the optional Whole-home surge protection ($420): 200A panel upgrade for $3,400."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 3705,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,705 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 3630,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,630 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 3555,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,555 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 3300,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 3230,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,230 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 3165,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,165 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 3820,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S11",
+  "estimate": "E-S11",
+  "trade": "HVAC",
+  "now": "2026-10-23T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "My wife and I need to talk it over. She's not sure about the UV purifier."
+   ]
+  ],
+  "gold_labels": [
+   "family",
+   "price"
+  ],
+  "gold_moves": [
+   "drop_uv_air_purifier",
+   "answer"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 9930,
+    "description": "Written answer: explain what the $9,930 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 9930,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 9930,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 9930,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $9,930."
+   },
+   {
+    "id": "resend_sms",
+    "price": 9930,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_smart_thermostat",
+    "price": 9550,
+    "description": "Same job without the optional Smart thermostat ($380): 3-ton AC and air handler, UV air purifier for $9,550."
+   },
+   {
+    "id": "drop_uv_air_purifier",
+    "price": 9280,
+    "description": "Same job without the optional UV air purifier ($650): 3-ton AC and air handler, Smart thermostat for $9,280."
+   },
+   {
+    "id": "drop_all_optional",
+    "price": 8900,
+    "description": "Same job without any optional items: 3-ton AC and air handler for $8,900."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 9630,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,630 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 9435,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,435 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 9235,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,235 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 8635,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,635 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 8455,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,455 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 8280,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,280 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 9930,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S12",
+  "estimate": "E-S12",
+  "trade": "plumbing",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "I rent, so the landlord has to approve repairs. I sent him your quote."
+   ]
+  ],
+  "gold_labels": [
+   "family"
+  ],
+  "gold_moves": [
+   "answer",
+   "checkin_3",
+   "checkin_7"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 420,
+    "description": "Written answer: explain what the $420 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 420,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 420,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 420,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 420,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 420,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 420,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 420,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $420."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 420,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $420."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 420,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $420."
+   },
+   {
+    "id": "resend_email",
+    "price": 420,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 405,
+    "description": "Lower this package (Shower valve repair) to $405 (4% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 400,
+    "description": "Lower this package (Shower valve repair) to $400 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 395,
+    "description": "Lower this package (Shower valve repair) to $395 (6% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 420,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S13",
+  "estimate": "E-S13",
+  "trade": "HVAC",
+  "now": "2026-10-23T15:00:00+00:00",
+  "messages": [],
+  "gold_labels": [
+   "channel"
+  ],
+  "gold_moves": [
+   "resend_sms"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 740,
+    "description": "Written answer: explain what the $740 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 740,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 740,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 740,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $740."
+   },
+   {
+    "id": "resend_sms",
+    "price": 740,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_surge_protector",
+    "price": 560,
+    "description": "Same job without the optional Surge protector ($180): Capacitor and contactor replacement for $560."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 720,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $720 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 705,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $705 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 690,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $690 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 545,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $545 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 530,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $530 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 525,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $525 (6% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 740,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S14",
+  "estimate": "E-S14",
+  "trade": "roofing",
+  "now": "2026-10-24T15:00:00+00:00",
+  "messages": [],
+  "gold_labels": [
+   "channel"
+  ],
+  "gold_moves": [
+   "resend_email"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 1340,
+    "description": "Written answer: explain what the $1,340 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 1340,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 1340,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 1340,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $1,340."
+   },
+   {
+    "id": "resend_email",
+    "price": 1340,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_gutter_cleaning",
+    "price": 1150,
+    "description": "Same job without the optional Gutter cleaning ($190): Chimney flashing repair for $1,150."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 1300,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 1275,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,275 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 1250,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,250 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1115,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,115 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1090,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,090 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1070,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,070 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 1340,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S15",
+  "estimate": "E-S15",
+  "trade": "electrical",
+  "now": "2026-10-25T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Sorry, just saw this. I hardly check email. Can you text me instead?"
+   ]
+  ],
+  "gold_labels": [
+   "channel"
+  ],
+  "gold_moves": [
+   "resend_sms"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 3820,
+    "description": "Written answer: explain what the $3,820 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 3820,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 3820,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 3820,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $3,820."
+   },
+   {
+    "id": "resend_sms",
+    "price": 3820,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_whole_home_surge_protection",
+    "price": 3400,
+    "description": "Same job without the optional Whole-home surge protection ($420): 200A panel upgrade for $3,400."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 3705,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,705 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 3630,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,630 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 3555,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,555 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 3300,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 3230,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,230 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 3165,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,165 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 3820,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S16",
+  "estimate": "E-S16",
+  "trade": "HVAC",
+  "now": "2026-10-20T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "Looks good. When can you come?"
+   ]
+  ],
+  "gold_labels": [
+   "ready_to_book"
+  ],
+  "gold_moves": [
+   "offer_slot",
+   "earlier_slot_1",
+   "earlier_slot_2"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 740,
+    "description": "Written answer: explain what the $740 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 740,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 740,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 740,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 740,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $740."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 740,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 740,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $740."
+   },
+   {
+    "id": "resend_email",
+    "price": 740,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_surge_protector",
+    "price": 560,
+    "description": "Same job without the optional Surge protector ($180): Capacitor and contactor replacement for $560."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 720,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $720 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 705,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $705 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 690,
+    "description": "Lower this package (Capacitor and contactor replacement, Surge protector) to $690 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 545,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $545 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 530,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $530 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 525,
+    "description": "Lower the job without optional items (Capacitor and contactor replacement) to $525 (6% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 740,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S17",
+  "estimate": "E-S17",
+  "trade": "plumbing",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "OK let's do it. Does the price include hauling away the old tank?"
+   ]
+  ],
+  "gold_labels": [
+   "ready_to_book",
+   "other"
+  ],
+  "gold_moves": [
+   "offer_slot",
+   "answer",
+   "earlier_slot_1",
+   "earlier_slot_2"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 2190,
+    "description": "Written answer: explain what the $2,190 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 2190,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 2190,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 2190,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 2190,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $2,190."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 2190,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $2,190."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 2190,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $2,190."
+   },
+   {
+    "id": "resend_sms",
+    "price": 2190,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_expansion_tank",
+    "price": 1950,
+    "description": "Same job without the optional Expansion tank ($240): Water heater replacement for $1,950."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 2125,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,125 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 2080,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,080 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 2040,
+    "description": "Lower this package (Water heater replacement, Expansion tank) to $2,040 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1890,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,890 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1850,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,850 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1815,
+    "description": "Lower the job without optional items (Water heater replacement) to $1,815 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 2190,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S18",
+  "estimate": "E-S18",
+  "trade": "roofing",
+  "now": "2026-10-21T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "What kind of warranty comes with the flashing repair?"
+   ]
+  ],
+  "gold_labels": [
+   "other"
+  ],
+  "gold_moves": [
+   "answer"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 1340,
+    "description": "Written answer: explain what the $1,340 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 1340,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 1340,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 1340,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 1340,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $1,340."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 1340,
+    "description": "Offer an earlier slot Thu Oct 22 01:00 PM (quoted slot is Tue Oct 27) at $1,340."
+   },
+   {
+    "id": "earlier_slot_2",
+    "price": 1340,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $1,340."
+   },
+   {
+    "id": "resend_sms",
+    "price": 1340,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_gutter_cleaning",
+    "price": 1150,
+    "description": "Same job without the optional Gutter cleaning ($190): Chimney flashing repair for $1,150."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 1300,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 1275,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,275 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 1250,
+    "description": "Lower this package (Chimney flashing repair, Gutter cleaning) to $1,250 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 1115,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,115 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 1090,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,090 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 1070,
+    "description": "Lower the job without optional items (Chimney flashing repair) to $1,070 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 1340,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S19",
+  "estimate": "E-S19",
+  "trade": "electrical",
+  "now": "2026-10-22T15:00:00+00:00",
+  "messages": [
+   [
+    "customer",
+    "We already went with another electrician, thanks."
+   ]
+  ],
+  "gold_labels": [
+   "other"
+  ],
+  "gold_moves": [
+   "close_out"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 3820,
+    "description": "Written answer: explain what the $3,820 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 3820,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 3820,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 3820,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 3820,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $3,820."
+   },
+   {
+    "id": "earlier_slot_1",
+    "price": 3820,
+    "description": "Offer an earlier slot Fri Oct 23 01:00 PM (quoted slot is Tue Oct 27) at $3,820."
+   },
+   {
+    "id": "resend_email",
+    "price": 3820,
+    "description": "Resend the estimate summary by email instead of sms, with a link to book; no price change."
+   },
+   {
+    "id": "drop_whole_home_surge_protection",
+    "price": 3400,
+    "description": "Same job without the optional Whole-home surge protection ($420): 200A panel upgrade for $3,400."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 3705,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,705 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 3630,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,630 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 3555,
+    "description": "Lower this package (200A panel upgrade, Whole-home surge protection) to $3,555 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 3300,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,300 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 3230,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,230 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 3165,
+    "description": "Lower the job without optional items (200A panel upgrade) to $3,165 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 3820,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ },
+ {
+  "id": "S20",
+  "estimate": "E-S20",
+  "trade": "HVAC",
+  "now": "2026-10-28T15:00:00+00:00",
+  "messages": [
+   [
+    "shop",
+    "Hi, just checking in on your AC replacement estimate. Any questions?"
+   ],
+   [
+    "customer",
+    "Still thinking."
+   ]
+  ],
+  "gold_labels": [
+   "other",
+   "timing",
+   "family",
+   "price"
+  ],
+  "gold_moves": [
+   "ask_why"
+  ],
+  "menu": [
+   {
+    "id": "answer",
+    "price": 9930,
+    "description": "Written answer: explain what the $9,930 covers and why; no price change."
+   },
+   {
+    "id": "ask_why",
+    "price": 9930,
+    "description": "Ask one short, friendly question about what is holding them back; no offer."
+   },
+   {
+    "id": "reminder",
+    "price": 9930,
+    "description": "Generic reminder that the estimate is still open; nothing new."
+   },
+   {
+    "id": "checkin_3",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 3 days."
+   },
+   {
+    "id": "checkin_7",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 7 days."
+   },
+   {
+    "id": "checkin_14",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 14 days."
+   },
+   {
+    "id": "checkin_30",
+    "price": 9930,
+    "description": "No pressure, no price change; say you will check back in 30 days."
+   },
+   {
+    "id": "offer_slot",
+    "price": 9930,
+    "description": "Offer to book Tue Oct 27 01:00 PM at $9,930."
+   },
+   {
+    "id": "resend_sms",
+    "price": 9930,
+    "description": "Resend the estimate summary by sms instead of email, with a link to book; no price change."
+   },
+   {
+    "id": "drop_smart_thermostat",
+    "price": 9550,
+    "description": "Same job without the optional Smart thermostat ($380): 3-ton AC and air handler, UV air purifier for $9,550."
+   },
+   {
+    "id": "drop_uv_air_purifier",
+    "price": 9280,
+    "description": "Same job without the optional UV air purifier ($650): 3-ton AC and air handler, Smart thermostat for $9,280."
+   },
+   {
+    "id": "drop_all_optional",
+    "price": 8900,
+    "description": "Same job without any optional items: 3-ton AC and air handler for $8,900."
+   },
+   {
+    "id": "concede_pkg_3",
+    "price": 9630,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,630 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_5",
+    "price": 9435,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,435 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_pkg_floor",
+    "price": 9235,
+    "description": "Lower this package (3-ton AC and air handler, Smart thermostat, UV air purifier) to $9,235 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_3",
+    "price": 8635,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,635 (3% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_5",
+    "price": 8455,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,455 (5% below list); owner approves with one tap."
+   },
+   {
+    "id": "concede_core_floor",
+    "price": 8280,
+    "description": "Lower the job without optional items (3-ton AC and air handler) to $8,280 (7% below list); owner approves with one tap."
+   },
+   {
+    "id": "close_out",
+    "price": 9930,
+    "description": "Thank them, leave the door open and stop following up."
+   }
+  ]
+ }
+]
