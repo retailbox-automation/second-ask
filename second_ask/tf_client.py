@@ -6,7 +6,7 @@ Every call reserves its worst-case cost in a shared append-only ledger before it
 spend cap holds across processes and threads. Token Factory has no spend limit of its own.
 """
 import fcntl, json, os, time, urllib.error, urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 API = os.environ.get("TF_BASE_URL", "https://api.tokenfactory.nebius.com/v1")
@@ -49,6 +49,7 @@ class Reply:
     cost: float
     seconds: float
     raw: dict
+    headers: dict = field(default_factory=dict)  # x-ratelimit-* and retry-after response headers, lower-cased
 
     @property
     def truncated(self):
@@ -136,7 +137,7 @@ class Client:
         p_in, p_out = PRICES[model]
         body = {"model": model, "messages": messages, **params}
         est_in = len(json.dumps(body)) / 3  # generous: ~3 characters per token
-        reserve = (est_in * p_in + params.get("max_tokens", 8192) * p_out) / 1e6
+        reserve = (est_in * p_in + params.get("max_tokens", 8192) * params.get("n", 1) * p_out) / 1e6  # n choices bill n outputs
         for attempt in range(self.max_attempts):
             self.ledger.reserve(self.tag, reserve, f"reserve {model}")
             t0 = time.time()
@@ -145,6 +146,8 @@ class Client:
                                              headers={"Content-Type": "application/json", "Authorization": f"Bearer {self.key}"})
                 with urllib.request.urlopen(req, timeout=self.timeout) as r:
                     raw = json.load(r)
+                    headers = {k.lower(): v for k, v in (getattr(r, "headers", None) or {}).items()
+                               if k.lower().startswith("x-ratelimit") or k.lower() == "retry-after"}
             except urllib.error.HTTPError as e:
                 self.ledger.settle(self.tag, -reserve, f"release {model} HTTP {e.code}")  # error responses are not billed
                 if e.code in RETRY_STATUSES and attempt + 1 < self.max_attempts:
@@ -157,6 +160,7 @@ class Client:
                     continue
                 raise TFError(None, f"{type(e).__name__}: {e}")
             reply = _parse(model, raw, time.time() - t0, p_in, p_out)
+            reply.headers = headers
             self.ledger.settle(self.tag, reply.cost - reserve, f"settle {model}")
             return reply
         raise AssertionError("unreachable")

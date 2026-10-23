@@ -154,3 +154,27 @@ def test_ledger_cap_holds_under_concurrency(tmp_path):
         t.join()
     assert (len(ok), len(refused)) == (5, 15)
     assert led.spent()[0] == pytest.approx(0.05)
+
+
+class _WithHeaders(io.BytesIO):
+    def __init__(self, data, headers):
+        super().__init__(data)
+        self.headers = headers
+
+
+def test_rate_limit_headers_are_kept_and_others_dropped(ledger, monkeypatch):
+    c, fake = client(ledger, monkeypatch, [])
+    body = json.dumps(reply(content="ok")).encode()
+    hdrs = {"X-RateLimit-Remaining-Tokens": "199000", "Retry-After": "3", "Set-Cookie": "secret"}
+    monkeypatch.setattr(tf.urllib.request, "urlopen", lambda req, timeout=None: _WithHeaders(body, hdrs))
+    r = c.chat(SUPER, [], max_tokens=64)
+    assert r.headers == {"x-ratelimit-remaining-tokens": "199000", "retry-after": "3"}
+
+
+def test_n_choices_reserve_n_outputs(tmp_path, monkeypatch):
+    one = (len(json.dumps({"model": SUPER, "messages": [], "max_tokens": 1000, "n": 3})) / 3 * 0.30 + 1000 * 0.90) / 1e6
+    led = tf.Ledger(tmp_path / "l.jsonl", caps={"total": 2 * one, "b2": 2 * one})  # room for one output, not three
+    c, fake = client(led, monkeypatch, [reply(content="never")])
+    with pytest.raises(tf.BudgetExceeded):
+        c.chat(SUPER, [], max_tokens=1000, n=3)
+    assert fake.requests == []
