@@ -2,7 +2,7 @@
 
 **Second Ask, measured: in our pre-registered test, Nemotron did not beat a good rulebook. Against `smart_rules`, a rulebook we wrote with full knowledge of the simulator, the routed design (Lightning labels, Super chooses) came out at -$36,147 [-$63,856, -$13,051] against it over 200 simulated customers (-$181 [-$319, -$65] per customer): behind. Super-only: -$16,720 [-$43,004, +$8,643] (-$84 [-$215, +$43] per customer): no clear difference. The test changed what we ship: Super labels by default. All $ are simulated margin on illustrative prices (not market data).**
 
-Pre-registered manifest `tournament/MANIFEST.json`: sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` of its canonical JSON (sorted keys, no spaces; the file's own sha256 is `e3551d565a561fd1…`). Frozen in commit `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; the run started 2026-10-24T10:58:31Z and finished 2026-10-24T11:37:04Z. `second_ask/**` and the manifest did not change after the freeze. Run: 2403 conversation rows (2400 clean, 3 errored and re-run clean), real Token Factory spend $5.78.
+Pre-registered manifest `tournament/MANIFEST.json`: sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` of its canonical JSON (sorted keys, no spaces; the file's own sha256 is `e3551d565a561fd1…`). Frozen in commit `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; the run started 2026-10-24T10:58:31Z and finished 2026-10-24T11:37:04Z. `second_ask/**` and the manifest did not change between the freeze and the end of the run (the second test later changed three files; this run reproduces at commit `6d66d53`). Run: 2403 conversation rows (2400 clean, 3 errored and re-run clean), real Token Factory spend $5.97.
 
 Numbers on this page are computed from the run files by `python3 -m second_ask.tournament.run results` (the pre-registered tables) and `tools/run_checks.py results-md` (this page). That generator is not in the manifest and was first committed in `db01ff6` at 2026-10-24T11:39:15Z, after the run: the numbers are computed, but the presentation and wording were chosen with the results known.
 
@@ -125,8 +125,8 @@ False opt-outs (a customer who did not ask to stop, stopped as an opt-out): 1.
 ## Integrity
 
 - Errored rows 3 (HTTP 503 after the client's retries), each clean on its second attempt; customers excluded 0; customers kept 200 of 200.
-- Token Factory error replies in the run window, all retried: Qwen3-30B-A3B-Instruct-2507 HTTP 503 x31; Nemotron-3-Ultra-550b-a55b HTTP 503 x6; Nemotron-3.5-Super-VL HTTP 502 x1; Nemotron-3.5-Super-VL HTTP 503 x2; Nemotron-3_5-Lightning HTTP 503 x2; nemotron-3-super-120b-a12b HTTP 503 x2; HTTP 429: 0. Reservations kept on network-level retries (held as spend): 13.
-- Usage-based cost of the kept conversations: shop $5.5897, buyer writer $0.1439; the ledger window ($5.7776) also holds the errored attempts and the kept reservations.
+- Token Factory error replies in the run window, all retried: Qwen3-235B-A22B-Instruct-2507 HTTP 503 x143; Qwen3-30B-A3B-Instruct-2507 HTTP 503 x221; Nemotron-3-Ultra-550b-a55b HTTP 503 x6; Nemotron-3.5-Super-VL HTTP 502 x1; Nemotron-3.5-Super-VL HTTP 503 x2; Nemotron-3_5-Lightning HTTP 503 x2; nemotron-3-super-120b-a12b HTTP 503 x2; HTTP 429: 0. Reservations kept on network-level retries (held as spend): 13.
+- Usage-based cost of the kept conversations: shop $5.5897, buyer writer $0.1439; the ledger window ($5.9693) also holds the errored attempts and the kept reservations.
 - Off-arm calls 0, chronology errors 0, buyer text from the template 0, fallback labels 2 (routed), duplicate outcome lines 0.
 
 ## Simulator gates (text-blind rule policies)
@@ -137,6 +137,20 @@ False opt-outs (a customer who did not ask to stop, stopped as an opt-out): 1.
 ## Smoke before the run (mechanics and cost only)
 
 `tournament/smoke-b/`: 38 conversations, 38 clean, spend $0.1334. Two customers per type rather than the population mix; `smart_rules` and `concession_heuristic` were not in it (their only cost is the buyer writer). Not results.
+
+## Second test (v2): wording outside the simulator's vocabulary
+
+**Stopped before the main run: the buyer writer did not pass the pre-registered vocabulary gate, so v2 has no policy results and the headline above stands.**
+
+Why: on v1's 3,133 buyer lines, 97.1 % trip at least one of `smart_rules`' triggers and 79.0 % the rule meant for the customer's type (pre-registered definition). v2 asked whether the rulebook's edge survives when a model that never saw the rules writes the same facts in its own words (`deepseek-ai/DeepSeek-V4-Flash-0731`; the facts come from `env.intent`, which a test checks against v1's instructions on every card and state). Everything else is the v1 code, checked by sha256; only `env.py`, `run.py` and `manifest.py` changed. Ultra was not in v2.
+
+- Pre-registered: manifest `83010fc474bf3a7b0a5aaf3269276ff695f221b75a1055a3c2b915e5f0a03e7d`, pushed 2026-10-24T12:13:59Z (`tournament/v2/PREREG.md`): hypothesis, decision rule (lower bounds of D2 and DiD above 0), budget, and gates L_own at most 59.0 %, fidelity at least 90.0 %, template at most 2.0 %.
+- First smoke (52 conversations, `tournament/v2/smoke.83010fc4/`): L_own 71.0 % [60.9 %, 81.2 %] (fail), fidelity 79.7 % [69.6 %, 88.4 %] (fail; the v1-writer reference 90.1 %), template 0.0 %, integrity pass.
+- **The gates were amended after the failed smoke**: manifest `0f6f76bc31d04a3197271422f666da014e02c82de8c23dd1010824019e2b899e`, pushed 2026-10-24T12:26:46Z before the second smoke. The judge mapping (household-must-review accepts "undecided" when someone else with a say is mentioned; a landlord counts), L_own without the $-amount pattern (a faithful price line has to state the amount), and the one allowed revision of the writer prompt. Thresholds, hypothesis, decision rules, policies and budget unchanged. Before, after and why, with example lines: `tournament/v2/CHANGES.md`.
+- Disclosure: Policy outcomes of the first v2 smoke were seen before the amendment, in two episodes. (1) 2026-10-24T12:14:49Z: the smoke command printed its per-policy table (net and bookings, 52 conversations) and it was read: on the same 23 customers smart_rules $11,308 and super_only $10,773, and super_vl on 2 customers $1,066; this was before the amendment was proposed (12:18:52Z). (2) about 2026-10-24T12:20:09Z, after the blinding condition had been set, a check of the log printed the whole table, so routed (2 customers, $1,066) and shop_rule (2 customers, $982) were also seen. No interval, D2 or DiD was computed. From this manifest on, v2 smokes print no outcome table, and the second smoke and the full run are read only through tools/v2_analysis.py after the full run.
+- Second smoke (48 conversations on customers the first smoke did not use, `tournament/v2/smoke/`): fidelity 94.9 % [89.7 %, 98.7 %] (pass; 91.0 % under the first mapping; the v1-writer reference 93.1 %, 90.8 % under the first mapping), template 0.0 % (pass), integrity pass, **L_own 71.8 % [61.5 %, 80.8 %] (fail)**; by type family 65.4 % (n = 26), price 75.0 % (n = 20), ready 40.0 % (n = 10), timing_pause 100.0 % (n = 9), timing_slot 84.6 % (n = 13). For comparison: v1 under the same definition 76.7 %; with the $-amount pattern 76.9 % (v1 79.0 %). "v1 minus 20 points" (56.7 %) would not have been met either.
+- What this shows, and what it does not: a writer that never saw the rules, writing the same facts in its own words, still mostly used phrasing the rulebook catches, because the facts themselves (how many weeks, the deadline day, who else decides, the amount) are what the rulebook keys on. So this design could not separate wording from facts. It says nothing either way about whether the rulebook or Nemotron holds up on real customers' wording.
+- v2 spend (two smokes, the judge and the references): $0.19 of the $6 budget.
 
 ## What is real, what is seeded, what is simulated
 
@@ -164,8 +178,9 @@ False opt-outs (a customer who did not ask to stop, stopped as an opt-out): 1.
 ## Reproduce
 
 ```
+git checkout 6d66d53                                    # the code of this run
 python3 -m pytest -q                                        # offline tests
 python3 -m second_ask.tournament.run full --approve 1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e   # live, needs NEBIUS_API_KEY
 python3 -m second_ask.tournament.run results                 # pre-registered tables from rows.jsonl
-python3 tools/run_checks.py results-md tournament/full       # this page and the answer in README.md
+git checkout lane-b2 && python3 tools/run_checks.py results-md tournament/full   # this page and README's answer
 ```

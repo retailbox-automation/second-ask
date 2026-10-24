@@ -291,6 +291,105 @@ def _reading(c, n=None):
             f"{_usd(c['hi'] / n)} ahead is inside the interval")
 
 
+V2 = ROOT / "tournament" / "v2"
+
+
+def _pct(x):
+    return f"{x * 100:.1f} %"
+
+
+def _pci(c):
+    return f"{_pct(c['share'])} [{_pct(c['lo'])}, {_pct(c['hi'])}]" if c and c.get("share") is not None else "-"
+
+
+def _pushed(path, first=False):
+    """When the commit that added (first=True) or last changed a file reached origin/lane-b2, by the reflog (UTC)."""
+    pushes = {}
+    for line in _git("reflog", "show", "--date=iso-strict", "refs/remotes/origin/lane-b2").splitlines():
+        pushes.setdefault(line.split()[0], line.split("@{", 1)[1].split("}", 1)[0])
+    commits = _git("log", "--format=%h", *(["--diff-filter=A"] if first else []), "--", path).split("\n")
+    order = _git("log", "--format=%h").split("\n")  # newest first: the first push at or after the commit
+    for h in commits[:1]:
+        later = order[:order.index(h) + 1] if h in order else []
+        hit = [pushes[x] for x in reversed(later) if x in pushes]
+        if hit:
+            return datetime.fromisoformat(hit[0]).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return "not found in the reflog"
+
+
+def v2_status():
+    """One sentence on the second test for README, or None."""
+    if not (V2 / "smoke" / "gates.json").exists():
+        return None
+    g = json.loads((V2 / "smoke" / "gates.json").read_text())
+    if g["pass"]:
+        return None
+    return (f"A second pre-registered test, with customers wording the same facts freely, stopped before its main run: "
+            f"the buyer writer did not pass the vocabulary gate (L_own {_pct(g['leakage_v2']['L_own']['share'])} against "
+            f"at most {_pct(json.loads((V2 / 'MANIFEST.json').read_text())['gates_v2']['L_own_max'])}).")
+
+
+def v2_section():
+    """The second test (v2), from its manifests, CHANGES and the two smokes' gates.json. No policy outcome of v2."""
+    if not (V2 / "MANIFEST.json").exists():
+        return []
+    m2 = json.loads((V2 / "MANIFEST.json").read_text())
+    sha2 = (V2 / "MANIFEST.sha256").read_text().split()[0]
+    sha1 = (V2 / "smoke.83010fc4" / "MANIFEST.sha256").read_text().split()[0]
+    g1 = json.loads((V2 / "smoke.83010fc4" / "gates.json").read_text())
+    g2 = json.loads((V2 / "smoke" / "gates.json").read_text()) if (V2 / "smoke" / "gates.json").exists() else None
+    r1 = json.loads((V2 / "smoke.83010fc4" / "run_report.json").read_text())
+    r2 = json.loads((V2 / "smoke" / "run_report.json").read_text()) if (V2 / "smoke" / "run_report.json").exists() else {}
+    gt, v1b = m2["gates_v2"], g1["leakage_v1"]
+    L = ["## Second test (v2): wording outside the simulator's vocabulary", ""]
+    if g2 and not g2["pass"]:
+        L += ["**Stopped before the main run: the buyer writer did not pass the pre-registered vocabulary gate, so v2 has "
+              "no policy results and the headline above stands.**", ""]
+    L += [f"Why: on v1's {v1b['L_own']['n']:,} buyer lines, {_pct(v1b['L_any']['share'])} trip at least one of "
+          f"`smart_rules`' triggers and {_pct(v1b['L_own']['share'])} the rule meant for the customer's type (pre-registered "
+          "definition). v2 asked whether the rulebook's edge survives when a model that never saw the rules writes the same "
+          f"facts in its own words (`{m2['buyer_simulator']['model']}`; the facts come from `env.intent`, which a test checks "
+          "against v1's instructions on every card and state). Everything else is the v1 code, checked by sha256; only "
+          "`env.py`, `run.py` and `manifest.py` changed. Ultra was not in v2.", "",
+          f"- Pre-registered: manifest `{sha1}`, pushed {_pushed('tournament/v2/PREREG.md', first=True)} "
+          f"(`tournament/v2/PREREG.md`): hypothesis, decision rule (lower bounds of D2 and DiD above 0), budget, and gates "
+          f"L_own at most {_pct(gt['L_own_max'])}, fidelity at least {_pct(gt['fidelity_min'])}, template at most "
+          f"{_pct(gt['template_max'])}.",
+          f"- First smoke ({r1.get('rows')} conversations, `tournament/v2/smoke.83010fc4/`): L_own {_pci(g1['leakage_v2']['L_own'])} "
+          f"(fail), fidelity {_pci(g1['fidelity_v2'])} (fail; the v1-writer reference "
+          f"{_pct(g1['reference_v1_writer']['fidelity']['share'])}), template {_pct(g1['template']['share'])}, integrity "
+          f"{'pass' if g1['integrity']['ok'] else 'fail'}.",
+          f"- **The gates were amended after the failed smoke**: manifest `{sha2}`, pushed "
+          f"{_pushed('tournament/v2/MANIFEST.sha256')} before the second smoke. The judge mapping (household-must-review "
+          "accepts \"undecided\" when someone else with a say is mentioned; a landlord counts), L_own without the $-amount "
+          "pattern (a faithful price line has to state the amount), and the one allowed revision of the writer prompt. "
+          "Thresholds, hypothesis, decision rules, policies and budget unchanged. Before, after and why, with example "
+          "lines: `tournament/v2/CHANGES.md`.",
+          f"- Disclosure: {m2['amendment']['disclosure']}"]
+    if g2:
+        d = g2["descriptive"]
+        L += [f"- Second smoke ({r2.get('rows')} conversations on customers the first smoke did not use, "
+              f"`tournament/v2/smoke/`): fidelity {_pci(g2['fidelity_v2'])} (pass; {_pct(g2['fidelity_v2']['share_old_mapping'])} "
+              f"under the first mapping; the v1-writer reference {_pct(g2['reference_v1_writer']['fidelity']['share'])}, "
+              f"{_pct(g2['reference_v1_writer']['fidelity']['share_old_mapping'])} under the first mapping), template "
+              f"{_pct(g2['template']['share'])} (pass), integrity {'pass' if g2['integrity']['ok'] else 'fail'}, "
+              f"**L_own {_pci(g2['leakage_v2']['L_own'])} ({'pass' if g2['gates']['L_own'] else 'fail'})**; by type "
+              + ", ".join(f"{t} {_pct(v['share'])} (n = {v['n']})" for t, v in g2["leakage_v2"]["L_own_by_type"].items())
+              + f". For comparison: v1 under the same definition {_pct(d['L_own_v1_without_amount']['share'])}; with the "
+              f"$-amount pattern {_pct(d['L_own_with_amount']['share'])} (v1 {_pct(d['L_own_v1_with_amount']['share'])}). "
+              f"\"v1 minus 20 points\" ({_pct(d['L_own_v1_without_amount']['share'] - 0.20)}) would "
+              f"{'' if d['would_pass_v1_minus_20pp'] else 'not '}have been met either.",
+              "- What this shows, and what it does not: a writer that never saw the rules, writing the same facts in its "
+              "own words, still mostly used phrasing the rulebook catches, because the facts themselves (how many weeks, "
+              "the deadline day, who else decides, the amount) are what the rulebook keys on. So this design could not "
+              "separate wording from facts. It says nothing either way about whether the rulebook or Nemotron holds up "
+              "on real customers' wording.",
+              f"- v2 spend (two smokes, the judge and the references): "
+              f"{_usd(r1.get('spent_usd', 0) + r2.get('spent_usd', 0) + g1.get('judge_spent_usd', 0) + g2.get('judge_spent_usd', 0), 2)} "
+              "of the $6 budget."]
+    return L + [""]
+
+
 def cmd_results_md(d, out_path=None):
     """RESULTS.md, every number computed here from the run files (rows, outcomes, results.json, smoke-b, manifest,
     buyers, ledger, git). The wording around the numbers is fixed in this function, written after the run."""
@@ -344,7 +443,8 @@ def cmd_results_md(d, out_path=None):
          f"Pre-registered manifest `tournament/MANIFEST.json`: sha256 `{sha}` of its canonical JSON (sorted keys, no "
          f"spaces; the file's own sha256 is `{file_sha[:16]}…`). Frozen in commit `{freeze}` at {utc(freeze_t)}, pushed "
          f"{utc(push_t) if 'T' in push_t else push_t}; the run started {state.get('started')} and finished {ended}. "
-         f"`second_ask/**` and the manifest did not change after the freeze. Run: {report.get('rows')} conversation rows "
+         f"`second_ask/**` and the manifest did not change between the freeze and the end of the run (the second test later "
+         f"changed three files; this run reproduces at commit `{freeze}`). Run: {report.get('rows')} conversation rows "
          f"({report.get('clean_rows')} clean, {report.get('errored_rows')} errored and re-run clean), real Token Factory "
          f"spend {_usd(ledg['usd'], 2)}.", "",
          "Numbers on this page are computed from the run files by `python3 -m second_ask.tournament.run results` (the "
@@ -452,8 +552,9 @@ def cmd_results_md(d, out_path=None):
     L += ["## Smoke before the run (mechanics and cost only)", "",
           f"`tournament/smoke-b/`: {sreport.get('rows')} conversations, {sreport.get('clean_rows')} clean, spend "
           f"{_usd(sreport.get('spent_usd', 0), 4)}. Two customers per type rather than the population mix; `smart_rules` "
-          "and `concession_heuristic` were not in it (their only cost is the buyer writer). Not results.", "",
-          "## What is real, what is seeded, what is simulated", "",
+          "and `concession_heuristic` were not in it (their only cost is the buyer writer). Not results.", ""]
+    L += v2_section()
+    L += ["## What is real, what is seeded, what is simulated", "",
           f"- Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text, on "
           "simulated conversations. The $ score depends only on the chosen move: the buyer code never reads the shop's "
           "message (`second_ask/tournament/env.py`, `react`), so message wording changes no customer decision and message "
@@ -498,20 +599,23 @@ def cmd_results_md(d, out_path=None):
           f"14. Ultra is not in the routing, per spike S7 on the spike's gold set; in this tournament, descriptively, "
           f"ultra_only - super_only = {_ci_s(ultra_super)}: "
           "S7's choice is not confirmed here.", "",
-          "## Reproduce", "", "```", "python3 -m pytest -q                                        # offline tests",
+          "## Reproduce", "", "```", f"git checkout {freeze}                                    # the code of this run",
+          "python3 -m pytest -q                                        # offline tests",
           f"python3 -m second_ask.tournament.run full --approve {sha}   # live, needs NEBIUS_API_KEY",
           "python3 -m second_ask.tournament.run results                 # pre-registered tables from rows.jsonl",
-          "python3 tools/run_checks.py results-md tournament/full       # this page and the answer in README.md", "```", ""]
+          "git checkout lane-b2 && python3 tools/run_checks.py results-md tournament/full   # this page and README's answer",
+          "```", ""]
     (Path(out_path) if out_path else ROOT / "RESULTS.md").write_text("\n".join(L))
     readme = ROOT / "README.md"
     txt = readme.read_text()
     a, b = "<!-- results:start -->", "<!-- results:end -->"
     if a in txt and b in txt and not out_path:
+        v2 = v2_status()
         answer = (f"{a}\nNot in our pre-registered test: against a rulebook we wrote with full knowledge of the simulator, "
                   f"the routed design came out at {_per(main_r, n)} [{_sd(main_r['point'])} over {n} simulated customers; "
                   f"simulated margin on illustrative prices, not market data], "
                   f"Super-only showed no clear difference ({_per(main_s, n)}), and the test switched the default label "
-                  f"model to {lab['default_label_model']}.\n{b}")
+                  f"model to {lab['default_label_model']}." + (f" {v2}" if v2 else "") + f"\n{b}")
         readme.write_text(txt[:txt.index(a)] + answer + txt[txt.index(b) + len(b):])
     print(f"wrote {out_path or ROOT / 'RESULTS.md'}: {len(L)} lines")
     return 0

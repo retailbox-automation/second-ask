@@ -1,0 +1,6260 @@
+{
+ "at": "2026-10-24T12:29:07Z",
+ "integrity": {
+  "stop": "complete",
+  "rows": 48,
+  "clean": 48,
+  "errored": 0,
+  "http_429": 0,
+  "off_arm": 0,
+  "excluded": [],
+  "ok": true
+ },
+ "template": {
+  "share": 0.0,
+  "fallbacks": 0,
+  "messages": 78
+ },
+ "leakage_v2": {
+  "L_own": {
+   "share": 0.7179,
+   "lo": 0.6154,
+   "hi": 0.8077,
+   "n": 78
+  },
+  "L_own_with_amount": {
+   "share": 0.7692,
+   "lo": 0.6667,
+   "hi": 0.859,
+   "n": 78
+  },
+  "L_any": {
+   "share": 0.8718,
+   "lo": 0.7949,
+   "hi": 0.9359,
+   "n": 78
+  },
+  "L_own_by_type": {
+   "family": {
+    "share": 0.6538,
+    "lo": 0.4615,
+    "hi": 0.8077,
+    "n": 26
+   },
+   "price": {
+    "share": 0.75,
+    "lo": 0.55,
+    "hi": 0.95,
+    "n": 20
+   },
+   "ready": {
+    "share": 0.4,
+    "lo": 0.1,
+    "hi": 0.7,
+    "n": 10
+   },
+   "timing_pause": {
+    "share": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 9
+   },
+   "timing_slot": {
+    "share": 0.8462,
+    "lo": 0.6154,
+    "hi": 1.0,
+    "n": 13
+   }
+  }
+ },
+ "leakage_v1": {
+  "L_own": {
+   "share": 0.7667,
+   "lo": 0.7514,
+   "hi": 0.7807,
+   "n": 3133
+  },
+  "L_own_with_amount": {
+   "share": 0.7897,
+   "lo": 0.7743,
+   "hi": 0.8034,
+   "n": 3133
+  },
+  "L_any": {
+   "share": 0.971,
+   "lo": 0.9649,
+   "hi": 0.9764,
+   "n": 3133
+  },
+  "L_own_by_type": {
+   "channel": {
+    "share": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 8
+   },
+   "family": {
+    "share": 0.6831,
+    "lo": 0.6498,
+    "hi": 0.7164,
+    "n": 751
+   },
+   "price": {
+    "share": 0.9069,
+    "lo": 0.8868,
+    "hi": 0.927,
+    "n": 795
+   },
+   "ready": {
+    "share": 0.9961,
+    "lo": 0.9882,
+    "hi": 1.0,
+    "n": 255
+   },
+   "timing_pause": {
+    "share": 0.5798,
+    "lo": 0.5462,
+    "hi": 0.6134,
+    "n": 833
+   },
+   "timing_slot": {
+    "share": 0.8615,
+    "lo": 0.831,
+    "hi": 0.89,
+    "n": 491
+   }
+  }
+ },
+ "fidelity_v2": {
+  "share": 0.9487,
+  "lo": 0.8974,
+  "hi": 0.9872,
+  "n": 78,
+  "share_old_mapping": 0.9103,
+  "not_judged": 0,
+  "judge_errors": [],
+  "failure_kinds": {
+   "kind": 3,
+   "household": 1
+  },
+  "judged": [
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": false
+    },
+    "text": "Hey, thanks for the estimate\u2014looks good to me! We're happy to go ahead with the kitchen and bath GFCI outlets. Could you let us know a good time for someone to come by?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "quoted_visit": "Wednesday Nov 11",
+     "done_by": "Tuesday",
+     "because": "no_hot_water",
+     "someone_else_can_come_sooner": true
+    },
+    "text": "Hi, I need this done sooner than Wednesday Nov 11\u2014can you come before Tuesday? I have no hot water, so it's urgent. If someone else can come sooner, that would be great.",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Tuesday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "schedule_problem",
+     "give_reason": false
+    },
+    "text": "Hey, thanks for the estimate. Unfortunately, that visit date doesn't work for me\u2014could we try another time?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Thursday"
+    },
+    "text": "Hey, I know we already talked about this, but I really need it done by Thursday\u2014could we make that work?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Thursday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "quoted_visit": "Sunday Nov 08",
+     "done_by": "Friday",
+     "because": "no_hot_water",
+     "someone_else_can_come_sooner": true
+    },
+    "text": "Hey, I just saw your estimate and the visit you proposed for Sunday Nov 08 won't work\u2014I need it done by Friday because we have no hot water. Can you come sooner, or can someone else come earlier?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Friday"
+    },
+    "text": "I still need this done by Friday\u2014Saturday won't work. Can you get someone out before then?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Friday"
+    },
+    "text": "I still need this done by Friday\u2014Saturday won't work. Can you get someone out before then?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Friday"
+    },
+    "text": "I've told you twice now\u2014I need this done by Friday, not Saturday. Can you please send someone before then?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "quoted_visit": "Wednesday Nov 11",
+     "done_by": "Tuesday",
+     "because": "no_hot_water",
+     "someone_else_can_come_sooner": true
+    },
+    "text": "I just saw the estimate for the leaking shower valve, but I need it done sooner than Wednesday Nov 11\u2014we have no hot water and need it fixed by Tuesday. Can you send someone before then?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Tuesday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": false
+    },
+    "text": "Hey, thanks for the estimate\u2014that looks good to me. Could you let me know what time works for you to come by? Appreciate it!",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "schedule_problem",
+     "give_reason": false
+    },
+    "text": "Hey, I just got a chance to look at the estimate, and the date you offered for the visit won't work for me. Could we set up a different time?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": false
+    },
+    "text": "Hi! I just looked over the estimate and it looks good to me. Could you let me know what time works for a visit? Thanks!",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": false
+    },
+    "text": "Thanks for the estimate\u2014we're good with it. Can you let us know a time for the visit?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": true
+    },
+    "text": "We already said we're good with the estimate and just need a time for the visit.",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": true
+    },
+    "text": "We\u2019ve already said we\u2019re good with the estimate\u2014please just send us a time for the visit. Thanks.",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": true
+    },
+    "text": "We\u2019re good with the estimate and just need a time for the visit\u2014thanks.",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": true
+    },
+    "text": "We're all set with the estimate and just need a time for the visit\u2014thanks.",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": false
+    },
+    "text": "Hey, I finally got a chance to look over the estimate and it looks good to me\u2014go ahead with it. Could you let me know what time you might be able to come by?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "go_ahead",
+     "wants": "a visit time",
+     "repeat": false
+    },
+    "text": "We're good with the estimate for the roof replacement and gutter guards. Could you let us know when you can come by for a visit?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "give_a_figure": false
+    },
+    "text": "Hey, thanks for the estimate\u2014I just got a chance to look it over. The total is a bit more than I was hoping to spend, so I'm wondering if we can trim it down a little. Could you let me know what we could do to bring the cost down?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 9400
+    },
+    "text": "Hey, thanks for getting back to me. I'm still a bit worried about the total\u2014I was hoping to stay around $9,400 if we could. Could you let me know what we might cut out to make that work?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 9400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "give_a_figure": false
+    },
+    "text": "Hey, I finally got a chance to look over the estimate you sent. It all looks good, but the total is a bit more than I was hoping to spend right now. I was wondering if there's any way we could trim it down a bit\u2014maybe skip the optional extras? Let me know what you think.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": "optional extras"
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "I just got your estimate and need to go over it with my partner before we decide. We'll get back to you once we've had a chance to look at it together.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_still_discussing"
+    },
+    "text": "We're still going over the estimate together and haven't made a decision yet. We'll let you know once we've had a chance to talk it through more.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "could_pay": 400,
+     "figure_from": "competitor quote"
+    },
+    "text": "Hey, thanks for the estimate! I only just saw it now, and the total of $940 is more than I was hoping to spend. A competitor quoted me $400, so that\u2019s more in line with what I could pay. Could you let me know which option you\u2019d recommend if I go with just the capacitor and contactor?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 400
+    },
+    "text": "I'm still concerned about the price\u2014that $700 is still more than I'd like to spend. I could really only go up to around $400, which is what a competitor quoted me. Thanks for your help!",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 400
+    },
+    "text": "Hey, thanks for the info! I'm still a bit worried about the cost, though\u2014$700 is still more than I can really afford. I was hoping to stay around $400, which is what I was quoted elsewhere. What would you suggest if I just went with the basics?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 400
+    },
+    "text": "Hey, thanks again for the info! I'm still worried about the cost\u2014$700 is still more than I can really do. I could only go up to around $400, like the competitor quoted me. What would you recommend if I just stuck with the basics?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "I just saw the estimate, and I need to go over it with my partner before we can decide on anything. Could you hold off on scheduling for now?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_to_think",
+     "repeat": false
+    },
+    "text": "Hey, just got the estimate for the AC and air handler. We need a little time to think it over before we decide on anything. Thanks!",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_to_think",
+     "repeat": true
+    },
+    "text": "Hey, thanks for checking in! We're still thinking it over, no rush on our end. What would you recommend between the options? Maybe we can figure something out together.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my dad"
+    },
+    "text": "Hey, just got your estimate for the HVAC\u2014looks good. I need to run it by my dad before we decide, so I'll get back to you soon.",
+    "judge": {
+     "kind": "household",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_still_discussing"
+    },
+    "text": "Hey, still chatting with my dad about the estimate\u2014he's got some thoughts but we haven't nailed it down yet. I'll keep you posted once we sort it out!",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my dad",
+     "unnecessary_item": "UV air purifier",
+     "rest_of_estimate": "fine"
+    },
+    "text": "Hey, went through the estimate with my dad\u2014he thinks the UV air purifier is unnecessary, but everything else looks good to us.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": "UV air purifier"
+    },
+    "ok": false
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10220
+    },
+    "text": "Hey, so my dad and I went over the estimate together, and he's still not thrilled about the total\u2014it's a bit more than we're looking to spend. The UV purifier we can skip, but even without it, we're hoping to keep it around $10,220 if possible. Let me know what you think!",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10220,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": "UV purifier"
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_to_think",
+     "repeat": false
+    },
+    "text": "Hey, thanks for sending over the estimate. I've got it in hand now and need to think it over a bit before getting back to you.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "wants_it_later",
+     "wait_weeks_about": 3,
+     "because": "travelling"
+    },
+    "text": "Hi, thanks for the estimate\u2014I\u2019ll want the chimney flashing repair and gutter cleaning, but can we schedule it in about 3 weeks? I\u2019m travelling until then.",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 3,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "still_not_ready",
+     "wait_weeks_about": 1
+    },
+    "text": "I\u2019m still not ready to book yet\u2014can we hold off about another week before setting a time? I\u2019ll confirm then.",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 1,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "wants_it_later",
+     "wait_weeks_about": 3,
+     "because": "waiting_on_insurance"
+    },
+    "text": "Hey, thanks for the estimate\u2014I appreciate it. I'm actually waiting on my insurance to sort something out, so could we hold off and schedule the visit for about three weeks from now? Let me know if that works!",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 3,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "still_not_ready",
+     "wait_weeks_about": 1
+    },
+    "text": "Hey, thanks for checking in. I'm still not ready just yet\u2014could we push it about a week? Let's figure out a good time then.",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 1,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "could_pay": 450,
+     "figure_from": "competitor quote"
+    },
+    "text": "Hi! I finally got a chance to look over your estimate for the GFCI outlets, and I appreciate the detail. The $590 total is a bit more than I was hoping to spend\u2014I was really thinking more around $450, which is closer to what another electrician quoted me. Could we work something out?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 450,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 450
+    },
+    "text": "I appreciate the $520 offer, but I\u2019m still hoping to get closer to $450. That\u2019s really the max I can do\u2014any chance you can match that?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 450,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 450
+    },
+    "text": "I'm still hoping we can get closer to $450\u2014that's honestly about all I can swing for this. I know you've already come down to $520, but I really appreciate you working with me if there's any way to match that.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 450,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "wants_it_later",
+     "wait_weeks_about": 1,
+     "because": "money_arrives_later_this_month"
+    },
+    "text": "Hey, I got your estimate for the shower valve. Can we hold off on scheduling for about a week? Money\u2019s coming in later this month, so that works better. Thanks!",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 1,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "still_not_ready",
+     "wait_weeks_about": 1
+    },
+    "text": "Hey, sorry to keep you waiting\u2014can we work out a time about a week from now? That feels fair to both of us.",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": 1,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": false
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "quoted_visit": "Sunday Nov 08",
+     "done_by": "Friday",
+     "because": "no_hot_water",
+     "someone_else_can_come_sooner": true
+    },
+    "text": "Hi, I just saw your estimate for the repipe\u2014looks fine. But the visit on Sunday Nov 08 is too late for me\u2014I have no hot water and need it done by Friday. Can you come sooner?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Friday"
+    },
+    "text": "I still need this done by Friday\u2014Saturday is too late. Can you get someone out sooner?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Friday"
+    },
+    "text": "I still need it done by Friday, not Saturday. Can you get someone out sooner?",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "repeat": true,
+     "done_by": "Friday"
+    },
+    "text": "I already told you\u2014I need this done by Friday, not Saturday. Please get someone out sooner.",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Friday",
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "wants_it_later",
+     "wait_weeks_about": 3,
+     "because": "waiting_on_insurance"
+    },
+    "text": "Hey, thanks for the estimate! We're actually waiting on our insurance to sort things out, so could we hold off on the shower valve fix for about 3 weeks? I'll circle back then to set up a time. Appreciate it!",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 3,
+     "weekday": null,
+     "household": false,
+     "item": "shower valve fix"
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "could_pay": 450,
+     "figure_from": "competitor quote"
+    },
+    "text": "Hey, I just looked over the estimate\u2014thanks for sending it. The $590 total is a bit more than I was hoping to spend; a competitor quoted me around $450 for the same work. Would you be able to do it for $450?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 450,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 450
+    },
+    "text": "Hey, thanks for getting back to me. I really do appreciate the detail, but the $590 total is still more than I can swing\u2014I was really hoping to keep it around $450.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 450,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 450
+    },
+    "text": "Hey, thanks for the $520 offer\u2014I really appreciate you trying to work with me, but that's still more than I can do. I'd love to move forward, but I can only go up to $450.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 450,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "could_pay": 400,
+     "figure_from": "competitor quote"
+    },
+    "text": "Hey, I finally looked at your estimate and the $940 total is more than I was expecting. I got a competitor quote for around $400, and that's really what I was hoping to pay. Can we work something out?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 400
+    },
+    "text": "Thanks for getting back to me! I really do understand the warranty and all, but $940 is still way over what I was thinking\u2014I was hoping to stay around $400. Is there any way you could match that?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 400
+    },
+    "text": "Hey, thanks for the info! I get the warranty and all, but even $790 is more than double what I was hoping to spend\u2014I was really looking at around $400. Which option would you recommend if I'm trying to keep costs down?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": true,
+     "could_pay": 400
+    },
+    "text": "Thanks for sticking with me on this! I know you mentioned the warranty and all, but $940 is still way above what I can swing\u2014I was really hoping to stay around $400. Is there any cheaper option you'd suggest?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 400,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my dad"
+    },
+    "text": "Hey, I finally got a chance to look at the estimate, but I need to show it to my dad before I can confirm anything. He's the one I usually run big decisions by, so give me a bit to get his thoughts.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my dad",
+     "unnecessary_item": "UV air purifier",
+     "rest_of_estimate": "fine"
+    },
+    "text": "Hey, I finally went through the estimate with my dad, and we're on board with everything except the UV air purifier\u2014we don't need that. The rest looks good to us. What do you think?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": "UV air purifier"
+    },
+    "ok": false
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10220
+    },
+    "text": "Hey, thanks for updating that! We're good with everything except the total is still a bit more than we want to spend\u2014we were thinking more like $10,220. Can we work something out?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10220,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "give_a_figure": false
+    },
+    "text": "Hi! I just looked over the estimate you sent, and the total feels a bit steep for me right now. Could you let me know if there's any way to bring the cost down? Also, which option would you recommend for my place?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "wants_it_later",
+     "wait_weeks_about": 3,
+     "because": "travelling"
+    },
+    "text": "I just saw the estimate\u2014looks good. I'm traveling for about 3 weeks, so could we schedule the work for after I'm back? Let me know what works.",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 3,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "give_a_figure": false
+    },
+    "text": "Hey, I finally got a chance to look over the estimate you sent. The total seems a bit higher than I was hoping for\u2014can we talk about what\u2019s flexible? I\u2019d love to get this done, but I need to see if we can work something out.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "wants_it_later",
+     "wait_weeks_about": 1,
+     "because": "money_arrives_later_this_month"
+    },
+    "text": "Hey, the estimate looks fine, but could we hold off about a week? Money\u2019s coming in later this month, so I\u2019d rather schedule it then.",
+    "judge": {
+     "kind": "wait_until_later",
+     "amount": null,
+     "weeks": 1,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "give_a_figure": false
+    },
+    "text": "Hi, I just got the estimate for the panel upgrade. The total is a bit more than I was hoping to spend right now. Is there any way to bring the cost down?",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "I just got the estimate for the roof replacement and gutter guards, but I need my partner to review it before we can move forward with scheduling a visit. We'll get back to you once we've both looked it over.",
+    "judge": {
+     "kind": "household",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my partner",
+     "total": "more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "My partner and I went over the estimate together, and the total is more than we want to spend. We could do about $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "My partner and I looked over the estimate together, and the total is still more than we're looking to spend. We could manage about $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "My partner and I looked at the estimate again, and the total is still more than we're comfortable spending. We could do about $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "My partner and I went over the estimate one more time, and the total is still more than we're hoping to pay. We could manage around $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "My partner and I went through the estimate together, and the total is still more than we want to spend. We could manage around $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "I just saw the estimate\u2014looks good, but my partner needs to review it before we can move forward. Could you hold off on scheduling for now?",
+    "judge": {
+     "kind": "household",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my partner",
+     "total": "more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "My partner and I went over the estimate together, and we feel the total is more than we want to spend. We could manage around $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "We went over it again, and it's still more than we'd like to spend. We could do $10,260, so let's work something out.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "I just saw the estimate, but I need to go over it with my partner before we can move forward on the roof replacement. We'll get back to you about scheduling a visit once we've had a chance to review it together.",
+    "judge": {
+     "kind": "household",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my partner",
+     "total": "more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "We went through the estimate together, but the total is more than we want to spend. We could pay $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": false
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "We went over the estimate, and it's still more than we're comfortable spending. We could do $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "total": "still more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "We went over the estimate again, and it's still more than we'd like to spend\u2014we could do $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    },
+    "ok": true
+   }
+  ],
+  "examples_failed": [
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my dad",
+     "unnecessary_item": "UV air purifier",
+     "rest_of_estimate": "fine"
+    },
+    "text": "Hey, went through the estimate with my dad\u2014he thinks the UV air purifier is unnecessary, but everything else looks good to us.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": "UV air purifier"
+    }
+   },
+   {
+    "facts": {
+     "act": "still_not_ready",
+     "wait_weeks_about": 1
+    },
+    "text": "Hey, sorry to keep you waiting\u2014can we work out a time about a week from now? That feels fair to both of us.",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": 1,
+     "weekday": null,
+     "household": false,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my dad",
+     "unnecessary_item": "UV air purifier",
+     "rest_of_estimate": "fine"
+    },
+    "text": "Hey, I finally went through the estimate with my dad, and we're on board with everything except the UV air purifier\u2014we don't need that. The rest looks good to us. What do you think?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": "UV air purifier"
+    }
+   },
+   {
+    "facts": {
+     "act": "household_view",
+     "discussed_with": "my partner",
+     "total": "more than they want to spend",
+     "could_pay": 10260
+    },
+    "text": "We went through the estimate together, but the total is more than we want to spend. We could pay $10,260.",
+    "judge": {
+     "kind": "cost_too_high",
+     "amount": 10260,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    }
+   }
+  ]
+ },
+ "reference_v1_writer": {
+  "lines": 300,
+  "template_fallbacks": 8,
+  "fidelity": {
+   "share": 0.931,
+   "lo": 0.8966,
+   "hi": 0.9617,
+   "n": 261,
+   "share_old_mapping": 0.908,
+   "not_judged": 31,
+   "judge_errors": [
+    "TFError: Token Factory error 503: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx</cen",
+    "TFError: Token Factory error 503: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx</cen",
+    "TFError: Token Factory error 503: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx</cen",
+    "TFError: Token Factory error 503: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx</cen",
+    "TFError: Token Factory error 503: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx</cen"
+   ],
+   "failure_kinds": {
+    "kind": 18
+   },
+   "judged": [
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "email",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this\u2014mostly use email. Looks fine. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 290,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. I have a competitor quote for about $290.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 290,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my wife"
+     },
+     "text": "My wife needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 4,
+      "because": "after_the_holidays"
+     },
+     "text": "I'll take the AC and air handler replacement, but I won't be able to schedule it for about 4 weeks after the holidays. Thanks for the quote.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 4,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 1,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with this, but I won't be able to schedule it for about a week while I wait on insurance.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Friday"
+     },
+     "text": "Need the repipe done by Friday. Let me know if that\u2019s possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to replace the panel?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "give_a_figure": false
+     },
+     "text": "This is more than I expected. Do you recommend the load management module?",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "load management module"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 1
+     },
+     "text": "Still not ready to proceed. Maybe in about 1 week.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "Thanks for the estimate. I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 4,
+      "because": "money_arrives_later_this_month"
+     },
+     "text": "I'll go ahead with the full asphalt roof replacement, but I won't be able to start for about 4 weeks. The money will come in later this month.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 4,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my partner",
+      "total": "more than they want to spend",
+      "could_pay": 10260
+     },
+     "text": "We talked it over with my partner, and $13,140 is more than we want to spend. We could do about $10,260.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 10260,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 7700
+     },
+     "text": "This is still more than I can do. I could manage about $7,700.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 7700,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hi, can you let me know when you can come to install the EV charger circuit? We\u2019re ready when you are.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1480,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can manage. I got a quote from a competitor for about $1,480.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1480,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "Looks good. When can you come to replace the panel?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my husband",
+      "total": "more than they want to spend",
+      "could_pay": 350
+     },
+     "text": "We talked it over with my husband, and the total is more than we want to spend. We could do about $350.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 350,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "This is still more than I hoped for, but I appreciate the quote.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1730
+     },
+     "text": "Thanks for the estimate. It's still a bit more than I can manage. I could get close to $1,730 if we skip the load management module.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1730,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "load management module"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "sms",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this\u2014mostly using sms. Looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Can you let me know when you can come to install the EV charger circuit?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Friday"
+     },
+     "text": "Need the repipe done by Friday.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Wednesday Nov 11",
+      "done_by": "Tuesday",
+      "because": "no_hot_water",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Wednesday Nov 11 is too late. We need it done by Tuesday because we have no hot water, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Tuesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. Can you come out this week? I'm available Monday through Thursday.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family. Thanks for the estimate.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hi, just checking again when you might be able to come out to replace the shingles. Thanks!",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 580
+     },
+     "text": "This is still more than I can afford. I could manage about $580.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 580,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to replace the panel?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 5
+     },
+     "text": "Still not ready to move forward\u2014probably about 5 weeks out.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 5,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "email",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this\u2014mostly use email. Looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking in again\u2014do you have any availability to come out soon? Thanks.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 3650
+     },
+     "text": "The quote is still more than I can manage. I could do about $3,650.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 3650,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 3,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with the GFCI outlets, but I won't be able to schedule this for about 3 weeks. Waiting on insurance to settle first.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 3,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 1
+     },
+     "text": "Still not ready to proceed. Maybe in about 1 week.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Thursday"
+     },
+     "text": "Need this done by Thursday if possible. Thanks.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Thursday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1700,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is a bit more than I can manage. I got a quote from a competitor for about $1,700. Maybe we can work something out?",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1700,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my partner",
+      "total": "more than they want to spend",
+      "could_pay": 310
+     },
+     "text": "We talked it over with my partner, and the total is more than we want to spend. We could do about $310.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 310,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Saturday"
+     },
+     "text": "Need the GFCI outlets done by Saturday if possible. Thanks.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Saturday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 5,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with the repipe, but I won\u2019t be able to start for about 5 weeks while I wait on insurance approval.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 5,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 2,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with the work, but I won\u2019t be able to schedule it for about two weeks while I wait on insurance approval. Thanks for the estimate.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 2,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking when you might be able to come out to replace the capacitor and contactor? The surge protector can wait if needed.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protector"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 3440
+     },
+     "text": "The quote is still more than I can do. I could manage about $3,440.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 3440,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 2960
+     },
+     "text": "The quote is still more than I can do. I could manage about $2,960.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2960,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 8250
+     },
+     "text": "The quote is still more than I can manage. I could cover about $8,250.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 8250,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Friday"
+     },
+     "text": "Need the 200A panel replacement done by Friday. The whole-home surge protection is optional but would like it included if possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": "whole-home surge protection"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Sunday Nov 08",
+      "done_by": "Thursday",
+      "because": "system_out_house_hot",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quote for Sunday Nov 08 is too late\u2014we need this done by Thursday since the system's out and the house is hot. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Thursday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 330
+     },
+     "text": "Thanks for the estimate, but it's still more than I can do. I could manage about $330.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 330,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Thursday Nov 12",
+      "done_by": "Thursday",
+      "because": "no_hot_water",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Thursday Nov 12 is too late\u2014we need it done by Thursday because we have no hot water, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Thursday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1070
+     },
+     "text": "The quote is still more than I can manage. I could do about $1,070.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1070,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "This is still more than I hoped for, but I appreciate the estimate. Do you have a recommendation on the surge protection?",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protection"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my dad, and he thinks the UV air purifier isn't necessary. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with the landlord, who thinks the UV air purifier isn't needed. Otherwise, we're good with the rest.",
+     "judge": {
+      "kind": "other",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "This is still more than I hoped for, but I\u2019m thinking about it.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 13270
+     },
+     "text": "The quote is still more than I can do. I could manage about $13,270.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 13270,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to start?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1570,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. I got a quote from a competitor for about $1,570.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1570,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "schedule_problem",
+      "repeat": true
+     },
+     "text": "The timing is still an issue. We need to figure out a way to work around our schedule.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hi, just checking in\u2014when could you come to replace the capacitor and contactor? The surge protector was optional, so no need to include that if you're not doing it.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protector"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 6750,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. I got a competitor quote for about $6,750.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 6750,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "total": "more than they want to spend",
+      "could_pay": 2180
+     },
+     "text": "We talked it over with my dad, and the total is more than we want to spend. We could do about $2,180.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2180,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 6750,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can handle. I got a competitor quote for about $6,750.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 6750,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 5010,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can do. My competitor quoted about $5,010.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 5010,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "give_a_figure": false
+     },
+     "text": "This is more than I expected. I\u2019m not sure I need the load management module, but I\u2019ll think about it.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "load management module"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 2,
+      "because": "travelling"
+     },
+     "text": "We want to go ahead with the EV charger circuit, but not for about two weeks since we're traveling. Let me know if that works for you.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 2,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my husband",
+      "unnecessary_item": "Ridge vent",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my husband, and he thinks the ridge vent isn't needed. Otherwise, we're good with the rest.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "ridge vent"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over, thanks.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 4890
+     },
+     "text": "Thanks for the estimate. It's still more than I can afford\u2014around $4,890 is all I could manage.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 4890,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Tuesday"
+     },
+     "text": "We really need the shower valve fixed by Tuesday. The whole family is counting on it.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Tuesday",
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 4890,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can afford. My budget is about $4,890.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 4890,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't needed, but otherwise we're good with the quote. Thanks for the help!",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family. Thanks for the estimate.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking in\u2014do you have a better idea of when you could come out? I know you're busy, but I\u2019d like to get this taken care of soon.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to review this with you before we decide.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1370,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is higher than I can manage. I got a quote from a competitor for about $1,370.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1370,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hi, just checking again when you can come out to look at the roof?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 330
+     },
+     "text": "Thanks for the estimate. It's still more than I can do\u2014about $330 is my max.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 330,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Can you let me know when you can come to replace the 100A panel with a 200A one?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "email",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this\u2014mostly use email. Looks fine. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Wednesday Nov 11",
+      "done_by": "Wednesday",
+      "because": "system_out_house_hot",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "The quoted slot on Wednesday Nov 11 is too late. I need it done by Wednesday because the system is out and the house is hot. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Can you let me know when you can come to add the GFCI outlets in the kitchen and baths?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1480
+     },
+     "text": "This is still more than I can do. I could manage about $1,480.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1480,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. When can you come to replace the AC and air handler?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1730
+     },
+     "text": "Thanks for the estimate. It's still a bit more than I can manage\u2014maybe around $1,730.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1730,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my partner",
+      "unnecessary_item": "Ridge vent",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my partner, who thinks the Ridge vent is not needed. Otherwise, we're fine with the quote.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "Ridge vent"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Thursday Nov 12",
+      "done_by": "Wednesday",
+      "because": "system_out_house_hot",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "The quoted slot on Thursday Nov 12 is too late\u2014we need it done by Wednesday because the system is out and the house is hot. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord\u2014they think the UV air purifier isn't needed, but otherwise we're good with the quote. Thanks for the help.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to install the EV charger circuit?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Can you let me know when you can come to replace the panel?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "total": "more than they want to spend",
+      "could_pay": null
+     },
+     "text": "We talked it over with the landlord, and the total is more than we want to spend. We could do about None.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hi, just checking in\u2014do you have any availability to come out soon? Thanks!",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family, thanks. Just wanted to say we appreciate the quote and are considering the gutter guards.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Wednesday"
+     },
+     "text": "Need this done by Wednesday. Let me know if that\u2019s possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 6,
+      "because": "after_the_holidays"
+     },
+     "text": "I want to go ahead with the replacement, but I won't be able to schedule it for about 6 weeks after the holidays.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 6,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 2540
+     },
+     "text": "The quote is still more than I can do. I could manage about $2,540.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2540,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "Whole-home surge protection",
+      "rest_of_estimate": "fine"
+     },
+     "text": "My dad thinks the whole-home surge protection isn't needed, but otherwise I'm good with the quote. Thanks.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "whole-home surge protection"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "needs_to_think",
+      "repeat": false
+     },
+     "text": "I need to think it over before deciding on the GFCI outlets.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "GFCI outlets"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to start?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 6750,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can do. I got a competitor quote for about $6,750.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 6750,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 2
+     },
+     "text": "Still not ready to go ahead yet, probably in about 2 weeks. Thanks for the quote!",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 2,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord\u2014they think the UV air purifier isn't needed, but otherwise we're good with the quote. Just wanted to let you know.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "sms",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I only just saw this. It looks fine\u2014can you come when? Thanks.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Monday Nov 09",
+      "done_by": "Wednesday",
+      "because": "no_hot_water",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Monday Nov 09 is too late\u2014we need it done by Wednesday because we have no hot water, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 580,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can handle. My budget is about $580.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 580,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still going over the options, thanks for the quote. Looks good so far.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Monday Nov 09",
+      "done_by": "Tuesday",
+      "because": "system_out_house_hot",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Monday Nov 09 is too late. I need it done by Tuesday because the system is out and the house is hot. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Tuesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1480,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can manage. My competitor quoted about $1,480 for the same work.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1480,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my partner"
+     },
+     "text": "My partner needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 2960,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can do. My competitor quoted about $2,960 for the same work.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2960,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 4890,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can afford. My budget is about $4,890.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 4890,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my husband",
+      "unnecessary_item": "Gutter guards",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my husband, and he thinks the gutter guards aren't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "gutter guards"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1400,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is a bit more than I can handle. I got a quote from a competitor for about $1,400.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1400,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my wife",
+      "unnecessary_item": "Expansion tank",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my wife, and she thinks the expansion tank isn't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "expansion tank"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 13270
+     },
+     "text": "The quote is still more than I can do. I could manage about $13,270.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 13270,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 3440,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can afford. My budget is about $3,440.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 3440,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Thursday Nov 12",
+      "done_by": "Friday",
+      "because": "breakers_keep_tripping",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "The quoted slot on Thursday Nov 12 is too late. I need it done by Friday because the breakers keep tripping, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 290,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can handle. My competitor quoted about $290.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 290,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_to_think",
+      "repeat": false
+     },
+     "text": "I need to think it over before deciding on the AC and air handler replacement. Thanks for the estimate.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "The quote is still more than I hoped for.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't necessary, but otherwise we're good with the quote. Thanks for the details.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 1,
+      "because": "travelling"
+     },
+     "text": "We want to go ahead with the shingle replacement, but not for about a week because we're traveling.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 800
+     },
+     "text": "This is still more than I can do. I could manage about $800.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 800,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 330,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can afford. My budget is about $330.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 330,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking in\u2014do you have a time this week to come out? We\u2019ve been meaning to get this taken care of.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 820,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can do. My competitor quoted about $820.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 820,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I need to think about this and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "Surge protector",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the surge protector isn't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "surge protector"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 2100
+     },
+     "text": "The estimate is still more than I can manage. I could cover about $2,100.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2100,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1740
+     },
+     "text": "Thanks for the estimate. It's still more than I can do, but I could manage about $1,740.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1740,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1400
+     },
+     "text": "The quote is still a bit more than I can manage. I could swing about $1,400 if that works for you.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1400,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 3
+     },
+     "text": "Still not ready to proceed. Maybe in about 3 weeks.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 3,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 4,
+      "because": "travelling"
+     },
+     "text": "We want to do the repair, but not for about 4 weeks since we're traveling.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 4,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 1
+     },
+     "text": "Still not ready to go ahead yet\u2014maybe in about a week. Thanks for the estimate.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking in again\u2014do you have any availability to come out and replace the shingles on one slope? Thanks.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family, thanks for the estimate.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Tuesday Nov 10",
+      "done_by": "Thursday",
+      "because": "breakers_keep_tripping",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "The quoted slot on Tuesday Nov 10 is too late\u2014I need this done by Thursday because the breakers keep tripping. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Thursday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with my family. Thanks for the detailed quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Sunday Nov 08",
+      "done_by": "Friday",
+      "because": "no_hot_water",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Sunday Nov 08 is too late. We need it done by Friday because we have no hot water, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hi, just checking when you might be able to come out to replace the capacitor and contactor? The surge protector was optional, so we\u2019re good to go without that if it helps speed things up.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protector"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to install?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over, thanks.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 7700
+     },
+     "text": "The estimate is still more than I can manage. I could handle about $7,700. Any recommendations on what to prioritize?",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 7700,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 2900,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can do. My budget is about $2,900.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2900,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my husband",
+      "unnecessary_item": "Gutter guards",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my husband, who thinks the gutter guards aren't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "gutter guards"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my partner"
+     },
+     "text": "My partner needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 600
+     },
+     "text": "This is still more than I can do. I could manage about $600.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 600,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "Whole-home surge protection",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the whole-home surge protection isn't needed, but otherwise I'm good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "whole-home surge protection"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Sunday Nov 08",
+      "done_by": "Wednesday",
+      "because": "rain_in_forecast",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Sunday Nov 08 is too late\u2014I need it done by Wednesday because rain is in the forecast, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1730,
+      "figure_from": "budget"
+     },
+     "text": "The total is a bit more than I can manage. My budget is around $1,730, so I\u2019d need to skip the load management module.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1730,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "load management module"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord\u2014they think the UV air purifier isn't needed, but otherwise we're good with the quote. Thanks for the help.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 4
+     },
+     "text": "Still not ready to proceed, maybe in about 4 weeks.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 4,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "sms",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this. It looks fine\u2014can you come sometime soon?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my wife"
+     },
+     "text": "My wife needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 520,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. My competitor quoted about $520 for the same work.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 520,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 8380
+     },
+     "text": "The quote is still more than I can do. I could manage about $8,380.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 8380,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 290,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. My competitor quoted about $290 for the same work.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 290,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Wednesday"
+     },
+     "text": "Need the shower valve fixed by Wednesday. The kids are getting frustrated with no hot water.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Wednesday"
+     },
+     "text": "Need this done by Wednesday. Thanks.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Wednesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 430
+     },
+     "text": "The quote is still more than I can do. I could manage about $430.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 430,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. When can you come to start?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 1,
+      "because": "travelling"
+     },
+     "text": "We want to do the full asphalt roof replacement, but not for about a week because we're traveling.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 3440,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can do. My budget is about $3,440.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 3440,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1370
+     },
+     "text": "This is still more than I can do. I could manage about $1,370.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1370,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 1
+     },
+     "text": "Still not ready to go ahead yet\u2014maybe in about a week. Thanks for the estimate.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "will_decide_later",
+      "give_reason_or_time": false
+     },
+     "text": "Thanks for the estimate. I'll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 1,
+      "because": "money_arrives_later_this_month"
+     },
+     "text": "I'll take you up on the quote, but I won't be able to start for about a week since my money comes in later this month.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "sms",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this message. It looks fine. Do you have availability to come soon?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't needed, but otherwise we're good with the quote. Thanks for the help.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 2
+     },
+     "text": "Still not ready to move forward, maybe in about 2 weeks.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 2,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 290
+     },
+     "text": "The quote is still more than I can do. I could manage about $290.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 290,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Friday"
+     },
+     "text": "Need the 100A panel replaced with 200A done by Friday. The whole-home surge protection is optional but would be helpful. Let me know if that\u2019s possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": "whole-home surge protection"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "sms",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this. Looks good\u2014do you have time to come sometime soon?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 2960,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. My competitor quoted about $2,960 for the same work.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2960,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 1,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with this, but I won\u2019t be able to start for about a week while I wait on insurance.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family. Thanks for the estimate.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "saw_it_only_now",
+      "usually_checks": "email",
+      "estimate": "fine",
+      "wants": "a visit time"
+     },
+     "text": "Sorry, I just saw this\u2014mostly use email. It looks fine; do you have availability to come soon?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 330
+     },
+     "text": "Thanks for the estimate. It's still more than I can do\u2014about $330 is all I can afford.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 330,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "Whole-home surge protection",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord\u2014they think the whole-home surge protection isn't needed, but otherwise I'm good with the quote. Thanks!",
+     "judge": {
+      "kind": "other",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "whole-home surge protection"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 1
+     },
+     "text": "Still not ready to go ahead yet\u2014maybe in about a week. Thanks for the quote.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1610,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can manage. My competitor quoted about $1,610.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1610,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Thursday"
+     },
+     "text": "Need the full asphalt roof replacement done by Thursday. Let me know if that\u2019s possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Thursday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 990,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can handle. My budget is about $990.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 990,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_to_think",
+      "repeat": false
+     },
+     "text": "I need to think it over before deciding on the repair.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 1
+     },
+     "text": "Still not ready to move forward yet\u2014maybe in about a week. Thanks for the estimate.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come to replace the panel?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "give_a_figure": false
+     },
+     "text": "This is more than I expected. Do you have a recommendation on which option to go with?",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 2
+     },
+     "text": "Still not ready to move forward. Maybe in about 2 weeks.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 2,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with myself, thanks.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 13270,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can do. My budget is about $13,270.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 13270,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1960
+     },
+     "text": "The estimate is still more than I can do. I could manage about $1,960.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1960,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 6,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with the repipe, but I won't be able to start for about 6 weeks while I wait on insurance approval. Thanks for your patience.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 6,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "still_not_ready",
+      "wait_weeks_about": 4
+     },
+     "text": "Still not ready to move forward, maybe in about 4 weeks.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 4,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1740
+     },
+     "text": "Thanks for the estimate. It's still more than I can handle, but I could manage about $1,740.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1740,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Tuesday Nov 10",
+      "done_by": "Thursday",
+      "because": "breakers_keep_tripping",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Tuesday Nov 10 is too late\u2014need it done by Thursday because breakers keep tripping. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Thursday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 820,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can afford. My competitor quoted about $820.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 820,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my wife"
+     },
+     "text": "My wife needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Tuesday"
+     },
+     "text": "We really need the shower valve fixed by Tuesday. The kids can't use the bathroom after school.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Tuesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 4890,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can afford. My budget is about $4,890.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 4890,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1070
+     },
+     "text": "The quote is still more than I can do. I could manage about $1,070.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1070,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 2,
+      "because": "travelling"
+     },
+     "text": "We want to go ahead with the EV charger circuit, but not for about two weeks since we're traveling. Let me know if that works for you.",
+     "judge": {
+      "kind": "wait_until_later",
+      "amount": null,
+      "weeks": 2,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1740,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is more than I can handle. I got a competitor quote for about $1,740.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1740,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my wife"
+     },
+     "text": "My wife needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "Annual maintenance plan",
+      "rest_of_estimate": "fine"
+     },
+     "text": "I talked it over with my landlord, who thinks the annual maintenance plan isn't needed. Otherwise, I'm fine with the quote.",
+     "judge": {
+      "kind": "other",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "annual maintenance plan"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "This looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 2620,
+      "figure_from": "budget"
+     },
+     "text": "The total is more than I can afford. My budget is about $2,620.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2620,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 1290
+     },
+     "text": "This is still more than I can do. I could manage about $1,290.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1290,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_to_think",
+      "repeat": false
+     },
+     "text": "I need to think it over before deciding on the GFCI outlets in the kitchen and baths.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "GFCI outlets"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with the family. Thanks for the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_to_think",
+      "repeat": false
+     },
+     "text": "I need to think it over before deciding on the $720 quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_still_discussing"
+     },
+     "text": "Still talking it over with myself. The quote seems a bit high for just one slope.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Monday Nov 09",
+      "done_by": "Tuesday",
+      "because": "system_out_house_hot",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "Your quoted slot on Monday Nov 09 is too late. Need it done by Tuesday because the system is out and the house is hot. Someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Tuesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 430
+     },
+     "text": "The quote is still more than I can do. I could manage about $430.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 430,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 400
+     },
+     "text": "Thanks for the estimate. This is still more than I can do\u2014closer to $400 is what I could manage.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 400,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "quoted_visit": "Sunday Nov 08",
+      "done_by": "Friday",
+      "because": "no_hot_water",
+      "someone_else_can_come_sooner": true
+     },
+     "text": "The quoted slot on Sunday Nov 08 is too late\u2014we need it done by Friday because we have no hot water, and someone else can come sooner.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Saturday"
+     },
+     "text": "Need these GFCI outlets done by Saturday. The family\u2019s counting on it.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Saturday",
+      "household": true,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "could_pay": 2620
+     },
+     "text": "The quote is still more than I can do. I could manage about $2,620.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 2620,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Tuesday"
+     },
+     "text": "Need this done by Tuesday. Let me know if that\u2019s possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Tuesday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "Whole-home surge protection",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord, who thinks the whole-home surge protection isn't needed. Otherwise, I'm good with the rest. Thanks for the quote.",
+     "judge": {
+      "kind": "other",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "whole-home surge protection"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Just checking again\u2014when can you come to fix the shower valve? The estimate was $460.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "needs_it_sooner",
+      "repeat": true,
+      "done_by": "Friday"
+     },
+     "text": "Need the repipe done by Friday. Let me know if that's possible.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": "Friday",
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": false
+     },
+     "text": "The estimate looks good. When can you come?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "Surge protector",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the surge protector isn't needed. Otherwise, I'm fine with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "surge protector"
+     },
+     "ok": false
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my dad, who thinks the UV air purifier isn't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "household",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Can you let me know when you can come to install the EV charger circuit?",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "could_pay": 1700,
+      "figure_from": "competitor quote"
+     },
+     "text": "The total is a bit more than I can manage. I got a quote from a competitor for about $1,700.",
+     "judge": {
+      "kind": "cost_too_high",
+      "amount": 1700,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     },
+     "ok": true
+    }
+   ],
+   "examples_failed": [
+    {
+     "facts": {
+      "act": "wants_it_later",
+      "wait_weeks_about": 1,
+      "because": "waiting_on_insurance"
+     },
+     "text": "I want to go ahead with this, but I won't be able to schedule it for about a week while I wait on insurance.",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": 1,
+      "weekday": null,
+      "household": false,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "This is still more than I hoped for, but I appreciate the estimate. Do you have a recommendation on the surge protection?",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protection"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my dad, and he thinks the UV air purifier isn't necessary. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     }
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "This is still more than I hoped for, but I\u2019m thinking about it.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "give_a_figure": false
+     },
+     "text": "This is more than I expected. I\u2019m not sure I need the load management module, but I\u2019ll think about it.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "load management module"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't needed, but otherwise we're good with the quote. Thanks for the help!",
+     "judge": {
+      "kind": "go_ahead",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     }
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking in\u2014do you have a better idea of when you could come out? I know you're busy, but I\u2019d like to get this taken care of soon.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "Whole-home surge protection",
+      "rest_of_estimate": "fine"
+     },
+     "text": "My dad thinks the whole-home surge protection isn't needed, but otherwise I'm good with the quote. Thanks.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "whole-home surge protection"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my husband",
+      "unnecessary_item": "Gutter guards",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my husband, and he thinks the gutter guards aren't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "gutter guards"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my wife",
+      "unnecessary_item": "Expansion tank",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my wife, and she thinks the expansion tank isn't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "expansion tank"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't necessary, but otherwise we're good with the quote. Thanks for the details.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "Surge protector",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the surge protector isn't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "surge protector"
+     }
+    }
+   ]
+  },
+  "leakage": {
+   "share": 0.9521,
+   "lo": 0.9247,
+   "hi": 0.976,
+   "n": 292
+  }
+ },
+ "judge_spent_usd": 0.0384,
+ "judge_skipped": 0,
+ "descriptive": {
+  "L_own_with_amount": {
+   "share": 0.7692,
+   "lo": 0.6667,
+   "hi": 0.859,
+   "n": 78
+  },
+  "L_own_v1_without_amount": {
+   "share": 0.7667,
+   "lo": 0.7514,
+   "hi": 0.7807,
+   "n": 3133
+  },
+  "L_own_v1_with_amount": {
+   "share": 0.7897,
+   "lo": 0.7743,
+   "hi": 0.8034,
+   "n": 3133
+  },
+  "would_pass_v1_minus_20pp": false
+ },
+ "gates": {
+  "integrity": true,
+  "template": true,
+  "L_own": false,
+  "fidelity": true
+ },
+ "pass": false
+}

@@ -75,3 +75,19 @@ the progress log shows only each conversation's key and status. The second smoke
 ### What a second failure means
 If the second smoke fails any gate, v2 stops; it is reported as "the writer did not pass the gate" and the v1 framing
 stands. There is no further revision.
+
+## Result of the second smoke: v2 stopped
+The second smoke ran 2026-10-24T12:28:04–12:28:58Z on manifest 0f6f76bc: 48 conversations, all clean. An earlier attempt
+at 12:26:52Z stopped before any call, when fetching the API key timed out. Gates, 12:29:03–12:32:13Z
+(`tournament/v2/smoke/gates.json`):
+- fidelity 94.9 % [89.7, 98.7], pass (91.0 % under the first mapping; v1-writer reference 93.1 %, 90.8 % under the first
+  mapping);
+- template 0 %, pass; integrity, pass;
+- **L_own 71.8 % [61.5, 80.8], fail** (at most 59 %). By type: timing_pause 100 %, timing_slot 84.6 %, price 75.0 %,
+  family 65.4 %, ready 40.0 %.
+
+Descriptive: L_own with the $-amount pattern 76.9 %, v1 under the amended definition 76.7 %; "v1 minus 20 points"
+(56.7 %) would not have been met either.
+
+Per the pre-registered rule this is the second failure: v2 stops before its main run, there is no further revision, and
+the v1 framing stands. No policy outcome of the second smoke was read.
