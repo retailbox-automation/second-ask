@@ -1,0 +1,543 @@
+{
+ "at": "2026-10-24T12:14:56Z",
+ "integrity": {
+  "stop": "complete",
+  "rows": 52,
+  "clean": 52,
+  "errored": 0,
+  "http_429": 0,
+  "off_arm": 0,
+  "excluded": [],
+  "ok": true
+ },
+ "template": {
+  "share": 0.0,
+  "fallbacks": 0,
+  "messages": 69
+ },
+ "leakage_v2": {
+  "L_own": {
+   "share": 0.7101,
+   "lo": 0.6087,
+   "hi": 0.8116,
+   "n": 69
+  },
+  "L_any": {
+   "share": 0.9855,
+   "lo": 0.9565,
+   "hi": 1.0,
+   "n": 69
+  },
+  "L_own_by_type": {
+   "family": {
+    "share": 0.5,
+    "lo": 0.2917,
+    "hi": 0.7083,
+    "n": 24
+   },
+   "price": {
+    "share": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 15
+   },
+   "ready": {
+    "share": 0.8333,
+    "lo": 0.5,
+    "hi": 1.0,
+    "n": 6
+   },
+   "timing_pause": {
+    "share": 0.8,
+    "lo": 0.5,
+    "hi": 1.0,
+    "n": 10
+   },
+   "timing_slot": {
+    "share": 0.6429,
+    "lo": 0.3571,
+    "hi": 0.8571,
+    "n": 14
+   }
+  }
+ },
+ "leakage_v1": {
+  "L_own": {
+   "share": 0.7897,
+   "lo": 0.7743,
+   "hi": 0.8034,
+   "n": 3133
+  },
+  "L_any": {
+   "share": 0.971,
+   "lo": 0.9649,
+   "hi": 0.9764,
+   "n": 3133
+  },
+  "L_own_by_type": {
+   "channel": {
+    "share": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 8
+   },
+   "family": {
+    "share": 0.6831,
+    "lo": 0.6498,
+    "hi": 0.7164,
+    "n": 751
+   },
+   "price": {
+    "share": 0.9975,
+    "lo": 0.9937,
+    "hi": 1.0,
+    "n": 795
+   },
+   "ready": {
+    "share": 0.9961,
+    "lo": 0.9882,
+    "hi": 1.0,
+    "n": 255
+   },
+   "timing_pause": {
+    "share": 0.5798,
+    "lo": 0.5462,
+    "hi": 0.6134,
+    "n": 833
+   },
+   "timing_slot": {
+    "share": 0.8615,
+    "lo": 0.831,
+    "hi": 0.89,
+    "n": 491
+   }
+  }
+ },
+ "fidelity_v2": {
+  "share": 0.7971,
+  "lo": 0.6957,
+  "hi": 0.8841,
+  "n": 69,
+  "not_judged": 0,
+  "judge_errors": [],
+  "failure_kinds": {
+   "kind": 13,
+   "weekday": 1,
+   "household": 1
+  },
+  "examples_failed": [
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "Hi! We got your estimate for the AC capacitor and contactor replacement at $890, plus the optional surge protector for $150. I need to go over this with my partner before we decide, but which option would you recommend?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "Hi, we got the estimate for the AC repair\u2014thanks for sending it over! My partner and I need to review it before deciding, especially on that optional surge protector. Which option would you recommend?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": "surge protector"
+    }
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "Hey, thanks for the estimate! My partner and I need to review it together before we decide, so we'll get back to you soon. Quick question: which option would you recommend for us?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "needs_it_sooner",
+     "quoted_visit": "Thursday Nov 12",
+     "done_by": "Wednesday",
+     "because": "system_out_house_hot",
+     "someone_else_can_come_sooner": true
+    },
+    "text": "Hi, I need this done sooner than Thursday Nov 12 if possible\u2014our system is out and the house is getting hot. I see you're booked until then, but if anyone else can come earlier, could we work something out? Let me know.",
+    "judge": {
+     "kind": "need_sooner",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Thursday",
+     "household": false,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "schedule_problem",
+     "give_reason": false
+    },
+    "text": "Hi, we got your estimate for fixing the leaking shower valve, and it looks good. Could you let us know when you might be able to come by to take care of it?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "Hi, thanks for the estimate. My partner and I need to review this before we decide, but just checking\u2014which option would you recommend, the capacitor and contactor alone or with the surge protector? Hope you're having a good day!",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my partner"
+    },
+    "text": "Hi, thanks for the estimate. My partner and I need to review it together before we decide, but we appreciate you sending it over. Which option would you recommend for us?",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "cost_concern",
+     "repeat": false,
+     "give_a_figure": false
+    },
+    "text": "Hi! Thanks for the estimate\u2014I was wondering if that $390 total is the best option you'd recommend for adding GFCI outlets in the kitchen and baths, or if there's another way to go. Just want to make sure I'm picking the right thing for our place.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "household_must_review",
+     "who": "my landlord"
+    },
+    "text": "Hey, my landlord needs to review the estimate for the GFCI outlets in the kitchen and baths before we move forward. I'll get back to you once they've had a chance to look it over. Thanks for sending it over!",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "schedule_problem",
+     "give_reason": false
+    },
+    "text": "Hi, I\u2019m trying to schedule the shower valve fix, but I don\u2019t have the details handy right now. Can we sort out a time that works for you?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": false,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "schedule_problem",
+     "repeat": true
+    },
+    "text": "Sunday at 2 works for me, but I\u2019ll need to check with my partner since they\u2019re usually home then too. Can we confirm that time is still open on your end?",
+    "judge": {
+     "kind": "go_ahead",
+     "amount": null,
+     "weeks": null,
+     "weekday": "Sunday",
+     "household": true,
+     "item": null
+    }
+   },
+   {
+    "facts": {
+     "act": "schedule_problem",
+     "repeat": true
+    },
+    "text": "I\u2019m still trying to sort out the schedule with my partner, since they\u2019re usually home at that time too. I haven\u2019t confirmed yet, but I\u2019ll get back to you as soon as I know.",
+    "judge": {
+     "kind": "undecided",
+     "amount": null,
+     "weeks": null,
+     "weekday": null,
+     "household": true,
+     "item": null
+    }
+   }
+  ]
+ },
+ "reference_v1_writer": {
+  "lines": 300,
+  "template_fallbacks": 8,
+  "fidelity": {
+   "share": 0.9007,
+   "lo": 0.8664,
+   "hi": 0.9349,
+   "n": 292,
+   "not_judged": 0,
+   "judge_errors": [],
+   "failure_kinds": {
+    "kind": 23,
+    "household": 5,
+    "weekday": 1
+   },
+   "examples_failed": [
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "give_a_figure": false
+     },
+     "text": "This is more than I expected. Can you recommend which option to go with?",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "Surge protector",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord, who thinks the surge protector isn't needed. Otherwise, I'm good with the quote.",
+     "judge": {
+      "kind": "other",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protector"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't needed, but otherwise we're good with the quote. Thanks for the help.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my landlord",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my landlord\u2014they think the UV air purifier isn't needed, but otherwise I'm good with the rest. Thanks for the estimate.",
+     "judge": {
+      "kind": "other",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "UV air purifier"
+     }
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": true,
+      "give_a_figure": false
+     },
+     "text": "Still more than I hoped it would be, but I\u2019m thinking about it.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "cost_concern",
+      "repeat": false,
+      "give_a_figure": false
+     },
+     "text": "This is more than I expected. I\u2019ll think about it and get back to you.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my husband",
+      "unnecessary_item": "Ridge vent",
+      "rest_of_estimate": "fine"
+     },
+     "text": "We talked it over with my husband, and he thinks the ridge vent isn't needed. Otherwise, we're good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "ridge vent"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_view",
+      "discussed_with": "my dad",
+      "unnecessary_item": "UV air purifier",
+      "rest_of_estimate": "fine"
+     },
+     "text": "Talked it over with my dad\u2014he thinks the UV air purifier isn't needed. Otherwise, I'm good with the quote.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": "UV air purifier"
+     }
+    },
+    {
+     "facts": {
+      "act": "go_ahead",
+      "wants": "a visit time",
+      "repeat": true
+     },
+     "text": "Hey, just checking in\u2014do you have any availability to come out soon? The quote was $980 total, with the surge protector being optional.",
+     "judge": {
+      "kind": "need_sooner",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": false,
+      "item": "surge protector"
+     }
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     }
+    },
+    {
+     "facts": {
+      "act": "household_must_review",
+      "who": "my landlord"
+     },
+     "text": "My landlord needs to look at it with you before we decide.",
+     "judge": {
+      "kind": "undecided",
+      "amount": null,
+      "weeks": null,
+      "weekday": null,
+      "household": true,
+      "item": null
+     }
+    }
+   ]
+  },
+  "leakage": {
+   "share": 0.9418,
+   "lo": 0.9144,
+   "hi": 0.9658,
+   "n": 292
+  }
+ },
+ "judge_spent_usd": 0.039,
+ "judge_skipped": 0,
+ "gates": {
+  "integrity": true,
+  "template": true,
+  "L_own": false,
+  "fidelity": false
+ },
+ "pass": false
+}
