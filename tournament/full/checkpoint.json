@@ -1,0 +1,20 @@
+{
+ "spent_usd": 0.5072,
+ "rest_usd": 4.0714,
+ "safety": 1.2,
+ "projected_total_usd": 5.3929,
+ "usd_per_conversation": {
+  "shop_rule": 6.92608695652174e-05,
+  "smart_rules": 6.802777777777777e-05,
+  "concession_heuristic": 8.843478260869565e-05,
+  "super_vl": 0.0014267777777777777,
+  "routed": 0.0013615,
+  "ultra_only": 0.006505939393939394,
+  "super_only": 0.00168525
+ },
+ "pending_jobs": 2179,
+ "at": "2026-10-24T11:01:05Z",
+ "finished_buyers": 20,
+ "limit_usd": 12.0,
+ "passed": true
+}

@@ -1,0 +1,1139 @@
+{
+ "rows": 2403,
+ "kept": {
+  "buyers_planned": 200,
+  "buyers_kept": 200,
+  "excluded": [],
+  "incomplete": [],
+  "errored_rows": 3,
+  "reruns": 3
+ },
+ "aggregate": {
+  "concession_heuristic": {
+   "n": 200,
+   "K": 1,
+   "bookings": 66.0,
+   "booking_rate": 0.33,
+   "margin": 84523.5,
+   "given_away": 7719.0,
+   "given_to_full_payers": 5990.0,
+   "menu_gap": 682.5,
+   "lost": 160797.5,
+   "lost_price": 41611.5,
+   "model_usd": 0.0,
+   "buyer_usd": 0.019186,
+   "net": 84523.5,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 100,
+    "K": 1,
+    "booked": {
+     "mean": 32.0,
+     "min": 32.0,
+     "max": 32.0
+    },
+    "margin": {
+     "mean": 37637.0,
+     "min": 37637.0,
+     "max": 37637.0
+    },
+    "given_away": {
+     "mean": 3960.5,
+     "min": 3960.5,
+     "max": 3960.5
+    },
+    "lost": {
+     "mean": 77230.0,
+     "min": 77230.0,
+     "max": 77230.0
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 37637.0,
+     "min": 37637.0,
+     "max": 37637.0
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
+  },
+  "routed": {
+   "n": 200,
+   "K": 3,
+   "bookings": 140.33333333333334,
+   "booking_rate": 0.7016666666666667,
+   "margin": 194072.83333333334,
+   "given_away": 5963.333333333333,
+   "given_to_full_payers": 652.8333333333334,
+   "menu_gap": 1920.1666666666667,
+   "lost": 53003.833333333336,
+   "lost_price": 9852.5,
+   "model_usd": 0.3229916666666667,
+   "buyer_usd": 0.011817,
+   "net": 194072.5108,
+   "violations": 0.0,
+   "unsure": 98.33333333333333,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 1.3333333333333333,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0023016033254156768,
+   "band": {
+    "n": 100,
+    "K": 3,
+    "booked": {
+     "mean": 68.33333333333333,
+     "min": 68.0,
+     "max": 69.0
+    },
+    "margin": {
+     "mean": 96190.83333333333,
+     "min": 92360.5,
+     "max": 99771.0
+    },
+    "given_away": {
+     "mean": 3084.3333333333335,
+     "min": 1456.0,
+     "max": 4052.0
+    },
+    "lost": {
+     "mean": 19552.333333333332,
+     "min": 15004.5,
+     "max": 22722.0
+    },
+    "model_usd": {
+     "mean": 0.16256166666666666,
+     "min": 0.16094,
+     "max": 0.164859
+    },
+    "net": {
+     "mean": 96190.6707,
+     "min": 92360.3394,
+     "max": 99770.83469999999
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 54.333333333333336,
+     "min": 49.0,
+     "max": 57.0
+    }
+   }
+  },
+  "shop_rule": {
+   "n": 200,
+   "K": 1,
+   "bookings": 91.0,
+   "booking_rate": 0.455,
+   "margin": 113053.0,
+   "given_away": 18524.5,
+   "given_to_full_payers": 12430.0,
+   "menu_gap": 991.5,
+   "lost": 121462.5,
+   "lost_price": 22072.0,
+   "model_usd": 0.0,
+   "buyer_usd": 0.015518,
+   "net": 113053.0,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 100,
+    "K": 1,
+    "booked": {
+     "mean": 45.0,
+     "min": 45.0,
+     "max": 45.0
+    },
+    "margin": {
+     "mean": 60303.5,
+     "min": 60303.5,
+     "max": 60303.5
+    },
+    "given_away": {
+     "mean": 10636.5,
+     "min": 10636.5,
+     "max": 10636.5
+    },
+    "lost": {
+     "mean": 47887.5,
+     "min": 47887.5,
+     "max": 47887.5
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 60303.5,
+     "min": 60303.5,
+     "max": 60303.5
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
+  },
+  "smart_rules": {
+   "n": 200,
+   "K": 3,
+   "bookings": 154.33333333333334,
+   "booking_rate": 0.7716666666666667,
+   "margin": 230219.66666666666,
+   "given_away": 9217.333333333334,
+   "given_to_full_payers": 0.0,
+   "menu_gap": 2389.5,
+   "lost": 13603.0,
+   "lost_price": 1205.5,
+   "model_usd": 0.0,
+   "buyer_usd": 0.014186,
+   "net": 230219.66666666666,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 100,
+    "K": 3,
+    "booked": {
+     "mean": 75.33333333333333,
+     "min": 75.0,
+     "max": 76.0
+    },
+    "margin": {
+     "mean": 107353.16666666667,
+     "min": 106358.0,
+     "max": 108748.5
+    },
+    "given_away": {
+     "mean": 5305.333333333333,
+     "min": 5107.0,
+     "max": 5702.0
+    },
+    "lost": {
+     "mean": 6169.0,
+     "min": 4972.0,
+     "max": 6767.5
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 107353.16666666667,
+     "min": 106358.0,
+     "max": 108748.5
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
+  },
+  "super_only": {
+   "n": 200,
+   "K": 3,
+   "bookings": 146.0,
+   "booking_rate": 0.73,
+   "margin": 213500.0,
+   "given_away": 5409.0,
+   "given_to_full_payers": 28.5,
+   "menu_gap": 1641.8333333333333,
+   "lost": 34131.0,
+   "lost_price": 12963.0,
+   "model_usd": 0.41091066666666665,
+   "buyer_usd": 0.010752333333333332,
+   "net": 213499.5896,
+   "violations": 0.0,
+   "unsure": 28.666666666666668,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0028144566210045662,
+   "band": {
+    "n": 100,
+    "K": 3,
+    "booked": {
+     "mean": 70.0,
+     "min": 68.0,
+     "max": 71.0
+    },
+    "margin": {
+     "mean": 97073.5,
+     "min": 94391.5,
+     "max": 100915.5
+    },
+    "given_away": {
+     "mean": 3161.0,
+     "min": 2924.5,
+     "max": 3284.0
+    },
+    "lost": {
+     "mean": 18593.0,
+     "min": 14628.0,
+     "max": 21511.5
+    },
+    "model_usd": {
+     "mean": 0.20691066666666666,
+     "min": 0.20249,
+     "max": 0.211924
+    },
+    "net": {
+     "mean": 97073.2932,
+     "min": 94391.2877,
+     "max": 100915.2943
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 12.666666666666666,
+     "min": 12.0,
+     "max": 14.0
+    }
+   }
+  },
+  "super_vl": {
+   "n": 200,
+   "K": 3,
+   "bookings": 145.66666666666666,
+   "booking_rate": 0.7283333333333333,
+   "margin": 223679.5,
+   "given_away": 2857.6666666666665,
+   "given_to_full_payers": 70.5,
+   "menu_gap": 1634.8333333333333,
+   "lost": 26502.833333333332,
+   "lost_price": 10108.0,
+   "model_usd": 0.34486933333333336,
+   "buyer_usd": 0.009911333333333333,
+   "net": 223679.15503333334,
+   "violations": 0.0,
+   "unsure": 70.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0023675240274599546,
+   "band": {
+    "n": 100,
+    "K": 3,
+    "booked": {
+     "mean": 69.66666666666667,
+     "min": 69.0,
+     "max": 71.0
+    },
+    "margin": {
+     "mean": 102060.5,
+     "min": 97666.0,
+     "max": 106361.0
+    },
+    "given_away": {
+     "mean": 1306.6666666666667,
+     "min": 1134.5,
+     "max": 1556.0
+    },
+    "lost": {
+     "mean": 15460.333333333334,
+     "min": 11332.0,
+     "max": 19932.0
+    },
+    "model_usd": {
+     "mean": 0.17205733333333334,
+     "min": 0.167938,
+     "max": 0.174985
+    },
+    "net": {
+     "mean": 102060.32793333333,
+     "min": 97665.82489999999,
+     "max": 106360.8267
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 40.0,
+     "min": 36.0,
+     "max": 45.0
+    }
+   }
+  },
+  "ultra_only": {
+   "n": 200,
+   "K": 3,
+   "bookings": 151.33333333333334,
+   "booking_rate": 0.7566666666666667,
+   "margin": 232873.66666666666,
+   "given_away": 5432.0,
+   "given_to_full_payers": 166.5,
+   "menu_gap": 2084.8333333333335,
+   "lost": 14734.333333333334,
+   "lost_price": 5325.0,
+   "model_usd": 1.712067,
+   "buyer_usd": 0.009921333333333334,
+   "net": 232871.9544,
+   "violations": 0.0,
+   "unsure": 36.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.011313218061674008,
+   "band": {
+    "n": 100,
+    "K": 3,
+    "booked": {
+     "mean": 71.33333333333333,
+     "min": 69.0,
+     "max": 73.0
+    },
+    "margin": {
+     "mean": 101717.16666666667,
+     "min": 98188.0,
+     "max": 106525.0
+    },
+    "given_away": {
+     "mean": 2610.0,
+     "min": 2575.0,
+     "max": 2635.0
+    },
+    "lost": {
+     "mean": 14500.333333333334,
+     "min": 9667.5,
+     "max": 18064.5
+    },
+    "model_usd": {
+     "mean": 0.857913,
+     "min": 0.849916,
+     "max": 0.865537
+    },
+    "net": {
+     "mean": 101716.3087,
+     "min": 98187.1348,
+     "max": 106524.1415
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 18.0,
+     "min": 16.0,
+     "max": 21.0
+    }
+   }
+  }
+ },
+ "comparisons": {
+  "concession_heuristic - smart_rules": {
+   "point": -145696.16666666666,
+   "lo": -187338.5,
+   "hi": -109192.33333333333,
+   "buyers": 200
+  },
+  "routed - smart_rules": {
+   "point": -36147.15586666667,
+   "lo": -63856.33156666667,
+   "hi": -13051.141966666668,
+   "buyers": 200
+  },
+  "shop_rule - smart_rules": {
+   "point": -117166.66666666667,
+   "lo": -155301.66666666666,
+   "hi": -83655.0,
+   "buyers": 200
+  },
+  "super_only - smart_rules": {
+   "point": -16720.07706666667,
+   "lo": -43003.74906666667,
+   "hi": 8643.40553333333,
+   "buyers": 200
+  },
+  "super_vl - smart_rules": {
+   "point": -6540.511633333335,
+   "lo": -29231.523733333335,
+   "hi": 15491.783866666665,
+   "buyers": 200
+  },
+  "ultra_only - smart_rules": {
+   "point": 2652.2877333333327,
+   "lo": -13954.8018,
+   "hi": 21810.82443333333,
+   "buyers": 200
+  },
+  "concession_heuristic - shop_rule": {
+   "point": -28529.5,
+   "lo": -51063.5,
+   "hi": -9278.5,
+   "buyers": 200
+  },
+  "routed - shop_rule": {
+   "point": 81019.5108,
+   "lo": 53394.66246666667,
+   "hi": 110597.4939,
+   "buyers": 200
+  },
+  "smart_rules - shop_rule": {
+   "point": 117166.66666666667,
+   "lo": 83655.0,
+   "hi": 155301.66666666666,
+   "buyers": 200
+  },
+  "super_only - shop_rule": {
+   "point": 100446.58959999999,
+   "lo": 67010.89803333333,
+   "hi": 139368.73679999998,
+   "buyers": 200
+  },
+  "super_vl - shop_rule": {
+   "point": 110626.15503333333,
+   "lo": 78469.48723333333,
+   "hi": 148226.153,
+   "buyers": 200
+  },
+  "ultra_only - shop_rule": {
+   "point": 119818.9544,
+   "lo": 86014.48673333334,
+   "hi": 159317.22646666667,
+   "buyers": 200
+  }
+ },
+ "label_default": {
+  "default_label_model": "Super",
+  "x_usd": 2000.0,
+  "ci_routed_minus_super_only": {
+   "point": -19427.0788,
+   "lo": -43214.73563333334,
+   "hi": 34.75233333333052,
+   "buyers": 200
+  },
+  "not_worse": {
+   "violations": true,
+   "unsure": false,
+   "off_arm_calls": true
+  }
+ },
+ "losing_cells": [
+  {
+   "type": "timing_slot",
+   "trade": "roofing",
+   "n": 3,
+   "policy_net": 2757.0,
+   "best": "smart_rules",
+   "best_net": 5217.0,
+   "gap": 2460.0,
+   "ci": [
+    -7380.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_pause",
+   "trade": "roofing",
+   "n": 11,
+   "policy_net": 1282.36,
+   "best": "ultra_only",
+   "best_net": 2521.48,
+   "gap": 1239.12,
+   "ci": [
+    -3669.53,
+    0.01
+   ],
+   "level": 0.9917,
+   "small": false,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_pause",
+   "trade": "HVAC",
+   "n": 5,
+   "policy_net": 1209.6,
+   "best": "smart_rules",
+   "best_net": 1923.3,
+   "gap": 713.7,
+   "ci": [
+    -2484.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "channel",
+   "trade": "HVAC",
+   "n": 8,
+   "policy_net": 1343.62,
+   "best": "smart_rules",
+   "best_net": 1932.75,
+   "gap": 589.13,
+   "ci": [
+    -2237.63,
+    -8.63
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "price",
+   "trade": "HVAC",
+   "n": 14,
+   "policy_net": 854.15,
+   "best": "smart_rules",
+   "best_net": 1283.43,
+   "gap": 429.28,
+   "ci": [
+    -1485.27,
+    166.19
+   ],
+   "level": 0.9917,
+   "small": false,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_pause",
+   "trade": "plumbing",
+   "n": 10,
+   "policy_net": 577.95,
+   "best": "super_only",
+   "best_net": 997.2,
+   "gap": 419.25,
+   "ci": [
+    -1414.5,
+    0.45
+   ],
+   "level": 0.9917,
+   "small": false,
+   "clear_loss": false
+  },
+  {
+   "type": "family",
+   "trade": "roofing",
+   "n": 7,
+   "policy_net": 3888.16,
+   "best": "super_vl",
+   "best_net": 4113.66,
+   "gap": 225.5,
+   "ci": [
+    -887.71,
+    0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "price",
+   "trade": "roofing",
+   "n": 9,
+   "policy_net": 972.96,
+   "best": "super_vl",
+   "best_net": 1048.78,
+   "gap": 75.81,
+   "ci": [
+    -420.0,
+    123.41
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "family",
+   "trade": "HVAC",
+   "n": 10,
+   "policy_net": 1559.9,
+   "best": "super_vl",
+   "best_net": 1627.2,
+   "gap": 67.3,
+   "ci": [
+    -227.8,
+    0.0
+   ],
+   "level": 0.9917,
+   "small": false,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_pause",
+   "trade": "electrical",
+   "n": 8,
+   "policy_net": 290.39,
+   "best": "smart_rules",
+   "best_net": 345.94,
+   "gap": 55.54,
+   "ci": [
+    -143.3,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_slot",
+   "trade": "plumbing",
+   "n": 5,
+   "policy_net": 100.8,
+   "best": "super_vl",
+   "best_net": 121.8,
+   "gap": 21.0,
+   "ci": [
+    -84.0,
+    0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "price",
+   "trade": "plumbing",
+   "n": 11,
+   "policy_net": 505.56,
+   "best": "super_vl",
+   "best_net": 523.59,
+   "gap": 18.03,
+   "ci": [
+    -72.12,
+    0.0
+   ],
+   "level": 0.9917,
+   "small": false,
+   "clear_loss": false
+  },
+  {
+   "type": "channel",
+   "trade": "electrical",
+   "n": 7,
+   "policy_net": 1256.57,
+   "best": "smart_rules",
+   "best_net": 1274.14,
+   "gap": 17.57,
+   "ci": [
+    -48.43,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "channel",
+   "trade": "roofing",
+   "n": 7,
+   "policy_net": 1334.78,
+   "best": "smart_rules",
+   "best_net": 1344.21,
+   "gap": 9.43,
+   "ci": [
+    -37.72,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "price",
+   "trade": "electrical",
+   "n": 16,
+   "policy_net": 413.44,
+   "best": "super_only",
+   "best_net": 417.08,
+   "gap": 3.65,
+   "ci": [
+    -21.25,
+    6.67
+   ],
+   "level": 0.9917,
+   "small": false,
+   "clear_loss": false
+  },
+  {
+   "type": "channel",
+   "trade": "plumbing",
+   "n": 8,
+   "policy_net": 537.56,
+   "best": "smart_rules",
+   "best_net": 541.12,
+   "gap": 3.56,
+   "ci": [
+    -14.25,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "family",
+   "trade": "plumbing",
+   "n": 9,
+   "policy_net": 1183.61,
+   "best": "smart_rules",
+   "best_net": 1183.61,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "ready",
+   "trade": "HVAC",
+   "n": 7,
+   "policy_net": 359.36,
+   "best": "concession_heuristic",
+   "best_net": 359.36,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "ready",
+   "trade": "electrical",
+   "n": 7,
+   "policy_net": 682.71,
+   "best": "concession_heuristic",
+   "best_net": 682.71,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "ready",
+   "trade": "plumbing",
+   "n": 4,
+   "policy_net": 597.37,
+   "best": "concession_heuristic",
+   "best_net": 597.38,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "ready",
+   "trade": "roofing",
+   "n": 4,
+   "policy_net": 2593.12,
+   "best": "concession_heuristic",
+   "best_net": 2593.12,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_slot",
+   "trade": "HVAC",
+   "n": 7,
+   "policy_net": 1375.71,
+   "best": "smart_rules",
+   "best_net": 1375.71,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  },
+  {
+   "type": "timing_slot",
+   "trade": "electrical",
+   "n": 5,
+   "policy_net": 102.6,
+   "best": "smart_rules",
+   "best_net": 102.6,
+   "gap": 0.0,
+   "ci": [
+    -0.0,
+    -0.0
+   ],
+   "level": 0.9917,
+   "small": true,
+   "clear_loss": false
+  }
+ ],
+ "sanity_gates": {
+  "invariants": [
+   "bookings_above_walkaway",
+   "bookings_below_floor"
+  ],
+  "bookings_above_walkaway": 0,
+  "bookings_below_floor": 0,
+  "booking_rate_by_policy": {
+   "shop_rule": 0.455,
+   "concession_heuristic": 0.33
+  },
+  "booking_rate_in_30_80": {
+   "shop_rule": true,
+   "concession_heuristic": true
+  },
+  "price_buyers_booking_rate_by_walkaway_tercile": [
+   0,
+   0.029411764705882353,
+   0.47058823529411764
+  ],
+  "rises_with_walkaway": true,
+  "booking_rate_by_type": {
+   "shop_rule": {
+    "channel": 0.23333333333333334,
+    "family": 0.7647058823529411,
+    "opt_out": 0,
+    "price": 0.26,
+    "ready": 1,
+    "timing_pause": 0.6764705882352942,
+    "timing_slot": 0
+   },
+   "concession_heuristic": {
+    "channel": 0.36666666666666664,
+    "family": 0.7647058823529411,
+    "opt_out": 0,
+    "price": 0.08,
+    "ready": 1,
+    "timing_pause": 0.08823529411764706,
+    "timing_slot": 0
+   }
+  },
+  "type_spread": {
+   "shop_rule": 1,
+   "concession_heuristic": 1
+  },
+  "differs_by_type": true
+ },
+ "opt_out_violations": {
+  "concession_heuristic": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "routed": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "shop_rule": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "smart_rules": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "super_only": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "super_vl": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "ultra_only": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  }
+ },
+ "integrity_all_attempts": {
+  "shop_rule": {
+   "attempts": 201.0,
+   "errored": 1.0,
+   "platform_failures": 1.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "smart_rules": {
+   "attempts": 400.0,
+   "errored": 0.0,
+   "platform_failures": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "concession_heuristic": {
+   "attempts": 200.0,
+   "errored": 0.0,
+   "platform_failures": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "super_vl": {
+   "attempts": 401.0,
+   "errored": 1.0,
+   "platform_failures": 1.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "routed": {
+   "attempts": 400.0,
+   "errored": 0.0,
+   "platform_failures": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 2.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "ultra_only": {
+   "attempts": 401.0,
+   "errored": 1.0,
+   "platform_failures": 1.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "super_only": {
+   "attempts": 400.0,
+   "errored": 0.0,
+   "platform_failures": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  }
+ },
+ "unreadable_row_lines": 0,
+ "unsure_flags": {
+  "routed": {
+   "label with low confidence": 204,
+   "message replaced by the template": 4
+  },
+  "super_vl": {
+   "label with low confidence": 128,
+   "message replaced by the template": 14,
+   "move choice failed: code default": 7,
+   "opt-out word inside a sentence": 1
+  },
+  "ultra_only": {
+   "message replaced by the template": 32,
+   "label with low confidence": 40
+  },
+  "super_only": {
+   "label with low confidence": 49,
+   "message replaced by the template": 5
+  }
+ }
+}

@@ -1,0 +1,122 @@
+{
+ "smoke": "tournament/smoke-b",
+ "buyer_usd_per_message": 4.521428571428572e-05,
+ "safety_factor": 1.3,
+ "per_conversation_usd": {
+  "shop_rule": {
+   "usd": 9.076767857142859e-05,
+   "per_shop_call": 0.0,
+   "method": "dry-run calls x smoke prices (2 smoke conversations of its own)"
+  },
+  "concession_heuristic": {
+   "usd": 0.0001064344285714286,
+   "per_shop_call": 0.0,
+   "method": "dry-run calls x smoke prices (0 smoke conversations of its own)"
+  },
+  "smart_rules": {
+   "usd": 8.057185714285715e-05,
+   "per_shop_call": 0.0,
+   "method": "dry-run calls x smoke prices (0 smoke conversations of its own)"
+  },
+  "super_only": {
+   "usd": 0.00177925,
+   "per_shop_call": 0.000602,
+   "method": "ultra_only's calls per conversation (16 smoke conversations) x this policy's $ per shop call (2 smoke conversations of its own)"
+  },
+  "ultra_only": {
+   "usd": 0.006497625,
+   "method": "measured: mean of 16 clean smoke conversations"
+  },
+  "routed": {
+   "usd": 0.0014188125,
+   "method": "measured: mean of 16 clean smoke conversations"
+  },
+  "super_vl": {
+   "usd": 0.0014361666666666665,
+   "per_shop_call": 0.00048266666666666667,
+   "method": "ultra_only's calls per conversation (16 smoke conversations) x this policy's $ per shop call (2 smoke conversations of its own)"
+  }
+ },
+ "dry_run_calls": {
+  "shop_rule": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.415,
+   "buyer_msgs_per_conv": 1.825
+  },
+  "concession_heuristic": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.595,
+   "buyer_msgs_per_conv": 2.14
+  },
+  "smart_rules": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.02,
+   "buyer_msgs_per_conv": 1.62
+  },
+  "super_only": {
+   "seller_calls_per_conv": 4.21,
+   "seller_msgs_per_conv": 2.105,
+   "buyer_msgs_per_conv": 1.69
+  },
+  "ultra_only": {
+   "seller_calls_per_conv": 4.22,
+   "seller_msgs_per_conv": 2.11,
+   "buyer_msgs_per_conv": 1.725
+  },
+  "routed": {
+   "seller_calls_per_conv": 4.18,
+   "seller_msgs_per_conv": 2.09,
+   "buyer_msgs_per_conv": 1.695
+  },
+  "super_vl": {
+   "seller_calls_per_conv": 4.24,
+   "seller_msgs_per_conv": 2.12,
+   "buyer_msgs_per_conv": 1.73
+  }
+ },
+ "options": [
+  {
+   "option": "A",
+   "buyers": 200,
+   "K_llm": 3,
+   "subsample_for_K": 200,
+   "projected_usd": 8.8
+  },
+  {
+   "option": "B",
+   "buyers": 200,
+   "K_llm": 3,
+   "subsample_for_K": 100,
+   "projected_usd": 5.88
+  },
+  {
+   "option": "C",
+   "buyers": 200,
+   "K_llm": 3,
+   "subsample_for_K": 60,
+   "projected_usd": 4.72
+  },
+  {
+   "option": "D",
+   "buyers": 200,
+   "K_llm": 1,
+   "subsample_for_K": 0,
+   "projected_usd": 2.97
+  },
+  {
+   "option": "E",
+   "buyers": 120,
+   "K_llm": 3,
+   "subsample_for_K": 120,
+   "projected_usd": 5.28
+  }
+ ],
+ "budget_usd": 12.0,
+ "pick": {
+  "option": "A",
+  "buyers": 200,
+  "K_llm": 3,
+  "subsample_for_K": 200,
+  "projected_usd": 8.8
+ }
+}

@@ -50,7 +50,8 @@ No model sent `arguments: ""` for the no-argument tool here; the client still ma
   gpt-oss-120b 500K / 600. Super-VL lists **no** supported sampling parameters (empty list); the others list
   `temperature, top_p, top_k, repetition_penalty, frequency_penalty, presence_penalty`. No `seed` anywhere.
 - 40 short Super calls at concurrency 8: default tier 40/40, p50 0.86 s, p90 1.09 s; `service_tier:"flex"` 40/40,
-  p50 1.69 s, p90 4.24 s. Same $ per call (0.000033), so flex gave no discount in this test. Flex calls did not
+  p50 1.69 s, p90 4.24 s. Flex billing was not observed separately: the client computes $ from its own price table, so
+  the equal cost per call (0.000033) says nothing about what flex is billed. Flex calls did not
   decrement `x-ratelimit-remaining-tokens` (200000 after the flex burst vs 199920 after the default burst), consistent with
   "do not consume rate-limit credits". No 429s.
 - Headers returned: `x-ratelimit-limit-{requests,tokens}`, `-remaining-*`, `-reset-*`, `-dynamic-scale-*`,
@@ -123,16 +124,20 @@ expected; the check still runs on every message. The one miss for every model wa
 ("I need to think it over").
 
 ### S8b. Sanity gates — PASS (dry run, 200 buyers, rule policies; `tournament/dryrun/summary.json`)
-- Bookings above the buyer's hidden walkaway: **0**; below the owner's floor: **0** (both gates are proven able to fire
-  by a unit test with synthetic violations).
+- Bookings above the buyer's hidden walkaway: **0**; below the owner's floor: **0**. Both hold by construction (the buyer
+  code never books above its walkaway, and every move is floor-checked), so they are integrity checks, not evidence that
+  the simulator is realistic; a unit test with synthetic violations proves the counters can fire.
 - Booking rate: shop rule 0.455, concession heuristic 0.330 (gate 0.30–0.80).
 - Price buyers' booking rate by walkaway tercile: 0.00 → 0.03 → 0.47 (rises).
 - Booking rate by objection type spans 0 to 1 for both rule policies (gate: spread ≥ 0.20).
 The first dry run failed the 30–80 % gate (15 % and 13 %): every unhelpful message cost "patience" for every buyer
 type. The buyer model was changed before any live run to lose buyers to time (a hidden "hires someone else by" day),
-with patience only for failed price offers; then the gate passed. Both versions are in git history.
+with patience only for failed price offers; then the gate passed. That first variant was not committed; its gate result
+(15 % and 13 %) is recorded only in the lane's internal log.
 
-### Live smoke (10 conversations: 2 pre-registered buyers × 5 policies; `tournament/smoke/`)
+### Live smoke of phase A (10 conversations: 2 pre-registered buyers × 5 policies; `tournament/smoke/`)
+Mechanics only, n = 2 buyers, and run before the three simulator fixes below: none of its numbers is a result. The same
+10 conversations were re-run on the frozen code in `tournament/smoke-b/` (see `RESULTS.md`).
 All 10 ran end to end through Token Factory. Shop-side cost per conversation: routed $0.0009–0.0017, Super-only
 $0.0013–0.0022, Super-VL $0.0010–0.0053, Ultra-only $0.0056–0.0142; buyer messages $0.00003–0.00005 each.
 What the smoke exposed (fixed before the manifest; the smoke was not re-run, per the phase A limit of 10 conversations):

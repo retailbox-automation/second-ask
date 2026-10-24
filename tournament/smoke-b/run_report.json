@@ -1,0 +1,19 @@
+{
+ "stop": "complete",
+ "jobs": 38,
+ "clean_rows": 38,
+ "errored_rows": 0,
+ "rows": 38,
+ "finished_buyers": 16,
+ "excluded_buyers": [],
+ "pending_jobs": 0,
+ "clean_by_policy": {
+  "shop_rule": 2,
+  "super_vl": 2,
+  "routed": 16,
+  "ultra_only": 16,
+  "super_only": 2
+ },
+ "unreadable_row_lines": 0,
+ "spent_usd": 0.1334
+}
