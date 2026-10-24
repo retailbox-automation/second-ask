@@ -28,6 +28,10 @@ from . import buyers as B, env as E, manifest as MF, runner as R, scoring as S
 from .policies import ALL, LLM_POLICIES, REPEATED, RULE_POLICIES, FakeSimClient, make
 
 OUT = MF.ROOT / "tournament"
+TESTS = {  # test -> (manifest, smoke directory, full-run directory)
+    "v1": (OUT / "MANIFEST.json", OUT / "smoke-b", OUT / "full"),
+    "v2": (OUT / "v2" / "MANIFEST.json", OUT / "v2" / "smoke", OUT / "v2" / "full"),
+}
 BUYER_PARAMS = E.BUYER_PARAMS
 SMOKE_POLICIES = MF.SMOKE_REPEAT_POLICIES  # the phase-A smoke (0652f17)
 SAFETY = 1.3  # projected cost is multiplied by this
@@ -227,6 +231,8 @@ def cmd_project(a):
 
 
 def cmd_manifest(a):
+    if a.test == "v2":
+        return manifest_v2()
     proj = json.loads((OUT / "projection.json").read_text())
     pick = proj["pick"]
     cs = cards()
@@ -246,18 +252,41 @@ def cmd_manifest(a):
     print(f"MANIFEST.json sha256 {h}")
 
 
-def guard(approve, environ=None):
+def manifest_v2():
+    """tournament/v2/MANIFEST.json: v1's buyers, K and subsample; projection from v1's measured $ per conversation."""
+    v1 = json.loads(TESTS["v1"][0].read_text())
+    outs, _ = R.read_lines(TESTS["v1"][2] / "outcomes.jsonl")
+    by = defaultdict(list)
+    for o in outs:
+        by[o["policy"]].append(o["seller_cost"] + o["buyer_cost"])
+    per = {p: statistics.mean(v) for p, v in by.items()}
+    m0 = {"buyers": v1["buyers"], "policies": {p: {} for p in MF.V2_POLICIES}, "repeats": v1["repeats"],
+          "run_policies": list(MF.V2_POLICIES)}
+    jobs = manifest_jobs(m0)
+    usd = SAFETY * sum(per[p] for _, p, _ in jobs)
+    proj = {"basis": "v1 measured $ per conversation (tournament/full/outcomes.jsonl) x the v2 plan", "jobs": len(jobs),
+            "safety_factor": SAFETY, "projected_usd": round(usd, 2), "run_ceiling_usd": MF.V2_RUN_CEILING_USD}
+    m = MF.build(v1["buyers"]["file"], v1["buyers"]["n"], v1["repeats"]["k"], v1["repeats"]["subsample"],
+                 MF.V1_BUYER_MODEL, None, proj, v2=True)
+    TESTS["v2"][0].parent.mkdir(parents=True, exist_ok=True)
+    h = MF.write(m, TESTS["v2"][0])
+    print(f"tournament/v2/MANIFEST.json sha256 {h}; projected ${proj['projected_usd']} for {len(jobs)} conversations")
+    return 0
+
+
+def guard(approve, environ=None, test="v1"):
     """The frozen manifest, or None (with the reason printed) when a live command must not start."""
     bad = R.env_overrides(environ)
     if bad:
         print(f"refusing: {', '.join(bad)} set; they would change models, endpoint, caps or ledger behind the manifest. "
               f"Unset them: every parameter comes from MANIFEST.json")
         return None
-    recorded, problems = MF.verify()
+    path = TESTS[test][0]
+    recorded, problems = MF.verify(path)
     if approve != recorded or problems:
         print(f"refusing: --approve must equal the recorded manifest hash {recorded}; problems: {problems}")
         return None
-    return json.loads((OUT / "MANIFEST.json").read_text())
+    return json.loads(path.read_text())
 
 
 def live_conversations(m, ledger):
@@ -266,8 +295,13 @@ def live_conversations(m, ledger):
     p = m["platform"]
     client = R.StrictClient(Client(p["ledger"]["tag"], ledger=ledger, max_attempts=p["client"]["max_attempts"],
                                    fallbacks=dict(p["client"]["fallbacks"])))
-    writer = E.LLMWriter(client, m["buyer_simulator"]["model"], m["buyer_simulator"]["params"])
-    return lambda card, policy, rep: E.run_one(card, make(policy, client), writer, rep)
+    bs = m["buyer_simulator"]
+    writer = E.WRITERS[bs.get("writer", "v1")](client, bs["model"], bs["params"])
+
+    def converse(card, policy, rep):
+        return E.run_one(card, make(policy, client), writer, rep)
+    converse.writer = writer
+    return converse
 
 
 def spent_since_start(ledger, out, tag, sha):
@@ -275,7 +309,11 @@ def spent_since_start(ledger, out, tag, sha):
     out.mkdir(parents=True, exist_ok=True)
     st = out / "run_state.json"
     if st.exists():
-        start = json.loads(st.read_text())["ledger_tag_usd_at_start"]
+        state = json.loads(st.read_text())
+        if state.get("manifest") != sha:
+            raise SystemExit(f"refusing: {out} was started under manifest {state.get('manifest')}, not {sha}; "
+                             f"use a new directory")
+        start = state["ledger_tag_usd_at_start"]
     else:
         start = ledger.spent()[1].get(tag, 0.0)
         st.write_text(json.dumps({"ledger_tag_usd_at_start": start, "tag": tag, "manifest": sha,
@@ -286,15 +324,15 @@ def spent_since_start(ledger, out, tag, sha):
 def manifest_jobs(m):
     ids = [c.id for c in cards()]
     assert len(ids) == m["buyers"]["n"], "buyers.json does not hold the manifest's n buyers"
-    pols = [p for p in ALL if p in m["policies"]]
+    pols = [p for p in ALL if p in (m.get("run_policies") or m["policies"])]
     return R.plan(ids, pols, m["repeats"]["repeated"], m["repeats"]["k"], m["repeats"]["subsample"])
 
 
 def cmd_smoke(a):
-    m = guard(a.approve)
+    m = guard(a.approve, test=a.test)
     if m is None:
         return 2
-    p, out = m["platform"], OUT / "smoke-b"
+    p, out = m["platform"], TESTS[a.test][1]
     ledger = Ledger(p["ledger"]["path"], caps=p["caps_usd"])
     _, spent = spent_since_start(ledger, out, p["ledger"]["tag"], a.approve)
     jobs = [tuple(j) for j in m["smoke_plan"]["jobs"]]
@@ -310,10 +348,10 @@ def cmd_smoke(a):
 
 
 def cmd_full(a):
-    m = guard(a.approve)
+    m = guard(a.approve, test=a.test)
     if m is None:
         return 2
-    p, b, out = m["platform"], m["budget"], OUT / "full"
+    p, b, out = m["platform"], m["budget"], TESTS[a.test][2]
     ledger = Ledger(p["ledger"]["path"], caps=p["caps_usd"])
     tag = p["ledger"]["tag"]
     start, spent = spent_since_start(ledger, out, tag, a.approve)
@@ -429,7 +467,7 @@ def write_results(out, m):
 
 
 def cmd_results(a):
-    write_results(Path(a.dir).resolve() if a.dir else OUT / "full", json.loads((OUT / "MANIFEST.json").read_text()))
+    write_results(Path(a.dir).resolve() if a.dir else TESTS[a.test][2], json.loads(TESTS[a.test][0].read_text()))
     return 0
 
 
@@ -440,17 +478,21 @@ def main(argv=None):
         sub.add_parser(name)
     s = sub.add_parser("smoke")
     s.add_argument("--approve", required=True)
+    s.add_argument("--test", choices=sorted(TESTS), default="v1")
     p = sub.add_parser("project")
     p.add_argument("--budget", type=float, default=12.0)
     p.add_argument("--smoke", help="smoke directory (default: tournament/smoke, the phase-A smoke)")
     mf = sub.add_parser("manifest")
-    mf.add_argument("--buyer-model", required=True, choices=sorted(BUYER_PARAMS))
+    mf.add_argument("--buyer-model", choices=sorted(BUYER_PARAMS), default=MF.V1_BUYER_MODEL)
+    mf.add_argument("--test", choices=sorted(TESTS), default="v1")
     f = sub.add_parser("full")
     f.add_argument("--approve", required=True)
+    f.add_argument("--test", choices=sorted(TESTS), default="v1")
     f.add_argument("--accept-projection", type=float, default=None,
                    help="after a failed checkpoint: continue with this ceiling (must cover the projection)")
     r = sub.add_parser("results")
     r.add_argument("--dir")
+    r.add_argument("--test", choices=sorted(TESTS), default="v1")
     a = ap.parse_args(argv)
     return {"generate": cmd_generate, "dry-run": cmd_dry_run, "writers": cmd_writers, "smoke": cmd_smoke,
             "project": cmd_project, "manifest": cmd_manifest, "full": cmd_full, "results": cmd_results}[a.cmd](a) or 0

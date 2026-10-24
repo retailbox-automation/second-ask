@@ -57,6 +57,7 @@ class BuyerState:
     decided: bool = False         # family: has told the shop the household's answer
     opted_out_at: float | None = None
     notes: str = ""
+    turns: list = field(default_factory=list)  # v2 writer: one record per message (facts, text, fallback)
 
 
 @dataclass
@@ -164,6 +165,56 @@ def instruction(card, st, spec, t, rng):
     return "Say you are still thinking."
 
 
+PAUSE_REASON_CODES = {"money comes in later this month": "money_arrives_later_this_month", "we are traveling": "travelling",
+                      "after the holidays": "after_the_holidays", "waiting on the insurance": "waiting_on_insurance"}
+SLOT_REASON_CODES = {"HVAC": "system_out_house_hot", "plumbing": "no_hot_water", "roofing": "rain_in_forecast",
+                     "electrical": "breakers_keep_tripping"}
+
+
+def intent(card, st, spec, t):
+    """The facts instruction() gives the v1 writer for this turn, as data rather than the simulator's English sentences
+    (v2 wording test). Same branches, same facts; a test checks that on every card, spec and state."""
+    typ, clear, first = card.type, st.clarity == "clear", spec == "first"
+    weeks = max(1, round(((card.ready_after_days or t) - t) / 7))
+    if spec == "missed":
+        return {"act": "saw_it_only_now", "usually_checks": card.reads_channel, "estimate": "fine", "wants": "a visit time"}
+    if spec == "family_no":
+        dropped = [n for n, p, o in card.items if o]
+        if dropped and card.walkaway >= sum(p for n, p, o in card.items if not o):
+            return {"act": "household_view", "discussed_with": card.family_who, "unnecessary_item": dropped[-1],
+                    "rest_of_estimate": "fine"}
+        return {"act": "household_view", "discussed_with": card.family_who, "total": "more than they want to spend",
+                "could_pay": card.anchor}
+    if typ == "price":
+        if not clear:
+            return {"act": "cost_concern", "repeat": not first, "give_a_figure": False}
+        return ({"act": "cost_concern", "repeat": False, "could_pay": card.anchor, "figure_from": card.anchor_kind} if first
+                else {"act": "cost_concern", "repeat": True, "could_pay": card.anchor})
+    if typ == "timing_pause":
+        if not clear:
+            return {"act": "will_decide_later", "give_reason_or_time": False}
+        reason = PAUSE_REASON_CODES[PAUSE_REASONS[int(card.id[1:]) % len(PAUSE_REASONS)]]
+        return ({"act": "wants_it_later", "wait_weeks_about": weeks, "because": reason} if first
+                else {"act": "still_not_ready", "wait_weeks_about": weeks})
+    if typ == "timing_slot":
+        deadline = f"{at(card.need_by_days):%A}"
+        if not clear:
+            return {"act": "schedule_problem", "give_reason": False} if first else {"act": "schedule_problem", "repeat": True}
+        return ({"act": "needs_it_sooner", "quoted_visit": f"{at(card.quoted_slot_day):%A %b %d}", "done_by": deadline,
+                 "because": SLOT_REASON_CODES.get(card.trade, "urgent"), "someone_else_can_come_sooner": True} if first
+                else {"act": "needs_it_sooner", "repeat": True, "done_by": deadline})
+    if typ == "family":
+        if st.decided:
+            return {"act": "household_view", "total": "still more than they want to spend", "could_pay": card.anchor}
+        if not clear:
+            return {"act": "needs_to_think", "repeat": not first}
+        return ({"act": "household_must_review", "who": card.family_who} if first
+                else {"act": "household_still_discussing"})
+    if typ in ("ready", "channel"):
+        return {"act": "go_ahead", "wants": "a visit time", "repeat": not first}
+    return {"act": "still_thinking"}
+
+
 class TemplateWriter:
     """Deterministic buyer text for dry runs and tests (no model)."""
     model = None
@@ -241,6 +292,68 @@ class LLMWriter:
         return text, steps, True
 
 
+V2_WRITER = "v2-free"
+V2_WRITER_MODEL = M.DEEPSEEK_V4_FLASH
+V2_WRITER_PARAMS = {"temperature": 1.0, "top_p": 0.95, "max_tokens": 300, "reasoning_effort": "none"}
+V2_SYSTEM = ("You write one text message from a homeowner to a home-service company that sent them an estimate. The facts "
+             "this homeowner wants to get across in this message are given as a small JSON object. Put them in your own "
+             "words, the way this particular person would text: 1-3 sentences, natural and specific to them, no emojis. Get "
+             "every fact across and add nothing the facts do not say: no new requests, no new numbers, no agreeing or "
+             "refusing. Write figures and dates however this person would. Keep short private notes for your next message "
+             '(under 40 words). Answer only with a JSON object: {"message": "...", "notes": "..."}')
+
+
+class FreeWordingWriter:
+    """v2 buyer text: a non-NVIDIA model writes the turn's facts (intent) in its own words. It never sees the simulator's
+    instruction sentences or any policy's rules. Validated like v1 (length, walkaway leak); two tries, then the v1
+    template, counted. Every message is logged on the buyer state (facts, text, fallback) for the wording checks."""
+    name = V2_WRITER
+
+    def __init__(self, client, model=V2_WRITER_MODEL, params=None):
+        self.client, self.model, self.params = client, model, dict(V2_WRITER_PARAMS if params is None else params)
+
+    def prompt(self, card, st, spec, conv, t):
+        est = conv.estimate
+        history = "\n".join(f"{'Company' if e.who == 'shop' else 'You'}: {e.text}" for e in conv.events[-6:]) or "(none yet)"
+        facts = intent(card, st, spec, t)
+        user = (f"Job: {est.title} ({est.trade}); estimate total ${est.list_price():,.0f}; line items: "
+                + "; ".join(f"{i.name} ${i.price:,.0f}{' (optional)' if i.optional else ''}" for i in est.items)
+                + f".\nMessages so far:\n{history}\nYour notes from before: {st.notes or '(none)'}\n"
+                f"How this person tends to talk: {', '.join(card.style) or 'plainly'}.\n"
+                f"Facts for this message: {json.dumps(facts)}")
+        return [{"role": "system", "content": V2_SYSTEM}, {"role": "user", "content": user}], facts
+
+    def write(self, card, st, spec, conv, t, rng):
+        messages, facts = self.prompt(card, st, spec, conv, t)
+        steps = []
+        for _ in range(2):
+            try:
+                r = self.client.chat(self.model, messages, response_format={"type": "json_object"}, **self.params)
+            except TFError as e:
+                steps.append(Step.platform_failure("buyer", self.model, e))
+                continue
+            try:
+                obj = json.loads(r.text.strip().removeprefix("```json").strip("`"))
+                msg = str(obj["message"]).strip()
+            except (json.JSONDecodeError, KeyError, TypeError, AttributeError):
+                obj, msg = {}, ""
+            leak = leaks_walkaway(card, conv.estimate, msg)
+            ok = 0 < len(msg) <= 400 and not leak
+            steps.append(Step.from_reply("buyer", r, ok=ok, note="leak" if leak else ("" if ok else "invalid")))
+            if ok:
+                st.notes = str(obj.get("notes", ""))[:300]
+                st.turns.append({"t": round(t, 4), "spec": spec, "clarity": st.clarity, "decided": st.decided,
+                                 "facts": facts, "text": msg, "fallback": False})
+                return msg, steps, False
+        text, _, _ = TemplateWriter().write(card, st, spec, conv, t, rng)
+        st.turns.append({"t": round(t, 4), "spec": spec, "clarity": st.clarity, "decided": st.decided, "facts": facts,
+                         "text": text, "fallback": True})
+        return text, steps, True
+
+
+WRITERS = {"v1": LLMWriter, V2_WRITER: FreeWordingWriter}
+
+
 @dataclass
 class Outcome:
     buyer: str
@@ -268,6 +381,7 @@ class Outcome:
     label_fallback_calls: int = 0  # label calls answered by the fallback label model (part of the policy, reported)
     platform_failures: int = 0    # Token Factory failed after the client's retries (TFError) in any step
     chronology_errors: int = 0    # transcript events out of time order (must be 0)
+    buyer_turns: list = field(default_factory=list)  # v2 writer only: facts and text of every buyer message
 
 
 def coarse_act(card, spec):
@@ -398,4 +512,4 @@ def run_one(card, policy, writer, repeat):
                    [{"day": round(day(e.at), 3), "who": e.who, "channel": e.channel, "text": e.text, "move": e.move_id}
                     for e in conv.events],
                    [s.__dict__ for s in seller] + [dict(s.__dict__, step="buyer") for s in buyer_steps], flag_log,
-                   off_arm, label_fb, failed, sum(b < a - 1e-9 for a, b in zip(days, days[1:])))
+                   off_arm, label_fb, failed, sum(b < a - 1e-9 for a, b in zip(days, days[1:])), st.turns)

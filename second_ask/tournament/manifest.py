@@ -59,9 +59,10 @@ def policy_spec(name):
             "choose": {"config": cfg.chooser, "model": model, "params": params, "tool_choice": "auto"}}
 
 
-def build(buyers_file, n_buyers, k, subsample, buyer_model, smoke, projection):
-    """The whole manifest from its few inputs and the live code (verify calls this again and compares)."""
-    return {
+def build(buyers_file, n_buyers, k, subsample, buyer_model, smoke, projection, v2=False):
+    """The whole manifest from its few inputs and the live code (verify calls this again and compares). v2=True: the
+    wording-robustness test (with_v2)."""
+    m = {
         "name": "Second Ask tournament",
         "status": "pre-registered; not yet run",
         "supersedes": {"sha256": "699e3c92aa887d688df5cd8ceca6cfeaa13bbe2fea684aa6860a1c2cf7a30771",
@@ -192,6 +193,7 @@ def build(buyers_file, n_buyers, k, subsample, buyer_model, smoke, projection):
                    "run_ceiling_usd": R.RUN_CEILING_USD,
                    "budget_cap": "a BudgetExceeded from the ledger stops the run; finished conversations are kept"},
     }
+    return with_v2(m, buyers_file) if v2 else m
 
 
 SMOKE_REPEAT_POLICIES = ("shop_rule", "routed", "super_only", "ultra_only", "super_vl")  # the phase-A smoke
@@ -202,9 +204,74 @@ MAX_ATTEMPTS = 4
 
 def inputs(m):
     """The few build() arguments a manifest records; everything else is rebuilt from the live code."""
+    v2 = m.get("test") == V2_TEST
     return {"buyers_file": m["buyers"]["file"], "n_buyers": m["buyers"]["n"], "k": m["repeats"]["k"],
-            "subsample": m["repeats"]["subsample"], "buyer_model": m["buyer_simulator"]["model"], "smoke": m["smoke"],
-            "projection": m["projection"]}
+            "subsample": m["repeats"]["subsample"], "buyer_model": V1_BUYER_MODEL if v2 else m["buyer_simulator"]["model"],
+            "smoke": m["smoke"], "projection": m["projection"], "v2": v2}
+
+
+# --- v2: the wording-robustness test (docs: tournament/v2/PREREG.md) ---------------------------------------------------
+V2_TEST = "v2 wording robustness"
+V1_SHA = "1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e"
+V1_BUYER_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+V1_ROWS = "tournament/full/rows.jsonl"
+V2_ANALYSIS = "tools/v2_analysis.py"
+V2_CHANGED = ("second_ask/tournament/env.py", "second_ask/tournament/manifest.py", "second_ask/tournament/run.py")
+V2_POLICIES = ("shop_rule", "concession_heuristic", "smart_rules", "super_only", "routed", "super_vl")  # no ultra_only
+V2_SMOKE_REPEAT = ("shop_rule", "routed", "super_only", "super_vl", "smart_rules")
+V2_SMOKE_TYPE = ("super_only", "smart_rules")
+V2_RUN_CEILING_USD = 4.50
+V2_SMOKE_CEILING_USD = 0.50
+V2_JUDGE_CEILING_USD = 0.50
+V2_JUDGE_MODEL = "Qwen/Qwen3-235B-A22B-Instruct-2507"
+V2_GATES = {"L_own_max": 0.59, "fidelity_min": 0.90, "template_max": 0.02}
+
+
+def with_v2(m, buyers_file):
+    """The v1 manifest with only the buyer writer, the policy list, the ceilings, the gates and the decision rules of the
+    v2 test changed. Policies, menu, compliance, scoring, buyers and runner are the code of manifest 1c231403."""
+    m = dict(m, test=V2_TEST)
+    m.pop("supersedes", None)
+    m["baseline"] = {"manifest_sha256": V1_SHA, "commit": "6d66d53", "rows": V1_ROWS,
+                     "rows_sha256": sha256_file(ROOT / V1_ROWS),
+                     "changed_files": list(V2_CHANGED),
+                     "note": "every other file under second_ask/ has the sha256 it has in manifest 1c231403 "
+                             "(tests/test_v2.py); v1 is reproduced at commit 6d66d53"}
+    m["run_policies"] = list(V2_POLICIES)
+    m["buyer_simulator"] = dict(m["buyer_simulator"], writer=E.V2_WRITER, model=E.V2_WRITER_MODEL,
+                                params=E.V2_WRITER_PARAMS, prompt=E.V2_SYSTEM,
+                                input="the turn's facts from env.intent (the same facts env.instruction gives the v1 "
+                                      "writer, as data); never the simulator's instruction sentences or any policy's rules")
+    m["smoke_plan"] = {"repeat_policies": list(V2_SMOKE_REPEAT), "per_type_policies": list(V2_SMOKE_TYPE), "per_type": 3,
+                       "jobs": [list(j) for j in R.smoke_plan(B.load(ROOT / buyers_file), V2_SMOKE_REPEAT,
+                                                              V2_SMOKE_TYPE, per_type=3)],
+                       "ceiling_usd": V2_SMOKE_CEILING_USD,
+                       "purpose": "mechanics, cost and the v2 gates (gates_v2) only"}
+    m["budget"] = dict(m["budget"], run_ceiling_usd=V2_RUN_CEILING_USD)
+    m["gates_v2"] = {
+        **V2_GATES,
+        "L_own": "share of model-written buyer lines (type != opt_out) on which the smart_rules rule meant for the "
+                 "customer's type fires (tools/v2_analysis.py OWN_RULE); v1 baseline from tournament/full/outcomes.jsonl",
+        "fidelity": f"share of model-written v2 lines from which an independent judge ({V2_JUDGE_MODEL}, not the writer, "
+                    "not NVIDIA, sees no rules) recovers the turn's facts: kind, amount within 5 %, weeks within 1, weekday "
+                    "exact, household, item; reference: the v1 writer on 300 sampled turns (seed 7) judged the same way",
+        "template": "share of v2 buyer messages that fell back to the v1 template",
+        "integrity": "as v1: all smoke rows clean, no errored row after re-runs, no HTTP 429, 0 off-arm calls",
+        "on_failure": "one revision of the writer prompt, with a line in tournament/v2/CHANGES.md and a new manifest; a "
+                      "second failure stops v2 (reported as: the writer did not pass the gate)"}
+    m["decision_rules_v2"] = {
+        "primary": "Super-only beats the rulebook on wording outside the simulator's vocabulary only if the 95 % paired-"
+                   "bootstrap lower bound of D2 = sum over customers of (net super_only - net smart_rules) in v2 is above 0",
+        "robustness": "the rulebook is more brittle than Super-only only if the lower bound of DiD = sum over customers of "
+                      "[(super_only - smart_rules) in v2 - (super_only - smart_rules) in v1] is above 0 (each customer's "
+                      "mean over its repeats in each test; paired bootstrap over the 200 customers, 2000 draws, seed 7)",
+        "continuity": "the same two statistics for routed; secondary, unadjusted: super_vl, and v2 - v1 per policy",
+        "otherwise": "no advantage shown on live wording; the v1 headline stands",
+        "publication": "published whatever the outcome, both tests in RESULTS.md",
+        "not_tested": "ultra_only (left out for budget)"}
+    m["analysis"] = {"script": V2_ANALYSIS, "sha256": sha256_file(ROOT / V2_ANALYSIS), "judge_model": V2_JUDGE_MODEL,
+                     "judge_ceiling_usd": V2_JUDGE_CEILING_USD}
+    return m
 
 
 def write(manifest, path=ROOT / "tournament" / "MANIFEST.json"):
