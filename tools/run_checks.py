@@ -54,28 +54,35 @@ def load(d):
     rows, bad_r = R.read_lines(d / "rows.jsonl")
     outs, bad_o = R.read_lines(d / "outcomes.jsonl")
     state = json.loads((d / "run_state.json").read_text()) if (d / "run_state.json").exists() else {}
+    if (d / "run_window.json").exists():
+        state["ended"] = json.loads((d / "run_window.json").read_text())["ended"]
     report = json.loads((d / "run_report.json").read_text()) if (d / "run_report.json").exists() else {}
     return rows, outs, state, report, bad_r + bad_o
 
 
-def ledger_since(started_iso):
-    t0 = (datetime.strptime(started_iso, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc).timestamp()
-          if started_iso else 0)
+def _ts(iso):
+    return datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc).timestamp()
+
+
+def ledger_since(started_iso, ended_iso=None):
+    """b2 ledger records from the run's start to its end (the end bound keeps later runs out of an earlier run's window)."""
+    t0 = _ts(started_iso) if started_iso else 0
+    t1 = _ts(ended_iso) + 60 if ended_iso else float("inf")  # +60 s: settles written while the last calls closed
     out = []
     for line in LEDGER.read_text().splitlines():
         try:
             r = json.loads(line)
         except ValueError:
             continue
-        if r.get("ts", 0) >= t0 and r.get("tag") == "b2":
+        if t0 <= r.get("ts", 0) <= t1 and r.get("tag") == "b2":
             out.append(r)
     return out
 
 
-def ledger_summary(started_iso):
+def ledger_summary(started_iso, ended_iso=None):
     """Releases (error replies) by model and HTTP code; per model, reserves minus settled or released (kept
     reservations: network failures, malformed replies, replies without usage, or calls still in flight)."""
-    recs = ledger_since(started_iso)
+    recs = ledger_since(started_iso, ended_iso)
     releases, res, done = Counter(), Counter(), Counter()
     for r in recs:
         note = r.get("note", "")
@@ -137,7 +144,7 @@ def cmd_smoke(d, expected=38):
                                                                      "excluded_buyers", "spent_usd")}))
     ok &= gate("one attempt each", all(r.get("attempt") == 1 for r in rows) and len({R.key(r) for r in rows}) == len(rows),
                f"attempts {Counter(r.get('attempt') for r in rows)}; unreadable lines {bad}")
-    ledg = ledger_summary(state.get("started"))
+    ledg = ledger_summary(state.get("started"), state.get("ended"))
     errs = {k: v for k, v in ledg["releases"].items() if "HTTP 429" in k or "HTTP 5" in k}
     failed_429 = [r for r in rows if r.get("status") == "errored" and "429" in r.get("error", "")]
     ok &= gate("ledger window sees this run", ledg["records"] > 0, f"{ledg['records']} b2 ledger records since start, "
@@ -172,7 +179,7 @@ def cmd_smoke(d, expected=38):
 
 def cmd_ledger(d):
     _, _, state, _, _ = load(d)
-    print(json.dumps(ledger_summary(state.get("started")), indent=1))
+    print(json.dumps(ledger_summary(state.get("started"), state.get("ended")), indent=1))
     return 0
 
 
@@ -186,7 +193,7 @@ def cmd_after(d):
     out = {"false_opt_out_lines": false_opt_outs(outs), "rows_type_not_opt_out_ending_opted_out": dict(ended),
            "excluded_by_type": dict(Counter(types.get(b) for b in excluded)), "outcome_duplicates": outcome_duplicates(outs),
            "errored_by_policy": dict(Counter(r["policy"] for r in rows if r.get("status") == "errored")),
-           "errors_429": sum("429" in (r.get("error") or "") for r in rows), "ledger": ledger_summary(state.get("started")),
+           "errors_429": sum("429" in (r.get("error") or "") for r in rows), "ledger": ledger_summary(state.get("started"), state.get("ended")),
            "unreadable_lines": bad}
     print(json.dumps(out, indent=1))
     return 0
@@ -417,7 +424,9 @@ def cmd_results_md(d, out_path=None):
               if l.startswith(freeze + " ")]
     push_t = pushes[-1].split("@{", 1)[1].split("}", 1)[0] if pushes else "not found in the reflog"
     gen = _git("log", "--diff-filter=A", "--format=%h %cI", "--", "tools/run_checks.py").split("\n")[-1]
-    ended = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime((d / "run_report.json").stat().st_mtime))
+    window = d / "run_window.json"  # recorded once: a checkout moves file times
+    ended = (json.loads(window.read_text())["ended"] if window.exists()
+             else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime((d / "run_report.json").stat().st_mtime)))
     utc = lambda iso: datetime.fromisoformat(iso).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")  # noqa: E731
     main_r, main_s = comps["routed - smart_rules"], comps["super_only - smart_rules"]
     lab = res["label_default"]
@@ -432,7 +441,7 @@ def cmd_results_md(d, out_path=None):
     cells = {(r["type"], r["trade"]) for r in final}
     cell_n = Counter((cards[b]["type"], cards[b]["trade"]) for b in cards)
     testable = sum(cell_n[c] >= S.MIN_CELL_N for c in cells)
-    ledg = ledger_summary(state.get("started"))
+    ledg = ledger_summary(state.get("started"), ended)
     note = "simulated margin on illustrative prices (not market data)"
     L = ["# Second Ask: tournament results", "",
          f"**Second Ask, measured: in our pre-registered test, Nemotron did not beat a good rulebook. Against "
@@ -616,7 +625,28 @@ def cmd_results_md(d, out_path=None):
                   f"simulated margin on illustrative prices, not market data], "
                   f"Super-only showed no clear difference ({_per(main_s, n)}), and the test switched the default label "
                   f"model to {lab['default_label_model']}." + (f" {v2}" if v2 else "") + f"\n{b}")
-        readme.write_text(txt[:txt.index(a)] + answer + txt[txt.index(b) + len(b):])
+        txt = txt[:txt.index(a)] + answer + txt[txt.index(b) + len(b):]
+        ea, eb = "<!-- evidence:start -->", "<!-- evidence:end -->"
+        if ea in txt and eb in txt:
+            rows = [("Main test (v1), pre-registered", "`tournament/MANIFEST.json`, [`RESULTS.md`](RESULTS.md)",
+                     f"manifest `{sha[:12]}…` (canonical JSON); frozen in `{freeze}` at {utc(freeze_t)}, pushed "
+                     f"{utc(push_t) if 'T' in push_t else push_t}; run {state.get('started')} to {ended}; "
+                     f"{report.get('clean_rows')} conversations; {_usd(ledg['usd'], 2)} of real Token Factory spend"),
+                    ("Main result", "[`RESULTS.md`](RESULTS.md)",
+                     f"routed {_per(main_r, n)}, Super-only {_per(main_s, n)} against `smart_rules`; default label model "
+                     f"after the test: {lab['default_label_model']}"),
+                    ("Second test (v2): free wording", "`tournament/v2/` (PREREG, CHANGES)",
+                     (v2_status() or "see RESULTS.md").replace("A second pre-registered test, with customers wording the "
+                                                               "same facts freely, stopped", "Stopped")),
+                    ("Limitations", "[`RESULTS.md#limitations`](RESULTS.md#limitations)",
+                     "simulated customers; a rulebook written for the simulator; one published false opt-out; and more"),
+                    ("Platform spikes", "`evidence/spikes/`", "pre-registered plans, raw replies, results"),
+                    ("Replay demo", "`demo/data/replay.json`",
+                     f"{len(json.loads((ROOT / 'demo' / 'data' / 'replay.json').read_text())['scenarios'])} recorded "
+                     "conversations picked by the rule in `demo/replay.py`, served step for step")]
+            table = "\n".join(["| Evidence | Where | What it shows |", "|---|---|---|"] + [f"| {a_} | {b_} | {c_} |" for a_, b_, c_ in rows])
+            txt = txt[:txt.index(ea)] + ea + "\n" + table + "\n" + txt[txt.index(eb):]
+        readme.write_text(txt)
     print(f"wrote {out_path or ROOT / 'RESULTS.md'}: {len(L)} lines")
     return 0
 

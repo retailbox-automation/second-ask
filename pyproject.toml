@@ -13,5 +13,5 @@ dev = ["pytest>=8"]
 packages = ["second_ask"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "demo/tests"]
 markers = ["live: calls Nebius Token Factory (skipped without NEBIUS_API_KEY)"]

@@ -1,0 +1,1130 @@
+{
+ "source": {
+  "outcomes": "tournament/full/outcomes.jsonl",
+  "rows": "tournament/full/rows.jsonl",
+  "manifest_sha256": "1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e"
+ },
+ "rule": "(no hand-picking), all from the v1 run (manifest 1c231403), repeat 0:\n1. For each objection type except opt_out, the first customer in tournament/buyers.json order whose super_only\n   conversation (the product as shipped: Super labels and chooses) has at least one model step and one shop message.\n   Opt-out customers are left out: their words come from code and no model is called.\n2. The customer where super_only's net falls furthest below smart_rules' net (a loss of the product against the\n   rulebook), ties by customer id; super_only. If that customer is already picked under 1, the next one.\n3. B139, routed: the published false opt-out (the Lightning label read \"I'll think about it and get back to you.\" as a\n   request to stop).",
+ "scenarios": [
+  {
+   "id": "B003-super_only",
+   "buyer": "B003",
+   "policy": "super_only",
+   "type": "price",
+   "trade": "HVAC",
+   "why": "first price customer with a model step and a shop message",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "Replace 3-ton AC and air handler",
+    "sent_by": "email",
+    "items": [
+     {
+      "name": "Replace 3-ton AC and air handler",
+      "price": 9260.0,
+      "optional": false
+     },
+     {
+      "name": "Smart thermostat",
+      "price": 360.0,
+      "optional": true
+     },
+     {
+      "name": "UV air purifier",
+      "price": 780.0,
+      "optional": true
+     }
+    ],
+    "total": 10400.0
+   },
+   "result": {
+    "booked": false,
+    "price": null,
+    "end": "stopped negotiating",
+    "margin": 0.0,
+    "net": -0.0012,
+    "oracle": 3617.0,
+    "model_usd": 0.001247,
+    "buyer_usd": 3.9e-05
+   },
+   "transcript": [
+    {
+     "day": 0.44,
+     "who": "customer",
+     "channel": "email",
+     "text": "This is more than I expected. Thanks for the estimate.",
+     "move": null
+    },
+    {
+     "day": 0.448,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Got it\u2014let\u2019s adjust. We can remove the smart\u2011thermostat ($360) bringing the total to $10,040. Does that work better? Reply STOP to opt out.",
+     "move": "drop_smart_thermostat"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.279,
+     "prompt_tokens": 864,
+     "completion_tokens": 53,
+     "reasoning_tokens": 0,
+     "cost": 0.000307,
+     "ok": true,
+     "note": "tool: price",
+     "response_id": "chatcmpl-61f0c4bba2fa6791e4b1025d27f47246",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.474,
+     "prompt_tokens": 2241,
+     "completion_tokens": 297,
+     "reasoning_tokens": 197,
+     "cost": 0.00094,
+     "ok": true,
+     "note": "drop_smart_thermostat",
+     "response_id": "chatcmpl-8882f60980be4290b005c04f9a54b8cf",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.616,
+     "prompt_tokens": 277,
+     "completion_tokens": 37,
+     "reasoning_tokens": 0,
+     "cost": 3.9e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-33db4b3c-4821-465e-b90f-8e0abdf813fc",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B010-super_only",
+   "buyer": "B010",
+   "policy": "super_only",
+   "type": "timing_pause",
+   "trade": "HVAC",
+   "why": "first timing_pause customer with a model step and a shop message",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "Replace 3-ton AC and air handler",
+    "sent_by": "email",
+    "items": [
+     {
+      "name": "Replace 3-ton AC and air handler",
+      "price": 8360.0,
+      "optional": false
+     },
+     {
+      "name": "Smart thermostat",
+      "price": 330.0,
+      "optional": true
+     },
+     {
+      "name": "UV air purifier",
+      "price": 710.0,
+      "optional": true
+     }
+    ],
+    "total": 9400.0
+   },
+   "result": {
+    "booked": true,
+    "price": 9400.0,
+    "end": "booked",
+    "margin": 4230.0,
+    "net": 4229.9957,
+    "oracle": 4230.0,
+    "model_usd": 0.004326,
+    "buyer_usd": 0.000103
+   },
+   "transcript": [
+    {
+     "day": 0.045,
+     "who": "customer",
+     "channel": "email",
+     "text": "I'll go ahead with the replacement, but I won't be able to schedule it for about four weeks after the holidays. Thanks for the estimate.",
+     "move": null
+    },
+    {
+     "day": 0.052,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Hi there! Thanks for letting us know you\u2019d like to move forward. We\u2019ll keep your estimate for the 3\u2011ton AC and air handler (with optional smart thermostat and UV purifier) valid whenever you\u2019re ready\u2014just reach out after the holidays and we\u2019ll lock in a date that works for you. Reply STOP to opt out.",
+     "move": "answer"
+    },
+    {
+     "day": 0.168,
+     "who": "customer",
+     "channel": "email",
+     "text": "Still not ready yet\u2014probably another four weeks after the holidays. Let me reach out then.",
+     "move": null
+    },
+    {
+     "day": 0.175,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Hi there, we\u2019ll hold your estimate for the 3\u2011ton AC and air handler (with optional smart thermostat and UV purifier) and check back in about a month to see if you\u2019re ready to schedule after the holidays. Reply STOP to opt out.",
+     "move": "checkin_30"
+    },
+    {
+     "day": 30.175,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Hi there, we\u2019ll hold your estimate for the 3\u2011ton AC and air handler (with optional smart thermostat and UV purifier) and check back in early January to see if you\u2019re ready to schedule after the holidays. Just let us know if anything changes! Reply STOP to opt out.",
+     "move": "checkin_30"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.212,
+     "prompt_tokens": 880,
+     "completion_tokens": 60,
+     "reasoning_tokens": 0,
+     "cost": 0.000318,
+     "ok": true,
+     "note": "tool: timing",
+     "response_id": "chatcmpl-30308536a52f7421e2d034c93b72ea05",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 3.932,
+     "prompt_tokens": 2311,
+     "completion_tokens": 395,
+     "reasoning_tokens": 270,
+     "cost": 0.001049,
+     "ok": true,
+     "note": "answer",
+     "response_id": "chatcmpl-7280519202e23cbc2142b64c5e3e7a49",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.24,
+     "prompt_tokens": 1012,
+     "completion_tokens": 59,
+     "reasoning_tokens": 0,
+     "cost": 0.000357,
+     "ok": true,
+     "note": "tool: timing",
+     "response_id": "chatcmpl-42f2cf9a27bfd627fe55a1895aa3ab05",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.975,
+     "prompt_tokens": 2442,
+     "completion_tokens": 374,
+     "reasoning_tokens": 249,
+     "cost": 0.001069,
+     "ok": true,
+     "note": "checkin_30",
+     "response_id": "chatcmpl-e9b3e362fc1043b4a9744a83d4353aae",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.381,
+     "prompt_tokens": 1106,
+     "completion_tokens": 58,
+     "reasoning_tokens": 0,
+     "cost": 0.000384,
+     "ok": true,
+     "note": "tool: timing",
+     "response_id": "chatcmpl-7beb2a065daaf1b6ccb4a848f6ff8d00",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 3.473,
+     "prompt_tokens": 2391,
+     "completion_tokens": 480,
+     "reasoning_tokens": 361,
+     "cost": 0.001149,
+     "ok": true,
+     "note": "checkin_30",
+     "response_id": "chatcmpl-fad9ed690552e492a60c503dd44a7d3e",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.745,
+     "prompt_tokens": 281,
+     "completion_tokens": 66,
+     "reasoning_tokens": 0,
+     "cost": 4.8e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-20f9c638-e6a1-4ee6-acc7-584c22e60934",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.707,
+     "prompt_tokens": 409,
+     "completion_tokens": 47,
+     "reasoning_tokens": 0,
+     "cost": 5.5e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-dc274db1-3667-4c51-93e7-5b73d01fd03c",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B001-super_only",
+   "buyer": "B001",
+   "policy": "super_only",
+   "type": "timing_slot",
+   "trade": "HVAC",
+   "why": "first timing_slot customer with a model step and a shop message",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "AC capacitor and contactor replacement",
+    "sent_by": "email",
+    "items": [
+     {
+      "name": "AC capacitor and contactor replacement",
+      "price": 890.0,
+      "optional": false
+     },
+     {
+      "name": "Surge protector",
+      "price": 190.0,
+      "optional": true
+     }
+    ],
+    "total": 1080.0
+   },
+   "result": {
+    "booked": true,
+    "price": 1080.0,
+    "end": "booked",
+    "margin": 486.0,
+    "net": 485.9988,
+    "oracle": 486.0,
+    "model_usd": 0.001177,
+    "buyer_usd": 4.8e-05
+   },
+   "transcript": [
+    {
+     "day": 1.355,
+     "who": "customer",
+     "channel": "email",
+     "text": "Your quote slot on Tuesday Nov 10 is too late\u2014we need this done by Wednesday because the AC is out and the house is hot. Someone else can come sooner.",
+     "move": null
+    },
+    {
+     "day": 1.363,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Hi there! I see you\u2019d like the repair by Wednesday. We can do it on Wed Nov 04 at 2:00\u202fPM for the same $1,080 total. Let me know if that works for you! Reply STOP to opt out.",
+     "move": "earlier_slot_1"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.938,
+     "prompt_tokens": 871,
+     "completion_tokens": 61,
+     "reasoning_tokens": 0,
+     "cost": 0.000316,
+     "ok": true,
+     "note": "tool: timing",
+     "response_id": "chatcmpl-96bc3a3922bb6353cef77efcdc0a58d6",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.5,
+     "prompt_tokens": 2067,
+     "completion_tokens": 268,
+     "reasoning_tokens": 148,
+     "cost": 0.000861,
+     "ok": true,
+     "note": "earlier_slot_1",
+     "response_id": "chatcmpl-143d4f000ce4c071cff46b07b82347c5",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.792,
+     "prompt_tokens": 275,
+     "completion_tokens": 69,
+     "reasoning_tokens": 0,
+     "cost": 4.8e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-8688ec12-b284-4385-a3e2-fcde8e514c6f",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B006-super_only",
+   "buyer": "B006",
+   "policy": "super_only",
+   "type": "family",
+   "trade": "HVAC",
+   "why": "first family customer with a model step and a shop message",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "AC capacitor and contactor replacement",
+    "sent_by": "sms",
+    "items": [
+     {
+      "name": "AC capacitor and contactor replacement",
+      "price": 740.0,
+      "optional": false
+     },
+     {
+      "name": "Surge protector",
+      "price": 150.0,
+      "optional": true
+     }
+    ],
+    "total": 890.0
+   },
+   "result": {
+    "booked": true,
+    "price": 890.0,
+    "end": "booked",
+    "margin": 400.5,
+    "net": 400.4977,
+    "oracle": 400.5,
+    "model_usd": 0.002285,
+    "buyer_usd": 3.6e-05
+   },
+   "transcript": [
+    {
+     "day": 1.562,
+     "who": "customer",
+     "channel": "sms",
+     "text": "My partner needs to look at it with you before we decide.",
+     "move": null
+    },
+    {
+     "day": 1.958,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hi! The $890 includes replacing the AC capacitor and contactor, plus an optional surge protector for added protection. Let me know if your partner would like any details before deciding. Reply STOP to opt out.",
+     "move": "answer"
+    },
+    {
+     "day": 4.958,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hi there! The $890 includes removing the old capacitor & contactor, installing new ones, testing the system, and cleaning up. The optional surge protector ($150) guards against power spikes. Happy to clarify anything for your partner\u2014just let me know! Reply STOP to opt out.",
+     "move": "answer"
+    },
+    {
+     "day": 6.362,
+     "who": "customer",
+     "channel": "sms",
+     "text": "We talked it over. Let's book it.",
+     "move": null
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.235,
+     "prompt_tokens": 844,
+     "completion_tokens": 54,
+     "reasoning_tokens": 0,
+     "cost": 0.000302,
+     "ok": true,
+     "note": "tool: family",
+     "response_id": "chatcmpl-ca9579aeb30ad5a2f8728838bad96897",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.422,
+     "prompt_tokens": 1987,
+     "completion_tokens": 303,
+     "reasoning_tokens": 199,
+     "cost": 0.000869,
+     "ok": true,
+     "note": "answer",
+     "response_id": "chatcmpl-aa067e38874e364e3c1c8e4bdb391de3",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.093,
+     "prompt_tokens": 927,
+     "completion_tokens": 54,
+     "reasoning_tokens": 0,
+     "cost": 0.000327,
+     "ok": true,
+     "note": "tool: family",
+     "response_id": "chatcmpl-fb49ead392523afeb793e52a3083f4ac",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.456,
+     "prompt_tokens": 1938,
+     "completion_tokens": 228,
+     "reasoning_tokens": 105,
+     "cost": 0.000787,
+     "ok": true,
+     "note": "answer",
+     "response_id": "chatcmpl-f05eff297add2a539db1b92e8867dda8",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.685,
+     "prompt_tokens": 257,
+     "completion_tokens": 34,
+     "reasoning_tokens": 0,
+     "cost": 3.6e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-adbefc1f-53bf-455a-9c11-0fed6183735f",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B011-super_only",
+   "buyer": "B011",
+   "policy": "super_only",
+   "type": "channel",
+   "trade": "HVAC",
+   "why": "first channel customer with a model step and a shop message",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "AC capacitor and contactor replacement",
+    "sent_by": "email",
+    "items": [
+     {
+      "name": "AC capacitor and contactor replacement",
+      "price": 880.0,
+      "optional": false
+     },
+     {
+      "name": "Surge protector",
+      "price": 230.0,
+      "optional": true
+     }
+    ],
+    "total": 1110.0
+   },
+   "result": {
+    "booked": true,
+    "price": 1110.0,
+    "end": "booked",
+    "margin": 499.5,
+    "net": 499.499,
+    "oracle": 499.5,
+    "model_usd": 0.00104,
+    "buyer_usd": 0
+   },
+   "transcript": [
+    {
+     "day": 3.0,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hi! Just wanted to make sure you got our estimate for your HVAC work \u2013 the total is $1,110 including surge protection. Here\u2019s a quick link to review & book if you\u2019re ready. Reply STOP to opt out.",
+     "move": "resend_sms"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.794,
+     "prompt_tokens": 828,
+     "completion_tokens": 54,
+     "reasoning_tokens": 0,
+     "cost": 0.000297,
+     "ok": true,
+     "note": "tool: channel",
+     "response_id": "chatcmpl-9190a6bcde258318671aceb15cdb581e",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.092,
+     "prompt_tokens": 1949,
+     "completion_tokens": 176,
+     "reasoning_tokens": 64,
+     "cost": 0.000743,
+     "ok": true,
+     "note": "resend_sms",
+     "response_id": "chatcmpl-f617174ea9af71cf8539f13dd5175778",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B002-super_only",
+   "buyer": "B002",
+   "policy": "super_only",
+   "type": "ready",
+   "trade": "plumbing",
+   "why": "first ready customer with a model step and a shop message",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "Fix leaking shower valve",
+    "sent_by": "email",
+    "items": [
+     {
+      "name": "Fix leaking shower valve",
+      "price": 460.0,
+      "optional": false
+     }
+    ],
+    "total": 460.0
+   },
+   "result": {
+    "booked": true,
+    "price": 460.0,
+    "end": "booked",
+    "margin": 207.0,
+    "net": 206.999,
+    "oracle": 207.0,
+    "model_usd": 0.001,
+    "buyer_usd": 3.3e-05
+   },
+   "transcript": [
+    {
+     "day": 1.07,
+     "who": "customer",
+     "channel": "email",
+     "text": "This looks good. When can you come?",
+     "move": null
+    },
+    {
+     "day": 1.077,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Hi! We can come to fix the leaking shower valve on Monday, November 9 at 2:00\u202fPM. Just let me know if that works for you or if you\u2019d prefer another time. Reply STOP to opt out.",
+     "move": "offer_slot"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.221,
+     "prompt_tokens": 827,
+     "completion_tokens": 66,
+     "reasoning_tokens": 0,
+     "cost": 0.000307,
+     "ok": true,
+     "note": "tool: ready_to_book",
+     "response_id": "chatcmpl-d136640606507f0e8b030fd9e25241d3",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 9.446,
+     "prompt_tokens": 1621,
+     "completion_tokens": 230,
+     "reasoning_tokens": 122,
+     "cost": 0.000693,
+     "ok": true,
+     "note": "offer_slot",
+     "response_id": "chatcmpl-bff29bfd6b7842977bd053248ccefba9",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.772,
+     "prompt_tokens": 236,
+     "completion_tokens": 32,
+     "reasoning_tokens": 0,
+     "cost": 3.3e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-14cdd38b-a93f-4211-8fe3-a41fa2c73587",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B046-super_only",
+   "buyer": "B046",
+   "policy": "super_only",
+   "type": "timing_slot",
+   "trade": "roofing",
+   "why": "largest shortfall of super_only against smart_rules (net $7,380.00)",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "Full asphalt roof replacement",
+    "sent_by": "sms",
+    "items": [
+     {
+      "name": "Full asphalt roof replacement",
+      "price": 15010.0,
+      "optional": false
+     },
+     {
+      "name": "Gutter guards",
+      "price": 1390.0,
+      "optional": true
+     }
+    ],
+    "total": 16400.0
+   },
+   "result": {
+    "booked": false,
+    "price": null,
+    "end": "hired someone else first",
+    "margin": 0.0,
+    "net": -0.0036,
+    "oracle": 7380.0,
+    "model_usd": 0.00359,
+    "buyer_usd": 0.000161
+   },
+   "transcript": [
+    {
+     "day": 0.708,
+     "who": "customer",
+     "channel": "sms",
+     "text": "Your quoted slot on Sunday Nov 08 is too late\u2014I need the roof done by Thursday because rain is in the forecast. Someone else can come sooner.",
+     "move": null
+    },
+    {
+     "day": 0.958,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hi! We can move your roof replacement to Thu Nov 5 at 2\u202fPM for the same $16,400 total. Let me know if that works! Reply STOP to opt out.",
+     "move": "earlier_slot_2"
+    },
+    {
+     "day": 1.366,
+     "who": "customer",
+     "channel": "sms",
+     "text": "I really need it done by Thursday because of the rain forecast. Thanks for moving it up.",
+     "move": null
+    },
+    {
+     "day": 1.373,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Great! Our team is available Thu Nov 5 at 2\u202fPM for your full asphalt roof replacement + gutter guards at $16,400. Just reply 'Yes' to lock it in! Reply STOP to opt out.",
+     "move": "offer_slot"
+    },
+    {
+     "day": 2.372,
+     "who": "customer",
+     "channel": "sms",
+     "text": "I really need it done by Thursday because of the rain forecast. Thanks for moving it up.",
+     "move": null
+    },
+    {
+     "day": 2.379,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hi! Our team is available Thu Nov 5 at 2\u202fPM for your full asphalt roof replacement + gutter guards at $16,400. Just reply 'Yes' to lock it in! Reply STOP to opt out.",
+     "move": "offer_slot"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.028,
+     "prompt_tokens": 869,
+     "completion_tokens": 65,
+     "reasoning_tokens": 0,
+     "cost": 0.000319,
+     "ok": true,
+     "note": "tool: timing",
+     "response_id": "chatcmpl-faf4f766f6a2fc7a75955d035eb235dd",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.743,
+     "prompt_tokens": 2147,
+     "completion_tokens": 198,
+     "reasoning_tokens": 90,
+     "cost": 0.000822,
+     "ok": true,
+     "note": "earlier_slot_2",
+     "response_id": "chatcmpl-e6ab8bc6f564620d7dcaaa2cbc72a62d",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.15,
+     "prompt_tokens": 973,
+     "completion_tokens": 58,
+     "reasoning_tokens": 0,
+     "cost": 0.000344,
+     "ok": true,
+     "note": "tool: ready_to_book",
+     "response_id": "chatcmpl-d9cdf635d2abef31ed55748b5ab1139a",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.911,
+     "prompt_tokens": 2171,
+     "completion_tokens": 168,
+     "reasoning_tokens": 66,
+     "cost": 0.000803,
+     "ok": true,
+     "note": "offer_slot",
+     "response_id": "chatcmpl-91292d26ce00bb444ddfca9f7aad1814",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.959,
+     "prompt_tokens": 1082,
+     "completion_tokens": 59,
+     "reasoning_tokens": 0,
+     "cost": 0.000378,
+     "ok": true,
+     "note": "tool: timing",
+     "response_id": "chatcmpl-a9755a2111f2dbe475d87acb0323797b",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.538,
+     "prompt_tokens": 2206,
+     "completion_tokens": 291,
+     "reasoning_tokens": 175,
+     "cost": 0.000924,
+     "ok": true,
+     "note": "offer_slot",
+     "response_id": "chatcmpl-49819f9e9695c62e3cafbb016eb75779",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.781,
+     "prompt_tokens": 274,
+     "completion_tokens": 64,
+     "reasoning_tokens": 0,
+     "cost": 4.7e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-58e27a9e-0f0f-45e8-a99d-f167585dcf26",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.795,
+     "prompt_tokens": 354,
+     "completion_tokens": 57,
+     "reasoning_tokens": 0,
+     "cost": 5.3e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-32f6645d-7b6e-455c-88a2-c0ce3c9e27fa",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.776,
+     "prompt_tokens": 444,
+     "completion_tokens": 54,
+     "reasoning_tokens": 0,
+     "cost": 6.1e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-cab31ef5-e06c-4bc0-b62b-50caa4352550",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": []
+  },
+  {
+   "id": "B139-routed",
+   "buyer": "B139",
+   "policy": "routed",
+   "type": "timing_pause",
+   "trade": "plumbing",
+   "why": "the published false opt-out",
+   "estimate": {
+    "shop": "Sunrise Home Services",
+    "title": "Fix leaking shower valve",
+    "sent_by": "email",
+    "items": [
+     {
+      "name": "Fix leaking shower valve",
+      "price": 450.0,
+      "optional": false
+     }
+    ],
+    "total": 450.0
+   },
+   "result": {
+    "booked": false,
+    "price": null,
+    "end": "policy stopped: label model read an opt-out; no further messages",
+    "margin": 0.0,
+    "net": -0.0024,
+    "oracle": 202.5,
+    "model_usd": 0.002374,
+    "buyer_usd": 8.7e-05
+   },
+   "transcript": [
+    {
+     "day": 1.249,
+     "who": "customer",
+     "channel": "email",
+     "text": "Thanks for the quote. I'll think about it and get back to you.",
+     "move": null
+    },
+    {
+     "day": 1.256,
+     "who": "shop",
+     "channel": "email",
+     "text": "[Sunrise Home Services assistant, not a person] Hi there! Just checking in to see if you had any questions about the shower valve repair. Let me know when you're ready to schedule. Reply STOP to opt out.",
+     "move": "checkin_3"
+    },
+    {
+     "day": 4.256,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hi again \u2013 just sent the shower\u2011valve estimate to your phone via SMS with a quick\u2011book link. Let me know if anything\u2019s unclear! Reply STOP to opt out.",
+     "move": "resend_sms"
+    },
+    {
+     "day": 5.232,
+     "who": "customer",
+     "channel": "email",
+     "text": "I'll think about it and get back to you.",
+     "move": null
+    },
+    {
+     "day": 5.24,
+     "who": "shop",
+     "channel": "sms",
+     "text": "[Sunrise Home Services assistant, not a person] Hey! Just wanted to let you know I\u2019ll touch base in a few days to see if you\u2019ve had a chance to think it over. No rush\u2014happy to help whenever you\u2019re ready. Reply STOP to opt out.",
+     "move": "checkin_3"
+    }
+   ],
+   "steps": [
+    {
+     "step": "classify",
+     "model": "nvidia/Nemotron-3_5-Lightning",
+     "seconds": 5.703,
+     "prompt_tokens": 410,
+     "completion_tokens": 86,
+     "reasoning_tokens": 0,
+     "cost": 4.5e-05,
+     "ok": true,
+     "note": "json_object: timing",
+     "response_id": "chatcmpl-8b5c29de55d6a49cb7e33b17d6476e1a",
+     "served_model": "nvidia/Nemotron-3_5-Lightning",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.863,
+     "prompt_tokens": 1725,
+     "completion_tokens": 196,
+     "reasoning_tokens": 94,
+     "cost": 0.000694,
+     "ok": true,
+     "note": "checkin_3",
+     "response_id": "chatcmpl-37df5aac35f2bc8c16d3cb7458f2df06",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/Nemotron-3_5-Lightning",
+     "seconds": 0.987,
+     "prompt_tokens": 483,
+     "completion_tokens": 83,
+     "reasoning_tokens": 0,
+     "cost": 4.9e-05,
+     "ok": true,
+     "note": "json_object: price",
+     "response_id": "chatcmpl-543031056edce36445f61c2249ad1fea",
+     "served_model": "nvidia/Nemotron-3_5-Lightning",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 2.344,
+     "prompt_tokens": 1726,
+     "completion_tokens": 218,
+     "reasoning_tokens": 116,
+     "cost": 0.000714,
+     "ok": true,
+     "note": "resend_sms",
+     "response_id": "chatcmpl-4d84ca29bfba8445de83e53747bbe620",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/Nemotron-3_5-Lightning",
+     "seconds": 0.906,
+     "prompt_tokens": 561,
+     "completion_tokens": 104,
+     "reasoning_tokens": 0,
+     "cost": 5.9e-05,
+     "ok": true,
+     "note": "json_object: timing",
+     "response_id": "chatcmpl-de7fafa2bc8c58d7a3192b417495b6da",
+     "served_model": "nvidia/Nemotron-3_5-Lightning",
+     "platform_error": false
+    },
+    {
+     "step": "choose",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 3.204,
+     "prompt_tokens": 1743,
+     "completion_tokens": 246,
+     "reasoning_tokens": 135,
+     "cost": 0.000744,
+     "ok": true,
+     "note": "checkin_3",
+     "response_id": "chatcmpl-066cf47d72735aa97ba2e2d086e72039",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "classify",
+     "model": "nvidia/Nemotron-3_5-Lightning",
+     "seconds": 1.064,
+     "prompt_tokens": 648,
+     "completion_tokens": 125,
+     "reasoning_tokens": 0,
+     "cost": 6.9e-05,
+     "ok": true,
+     "note": "json_object: opt_out",
+     "response_id": "chatcmpl-b692f3c631e4555f29a1967fe5528beb",
+     "served_model": "nvidia/Nemotron-3_5-Lightning",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.668,
+     "prompt_tokens": 247,
+     "completion_tokens": 44,
+     "reasoning_tokens": 0,
+     "cost": 3.8e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-13afdc2f-06d3-490b-bcd2-5a0d8a781ad6",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    },
+    {
+     "step": "buyer",
+     "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "seconds": 0.815,
+     "prompt_tokens": 374,
+     "completion_tokens": 39,
+     "reasoning_tokens": 0,
+     "cost": 4.9e-05,
+     "ok": true,
+     "note": "",
+     "response_id": "chatcmpl-2a4f2b93-5990-4c76-bb2f-443abdc988bd",
+     "served_model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+     "platform_error": false
+    }
+   ],
+   "flags": [
+    {
+     "day": 1.256,
+     "move": "checkin_3",
+     "flags": [
+      "label timing with low confidence: Customer says 'I'll think about it and get back to you.' They have not booked but are not objecting to price. Silence is not a price objection. The quoted slot (Nov 08) is 5 days after today (Nov 03),"
+     ]
+    },
+    {
+     "day": 4.256,
+     "move": "resend_sms",
+     "flags": [
+      "label price with low confidence: Customer said 'I'll think about it and get back to you' on Nov 3. 4 days have passed; estimate opened only once. Silence alone is not a price objection, but the delay and single open suggest cost hesi"
+     ]
+    }
+   ]
+  }
+ ]
+}

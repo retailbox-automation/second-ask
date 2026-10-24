@@ -2,7 +2,7 @@
 
 **Second Ask, measured: in our pre-registered test, Nemotron did not beat a good rulebook. Against `smart_rules`, a rulebook we wrote with full knowledge of the simulator, the routed design (Lightning labels, Super chooses) came out at -$36,147 [-$63,856, -$13,051] against it over 200 simulated customers (-$181 [-$319, -$65] per customer): behind. Super-only: -$16,720 [-$43,004, +$8,643] (-$84 [-$215, +$43] per customer): no clear difference. The test changed what we ship: Super labels by default. All $ are simulated margin on illustrative prices (not market data).**
 
-Pre-registered manifest `tournament/MANIFEST.json`: sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` of its canonical JSON (sorted keys, no spaces; the file's own sha256 is `e3551d565a561fd1…`). Frozen in commit `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; the run started 2026-10-24T10:58:31Z and finished 2026-10-24T11:37:04Z. `second_ask/**` and the manifest did not change between the freeze and the end of the run (the second test later changed three files; this run reproduces at commit `6d66d53`). Run: 2403 conversation rows (2400 clean, 3 errored and re-run clean), real Token Factory spend $5.97.
+Pre-registered manifest `tournament/MANIFEST.json`: sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` of its canonical JSON (sorted keys, no spaces; the file's own sha256 is `e3551d565a561fd1…`). Frozen in commit `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; the run started 2026-10-24T10:58:31Z and finished 2026-10-24T11:37:04Z. `second_ask/**` and the manifest did not change between the freeze and the end of the run (the second test later changed three files; this run reproduces at commit `6d66d53`). Run: 2403 conversation rows (2400 clean, 3 errored and re-run clean), real Token Factory spend $5.78.
 
 Numbers on this page are computed from the run files by `python3 -m second_ask.tournament.run results` (the pre-registered tables) and `tools/run_checks.py results-md` (this page). That generator is not in the manifest and was first committed in `db01ff6` at 2026-10-24T11:39:15Z, after the run: the numbers are computed, but the presentation and wording were chosen with the results known.
 
@@ -125,8 +125,8 @@ False opt-outs (a customer who did not ask to stop, stopped as an opt-out): 1.
 ## Integrity
 
 - Errored rows 3 (HTTP 503 after the client's retries), each clean on its second attempt; customers excluded 0; customers kept 200 of 200.
-- Token Factory error replies in the run window, all retried: Qwen3-235B-A22B-Instruct-2507 HTTP 503 x143; Qwen3-30B-A3B-Instruct-2507 HTTP 503 x221; Nemotron-3-Ultra-550b-a55b HTTP 503 x6; Nemotron-3.5-Super-VL HTTP 502 x1; Nemotron-3.5-Super-VL HTTP 503 x2; Nemotron-3_5-Lightning HTTP 503 x2; nemotron-3-super-120b-a12b HTTP 503 x2; HTTP 429: 0. Reservations kept on network-level retries (held as spend): 13.
-- Usage-based cost of the kept conversations: shop $5.5897, buyer writer $0.1439; the ledger window ($5.9693) also holds the errored attempts and the kept reservations.
+- Token Factory error replies in the run window, all retried: Qwen3-30B-A3B-Instruct-2507 HTTP 503 x31; Nemotron-3-Ultra-550b-a55b HTTP 503 x6; Nemotron-3.5-Super-VL HTTP 502 x1; Nemotron-3.5-Super-VL HTTP 503 x2; Nemotron-3_5-Lightning HTTP 503 x2; nemotron-3-super-120b-a12b HTTP 503 x2; HTTP 429: 0. Reservations kept on network-level retries (held as spend): 13.
+- Usage-based cost of the kept conversations: shop $5.5897, buyer writer $0.1439; the ledger window ($5.7776) also holds the errored attempts and the kept reservations.
 - Off-arm calls 0, chronology errors 0, buyer text from the template 0, fallback labels 2 (routed), duplicate outcome lines 0.
 
 ## Simulator gates (text-blind rule policies)

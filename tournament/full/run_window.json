@@ -1,0 +1,5 @@
+{
+ "started": "2026-10-24T10:58:31Z",
+ "ended": "2026-10-24T11:37:04Z",
+ "source": "started: run_state.json; ended: mtime of run_report.json, recorded on 2026-10-24 so a checkout cannot move it"
+}
