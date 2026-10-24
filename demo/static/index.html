@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Second Ask: replay demo</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand"><b>Second Ask</b><span class="mode">Replay</span></div>
+  <nav class="views" aria-label="Screens">
+    <a data-view="summary" href="#view=summary">Morning summary</a>
+    <a data-view="why" href="#view=why">Why it stalled</a>
+    <a data-view="owner" href="#view=owner">Owner card</a>
+    <a data-view="receipt" href="#view=receipt">Booked &amp; receipt</a>
+  </nav>
+  <label class="pick">Conversation
+    <select id="scenario" aria-label="Recorded conversation"></select>
+  </label>
+  <div class="stepper" id="stepper">
+    <button type="button" id="prev" aria-label="Previous decision">&lsaquo;</button>
+    <span id="dpos">Decision 1 of 1</span>
+    <button type="button" id="next" aria-label="Next decision">&rsaquo;</button>
+  </div>
+</header>
+
+<main id="stage" class="stage">
+  <section class="view v-summary" data-v="summary" hidden>
+    <div class="screen">
+      <div class="tag">seeded demo shop</div>
+      <h1 id="hello">Good morning</h1>
+      <p class="sub" id="sumSub"></p>
+      <div class="tiles" id="tiles"></div>
+      <ul class="rows" id="rows"></ul>
+      <details class="rule"><summary>How these conversations were picked</summary><p id="rule"></p></details>
+    </div>
+  </section>
+
+  <section class="view v-why" data-v="why" hidden>
+    <div class="phone"><div class="notch"></div><div class="thread" id="thread"></div></div>
+    <div class="card why-card">
+      <div class="tag">seeded demo shop</div>
+      <h1 id="whyTitle">Why hasn't the customer booked?</h1>
+      <div class="label" id="label">PRICE</div>
+      <div class="chips" id="labelChips"></div>
+      <p class="note" id="labelNote"></p>
+    </div>
+  </section>
+
+  <section class="view v-owner" data-v="owner" hidden>
+    <div class="cal cal-soft" id="ownerCal" data-overlap-ok="the phone sits over the calendar, as in the approved frame"></div>
+    <div class="phone owner-phone"><div class="notch"></div>
+      <div class="ocard">
+        <h2 id="oTitle"></h2>
+        <div class="olbl">Proposed move</div>
+        <div class="chips" id="oChips"></div>
+        <ul class="orows" id="oRows"></ul>
+        <div id="oAct"></div>
+        <div class="omsg" id="oMsg"></div>
+        <details class="menu"><summary id="oMenuSum">Every move the code allowed</summary><ol id="oMenu"></ol></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="view v-receipt" data-v="receipt" hidden>
+    <div class="card cal-card"><div class="cal" id="rCal"></div></div>
+    <div class="card rcard">
+      <h2>This conversation</h2>
+      <ul class="lines" id="rLines"></ul>
+      <div class="total"><span>Total</span><b id="rTotal"></b></div>
+      <div class="outcome" id="rOutcome"></div>
+      <div class="foot" id="rFoot"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="result" id="result"></footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
