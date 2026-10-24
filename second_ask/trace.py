@@ -18,12 +18,18 @@ class Step:
     ok: bool = True
     note: str = ""
     response_id: str | None = None
+    served_model: str | None = None  # the model id the server says answered (`model` is the one we asked for)
+    platform_error: bool = False     # no answer: Token Factory failed after the client's retries (TFError)
 
     @classmethod
     def from_reply(cls, step, reply, ok=True, note=""):
-        u = reply.usage or {}
+        u, raw = reply.usage or {}, reply.raw or {}
         return cls(step, reply.model, reply.seconds, u.get("prompt_tokens", 0), u.get("completion_tokens", 0),
-                   reply.reasoning_tokens, round(reply.cost, 6), ok, note, (reply.raw or {}).get("id"))
+                   reply.reasoning_tokens, round(reply.cost, 6), ok, note, raw.get("id"), raw.get("model"))
+
+    @classmethod
+    def platform_failure(cls, step, model, error):
+        return cls(step, model, ok=False, note=str(error)[:200], platform_error=True)
 
 
 class Trace:

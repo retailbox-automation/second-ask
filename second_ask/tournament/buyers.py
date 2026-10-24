@@ -27,6 +27,7 @@ ASSUMPTIONS = {
     "prices": "illustrative list-price ranges per job, rounded to $10; not market data",
 }
 COST_RATIO = 0.55
+SHOP_NAME = "Sunrise Home Services"  # made up for the simulation; any real business with this name is unrelated
 CATALOG = {  # trade -> [(job, list price range, [(optional item, price range)])]
     "HVAC": [("AC capacitor and contactor replacement", (450, 900), [("Surge protector", (150, 250))]),
              ("Furnace igniter and flame sensor", (300, 650), [("Annual maintenance plan", (150, 220))]),
@@ -85,7 +86,7 @@ class Card:
 
     def estimate(self):
         items = tuple(LineItem(n, float(p), round(p * COST_RATIO, 2), bool(o)) for n, p, o in self.items)
-        return Estimate(self.id, "Sunrise Home Services", self.trade, self.title, items, self.max_discount, T0,
+        return Estimate(self.id, SHOP_NAME, self.trade, self.title, items, self.max_discount, T0,
                         self.channel, Slot(f"{self.id}-quoted", T0 + timedelta(days=self.quoted_slot_day)))
 
     def open_slots(self):

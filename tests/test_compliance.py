@@ -95,3 +95,48 @@ def test_every_sent_message_discloses_the_assistant():
 def test_gate_delays_into_the_window_and_says_so():
     g = C.gate("hi", "sms", C.Recipient(NY, "FL"), "Cool Air", "FL", utc(2026, 10, 20, 12), utc(2026, 10, 24, 2, 0))
     assert g.ok and g.send_at == utc(2026, 10, 24, 12, 0) and g.reasons
+
+
+@pytest.mark.parametrize("text", ["Please don’t text me again", "Please take me off your list.",
+                                  "Take me off your list and don't contact me again.", "Please remove my number.",
+                                  "No thanks, please stop.", "Please don't reach out again"])
+def test_curly_apostrophes_and_clear_phrases_opt_out(text):
+    assert C.opt_out_status(text) == "opt_out"
+
+
+def test_please_stop_by_is_not_an_opt_out():
+    assert C.opt_out_status("Please stop by tomorrow after 5") == "ambiguous"
+
+
+def _max_in_any_24h(times):
+    times = sorted(times)
+    return max(sum(1 for s in times if t <= s < t + timedelta(hours=24)) for t in times)
+
+
+def test_cap_counts_messages_already_scheduled():
+    """Three messages are queued for 08:00, 08:15 and 08:30; a fourth requested at 07:00 the same day must not land
+    inside the same 24 hours."""
+    day = utc(2026, 10, 27, 0)
+    queued = [day + timedelta(hours=12, minutes=m) for m in (0, 15, 30)]  # 08:00-08:30 New York (EDT)
+    t = C.next_send_time(day + timedelta(hours=11), NY, (8, 20), queued)
+    assert _max_in_any_24h(queued + [t]) <= 3
+
+
+def test_cap_holds_for_any_mix_of_past_and_future_sends():
+    import random
+    rng = random.Random(3)
+    base = utc(2026, 10, 27, 12)
+    for _ in range(200):
+        sent = [base + timedelta(minutes=rng.randrange(-48 * 60, 48 * 60)) for _ in range(rng.randrange(0, 6))]
+        while _max_in_any_24h(sent or [base]) > 3:
+            sent.pop()
+        t = C.next_send_time(base, NY, (8, 20), sent)
+        assert _max_in_any_24h(sent + [t]) <= 3
+
+
+def test_ninety_days_is_judged_when_the_message_would_go_out():
+    sent = utc(2026, 7, 1, 12)
+    late_evening = sent + timedelta(days=90, hours=12)  # 20:00 New York on day 90: the send waits until day 91
+    g = C.gate("hi", "sms", C.Recipient(NY, "FL"), "Cool Air", "FL", sent, late_evening)
+    assert not g.ok and "at send time" in g.reasons[0]
+    assert C.gate("hi", "email", C.Recipient(NY, "FL"), "Cool Air", "FL", sent, late_evening).ok

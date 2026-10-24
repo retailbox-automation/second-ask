@@ -191,7 +191,7 @@ class Agent:
             try:
                 reply = self.client.chat(self.cfg.booker_model, messages, tools=tools, tool_choice="auto", **params)
             except TFError as e:
-                conv.trace.add(Step("book", self.cfg.booker_model, ok=False, note=str(e)[:200]))
+                conv.trace.add(Step.platform_failure("book", self.cfg.booker_model, e))
                 return None
             names = [tc["function"]["name"] for tc in reply.tool_calls]
             conv.trace.add(Step.from_reply("book", reply, note=",".join(names) or "no tool call"))

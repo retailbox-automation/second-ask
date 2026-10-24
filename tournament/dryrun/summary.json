@@ -1,22 +1,18 @@
 {
  "gates": {
+  "invariants": [
+   "bookings_above_walkaway",
+   "bookings_below_floor"
+  ],
   "bookings_above_walkaway": 0,
   "bookings_below_floor": 0,
   "booking_rate_by_policy": {
-   "concession_heuristic": 0.33,
-   "super_vl": 0.65,
-   "routed": 0.66,
-   "ultra_only": 0.665,
    "shop_rule": 0.455,
-   "super_only": 0.655
+   "concession_heuristic": 0.33
   },
   "booking_rate_in_30_80": {
-   "concession_heuristic": true,
-   "super_vl": true,
-   "routed": true,
-   "ultra_only": true,
    "shop_rule": true,
-   "super_only": true
+   "concession_heuristic": true
   },
   "price_buyers_booking_rate_by_walkaway_tercile": [
    0,
@@ -48,7 +44,8 @@
    "shop_rule": 1,
    "concession_heuristic": 1
   },
-  "differs_by_type": true
+  "differs_by_type": true,
+  "chronology_errors": 0
  },
  "calls": {
   "shop_rule": {
@@ -60,6 +57,11 @@
    "seller_calls_per_conv": 0,
    "seller_msgs_per_conv": 2.595,
    "buyer_msgs_per_conv": 2.14
+  },
+  "smart_rules": {
+   "seller_calls_per_conv": 0,
+   "seller_msgs_per_conv": 2.02,
+   "buyer_msgs_per_conv": 1.62
   },
   "super_only": {
    "seller_calls_per_conv": 4.21,
@@ -84,358 +86,466 @@
  },
  "aggregate": {
   "concession_heuristic": {
-   "bookings": {
-    "mean": 66,
-    "min": 66,
-    "max": 66
-   },
-   "booking_rate": {
-    "mean": 0.33,
-    "min": 0.33,
-    "max": 0.33
-   },
-   "margin": {
-    "mean": 84523.5,
-    "min": 84523.5,
-    "max": 84523.5
-   },
-   "given_away": {
-    "mean": 7719.0,
-    "min": 7719.0,
-    "max": 7719.0
-   },
-   "lost": {
-    "mean": 160797.5,
-    "min": 160797.5,
-    "max": 160797.5
-   },
-   "lost_price": {
-    "mean": 41611.5,
-    "min": 41611.5,
-    "max": 41611.5
-   },
-   "model_usd": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "usd_per_booking": {
-    "mean": 0.0,
-    "min": 0.0,
-    "max": 0.0
-   },
-   "net": {
-    "mean": 84523.5,
-    "min": 84523.5,
-    "max": 84523.5
-   },
-   "violations": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "unsure": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
    "n": 200,
-   "K": 1
+   "K": 1,
+   "bookings": 66.0,
+   "booking_rate": 0.33,
+   "margin": 84523.5,
+   "given_away": 7719.0,
+   "given_to_full_payers": 5990.0,
+   "menu_gap": 682.5,
+   "lost": 160797.5,
+   "lost_price": 41611.5,
+   "model_usd": 0.0,
+   "buyer_usd": 0.0,
+   "net": 84523.5,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 66.0,
+     "min": 66.0,
+     "max": 66.0
+    },
+    "margin": {
+     "mean": 84523.5,
+     "min": 84523.5,
+     "max": 84523.5
+    },
+    "given_away": {
+     "mean": 7719.0,
+     "min": 7719.0,
+     "max": 7719.0
+    },
+    "lost": {
+     "mean": 160797.5,
+     "min": 160797.5,
+     "max": 160797.5
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 84523.5,
+     "min": 84523.5,
+     "max": 84523.5
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
   },
   "routed": {
-   "bookings": {
-    "mean": 132,
-    "min": 132,
-    "max": 132
-   },
-   "booking_rate": {
-    "mean": 0.66,
-    "min": 0.66,
-    "max": 0.66
-   },
-   "margin": {
-    "mean": 194509.0,
-    "min": 194509.0,
-    "max": 194509.0
-   },
-   "given_away": {
-    "mean": 1212.5,
-    "min": 1212.5,
-    "max": 1212.5
-   },
-   "lost": {
-    "mean": 57318.5,
-    "min": 57318.5,
-    "max": 57318.5
-   },
-   "lost_price": {
-    "mean": 16638.5,
-    "min": 16638.5,
-    "max": 16638.5
-   },
-   "model_usd": {
-    "mean": 0.224721,
-    "min": 0.224721,
-    "max": 0.224721
-   },
-   "usd_per_booking": {
-    "mean": 0.0017024318181818182,
-    "min": 0.0017024318181818182,
-    "max": 0.0017024318181818182
-   },
-   "net": {
-    "mean": 194508.7767,
-    "min": 194508.7767,
-    "max": 194508.7767
-   },
-   "violations": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "unsure": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
    "n": 200,
-   "K": 1
+   "K": 1,
+   "bookings": 132.0,
+   "booking_rate": 0.66,
+   "margin": 194509.0,
+   "given_away": 1212.5,
+   "given_to_full_payers": 312.0,
+   "menu_gap": 433.5,
+   "lost": 57318.5,
+   "lost_price": 16638.5,
+   "model_usd": 0.224721,
+   "buyer_usd": 0.0,
+   "net": 194508.7767,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0017024318181818182,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 132.0,
+     "min": 132.0,
+     "max": 132.0
+    },
+    "margin": {
+     "mean": 194509.0,
+     "min": 194509.0,
+     "max": 194509.0
+    },
+    "given_away": {
+     "mean": 1212.5,
+     "min": 1212.5,
+     "max": 1212.5
+    },
+    "lost": {
+     "mean": 57318.5,
+     "min": 57318.5,
+     "max": 57318.5
+    },
+    "model_usd": {
+     "mean": 0.224721,
+     "min": 0.224721,
+     "max": 0.224721
+    },
+    "net": {
+     "mean": 194508.7767,
+     "min": 194508.7767,
+     "max": 194508.7767
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
   },
   "shop_rule": {
-   "bookings": {
-    "mean": 91,
-    "min": 91,
-    "max": 91
-   },
-   "booking_rate": {
-    "mean": 0.455,
-    "min": 0.455,
-    "max": 0.455
-   },
-   "margin": {
-    "mean": 113053.0,
-    "min": 113053.0,
-    "max": 113053.0
-   },
-   "given_away": {
-    "mean": 18524.5,
-    "min": 18524.5,
-    "max": 18524.5
-   },
-   "lost": {
-    "mean": 121462.5,
-    "min": 121462.5,
-    "max": 121462.5
-   },
-   "lost_price": {
-    "mean": 22072.0,
-    "min": 22072.0,
-    "max": 22072.0
-   },
-   "model_usd": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "usd_per_booking": {
-    "mean": 0.0,
-    "min": 0.0,
-    "max": 0.0
-   },
-   "net": {
-    "mean": 113053.0,
-    "min": 113053.0,
-    "max": 113053.0
-   },
-   "violations": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "unsure": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
    "n": 200,
-   "K": 1
+   "K": 1,
+   "bookings": 91.0,
+   "booking_rate": 0.455,
+   "margin": 113053.0,
+   "given_away": 18524.5,
+   "given_to_full_payers": 12430.0,
+   "menu_gap": 991.5,
+   "lost": 121462.5,
+   "lost_price": 22072.0,
+   "model_usd": 0.0,
+   "buyer_usd": 0.0,
+   "net": 113053.0,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 91.0,
+     "min": 91.0,
+     "max": 91.0
+    },
+    "margin": {
+     "mean": 113053.0,
+     "min": 113053.0,
+     "max": 113053.0
+    },
+    "given_away": {
+     "mean": 18524.5,
+     "min": 18524.5,
+     "max": 18524.5
+    },
+    "lost": {
+     "mean": 121462.5,
+     "min": 121462.5,
+     "max": 121462.5
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 113053.0,
+     "min": 113053.0,
+     "max": 113053.0
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
+  },
+  "smart_rules": {
+   "n": 200,
+   "K": 1,
+   "bookings": 154.0,
+   "booking_rate": 0.77,
+   "margin": 230132.0,
+   "given_away": 8706.5,
+   "given_to_full_payers": 0.0,
+   "menu_gap": 2389.5,
+   "lost": 14201.5,
+   "lost_price": 1205.5,
+   "model_usd": 0.0,
+   "buyer_usd": 0.0,
+   "net": 230132.0,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 154.0,
+     "min": 154.0,
+     "max": 154.0
+    },
+    "margin": {
+     "mean": 230132.0,
+     "min": 230132.0,
+     "max": 230132.0
+    },
+    "given_away": {
+     "mean": 8706.5,
+     "min": 8706.5,
+     "max": 8706.5
+    },
+    "lost": {
+     "mean": 14201.5,
+     "min": 14201.5,
+     "max": 14201.5
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 230132.0,
+     "min": 230132.0,
+     "max": 230132.0
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
   },
   "super_only": {
-   "bookings": {
-    "mean": 131,
-    "min": 131,
-    "max": 131
-   },
-   "booking_rate": {
-    "mean": 0.655,
-    "min": 0.655,
-    "max": 0.655
-   },
-   "margin": {
-    "mean": 187511.5,
-    "min": 187511.5,
-    "max": 187511.5
-   },
-   "given_away": {
-    "mean": 1309.0,
-    "min": 1309.0,
-    "max": 1309.0
-   },
-   "lost": {
-    "mean": 64219.5,
-    "min": 64219.5,
-    "max": 64219.5
-   },
-   "lost_price": {
-    "mean": 15707.0,
-    "min": 15707.0,
-    "max": 15707.0
-   },
-   "model_usd": {
-    "mean": 0.283067,
-    "min": 0.283067,
-    "max": 0.283067
-   },
-   "usd_per_booking": {
-    "mean": 0.00216081679389313,
-    "min": 0.00216081679389313,
-    "max": 0.00216081679389313
-   },
-   "net": {
-    "mean": 187511.2157,
-    "min": 187511.2157,
-    "max": 187511.2157
-   },
-   "violations": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "unsure": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
    "n": 200,
-   "K": 1
+   "K": 1,
+   "bookings": 131.0,
+   "booking_rate": 0.655,
+   "margin": 187511.5,
+   "given_away": 1309.0,
+   "given_to_full_payers": 303.0,
+   "menu_gap": 463.5,
+   "lost": 64219.5,
+   "lost_price": 15707.0,
+   "model_usd": 0.283067,
+   "buyer_usd": 0.0,
+   "net": 187511.2157,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.00216081679389313,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 131.0,
+     "min": 131.0,
+     "max": 131.0
+    },
+    "margin": {
+     "mean": 187511.5,
+     "min": 187511.5,
+     "max": 187511.5
+    },
+    "given_away": {
+     "mean": 1309.0,
+     "min": 1309.0,
+     "max": 1309.0
+    },
+    "lost": {
+     "mean": 64219.5,
+     "min": 64219.5,
+     "max": 64219.5
+    },
+    "model_usd": {
+     "mean": 0.283067,
+     "min": 0.283067,
+     "max": 0.283067
+    },
+    "net": {
+     "mean": 187511.2157,
+     "min": 187511.2157,
+     "max": 187511.2157
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
   },
   "super_vl": {
-   "bookings": {
-    "mean": 130,
-    "min": 130,
-    "max": 130
-   },
-   "booking_rate": {
-    "mean": 0.65,
-    "min": 0.65,
-    "max": 0.65
-   },
-   "margin": {
-    "mean": 189761.0,
-    "min": 189761.0,
-    "max": 189761.0
-   },
-   "given_away": {
-    "mean": 782.5,
-    "min": 782.5,
-    "max": 782.5
-   },
-   "lost": {
-    "mean": 62496.5,
-    "min": 62496.5,
-    "max": 62496.5
-   },
-   "lost_price": {
-    "mean": 20381.0,
-    "min": 20381.0,
-    "max": 20381.0
-   },
-   "model_usd": {
-    "mean": 0.284529,
-    "min": 0.284529,
-    "max": 0.284529
-   },
-   "usd_per_booking": {
-    "mean": 0.002188684615384615,
-    "min": 0.002188684615384615,
-    "max": 0.002188684615384615
-   },
-   "net": {
-    "mean": 189760.7142,
-    "min": 189760.7142,
-    "max": 189760.7142
-   },
-   "violations": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "unsure": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
    "n": 200,
-   "K": 1
+   "K": 1,
+   "bookings": 130.0,
+   "booking_rate": 0.65,
+   "margin": 189761.0,
+   "given_away": 782.5,
+   "given_to_full_payers": 297.0,
+   "menu_gap": 188.5,
+   "lost": 62496.5,
+   "lost_price": 20381.0,
+   "model_usd": 0.284529,
+   "buyer_usd": 0.0,
+   "net": 189760.7142,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.002188684615384615,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 130.0,
+     "min": 130.0,
+     "max": 130.0
+    },
+    "margin": {
+     "mean": 189761.0,
+     "min": 189761.0,
+     "max": 189761.0
+    },
+    "given_away": {
+     "mean": 782.5,
+     "min": 782.5,
+     "max": 782.5
+    },
+    "lost": {
+     "mean": 62496.5,
+     "min": 62496.5,
+     "max": 62496.5
+    },
+    "model_usd": {
+     "mean": 0.284529,
+     "min": 0.284529,
+     "max": 0.284529
+    },
+    "net": {
+     "mean": 189760.7142,
+     "min": 189760.7142,
+     "max": 189760.7142
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
   },
   "ultra_only": {
-   "bookings": {
-    "mean": 133,
-    "min": 133,
-    "max": 133
-   },
-   "booking_rate": {
-    "mean": 0.665,
-    "min": 0.665,
-    "max": 0.665
-   },
-   "margin": {
-    "mean": 197176.5,
-    "min": 197176.5,
-    "max": 197176.5
-   },
-   "given_away": {
-    "mean": 1116.0,
-    "min": 1116.0,
-    "max": 1116.0
-   },
-   "lost": {
-    "mean": 54747.5,
-    "min": 54747.5,
-    "max": 54747.5
-   },
-   "lost_price": {
-    "mean": 20745.5,
-    "min": 20745.5,
-    "max": 20745.5
-   },
-   "model_usd": {
-    "mean": 0.953524,
-    "min": 0.953524,
-    "max": 0.953524
-   },
-   "usd_per_booking": {
-    "mean": 0.007169353383458647,
-    "min": 0.007169353383458647,
-    "max": 0.007169353383458647
-   },
-   "net": {
-    "mean": 197175.5472,
-    "min": 197175.5472,
-    "max": 197175.5472
-   },
-   "violations": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
-   "unsure": {
-    "mean": 0,
-    "min": 0,
-    "max": 0
-   },
    "n": 200,
-   "K": 1
+   "K": 1,
+   "bookings": 133.0,
+   "booking_rate": 0.665,
+   "margin": 197176.5,
+   "given_away": 1116.0,
+   "given_to_full_payers": 670.5,
+   "menu_gap": 163.5,
+   "lost": 54747.5,
+   "lost_price": 20745.5,
+   "model_usd": 0.953524,
+   "buyer_usd": 0.0,
+   "net": 197175.5472,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.007169353383458647,
+   "band": {
+    "n": 200,
+    "K": 1,
+    "booked": {
+     "mean": 133.0,
+     "min": 133.0,
+     "max": 133.0
+    },
+    "margin": {
+     "mean": 197176.5,
+     "min": 197176.5,
+     "max": 197176.5
+    },
+    "given_away": {
+     "mean": 1116.0,
+     "min": 1116.0,
+     "max": 1116.0
+    },
+    "lost": {
+     "mean": 54747.5,
+     "min": 54747.5,
+     "max": 54747.5
+    },
+    "model_usd": {
+     "mean": 0.953524,
+     "min": 0.953524,
+     "max": 0.953524
+    },
+    "net": {
+     "mean": 197175.5472,
+     "min": 197175.5472,
+     "max": 197175.5472
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
   }
  }
 }

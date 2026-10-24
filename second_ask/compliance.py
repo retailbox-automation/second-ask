@@ -3,11 +3,14 @@
 - Quiet hours in the recipient's local time: federal 8:00-21:00 (47 CFR 64.1200(c)(1)); Florida 8:00-20:00
   (Fla. Stat. §501.616(6)(a)). The stricter window applies when either the shop or the recipient is in Florida.
 - Florida: at most 3 messages to a person per 24 hours on the same subject (Fla. Stat. §501.616(6)(b)). We count every
-  outbound message about the estimate, replies included.
-- Opt-out: stop, quit, end, revoke, opt out, cancel, unsubscribe are honoured per se (47 CFR 64.1200(a)(10)); we stop
-  immediately, not within the 10 business days the rule allows.
-- An estimate older than 90 days is not revived by SMS without written consent: an inquiry-based business relationship
-  lasts three months (47 CFR 64.1200(f)(5)).
+  outbound message about the estimate, replies and messages already scheduled included.
+  Whether §501.616(6) covers SMS follow-ups to an estimate is not confirmed; both Florida rules are applied
+  conservatively, as if it does.
+- Opt-out: stop, quit, end, revoke, opt out, cancel, unsubscribe are honoured per se (47 CFR 64.1200(a)(10)), and so
+  are clear phrases such as "take me off your list" (any reasonable means); we stop immediately, not within the 10
+  business days the rule allows.
+- An estimate older than 90 days at the moment a message would go out is not revived by SMS without written consent:
+  an inquiry-based business relationship lasts three months (47 CFR 64.1200(f)(5)).
 - Every message says it comes from the shop's assistant, not a person (Maine 10 M.R.S. §1500-DD, Utah 13-75-104 safe
   harbour, California B&P §17941).
 """
@@ -26,8 +29,9 @@ US_ZONES = ("America/New_York", "America/Chicago", "America/Denver", "America/Lo
 OPT_OUT_WORDS = ("stop", "quit", "end", "revoke", "opt out", "cancel", "unsubscribe")
 _FILLER = {"please", "pls", "now", "it", "texting", "texts", "messages", "messaging", "me", "all", "thanks", "thank", "you"}
 _PHRASES = re.compile(r"\b(stop|quit) (texting|messaging|contacting|calling)\b|\bunsubscribe\b|\bopt[ -]?out\b|"
-                      r"\bremove me\b|\b(do not|don't|dont) (text|message|contact)\b|\bno more (texts|messages)\b|"
-                      r"\bleave me alone\b|\brevoke\b")
+                      r"\bremove (me|my number)\b|\btake me off\b|\b(do not|don't|dont) (text|message|contact|call|reach out)\b|"
+                      r"\bno more (texts|messages)\b|\bleave me alone\b|\brevoke\b|\bplease stop\b(?! (by|in|over|at)\b)")
+_APOSTROPHES = str.maketrans({"\u2019": "'", "\u2018": "'", "\u02bc": "'"})  # iPhones type ’ by default
 
 
 def opt_out_status(text):
@@ -37,7 +41,7 @@ def opt_out_status(text):
     The agent stops on "opt_out" or when the label model says opt_out (either signal is enough). "ambiguous" is shown
     to the owner as a review flag.
     """
-    norm = re.sub(r"[^a-z' ]+", " ", (text or "").lower().replace("opt-out", "opt out")).split()
+    norm = re.sub(r"[^a-z' ]+", " ", (text or "").translate(_APOSTROPHES).lower().replace("opt-out", "opt out")).split()
     joined = " ".join(norm)
     if _PHRASES.search(joined):
         return "opt_out"
@@ -62,15 +66,19 @@ def _inside(t_utc, zones, window):
 
 
 def next_send_time(now, tz, window, sent_times=(), per_24h=FLORIDA_MAX_PER_24H):
-    """Earliest UTC time >= now that is inside the quiet-hours window and under the 24-hour cap."""
+    """Earliest UTC time >= now that is inside the quiet-hours window and under the 24-hour cap.
+
+    The cap counts every send within 24 hours on either side of t, scheduled ones included: if fewer than `per_24h`
+    sends fall in (t - 24h, t + 24h), every 24-hour window that contains t stays within the cap (conservative)."""
     zones = (tz,) if tz else US_ZONES
     t = now.astimezone(timezone.utc).replace(second=0, microsecond=0)
     if t < now:
         t += timedelta(minutes=1)
+    day = timedelta(hours=24)
     for _ in range(14 * 24 * 4):  # scan up to 14 days in 15-minute steps
-        recent = sorted(s for s in sent_times if t - timedelta(hours=24) < s <= t)
-        if per_24h is not None and len(recent) >= per_24h:
-            t = max(t, recent[-per_24h] + timedelta(hours=24, minutes=1))
+        near = sorted(s for s in sent_times if t - day < s < t + day)
+        if per_24h is not None and len(near) >= per_24h:
+            t = near[len(near) - per_24h] + day + timedelta(minutes=1)  # always later than t
             continue
         if _inside(t, zones, window):
             return t
@@ -102,10 +110,11 @@ def gate(text, channel, recipient, shop_name, shop_state, estimate_sent_at, now,
     """Decide whether and when a message may be sent. Blocks never fall through to a send."""
     if recipient.opted_out:
         return Gate(False, None, "", ["recipient opted out"])
-    age = (now - estimate_sent_at).days
-    if channel == "sms" and age > SMS_ESTIMATE_MAX_AGE_DAYS and not recipient.written_consent:
-        return Gate(False, None, "", [f"estimate is {age} days old: no SMS without written consent"])
     window = FLORIDA_WINDOW if recipient.state is None else window_for(recipient.state, shop_state)  # unknown: stricter
     send_at = next_send_time(now, recipient.tz, window, sent_times)
+    age = send_at - estimate_sent_at  # judged when the message would go out, after any delay
+    if channel == "sms" and age > timedelta(days=SMS_ESTIMATE_MAX_AGE_DAYS) and not recipient.written_consent:
+        return Gate(False, None, "", [f"estimate would be {age.total_seconds() / 86400:.1f} days old at send time: "
+                                      f"no SMS without written consent"])
     reasons = [f"delayed to {send_at.isoformat()} (quiet hours or 3-per-24h cap)"] if send_at > now + timedelta(minutes=1) else []
     return Gate(True, send_at, disclose(text, shop_name), reasons)

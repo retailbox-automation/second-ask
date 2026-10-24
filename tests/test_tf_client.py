@@ -1,4 +1,5 @@
-import email.message, io, json, threading, urllib.error
+import email.message, http.client, io, json, ssl, threading, urllib.error
+from pathlib import Path
 
 import pytest
 
@@ -179,3 +180,113 @@ def test_n_choices_reserve_n_outputs(tmp_path, monkeypatch):
     with pytest.raises(tf.BudgetExceeded):
         c.chat(SUPER, [], max_tokens=1000, n=3)
     assert fake.requests == []
+
+
+class _CutOff(io.BytesIO):
+    """A response whose body breaks while it is read (the server closed mid-body)."""
+    def read(self, *a):
+        raise http.client.IncompleteRead(b'{"choi', 200)
+
+
+def _reserve(max_tokens=1000):
+    return (len(json.dumps({"model": SUPER, "messages": [], "max_tokens": max_tokens})) / 3 * 0.30 + max_tokens * 0.90) / 1e6
+
+
+@pytest.mark.parametrize("failure", [http.client.RemoteDisconnected("Remote end closed connection without response"),
+                                     ConnectionResetError(54, "Connection reset by peer"),
+                                     ssl.SSLError("record layer failure"), TimeoutError("timed out"),
+                                     urllib.error.URLError("no route")])
+def test_network_failures_are_retried_and_keep_their_reservation(ledger, monkeypatch, failure):
+    """MF2a: on Python 3.14 RemoteDisconnected is not a URLError; every one of these must be retried, not raised."""
+    c, fake = client(ledger, monkeypatch, [failure, reply(content="ok")])
+    r = c.chat(SUPER, [], max_tokens=1000)
+    assert r.content == "ok" and len(fake.requests) == 2
+    assert ledger.spent()[0] == pytest.approx(_reserve() + r.cost)  # the failed attempt may have been billed
+
+
+def test_a_body_cut_off_while_reading_is_retried(ledger, monkeypatch):
+    seq = [_CutOff(b""), io.BytesIO(json.dumps(reply(content="ok")).encode())]
+    monkeypatch.setattr(tf.urllib.request, "urlopen", lambda req, timeout=None: seq.pop(0))
+    monkeypatch.setattr(tf.time, "sleep", lambda s: None)
+    c = tf.Client("b2", ledger=ledger, key="k", log=lambda m: None)
+    assert c.chat(SUPER, [], max_tokens=1000).content == "ok" and not seq
+
+
+@pytest.mark.parametrize("body", [b"{not json", b"", json.dumps({"choices": []}).encode(),
+                                  json.dumps({"error": {"message": "x"}}).encode(), json.dumps([1, 2]).encode(),
+                                  json.dumps({"choices": [{"message": "text"}]}).encode()])
+def test_malformed_replies_are_retried_then_raise_a_tferror(ledger, monkeypatch, body):
+    seq = [io.BytesIO(body), io.BytesIO(body)]
+    monkeypatch.setattr(tf.urllib.request, "urlopen", lambda req, timeout=None: seq.pop(0))
+    monkeypatch.setattr(tf.time, "sleep", lambda s: None)
+    c = tf.Client("b2", ledger=ledger, key="k", max_attempts=2, log=lambda m: None)
+    with pytest.raises(tf.TFError):
+        c.chat(SUPER, [], max_tokens=1000)
+    assert not seq and ledger.spent()[0] == pytest.approx(2 * _reserve())
+
+
+def test_every_attempt_failing_ends_in_a_tferror_not_the_raw_exception(ledger, monkeypatch):
+    c, fake = client(ledger, monkeypatch, [http.client.RemoteDisconnected("x")] * 3, max_attempts=3)
+    with pytest.raises(tf.TFError) as e:
+        c.chat(SUPER, [], max_tokens=1000)
+    assert "RemoteDisconnected" in str(e.value) and len(fake.requests) == 3
+
+
+def test_budget_exceeded_is_not_a_tferror_so_no_handler_absorbs_it():
+    assert not issubclass(tf.BudgetExceeded, tf.TFError)
+    from fakes import FakeClient
+    from second_ask import classifier as CL
+    from second_ask.trace import Trace
+    with pytest.raises(tf.BudgetExceeded):
+        CL.classify(FakeClient([tf.BudgetExceeded("cap")]), SUPER, "state", Trace(sink=lambda _: None))
+
+
+def test_a_reply_without_usage_keeps_its_reservation(ledger, monkeypatch):
+    body = reply(content="ok")
+    del body["usage"]
+    c, _ = client(ledger, monkeypatch, [body])
+    r = c.chat(SUPER, [], max_tokens=1000)
+    assert r.cost == 0 and ledger.spent()[0] == pytest.approx(_reserve())  # not counted as free
+
+
+def test_a_broken_ledger_line_is_skipped_and_not_glued_to_the_next(tmp_path, capsys):
+    path = tmp_path / "l.jsonl"
+    path.write_text('{"ts": 1, "tag": "b2", "usd": 0.5, "note": "x"}\n{"ts": 2, "tag": "b2", "us')  # killed mid-line
+    led = tf.Ledger(path, caps={"total": 1.0, "b2": 1.0})
+    led.reserve("b2", 0.25, "after the crash")
+    assert led.spent() == (pytest.approx(0.75), {"b2": pytest.approx(0.75)})
+    lines = path.read_text().splitlines()
+    assert json.loads(lines[-1])["note"] == "after the crash" and len(lines) == 3
+    assert "unreadable" in capsys.readouterr().err
+
+
+SPIKES = Path(__file__).resolve().parents[1] / "evidence" / "spikes"
+
+
+def test_parser_reads_every_recorded_spike_reply():
+    """S5 of the playbook (reasoning / reasoning_content field): the parser re-reads every recorded raw reply of the
+    platform spikes, all seven models, and gives back what the spike recorded."""
+    seen, models = 0, set()
+    for f in sorted(SPIKES.glob("s[1-7]*/raw.jsonl")):
+        for line in f.read_text().splitlines():
+            rec = json.loads(line)
+            if not rec.get("ok") or not rec.get("raw"):
+                continue
+            r = tf._parse(rec["model"], rec["raw"], 0.0, *tf.PRICES[rec["model"]])
+            assert (r.content, r.reasoning, r.finish_reason) == (rec["content"], rec["reasoning"], rec["finish_reason"]), rec["id"]
+            assert r.tool_calls == rec["tool_calls"] and r.cost == pytest.approx(rec["cost"]), rec["id"]
+            seen += 1
+            models.add(rec["model"])
+    assert seen >= 600 and len(models) >= 6
+
+
+def test_token_factory_reports_the_model_it_was_asked_for():
+    """The off-arm counter compares the reply's `model` with the requested id; on every recorded reply they match
+    exactly, so a mismatch in the tournament means a real swap, not a spelling difference."""
+    pairs = set()
+    for f in sorted(SPIKES.glob("s[1-7]*/raw.jsonl")):
+        for line in f.read_text().splitlines():
+            rec = json.loads(line)
+            if rec.get("ok") and rec.get("raw"):
+                pairs.add((rec["model"], rec["raw"].get("model")))
+    assert pairs and all(asked == served for asked, served in pairs), pairs

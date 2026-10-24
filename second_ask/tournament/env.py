@@ -5,12 +5,17 @@ Who decides what:
 - A writer only turns that action into words: `LLMWriter` uses a non-NVIDIA model on Token Factory, so Nemotron never
   grades itself; `TemplateWriter` is for dry runs and tests. The writer never sees the walkaway price.
 - The policy sees only what a shop would see: the estimate, the messages and when they came, and how often the
-  estimate was opened. Rule baselines also get a coarse act ("ready", "objection" or "silence") for free.
+  estimate was opened. The two text-blind rule baselines also get a coarse act ("ready", "objection" or "silence").
+- An opt-out buyer's words come from code, never from the writer: a keyword (OPT_OUT_KEYWORDS) or a phrase from the
+  published OPT_OUT_PHRASES, picked by the buyer's id. So every policy's outcome on them is fixed by the cards.
+- Time only moves forward: the shop decides no earlier than its own last scheduled send, a customer message is never
+  stamped before it, and a household that decides books the offer that had been delivered by then.
 """
-import json, random
+import json, random, re
 from dataclasses import dataclass, field
 from datetime import timedelta
 
+from .. import models as M
 from ..agent import Conversation, Event, OwnerTapStub, apply_decision
 from ..compliance import Recipient, opt_out_status
 from ..tf_client import TFError
@@ -22,6 +27,14 @@ HORIZON_DAYS = 75                # after this the estimate is dead
 LATE_WINDOW_DAYS = 21            # a ready buyer nobody contacts hires someone else after this many days (buyers.py)
 SELLER_LATENCY_DAYS = 10 / 1440  # the shop answers ten minutes after a customer message (then quiet hours apply)
 OPT_OUT_KEYWORDS = ["STOP", "Stop", "stop please", "Unsubscribe", "STOP!!"]
+OPT_OUT_PHRASES = ["Please take me off your list.", "Take me off your list and don't contact me again.",
+                   "Please remove my number.", "Please don\u2019t text me again.", "No more messages, thanks.",
+                   "Please don't reach out again."]  # every one is caught by compliance.opt_out_status (a test checks)
+BUYER_PARAMS = {  # buyer-writer parameters per candidate (S1: gpt-oss cannot turn reasoning off)
+    M.QWEN3_30B: {"temperature": 0.8, "top_p": 0.9, "max_tokens": 300},
+    M.DEEPSEEK_V4_FLASH: {"temperature": 0.8, "top_p": 0.9, "max_tokens": 300, "reasoning_effort": "none"},
+    M.GPT_OSS_120B: {"temperature": 0.8, "top_p": 0.9, "max_tokens": 1500, "reasoning_effort": "low"},
+}
 PAUSE_REASONS = ["money comes in later this month", "we are traveling", "after the holidays", "waiting on the insurance"]
 SLOT_REASONS = {"HVAC": "the system is out and the house is hot", "plumbing": "we have no hot water",
                 "roofing": "rain is in the forecast", "electrical": "breakers keep tripping"}
@@ -116,9 +129,6 @@ def instruction(card, st, spec, t, rng):
     weeks = max(1, round(((card.ready_after_days or t) - t) / 7))
     if spec == "missed":
         return f"Say sorry, you only just saw this (you mostly use {card.reads_channel}). It looks fine; ask when they can come."
-    if spec == "opt_out":
-        return ("Ask them to take you off their list and not contact you again. Do not use the words stop, quit, end, "
-                "cancel, unsubscribe, revoke or opt out.")
     if spec == "family_no":
         dropped = [n for n, p, o in card.items if o]
         if dropped and card.walkaway >= sum(p for n, p, o in card.items if not o):
@@ -162,6 +172,33 @@ class TemplateWriter:
         return instruction(card, st, spec, t, rng).replace("Say ", "").replace("Ask ", "Asks ").rstrip("."), None, False
 
 
+_NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+
+
+def numbers_in(text):
+    """Every number written in the text, with or without $ ("11,000" is 11000, never 1000)."""
+    out = []
+    for tok in _NUMBER.findall(text or ""):
+        try:
+            out.append(float(tok.replace(",", "").rstrip(".")))
+        except ValueError:
+            continue
+    return out
+
+
+def leaks_walkaway(card, est, msg):
+    """The message states the hidden walkaway. A walkaway equal to a number the buyer can see (a line item, a package
+    total, their own anchor) cannot be told apart from quoting the card, so it never counts as a leak."""
+    if card.walkaway <= 0:
+        return False
+    opt = [i.name for i in est.items if i.optional]
+    visible = {i.price for i in est.items} | {est.list_price(frozenset(opt[:k])) for k in range(len(opt) + 1)} \
+        | {est.list_price(frozenset([o])) for o in opt} | ({card.anchor} if card.anchor else set())
+    if any(abs(v - card.walkaway) < 0.5 for v in visible):
+        return False
+    return any(abs(v - card.walkaway) < 0.5 for v in numbers_in(msg))
+
+
 class LLMWriter:
     """Buyer text from a non-NVIDIA model on Token Factory. Validated; one retry; then the template (counted)."""
     SYSTEM = ("You write one text message from a homeowner to a home-service shop that sent them an estimate. You do not "
@@ -187,14 +224,14 @@ class LLMWriter:
             try:
                 r = self.client.chat(self.model, messages, response_format={"type": "json_object"}, **self.params)
             except TFError as e:
-                steps.append(Step("buyer", self.model, ok=False, note=str(e)[:200]))
+                steps.append(Step.platform_failure("buyer", self.model, e))
                 continue
             try:
                 obj = json.loads(r.text.strip().removeprefix("```json").strip("`"))
                 msg = str(obj["message"]).strip()
             except (json.JSONDecodeError, KeyError, TypeError, AttributeError):
                 obj, msg = {}, ""
-            leak = card.walkaway > 0 and any(s in msg for s in (f"{card.walkaway:,.0f}", f"{card.walkaway:.0f}"))
+            leak = leaks_walkaway(card, est, msg)
             ok = 0 < len(msg) <= 400 and not leak
             steps.append(Step.from_reply("buyer", r, ok=ok, note="leak" if leak else ("" if ok else "invalid")))
             if ok:
@@ -226,12 +263,40 @@ class Outcome:
     transcript: list = field(default_factory=list)
     steps: list = field(default_factory=list)
     flags: list = field(default_factory=list)   # what the agent flagged on each message it sent (the "unsure" list)
+    # Integrity counters (manifest: integrity). A clean conversation has 0 platform failures and 0 off-arm calls.
+    off_arm_calls: int = 0        # a call to a model outside the policy's arm for that step, or answered by another model
+    label_fallback_calls: int = 0  # label calls answered by the fallback label model (part of the policy, reported)
+    platform_failures: int = 0    # Token Factory failed after the client's retries (TFError) in any step
+    chronology_errors: int = 0    # transcript events out of time order (must be 0)
 
 
 def coarse_act(card, spec):
     if spec in ("missed",) or (card.type == "ready" and spec in ("first", "again")):
         return "ready"
     return "objection"
+
+
+def opt_out_phrase(card):
+    """The published phrase an opt-out buyer of style "phrase" writes: chosen by id, never by a model."""
+    return OPT_OUT_PHRASES[int(card.id[1:]) % len(OPT_OUT_PHRASES)]
+
+
+def integrity(steps, arm, buyer_model):
+    """(off_arm_calls, label_fallback_calls, platform_failures) over a conversation's steps (Step objects)."""
+    off = fallback = failed = 0
+    for s in steps:
+        if s.platform_error:
+            failed += 1
+            continue
+        if s.served_model and s.served_model != s.model:
+            off += 1
+        elif s.step == "buyer":
+            off += s.model != buyer_model
+        elif s.step == "classify" and s.model in arm.get("label_fallback", ()):
+            fallback += 1
+        elif s.model not in arm.get(s.step, ()):
+            off += 1
+    return off, fallback, failed
 
 
 def run_one(card, policy, writer, repeat):
@@ -246,6 +311,8 @@ def run_one(card, policy, writer, repeat):
     next_check = 3.0 if card.type == "channel" else None
     owner, moves, end, violations, unsure, buyer_steps, fallbacks, flag_log = OwnerTapStub(), 0, None, 0, 0, [], 0, []
     booked = False
+    delivered = [(float("-inf"), conv.offer)]  # (send day, offer in force from then on)
+    last_send = 0.0                            # day of the shop's latest scheduled message
     while end is None:
         pending.sort()
         if pending and (next_check is None or pending[0][0] <= next_check):
@@ -256,21 +323,19 @@ def run_one(card, policy, writer, repeat):
             if card.hire_by_days is not None and t > card.hire_by_days:
                 end = "hired someone else first"
                 break
+            in_force = next(o for d, o in reversed(delivered) if d <= t)
+            t = max(t, last_send)  # a message the shop has queued goes out first; the customer's is stamped after it
             if spec == "family_decided":
                 st.decided = True
-                if conv.offer.price <= card.walkaway:
+                if in_force.price <= card.walkaway:  # the household books what it had been offered when it decided
                     booked, end = True, "booked"
+                    conv.offer = in_force
                     conv.events.append(Event(at(t), "customer", est.channel, "We talked it over. Let's book it."))
                     break
                 spec = "family_no"
             if card.type == "opt_out" and spec == "first":
                 st.opted_out_at = t
-                if card.opt_out_style == "keyword":
-                    text = rng.choice(OPT_OUT_KEYWORDS)
-                else:
-                    text, steps, fb = writer.write(card, st, "opt_out", conv, t, rng)
-                    buyer_steps += steps or []
-                    fallbacks += fb
+                text = rng.choice(OPT_OUT_KEYWORDS) if card.opt_out_style == "keyword" else opt_out_phrase(card)
             else:
                 text, steps, fb = writer.write(card, st, spec, conv, t, rng)
                 buyer_steps += steps or []
@@ -285,6 +350,7 @@ def run_one(card, policy, writer, repeat):
                 end = "nothing scheduled"
                 break
             now, hint, replying, next_check = next_check, "silence", False, None
+        now = max(now, last_send)  # the shop does not decide before its own queued message has gone out
         if now > HORIZON_DAYS:
             end = "horizon"
             break
@@ -307,6 +373,8 @@ def run_one(card, policy, writer, repeat):
             break
         moves += 1
         sent = day(decision.send_at)
+        last_send = max(last_send, sent)
+        delivered.append((sent, conv.offer))
         if st.opted_out_at is not None:
             violations += 1
         r = react(card, st, conv.offer, decision.move, sent, replying, rng)
@@ -319,6 +387,9 @@ def run_one(card, policy, writer, repeat):
         if end is None:
             next_check = sent + (decision.move.checkin_days or policy.next_check_days)
     seller = conv.trace.steps
+    arm = policy.arm() if hasattr(policy, "arm") else {}
+    off_arm, label_fb, failed = integrity(seller + buyer_steps, arm, getattr(writer, "model", None))
+    days = [day(e.at) for e in conv.events]
     return Outcome(card.id, card.type, card.trade, policy.name, repeat, booked,
                    conv.offer.price if booked else None, sorted(conv.offer.dropped) if booked else [], end, moves,
                    round(sum(s.cost for s in seller), 6), sum(1 for s in seller if s.model),
@@ -326,4 +397,5 @@ def run_one(card, policy, writer, repeat):
                    violations, unsure,
                    [{"day": round(day(e.at), 3), "who": e.who, "channel": e.channel, "text": e.text, "move": e.move_id}
                     for e in conv.events],
-                   [s.__dict__ for s in seller] + [dict(s.__dict__, step="buyer") for s in buyer_steps], flag_log)
+                   [s.__dict__ for s in seller] + [dict(s.__dict__, step="buyer") for s in buyer_steps], flag_log,
+                   off_arm, label_fb, failed, sum(b < a - 1e-9 for a, b in zip(days, days[1:])))

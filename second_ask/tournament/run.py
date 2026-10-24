@@ -3,12 +3,17 @@
     python3 -m second_ask.tournament.run generate            buyer cards -> tournament/buyers.json (no API calls)
     python3 -m second_ask.tournament.run dry-run             all policies x all buyers, fake models (no API calls)
     python3 -m second_ask.tournament.run writers             S8a: pick the buyer model (live, ~60 small calls)
-    python3 -m second_ask.tournament.run smoke --buyer-model ID   live, 10 conversations
-    python3 -m second_ask.tournament.run project             projected cost of the full run -> tournament/PROJECTION.md
-    python3 -m second_ask.tournament.run manifest            tournament/MANIFEST.json + MANIFEST.sha256
-    python3 -m second_ask.tournament.run full --approve SHA  the pre-registered run (refuses without the manifest hash)
+    python3 -m second_ask.tournament.run project [--smoke DIR] projected cost of the full run -> PROJECTION.md
+    python3 -m second_ask.tournament.run manifest --buyer-model ID   tournament/MANIFEST.json + MANIFEST.sha256
+    python3 -m second_ask.tournament.run smoke --approve SHA  live, the manifest's smoke_plan -> tournament/smoke-b/
+    python3 -m second_ask.tournament.run full --approve SHA   the pre-registered run -> tournament/full/
+    python3 -m second_ask.tournament.run results [--dir DIR]  results.json + RESULTS-tables.md from rows.jsonl only
+
+smoke and full take every parameter from MANIFEST.json, refuse to start when the manifest does not verify against the
+live code or when an SA_* / TF_BASE_URL / TF_CAPS / TF_LEDGER variable is set, and run through runner.run.
 """
-import argparse, json, random, statistics, sys, zlib
+import argparse, json, random, statistics, sys, time, zlib
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path
@@ -19,21 +24,23 @@ from ..classifier import classify, render_state
 from ..compliance import Recipient
 from ..tf_client import Client, Ledger
 from ..trace import Trace
-from . import buyers as B, env as E, manifest as MF, scoring as S
-from .policies import ALL, LLM_POLICIES, RULE_POLICIES, FakeSimClient, make
+from . import buyers as B, env as E, manifest as MF, runner as R, scoring as S
+from .policies import ALL, LLM_POLICIES, REPEATED, RULE_POLICIES, FakeSimClient, make
 
 OUT = MF.ROOT / "tournament"
-BUYER_PARAMS = {  # buyer-writer parameters per candidate (S1: gpt-oss cannot turn reasoning off)
-    M.QWEN3_30B: {"temperature": 0.8, "top_p": 0.9, "max_tokens": 300},
-    M.DEEPSEEK_V4_FLASH: {"temperature": 0.8, "top_p": 0.9, "max_tokens": 300, "reasoning_effort": "none"},
-    M.GPT_OSS_120B: {"temperature": 0.8, "top_p": 0.9, "max_tokens": 1500, "reasoning_effort": "low"},
-}
-SMOKE_POLICIES = ("shop_rule", "routed", "super_only", "ultra_only", "super_vl")
+BUYER_PARAMS = E.BUYER_PARAMS
+SMOKE_POLICIES = MF.SMOKE_REPEAT_POLICIES  # the phase-A smoke (0652f17)
 SAFETY = 1.3  # projected cost is multiplied by this
 
 
 def cards():
     return B.load(OUT / "buyers.json")
+
+
+def shown(path):
+    """A path as written in reports: relative to the repo when it is inside it."""
+    path = Path(path).resolve()
+    return str(path.relative_to(MF.ROOT)) if path.is_relative_to(MF.ROOT) else str(path)
 
 
 def smoke_buyers(cs):
@@ -50,17 +57,24 @@ def cmd_generate(_):
     print("types:", {t: sum(c.type == t for c in cs) for t in B.TYPE_MIX}, f"feasible: {feas}")
 
 
+def main_table(agg):
+    lines = ["| policy | buyers | K | bookings | rate | margin $ | given away $ (to full payers / menu gap) | "
+             "lost $ (price) | model $ | $/booking | net $ | violations | unsure | off-arm | label fallback | "
+             "platform failures |", "|---|" + "---|" * 15]
+    for p, a in agg.items():
+        upb = f"{a['usd_per_booking']:.5f}" if a["usd_per_booking"] is not None else "-"
+        lines.append(f"| {p} | {a['n']} | {a['K']} | {a['bookings']:.1f} | {a['booking_rate']:.3f} | {a['margin']:,.0f} | "
+                     f"{a['given_away']:,.0f} ({a['given_to_full_payers']:,.0f} / {a['menu_gap']:,.0f}) | "
+                     f"{a['lost']:,.0f} ({a['lost_price']:,.0f}) | {a['model_usd']:.4f} | {upb} | {a['net']:,.0f} | "
+                     f"{a['violations']:.1f} | {a['unsure']:.1f} | {a['off_arm_calls']:.1f} | "
+                     f"{a['label_fallback_calls']:.1f} | {a['platform_failures']:.1f} |")
+    return lines
+
+
 def summarize(rows, cs, label):
     agg = S.aggregate(rows)
-    print(f"\n{label}: per policy (mean over repeats)")
-    print("| policy | bookings | rate | margin $ | given away $ | lost $ (price) | model $ | $/booking | net $ | violations | unsure |")
-    print("|---|---|---|---|---|---|---|---|---|---|---|")
-    for p, a in agg.items():
-        upb = a["usd_per_booking"]["mean"] if a["usd_per_booking"] else 0
-        print(f"| {p} | {a['bookings']['mean']:.0f} | {a['booking_rate']['mean']:.2f} | {a['margin']['mean']:,.0f} | "
-              f"{a['given_away']['mean']:,.0f} | {a['lost']['mean']:,.0f} ({a['lost_price']['mean']:,.0f}) | "
-              f"{a['model_usd']['mean']:.4f} | {upb:.5f} | {a['net']['mean']:,.0f} | {a['violations']['mean']:.0f} | "
-              f"{a['unsure']['mean']:.0f} |")
+    print(f"\n{label}: per policy (each buyer's mean over its repeats, summed over buyers)")
+    print("\n".join(main_table(agg)))
     return agg
 
 
@@ -79,7 +93,8 @@ def cmd_dry_run(_):
     (d / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
     (d / "examples.jsonl").write_text("".join(json.dumps(asdict(o)) + "\n" for o in outs if o.buyer in ("B001", "B002", "B003")))
     summarize(rows, cs, "DRY RUN (fake models, template buyers: machinery only, not results)")
-    gates = S.sanity_gates(cs, rows)
+    gates = S.sanity_gates(cs, rows, RULE_POLICIES)
+    gates["chronology_errors"] = sum(o.chronology_errors for o in outs)
     calls = {p: {"seller_calls_per_conv": statistics.mean(o.seller_calls for o in outs if o.policy == p),
                  "seller_msgs_per_conv": statistics.mean(o.moves for o in outs if o.policy == p),
                  "buyer_msgs_per_conv": statistics.mean(sum(e["who"] == "customer" for e in o.transcript)
@@ -87,7 +102,7 @@ def cmd_dry_run(_):
     (d / "summary.json").write_text(json.dumps({"gates": gates, "calls": calls, "aggregate": S.aggregate(rows)}, indent=1))
     print("\nSanity gates:", json.dumps(gates, indent=1))
     print("Calls per conversation:", json.dumps(calls, indent=1))
-    bad = gates["bookings_above_walkaway"] + gates["bookings_below_floor"]
+    bad = gates["bookings_above_walkaway"] + gates["bookings_below_floor"] + gates["chronology_errors"]
     return 1 if bad else 0
 
 
@@ -139,82 +154,75 @@ def cmd_writers(_):
     print(f"\nPick (cheapest with >=9/10 valid and 0 leaks): {pick}")
 
 
-def run_live(pairs, buyer_model, tag="b2"):
-    client = Client(tag, max_attempts=4, fallbacks=M.FALLBACKS)
-    writer = E.LLMWriter(client, buyer_model, BUYER_PARAMS[buyer_model])
-
-    def one(job):
-        c, name, rep = job
-        out = E.run_one(c, make(name, client), writer, rep)
-        print(f"[live] {name} {c.id} ({c.type}) booked={out.booked} price={out.price} moves={out.moves} "
-              f"seller ${out.seller_cost:.5f} ({out.seller_calls} calls) buyer ${out.buyer_cost:.5f} end={out.end}")
-        return c, out
-
-    with ThreadPoolExecutor(8) as ex:
-        return list(ex.map(one, pairs))
-
-
-def cmd_smoke(a):
-    cs = smoke_buyers(cards())
-    pairs = [(c, p, 0) for c in cs for p in SMOKE_POLICIES]
-    assert len(pairs) <= 10
-    res = run_live(pairs, a.buyer_model)
-    d = OUT / "smoke"
-    d.mkdir(exist_ok=True)
-    (d / "outcomes.jsonl").write_text("".join(json.dumps(asdict(o)) + "\n" for _, o in res))
-    rows = [S.score(c, o) for c, o in res]
-    (d / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
-    summarize(rows, cs, "LIVE SMOKE (2 buyers x 5 policies)")
-    total, by_tag = Ledger().spent()
-    print(f"ledger: total ${total:.4f}, b2 ${by_tag.get('b2', 0):.4f}")
+def conversation_costs(outcomes, dry):
+    """$ per conversation by policy (shop and buyer calls).
+    - At least 10 clean smoke conversations of the policy: their mean.
+    - Otherwise, an LLM policy when some LLM policy has at least 10 (the proxy, same agent loop and rhythm): the proxy's
+      shop calls per conversation x this policy's smoke $ per shop call, plus the proxy's buyer $ per conversation.
+    - Otherwise: (dry-run shop calls per conversation x smoke $ per shop call) + (dry-run buyer messages per
+      conversation x smoke $ per buyer message x 1.1 for retries)."""
+    clean = defaultdict(list)
+    buyer_msgs = []
+    for o in outcomes:
+        if not o.get("off_arm_calls") and not o.get("platform_failures"):
+            clean[o["policy"]].append(o)
+        buyer_msgs += [s["cost"] for s in o["steps"] if s["step"] == "buyer" and s["model"] and not s.get("platform_error")]
+    buyer_call = statistics.mean(buyer_msgs) if buyer_msgs else 0.0
+    proxy = max(LLM_POLICIES, key=lambda p: (len(clean.get(p, [])), p))
+    proxy = proxy if len(clean.get(proxy, [])) >= 10 else None
+    conv = {}
+    for p in ALL:
+        os_ = clean.get(p, [])
+        if len(os_) >= 10:
+            conv[p] = {"usd": statistics.mean(o["seller_cost"] + o["buyer_cost"] for o in os_),
+                       "method": f"measured: mean of {len(os_)} clean smoke conversations"}
+            continue
+        calls = sum(o["seller_calls"] for o in os_)
+        per_call = sum(o["seller_cost"] for o in os_) / calls if calls else 0.0
+        if p in LLM_POLICIES and proxy:
+            px = clean[proxy]
+            seller = statistics.mean(o["seller_calls"] for o in px) * per_call
+            buyer = statistics.mean(o["buyer_cost"] for o in px)
+            how = f"{proxy}'s calls per conversation ({len(px)} smoke conversations) x this policy's $ per shop call"
+        else:
+            seller = dry[p]["seller_calls_per_conv"] * per_call
+            buyer = dry[p]["buyer_msgs_per_conv"] * buyer_call * 1.1
+            how = "dry-run calls x smoke prices"
+        conv[p] = {"usd": seller + buyer, "per_shop_call": per_call,
+                   "method": f"{how} ({len(os_)} smoke conversations of its own)"}
+    return conv, buyer_call
 
 
 def cmd_project(a):
+    smoke_dir = Path(a.smoke).resolve() if a.smoke else OUT / "smoke"
+    dest = OUT if not a.smoke else smoke_dir
     dry = json.loads((OUT / "dryrun" / "summary.json").read_text())["calls"]
-    smoke = [json.loads(l) for l in (OUT / "smoke" / "outcomes.jsonl").read_text().splitlines()]
-    per_call, per_buyer_msg = {}, []
-    for p in SMOKE_POLICIES:
-        os_ = [o for o in smoke if o["policy"] == p]
-        calls = sum(o["seller_calls"] for o in os_)
-        per_call[p] = sum(o["seller_cost"] for o in os_) / calls if calls else 0.0
-        per_buyer_msg += [s["cost"] for o in os_ for s in o["steps"] if s["step"] == "buyer" and s["model"]]
-    buyer_call = statistics.mean(per_buyer_msg) if per_buyer_msg else 0.0
-    conv = {}
-    for p in ALL:
-        src = p if p in per_call else "shop_rule"
-        seller = dry[p]["seller_calls_per_conv"] * per_call.get(src, 0.0)
-        buyer = dry[p]["buyer_msgs_per_conv"] * buyer_call * 1.1  # +10%: retries
-        conv[p] = {"seller": seller * SAFETY, "buyer": buyer * SAFETY}
+    outcomes, _ = R.read_lines(smoke_dir / "outcomes.jsonl")
+    conv, buyer_call = conversation_costs(outcomes, dry)
     n = len(cards())
 
-    def total(n_all, k_llm, sub):
-        t = 0.0
-        for p in ALL:
-            per = conv[p]["seller"] + conv[p]["buyer"]
-            t += n_all * per if p in RULE_POLICIES else n_all * per + (k_llm - 1) * sub * per
-        return t
+    def total(n_all, k, sub):  # every policy once on n_all buyers, the repeated ones k-1 more times on `sub`
+        return SAFETY * sum(conv[p]["usd"] * (n_all + ((k - 1) * sub if p in REPEATED else 0)) for p in ALL)
 
     options = [("A", n, 3, n), ("B", n, 3, 100), ("C", n, 3, 60), ("D", n, 1, 0), ("E", 120, 3, 120)]
     rows = [{"option": o, "buyers": nb, "K_llm": k, "subsample_for_K": sub, "projected_usd": round(total(nb, k, sub), 2)}
             for o, nb, k, sub in options]
     pick = next((r for r in rows if r["projected_usd"] <= a.budget), None)
-    proj = {"per_call_usd_from_smoke": per_call, "buyer_usd_per_message": buyer_call, "safety_factor": SAFETY,
+    proj = {"smoke": shown(smoke_dir), "buyer_usd_per_message": buyer_call, "safety_factor": SAFETY,
             "per_conversation_usd": conv, "dry_run_calls": dry, "options": rows, "budget_usd": a.budget, "pick": pick}
-    (OUT / "projection.json").write_text(json.dumps(proj, indent=1))
+    (dest / "projection.json").write_text(json.dumps(proj, indent=1))
     lines = ["# Projected cost of the full tournament", "",
-             "Method: (shop-side calls per conversation, from the dry run over all buyers) x ($ per shop call, measured "
-             f"in the live smoke) + (buyer messages per conversation) x ($ per buyer message, smoke) x 1.1, all x {SAFETY}.",
-             "Rule policies have no shop-side model cost; their buyer text costs the same as for the LLM policies.", "",
-             "| Policy | shop calls/conv (dry run) | $ per shop call (smoke) | projected $ per conversation |", "|---|---|---|---|"]
-    for p in ALL:
-        src = p if p in per_call else "shop_rule"
-        lines.append(f"| {p} | {dry[p]['seller_calls_per_conv']:.2f} | {per_call.get(src, 0):.5f} | "
-                     f"{conv[p]['seller'] + conv[p]['buyer']:.5f} |")
+             f"Smoke: `{proj['smoke']}`. Per policy, $ per conversation is the mean over at least 10 clean smoke "
+             "conversations when there are that many; otherwise (shop calls per conversation from the dry run) x "
+             "($ per shop call in the smoke) + (buyer messages per conversation from the dry run) x ($ per buyer "
+             f"message in the smoke) x 1.1. Totals x {SAFETY}. The rule policies have no shop-side model cost.", "",
+             "| Policy | $ per conversation | method |", "|---|---|---|"]
+    lines += [f"| {p} | {conv[p]['usd']:.5f} | {conv[p]['method']} |" for p in ALL]
     lines += ["", f"Buyer message: ${buyer_call:.6f} each (smoke).", "",
-              "| Option | buyers | K for LLM policies | buyers with K repeats | projected $ |", "|---|---|---|---|---|"]
+              "| Option | buyers | K | buyers with K repeats | projected $ |", "|---|---|---|---|---|"]
     lines += [f"| {r['option']} | {r['buyers']} | {r['K_llm']} | {r['subsample_for_K']} | {r['projected_usd']:.2f} |" for r in rows]
     lines += ["", f"Budget for the full run: ${a.budget:.2f}. Proposed: option {pick['option'] if pick else 'none fits'}."]
-    (OUT / "PROJECTION.md").write_text("\n".join(lines) + "\n")
+    (dest / "PROJECTION.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 
 
@@ -227,24 +235,202 @@ def cmd_manifest(a):
     sub = sorted(order[: pick["subsample_for_K"]]) if pick["subsample_for_K"] < len(cs) else "all"
     smoke = {"buyers": [c.id for c in smoke_buyers(cs)], "policies": list(SMOKE_POLICIES),
              "outcomes": "tournament/smoke/outcomes.jsonl",
-             "note": "ran before three simulator fixes it exposed (the buyer writer invented requests; a family buyer "
-                     "answered every check-in, looping to the message cap; family deliberation waited for an 'info' "
-                     "message). Per-call prices are unaffected. Proposed first step of the full run: re-run these 10 "
-                     "conversations on the frozen code and compare."}
-    m = MF.build(OUT / "buyers.json", pick["buyers"], pick["K_llm"], sub, a.buyer_model, BUYER_PARAMS[a.buyer_model],
-                 smoke, {"file": "tournament/PROJECTION.md", "projected_usd": pick["projected_usd"],
-                         "option": pick["option"], "budget_usd": proj["budget_usd"]})
+             "note": "phase A smoke (0652f17). It ran before three simulator fixes it exposed (the buyer writer invented "
+                     "requests; a family buyer answered every check-in, looping to the message cap; family "
+                     "deliberation waited for an 'info' message). smoke_plan re-runs these 10 conversations on the "
+                     "frozen code."}
+    m = MF.build("tournament/buyers.json", pick["buyers"], pick["K_llm"], sub, a.buyer_model, smoke,
+                 {"file": "tournament/PROJECTION.md", "projected_usd": pick["projected_usd"],
+                  "option": pick["option"], "budget_usd": proj["budget_usd"]})
     h = MF.write(m)
     print(f"MANIFEST.json sha256 {h}")
 
 
-def cmd_full(a):
+def guard(approve, environ=None):
+    """The frozen manifest, or None (with the reason printed) when a live command must not start."""
+    bad = R.env_overrides(environ)
+    if bad:
+        print(f"refusing: {', '.join(bad)} set; they would change models, endpoint, caps or ledger behind the manifest. "
+              f"Unset them: every parameter comes from MANIFEST.json")
+        return None
     recorded, problems = MF.verify()
-    if a.approve != recorded or problems:
+    if approve != recorded or problems:
         print(f"refusing: --approve must equal the recorded manifest hash {recorded}; problems: {problems}")
+        return None
+    return json.loads((OUT / "MANIFEST.json").read_text())
+
+
+def live_conversations(m, ledger):
+    """converse(card, policy, repeat) for the runner, built only from the manifest: no model fallbacks, platform
+    failures abort the conversation, the buyer writer and its parameters as registered."""
+    p = m["platform"]
+    client = R.StrictClient(Client(p["ledger"]["tag"], ledger=ledger, max_attempts=p["client"]["max_attempts"],
+                                   fallbacks=dict(p["client"]["fallbacks"])))
+    writer = E.LLMWriter(client, m["buyer_simulator"]["model"], m["buyer_simulator"]["params"])
+    return lambda card, policy, rep: E.run_one(card, make(policy, client), writer, rep)
+
+
+def spent_since_start(ledger, out, tag, sha):
+    """(tag spend at the first start of this run directory, callable: spend since then). Kept across resumes."""
+    out.mkdir(parents=True, exist_ok=True)
+    st = out / "run_state.json"
+    if st.exists():
+        start = json.loads(st.read_text())["ledger_tag_usd_at_start"]
+    else:
+        start = ledger.spent()[1].get(tag, 0.0)
+        st.write_text(json.dumps({"ledger_tag_usd_at_start": start, "tag": tag, "manifest": sha,
+                                  "started": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, indent=1) + "\n")
+    return start, lambda: ledger.spent()[1].get(tag, 0.0) - start
+
+
+def manifest_jobs(m):
+    ids = [c.id for c in cards()]
+    assert len(ids) == m["buyers"]["n"], "buyers.json does not hold the manifest's n buyers"
+    pols = [p for p in ALL if p in m["policies"]]
+    return R.plan(ids, pols, m["repeats"]["repeated"], m["repeats"]["k"], m["repeats"]["subsample"])
+
+
+def cmd_smoke(a):
+    m = guard(a.approve)
+    if m is None:
         return 2
-    print("full run is phase B; not implemented in phase A")
-    return 2
+    p, out = m["platform"], OUT / "smoke-b"
+    ledger = Ledger(p["ledger"]["path"], caps=p["caps_usd"])
+    _, spent = spent_since_start(ledger, out, p["ledger"]["tag"], a.approve)
+    jobs = [tuple(j) for j in m["smoke_plan"]["jobs"]]
+    report = R.run(jobs, {c.id: c for c in cards()}, live_conversations(m, ledger), out,
+                   concurrency=m["budget"]["concurrency"], ultra_concurrency=m["budget"]["ultra_concurrency"],
+                   ceiling_usd=m["smoke_plan"]["ceiling_usd"], spent=spent)
+    rows, _ = R.read_lines(out / "rows.jsonl")
+    clean = [r for r in rows if R.is_clean(r)]
+    if clean:
+        summarize(clean, cards(), "SMOKE (mechanics and cost only, not results)")
+    print(json.dumps(report, indent=1))
+    return 0 if report["stop"] == "complete" else 3
+
+
+def cmd_full(a):
+    m = guard(a.approve)
+    if m is None:
+        return 2
+    p, b, out = m["platform"], m["budget"], OUT / "full"
+    ledger = Ledger(p["ledger"]["path"], caps=p["caps_usd"])
+    tag = p["ledger"]["tag"]
+    start, spent = spent_since_start(ledger, out, tag, a.approve)
+    limit = min(b["run_ceiling_usd"], p["caps_usd"][tag] - start)
+    accept = False
+    cp_file = out / "checkpoint.json"
+    if a.accept_projection is not None and cp_file.exists():
+        cp = json.loads(cp_file.read_text())
+        accept = cp["projected_total_usd"] <= a.accept_projection <= p["caps_usd"][tag] - start
+        if not accept:
+            print(f"refusing --accept-projection {a.accept_projection}: it must cover the projected "
+                  f"${cp['projected_total_usd']} and fit what is left of the {tag} cap (${p['caps_usd'][tag] - start:.2f})")
+            return 2
+        limit = a.accept_projection
+    checkpoint = {"after_buyers": b["checkpoint"]["after_buyers"], "safety": b["checkpoint"]["safety"],
+                  "limit_usd": limit, "accept_failed": accept}
+    report = R.run(manifest_jobs(m), {c.id: c for c in cards()}, live_conversations(m, ledger), out,
+                   concurrency=b["concurrency"], ultra_concurrency=b["ultra_concurrency"], checkpoint=checkpoint,
+                   ceiling_usd=limit, spent=spent)
+    print(json.dumps(report, indent=1))
+    write_results(out, m)
+    return 0 if report["stop"] == "complete" else 3
+
+
+def results(rows, m, cs, jobs):
+    """Every number RESULTS.md may quote, computed from the run's rows, its planned jobs and the manifest only."""
+    final, info = R.final_rows(rows, jobs)
+    res = {"rows": len(rows), "kept": info}
+    if not final:
+        return res
+    kept = {r["buyer"] for r in final}
+    sub = kept if m["repeats"]["subsample"] == "all" else kept & set(m["repeats"]["subsample"])
+    res["aggregate"] = S.aggregate(final, sub)
+    pols = sorted({r["policy"] for r in final})
+    res["comparisons"] = {f"{p} - {base}": S.paired_bootstrap(final, p, base)
+                          for base in ("smart_rules", "shop_rule") if base in pols for p in pols if p != base}
+    if {"routed", "super_only"} <= set(pols):
+        res["label_default"] = S.label_default(final)
+    if "routed" in pols:
+        res["losing_cells"] = S.losing_cells(final, "routed")
+    kept_cards = [cs[b] for b in sorted(kept)]
+    if sum(c.type == "price" for c in kept_cards) >= 3:
+        res["sanity_gates"] = S.sanity_gates(kept_cards, final, RULE_POLICIES)
+    opt = defaultdict(lambda: defaultdict(lambda: {"violations": 0.0, "n": 0}))
+    for p in pols:
+        for b, v in S.per_buyer(final, p, "violations").items():
+            if cs[b].type == "opt_out":
+                cell = opt[p][cs[b].opt_out_style]
+                cell["violations"] += v
+                cell["n"] += 1
+    res["opt_out_violations"] = {p: dict(v) for p, v in opt.items()}
+    integ = defaultdict(lambda: defaultdict(float))
+    for r in rows:  # every attempt, errored ones included
+        g = integ[r["policy"]]
+        g["attempts"] += 1
+        g["errored"] += r.get("status") == "errored"
+        for k in ("platform_failures", "off_arm_calls", "label_fallback_calls", "chronology_errors", "writer_fallbacks"):
+            g[k] += r.get(k) or 0
+    res["integrity_all_attempts"] = {p: dict(v) for p, v in integ.items()}
+    return res
+
+
+FLAG_KINDS = (("low confidence", "label with low confidence"), ("label failed", "label failed"),
+              ("move choice failed", "move choice failed: code default"), ("replaced by the template", "message replaced "
+              "by the template"), ("opt-out word appears", "opt-out word inside a sentence"))
+
+
+def unsure_flags(outcomes, final):
+    """Per policy: how often each kind of 'unsure' flag was raised on a sent message, in the conversations kept."""
+    kept = {(r["buyer"], r["policy"], r["repeat"], r["attempt"]) for r in final}
+    out = defaultdict(lambda: defaultdict(int))
+    for o in outcomes:
+        if (o["buyer"], o["policy"], o["repeat"], o.get("attempt")) not in kept:
+            continue
+        for entry in o.get("flags") or []:
+            for f in entry["flags"]:
+                out[o["policy"]][next((name for key, name in FLAG_KINDS if key in f), "other")] += 1
+    return {p: dict(v) for p, v in out.items()}
+
+
+def write_results(out, m):
+    rows, bad = R.read_lines(out / "rows.jsonl")
+    jobs = manifest_jobs(m)
+    res = results(rows, m, {c.id: c for c in cards()}, jobs) | {"unreadable_row_lines": bad}
+    res["unsure_flags"] = unsure_flags(R.read_lines(out / "outcomes.jsonl")[0], R.final_rows(rows, jobs)[0])
+    (out / "results.json").write_text(json.dumps(res, indent=1) + "\n")
+    lines = [f"# Tables computed from `{shown(out)}/rows.jsonl` by `run results` (do not edit by hand)", "",
+             f"Rows {res['rows']}; buyers kept {res['kept']['buyers_kept']} of {res['kept']['buyers_planned']}; "
+             f"excluded {res['kept']['excluded']}; incomplete {len(res['kept']['incomplete'])}; errored rows "
+             f"{res['kept']['errored_rows']}; re-runs {res['kept']['reruns']}.", ""]
+    if "aggregate" in res:
+        lines += ["## Per policy (each buyer's mean over its repeats, summed over buyers)", ""] + main_table(res["aggregate"])
+        lines += ["", "## Bands over repeats on the common subsample", "",
+                  "| policy | buyers | repeats | net mean [min, max] | margin mean [min, max] | bookings mean [min, max] |",
+                  "|---|---|---|---|---|---|"]
+        for p, a in res["aggregate"].items():
+            bd = a["band"]
+            cell = lambda k: f"{bd[k]['mean']:,.0f} [{bd[k]['min']:,.0f}, {bd[k]['max']:,.0f}]" if k in bd else "-"  # noqa: E731
+            lines.append(f"| {p} | {bd['n']} | {bd['K']} | {cell('net')} | {cell('margin')} | {cell('booked')} |")
+        lines += ["", "## Paired bootstrap of the summed per-buyer net difference (95 %)", "",
+                  "| comparison | point $ | interval $ | buyers |", "|---|---|---|---|"]
+        lines += [f"| {k} | {v['point']:,.0f} | [{v['lo']:,.0f}, {v['hi']:,.0f}] | {v['buyers']} |"
+                  for k, v in res["comparisons"].items() if v]
+        if "losing_cells" in res:
+            lines += ["", "## Cells where routed earns less than the best policy in the cell", "",
+                      "| type | trade | n | routed net/buyer | best | best net/buyer | gap | interval | clear loss |",
+                      "|---|---|---|---|---|---|---|---|---|"]
+            lines += [f"| {c['type']} | {c['trade']} | {c['n']} | {c['policy_net']:,.0f} | {c['best']} | "
+                      f"{c['best_net']:,.0f} | {c['gap']:,.0f} | {c['ci']} at {c['level']} | {c['clear_loss']} |"
+                      for c in res["losing_cells"]]
+    (out / "RESULTS-tables.md").write_text("\n".join(lines) + "\n")
+    return res
+
+
+def cmd_results(a):
+    write_results(Path(a.dir).resolve() if a.dir else OUT / "full", json.loads((OUT / "MANIFEST.json").read_text()))
+    return 0
 
 
 def main(argv=None):
@@ -253,16 +439,21 @@ def main(argv=None):
     for name in ("generate", "dry-run", "writers"):
         sub.add_parser(name)
     s = sub.add_parser("smoke")
-    s.add_argument("--buyer-model", required=True, choices=sorted(BUYER_PARAMS))
+    s.add_argument("--approve", required=True)
     p = sub.add_parser("project")
     p.add_argument("--budget", type=float, default=12.0)
+    p.add_argument("--smoke", help="smoke directory (default: tournament/smoke, the phase-A smoke)")
     mf = sub.add_parser("manifest")
     mf.add_argument("--buyer-model", required=True, choices=sorted(BUYER_PARAMS))
     f = sub.add_parser("full")
     f.add_argument("--approve", required=True)
+    f.add_argument("--accept-projection", type=float, default=None,
+                   help="after a failed checkpoint: continue with this ceiling (must cover the projection)")
+    r = sub.add_parser("results")
+    r.add_argument("--dir")
     a = ap.parse_args(argv)
     return {"generate": cmd_generate, "dry-run": cmd_dry_run, "writers": cmd_writers, "smoke": cmd_smoke,
-            "project": cmd_project, "manifest": cmd_manifest, "full": cmd_full}[a.cmd](a) or 0
+            "project": cmd_project, "manifest": cmd_manifest, "full": cmd_full, "results": cmd_results}[a.cmd](a) or 0
 
 
 if __name__ == "__main__":

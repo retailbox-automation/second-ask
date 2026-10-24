@@ -90,7 +90,7 @@ def choose(client, config, state_text, label, menu, est, offer, trace, customer_
             reply = client.chat(model, messages, tools=tools, tool_choice="auto", **params)
         except TFError as e:
             problems.append(f"HTTP {e.status}")
-            trace.add(Step("choose", model, ok=False, note=str(e)[:200]))
+            trace.add(Step.platform_failure("choose", model, e))
             continue
         calls = [tc for tc in reply.tool_calls if tc["function"]["name"] == "choose_move"]
         try:

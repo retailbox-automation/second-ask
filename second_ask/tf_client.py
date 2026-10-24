@@ -4,8 +4,13 @@ Handles the Nemotron quirks we hit in practice: text arriving in `reasoning` wit
 `finish_reason == "length"` when reasoning eats the budget, empty tool-call arguments, retired model IDs.
 Every call reserves its worst-case cost in a shared append-only ledger before it is sent, so a hard
 spend cap holds across processes and threads. Token Factory has no spend limit of its own.
+
+Failures: HTTP 429/5xx are retried and their reservation released (error replies are not billed). A dropped
+connection, a TLS error, a cut-off or non-JSON body, or a reply without choices is retried with its reservation kept,
+because the request may still have been billed. After the last attempt every one of them is a TFError, so callers
+handle one exception type. BudgetExceeded is deliberately not a TFError: it must stop a run, not be absorbed.
 """
-import fcntl, json, os, time, urllib.error, urllib.request
+import fcntl, http.client, json, os, sys, time, urllib.error, urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -72,11 +77,13 @@ class Ledger:
         self.path = Path(path or os.environ.get("TF_LEDGER", "~/.local/state/nebius-hackathon/tf-ledger.jsonl")).expanduser()
         self.caps = caps or json.loads(os.environ.get("TF_CAPS", "null")) or DEFAULT_CAPS
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.unreadable_lines = 0  # last count of broken lines seen (reported once per change, not per call)
 
     def _write(self, tag, usd, note, check):
         with open(self.path, "a+") as f:
             fcntl.flock(f, fcntl.LOCK_EX)
             try:
+                _terminate_last_line(f)  # a line cut off by a killed writer must not swallow this one
                 if check:
                     total, by_tag = self._sum(f)
                     if total + usd > self.caps["total"] or by_tag.get(tag, 0.0) + usd > self.caps.get(tag, 0.0):
@@ -87,15 +94,24 @@ class Ledger:
             finally:
                 fcntl.flock(f, fcntl.LOCK_UN)
 
-    @staticmethod
-    def _sum(f):
+    def _sum(self, f):
+        """Totals over every readable line. A broken line (a writer killed mid-line) is skipped and reported on stderr:
+        it holds at most one reservation, and refusing every later call over it would stop all lanes."""
         f.seek(0)
-        total, by_tag = 0.0, {}
+        total, by_tag, bad = 0.0, {}, 0
         for line in f:
             if line.strip():
-                r = json.loads(line)
-                total += r["usd"]
-                by_tag[r["tag"]] = by_tag.get(r["tag"], 0.0) + r["usd"]
+                try:
+                    r = json.loads(line)
+                    usd, tag = float(r["usd"]), r["tag"]
+                except (ValueError, KeyError, TypeError):
+                    bad += 1
+                    continue
+                total += usd
+                by_tag[tag] = by_tag.get(tag, 0.0) + usd
+        if bad != self.unreadable_lines:
+            print(f"[ledger] skipping {bad} unreadable line(s) in {f.name}", file=sys.stderr)
+            self.unreadable_lines = bad
         return total, by_tag
 
     def reserve(self, tag, usd, note):
@@ -151,19 +167,50 @@ class Client:
             except urllib.error.HTTPError as e:
                 self.ledger.settle(self.tag, -reserve, f"release {model} HTTP {e.code}")  # error responses are not billed
                 if e.code in RETRY_STATUSES and attempt + 1 < self.max_attempts:
-                    time.sleep(_retry_after(e.headers.get("Retry-After"), attempt))
+                    time.sleep(_retry_after((e.headers or {}).get("Retry-After"), attempt))
                     continue
-                raise TFError(e.code, e.read()[:500].decode(errors="replace"))
-            except (TimeoutError, urllib.error.URLError) as e:  # reservation kept: the request may still be billed
+                raise TFError(e.code, _error_body(e))
+            except (OSError, http.client.HTTPException, ValueError) as e:
+                # Timeout, refused or dropped connection (RemoteDisconnected), TLS error, cut-off body (IncompleteRead),
+                # body that is not JSON. Reservation kept: the request may still be billed.
                 if attempt + 1 < self.max_attempts:
                     time.sleep(2 ** attempt)
                     continue
                 raise TFError(None, f"{type(e).__name__}: {e}")
-            reply = _parse(model, raw, time.time() - t0, p_in, p_out)
+            try:
+                reply = _parse(model, raw, time.time() - t0, p_in, p_out)
+            except MalformedReply as e:  # reservation kept, as above
+                if attempt + 1 < self.max_attempts:
+                    time.sleep(2 ** attempt)
+                    continue
+                raise TFError(None, f"MalformedReply: {e}")
             reply.headers = headers
-            self.ledger.settle(self.tag, reply.cost - reserve, f"settle {model}")
+            if reply.usage:
+                self.ledger.settle(self.tag, reply.cost - reserve, f"settle {model}")
+            else:  # no usage means no cost we can trust: keep the reservation rather than call it free
+                self.ledger.settle(self.tag, 0.0, f"no usage from {model}: reservation kept")
             return reply
         raise AssertionError("unreachable")
+
+
+class MalformedReply(ValueError):
+    pass
+
+
+def _terminate_last_line(f):
+    f.seek(0, os.SEEK_END)
+    end = f.tell()
+    if end:
+        f.seek(end - 1)
+        if f.read(1) != "\n":
+            f.write("\n")
+
+
+def _error_body(e):
+    try:
+        return e.read()[:500].decode(errors="replace")
+    except (OSError, http.client.HTTPException, AttributeError) as x:
+        return f"(error body unreadable: {type(x).__name__})"
 
 
 def _retry_after(header, attempt):
@@ -174,8 +221,21 @@ def _retry_after(header, attempt):
 
 
 def _parse(model, raw, seconds, p_in, p_out):
-    choice = raw["choices"][0]
+    """Reply from a raw response; MalformedReply when its shape is not a chat completion (retried by the client)."""
+    try:
+        return _parse_reply(model, raw, seconds, p_in, p_out)
+    except (KeyError, IndexError, TypeError, AttributeError) as e:
+        raise MalformedReply(f"{type(e).__name__}: {e}") from e
+
+
+def _parse_reply(model, raw, seconds, p_in, p_out):
+    choices = raw.get("choices") if isinstance(raw, dict) else None
+    if not choices or not isinstance(choices, list) or not isinstance(choices[0], dict):
+        raise MalformedReply(f"reply without choices: {str(raw)[:200]}")
+    choice = choices[0]
     msg = choice.get("message") or {}
+    if not isinstance(msg, dict):
+        raise MalformedReply(f"message is not an object: {str(msg)[:200]}")
     content = msg.get("content") or ""
     reasoning = msg.get("reasoning") or msg.get("reasoning_content") or ""
     tool_calls = [dict(tc, function=dict(tc.get("function") or {})) for tc in msg.get("tool_calls") or []]
@@ -183,6 +243,6 @@ def _parse(model, raw, seconds, p_in, p_out):
         tc["function"]["arguments"] = tc["function"].get("arguments") or "{}"
     from_reasoning = not content and not tool_calls and bool(reasoning)
     usage = raw.get("usage") or {}
-    cost = (usage.get("prompt_tokens", 0) * p_in + usage.get("completion_tokens", 0) * p_out) / 1e6
+    cost = ((usage.get("prompt_tokens") or 0) * p_in + (usage.get("completion_tokens") or 0) * p_out) / 1e6
     return Reply(model, content, reasoning, reasoning if from_reasoning else content, from_reasoning, tool_calls,
                  choice.get("finish_reason") or "", usage, cost, round(seconds, 3), raw)

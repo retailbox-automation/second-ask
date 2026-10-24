@@ -1,9 +1,40 @@
 {
+ "budget": {
+  "budget_cap": "a BudgetExceeded from the ledger stops the run; finished conversations are kept",
+  "checkpoint": {
+   "after_buyers": 20,
+   "rule": "project the whole run from what it has spent (per policy $ per clean conversation x pending conversations x safety, plus spent); stop if above the run ceiling or above what is left of the b2 cap",
+   "safety": 1.2
+  },
+  "concurrency": 8,
+  "order": "buyer by buyer: every policy and repeat of a buyer before the next buyer",
+  "run_ceiling_usd": 12.0,
+  "ultra_concurrency": 3
+ },
  "buyer_simulator": {
+  "leak_check": "a buyer message that states the walkaway as a number (any number, $ or not, compared as numbers) is rejected, unless the walkaway equals a number on the card",
   "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
   "never_sees": [
    "walkaway"
   ],
+  "opt_out_words": {
+   "keywords": [
+    "STOP",
+    "Stop",
+    "stop please",
+    "Unsubscribe",
+    "STOP!!"
+   ],
+   "phrases": [
+    "Please take me off your list.",
+    "Take me off your list and don't contact me again.",
+    "Please remove my number.",
+    "Please don\u2019t text me again.",
+    "No more messages, thanks.",
+    "Please don't reach out again."
+   ],
+   "rule": "an opt-out buyer's message is chosen by code from these lists (phrase: by buyer id), never written by the model; every one is caught by the shared code layer compliance.opt_out_status, so no policy can send after an opt-out on them (violations are 0 by construction there, reported with n per style)"
+  },
   "params": {
    "max_tokens": 300,
    "temperature": 0.8,
@@ -34,44 +65,74 @@
  },
  "code": {
   "second_ask/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "second_ask/agent.py": "65bd0599563413ee705cda408ec93941a2a2e242ace9f0622b1b6b77ab00e4a3",
-  "second_ask/chooser.py": "03566c6030cd3dfb75d19efb1691500a7e1c61dc8d8c55d1f95c3276f334746d",
-  "second_ask/classifier.py": "596b9cbf6db28a166a7e70b739c8171879222d3be371534204542c4df0efa459",
-  "second_ask/compliance.py": "3972d4d6c1d3305604c3ba2f50ae8c9a376dfa7265620d4e98db6ef77fe00ed0",
+  "second_ask/agent.py": "49e2b3d3ebad9a27e84a4f56629795774f046236525d75efe6769937748c2c69",
+  "second_ask/chooser.py": "5c265af92188ff48e4b32100839ca0467044f36932d54b2c16477a5b36300c1f",
+  "second_ask/classifier.py": "d81f685188ec13a7061547a7b3315f6c05a918561c980942028d1ba619fbd664",
+  "second_ask/compliance.py": "07c9dddc586e170a6f8751d451821f4e93a898c52d44b05ec26aaca7b20aabb4",
   "second_ask/menu.py": "3561ed0519c9f33752e93a79d67c927641b088a6e5d64b75af3e251b031e6c42",
   "second_ask/models.py": "ef80333cfa732d227a7f40d74a775e9c46f5ad6e939c965a2fd8900d9777f4f8",
-  "second_ask/tf_client.py": "c55d35106c2ad9743da40ba19e05a28de86fda20cd2096528e3aeb7ad817a91b",
+  "second_ask/tf_client.py": "e1754366572abe1f2810a1057d6c86c50e06475daeb743b82b8336c0f5e13cad",
   "second_ask/tournament/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "second_ask/tournament/buyers.py": "88b1c8b688f431924595754b25874815c3c96ec94206b81d621c36fa835f0ec3",
-  "second_ask/tournament/env.py": "0dcbb9c02f5115ab0990a80248e57a912e27923a92dd80c9650216b26ecbb3a0",
-  "second_ask/tournament/manifest.py": "da57602b3702929c3f2aefd8c0e64032239903fa8710c126c704a55a9e71df31",
-  "second_ask/tournament/policies.py": "41f5dbdcc3583335249db94a60f15f163d5df7b9b6871d7d15fae9577859c721",
-  "second_ask/tournament/run.py": "d4682ca02f3b9b657aed9da46a551ea8e9121f8085734e7ca90e247346e0621e",
-  "second_ask/tournament/scoring.py": "2b4a26856b58222c2b9441a37a6d609172f8d5074877fa874688e3515dbde260",
-  "second_ask/trace.py": "ba8eebbe6382e1743ce0d78f2b179ab409cdef6cec18643a5eb8b2869bf11258"
+  "second_ask/tournament/buyers.py": "88c21e22006c4aabd88bef700783c3b680ce14a245a7360fd8f6e753ebf2739d",
+  "second_ask/tournament/env.py": "72d6c5e83bc7a7fa9a120e09ad4733cc33d5462d5caf8fcd6b95099912242716",
+  "second_ask/tournament/manifest.py": "58f688a1ad4bc25370ff9a3f48baa4d25a057a0d0f536c955c0b5e9fb02eac95",
+  "second_ask/tournament/policies.py": "f720d7349ac9b1a3b85d7e46ae71acf467988768998a24cb2cfb413aee2c6bcb",
+  "second_ask/tournament/run.py": "d8d35593c91a7e880fbe35fecc1635a92ef3ba415c5914bde980c18a969a49b6",
+  "second_ask/tournament/runner.py": "f90ff5083c3ebd7adab7053d71ed8d15eeb4b5e5b37c16d0bb8bcf763194fdcf",
+  "second_ask/tournament/scoring.py": "73df11405f6553d79c0d81a1a964d5bc52897f49cb5b406d32750f3a461c6518",
+  "second_ask/trace.py": "78bddaf4e811c7daaf20ba078d936b6a9201699b43b129ac1c8690dd83f22a34"
+ },
+ "decision_rules": {
+  "deviation_from_S2": "evidence/spikes/PLAN.md S2: if Lightning scores below 8/10, Super labels. Lightning scored 5/10 and 4/10, yet the routed policy keeps Lightning as its label model: a disclosed deviation, settled by label_default",
+  "label_default": "routed keeps Lightning as the product's default label model only if the 95 % paired-bootstrap lower bound of sum(net routed - net super_only) over buyers is >= -$2,000 (about $10 per buyer) and routed is not worse than super_only on violations, unsure and off-arm calls; otherwise the default is Super, as the S2 rule requires (scoring.label_default)",
+  "s3_s7": "S3 and S7 are not re-run ($740 kept, DECISIONS 2026-10-24); if they ever are, the 23.10 runs stay decisive and a re-run only refreshes the evidence",
+  "smoke": "the smoke checks mechanics and cost only: its outcomes change neither the simulator nor the policies, except for crashes and integrity bugs; any change means a new manifest and a line in tournament/CHANGES.md"
  },
  "environment": {
   "compliance": "second_ask/compliance.py applies to every policy",
   "horizon_days": 75,
   "late_window_days": 21,
+  "limitation": "views = 0 and silence occur only for channel buyers (no opened-and-silent buyers); named as a limitation in RESULTS",
   "max_seller_messages": 5,
   "owner_tap": "stub approves every concession at or above the floor",
-  "seller_latency_minutes": 10
+  "seller_latency_minutes": 10,
+  "time": "the shop decides no earlier than its own last scheduled send; a customer message is stamped no earlier than it; a household that decides books the offer delivered by then; chronology_errors are counted and must be 0"
+ },
+ "integrity": {
+  "clean": "status ok, platform_failures 0, off_arm_calls 0",
+  "counters": {
+   "chronology_errors": "transcript events out of time order (must be 0)",
+   "label_fallback_calls": "labels made by the fallback label model (part of the policy; reported, not a re-run reason)",
+   "off_arm_calls": "a call to a model outside the policy's arm for that step, or answered by another model than asked",
+   "platform_failures": "Token Factory failures after retries"
+  },
+  "model_fallbacks": "none: the tournament client has no 404 fallbacks (fail closed)",
+  "platform_failure": "a TFError after the client's retries aborts the conversation (runner.StrictClient): an errored row, platform_failures = 1",
+  "rerun_rule": "a conversation that is not clean is re-run up to 2 more times; if none of 3 attempts is clean the buyer is excluded from every policy (paired)"
  },
  "name": "Second Ask tournament",
  "platform": {
-  "base_url": "https://api.tokenfactory.nebius.com/v1/",
+  "base_url": "https://api.tokenfactory.nebius.com/v1",
   "caps_usd": {
    "b2": 20.0,
    "total": 40.0
   },
-  "concurrency": 8,
-  "ledger_tag": "b2"
+  "client": {
+   "fallbacks": {},
+   "max_attempts": 4
+  },
+  "env_overrides": "smoke and full refuse to start when any SA_* variable, TF_BASE_URL, TF_CAPS or TF_LEDGER is set, and take every parameter from this manifest",
+  "ledger": {
+   "path": "~/.local/state/nebius-hackathon/tf-ledger.jsonl",
+   "tag": "b2"
+  }
  },
  "policies": {
   "concession_heuristic": {
-   "doc": "concede half of the remaining gap to the floor (rounded to $5; straight to the floor under $20) at each objection or silence, every 4 days; quoted slot to a ready buyer",
-   "kind": "rule"
+   "doc": "naive gap-halving: concede half of the remaining gap to the floor (rounded to $5; straight to the floor under $20) at each objection or silence, every 4 days; quoted slot to a ready buyer. Not the heuristic of any paper",
+   "kind": "rule",
+   "reads_text": false,
+   "rhythm_days": 4
   },
   "routed": {
    "choose": {
@@ -101,11 +162,22 @@
      "temperature": 1.0,
      "top_p": 0.95
     }
-   }
+   },
+   "reads_text": true,
+   "rhythm_days": 3
   },
   "shop_rule": {
    "doc": "discount to the owner's floor on the first objection or silence, then a reminder every 7 days; offers the quoted slot to a ready buyer",
-   "kind": "rule"
+   "kind": "rule",
+   "reads_text": false,
+   "rhythm_days": 7
+  },
+  "smart_rules": {
+   "kind": "rule",
+   "model_usd": 0,
+   "reads_text": true,
+   "rhythm_days": 3,
+   "spec": "The strongest rule baseline we could write without a model. Frozen in the manifest (policies.smart_rules).\n\nInputs are only what the LLM policies see: the messages and their times, and how often the estimate was opened (the\ncoarse hint the other rule policies get is ignored). Same menu, same 3-day rhythm, prices only from the menu.\nOn the customer's latest unanswered message (lower-cased, \u2019 read as '), the first matching rule wins:\n  1 an optional item named with \"not needed / don't need / do without / skip / no need / without the\" -> drop it\n  2 a named $ amount below the current price (line-item prices excluded: those are references) -> of the drop and\n    concede moves priced at or below the largest such amount, the one that keeps the most margin; none -> once,\n    the lowest-priced drop or concede move; then answer\n  3 sooner / too late / done by / by <day> / this week / tomorrow / urgent -> the earliest earlier slot, else\n    offer_slot\n  4 \"N weeks\" -> the check-in nearest to 7N days; \"next month\" -> 30; \"later this month\", \"after the holidays\",\n    \"not ready\", \"not yet\" -> 14\n  5 family words (wife, husband, partner, landlord, family, talk it over ...) -> ask_why once, then answer\n  6 ready words (looks good, when can you, book, just saw, missed ...) -> offer_slot\n  7 price words with no amount (expensive, more than, cheaper, budget ...) -> ask_why once, then the smallest\n    concession (the highest-priced drop or concede move below the current price)\n  8 think / get back / not sure / maybe -> ask_why once, then checkin_7\n  9 anything else -> ask_why once, then answer\nSilence (no reply since the shop's last message):\n  no reply ever, estimate never opened, not resent yet -> resend on the other channel;\n  the shop's last move was a check-in -> offer_slot; else ask_why once, then checkin_7.\nOpt-out is the shared code layer (compliance.opt_out_status), as for every policy."
   },
   "super_only": {
    "choose": {
@@ -123,10 +195,7 @@
    },
    "kind": "llm",
    "label": {
-    "fallback": [
-     "nvidia/nemotron-3-super-120b-a12b",
-     "tool"
-    ],
+    "fallback": null,
     "method": "tool",
     "model": "nvidia/nemotron-3-super-120b-a12b",
     "params": {
@@ -135,7 +204,9 @@
      "temperature": 1.0,
      "top_p": 0.95
     }
-   }
+   },
+   "reads_text": true,
+   "rhythm_days": 3
   },
   "super_vl": {
    "choose": {
@@ -163,7 +234,9 @@
      "temperature": 1.0,
      "top_p": 0.95
     }
-   }
+   },
+   "reads_text": true,
+   "rhythm_days": 3
   },
   "ultra_only": {
    "choose": {
@@ -194,14 +267,16 @@
      "temperature": 1.0,
      "top_p": 0.95
     }
-   }
+   },
+   "reads_text": true,
+   "rhythm_days": 3
   }
  },
  "projection": {
   "budget_usd": 12.0,
   "file": "tournament/PROJECTION.md",
   "option": "B",
-  "projected_usd": 10.79
+  "projected_usd": 10.83
  },
  "provenance": {
   "real": [
@@ -210,7 +285,7 @@
    "the compliance rules (statutes cited in second_ask/compliance.py)"
   ],
   "seeded": [
-   "buyer archetypes paraphrased from ten real home-service negotiations (seeds/home_cases.json)",
+   "buyer archetypes: parameter ranges seeded from ten real home-service negotiations (seeds/home_cases.json holds only the ranges)",
    "speaking styles from CaSiNo strategy-label counts (seeds/casino_profiles.json)"
   ],
   "simulated": [
@@ -222,8 +297,20 @@
   ]
  },
  "repeats": {
-  "llm_policies": 3,
-  "llm_subsample_for_extra_repeats": [
+  "k": 3,
+  "once": [
+   "shop_rule",
+   "concession_heuristic"
+  ],
+  "repeated": [
+   "smart_rules",
+   "super_only",
+   "ultra_only",
+   "routed",
+   "super_vl"
+  ],
+  "rule": "every policy runs once on every buyer; the repeated policies run k-1 more times on the subsample",
+  "subsample": [
    "B002",
    "B003",
    "B006",
@@ -325,26 +412,36 @@
    "B198",
    "B199"
   ],
-  "rule_policies": 1,
-  "why_rule_K1": "rule policies never read message text and every buyer decision is code, so their outcomes are identical across repeats by construction"
+  "why_once": "shop_rule and concession_heuristic never read the buyer's words, opt-out buyers' words come from code, and every buyer decision is code, so their outcomes are fixed by the cards (tests/test_tournament.py::test_text_blind_rules_do_not_depend_on_wording)",
+  "why_smart_rules_repeated": "smart_rules reads the words, which the buyer model samples"
  },
  "sanity_gates": {
   "booking_rate_by_type": "spread >= 0.20",
-  "booking_rate_per_policy": "between 0.30 and 0.80 (rule policies, dry run and full run)",
-  "bookings_above_walkaway": "== 0",
-  "bookings_below_floor": "== 0",
+  "booking_rate_per_policy": "between 0.30 and 0.80 for the text-blind rule policies (shop_rule, concession_heuristic), dry run and full run",
+  "invariants": "bookings_above_walkaway == 0 and bookings_below_floor == 0 hold by construction (env.react, menu.validate): integrity checks, not evidence of realism",
   "price_buyers_booking_rate": "rises with walkaway tercile"
  },
  "scoring": {
-  "compliance": "violations = messages sent after a buyer asked to stop (reported per policy)",
+  "comparisons": {
+   "main": [
+    "routed vs smart_rules",
+    "super_only vs smart_rules"
+   ],
+   "metric": "net",
+   "secondary": "every other policy vs smart_rules and vs shop_rule"
+  },
+  "compliance": "violations = messages sent after a buyer asked to stop (per policy, n by opt-out style)",
   "given_away": "oracle - margin (booked buyers)",
+  "given_away_parts": "given_to_full_payers = given_away of buyers whose walkaway >= the full list price; menu_gap = oracle - menu_oracle (booked buyers; unreachable with discrete menu prices); given_away = menu_gap + (menu_oracle - margin)",
   "headline": "$ per successful booking = model_usd / bookings; net = margin - model_usd",
-  "intervals": "mean and [min, max] over repeats; paired bootstrap (2000 draws, seed 7) of per-buyer net difference vs shop_rule",
-  "losing_cells": "objection type x trade cells where routed earns less net per buyer than another policy",
+  "intervals": "band: mean and [min, max] over repeats of the totals on the common subsample (the buyers every policy ran in every repeat), every policy on the same buyers; paired bootstrap (2000 draws, seed 7, 95 %) of the summed per-buyer difference",
+  "losing_cells": "objection type x trade cells where routed earns less net per buyer than the best policy in the cell, on per-buyer means; with n per cell, a bootstrap interval of the mean per-buyer difference at 1 - 0.05/m (Bonferroni over the m cells with n >= 10); a clear loss needs n >= 10 and the interval below 0; the best policy is chosen in-sample, which biases toward a loss",
   "lost": "oracle (feasible buyers not booked); lost_price = the part from price-objection buyers",
   "margin": "booked price - cost of the booked package",
+  "menu_oracle": "the same with real menu prices only (fresh offer on each package), at or below the walkaway",
   "model_usd": "sum of usage-based cost of the shop's Token Factory calls (buyer simulator excluded)",
-  "oracle": "max over packages of min(list, walkaway) - cost, if >= the package floor; slot buyers need an open slot by their deadline; opt-out buyers are infeasible"
+  "oracle": "max over packages of min(list, walkaway) - cost, if >= the package floor; slot buyers need an open slot by their deadline; opt-out buyers are infeasible",
+  "totals": "per buyer first: each buyer's mean over its repeats; then the sum over buyers (n = buyers). Only buyers finished in every policy and not excluded count (runner.final_rows)"
  },
  "seeds": {
   "casino_profiles": {
@@ -354,8 +451,9 @@
    "source": "CaSiNo data/casino.json at 2f6ed4a6, sha256 4f2c4560a0070906ed018c3f0766e35f8f8f31b36274ebf35b608621915744ab"
   },
   "home_cases": {
+   "content": "per archetype: id, objection type, trade and parameter ranges only",
    "file": "seeds/home_cases.json",
-   "sha256": "d770426f887f84c08f59e6afde9a04cd4d6e20964f7ed2b5f44e4b85a85622be"
+   "sha256": "f2a7c555b18e773f5847fc669c0c070d068264c12d93f6cc7cbdc763d160cedb"
   }
  },
  "smoke": {
@@ -363,7 +461,7 @@
    "B018",
    "B006"
   ],
-  "note": "ran before three simulator fixes it exposed (the buyer writer invented requests; a family buyer answered every check-in, looping to the message cap; family deliberation waited for an 'info' message). Per-call prices are unaffected. Proposed first step of the full run: re-run these 10 conversations on the frozen code and compare.",
+  "note": "phase A smoke (0652f17). It ran before three simulator fixes it exposed (the buyer writer invented requests; a family buyer answered every check-in, looping to the message cap; family deliberation waited for an 'info' message). smoke_plan re-runs these 10 conversations on the frozen code.",
   "outcomes": "tournament/smoke/outcomes.jsonl",
   "policies": [
    "shop_rule",
@@ -373,5 +471,217 @@
    "super_vl"
   ]
  },
- "status": "pre-registered; not yet run"
+ "smoke_plan": {
+  "ceiling_usd": 1.0,
+  "jobs": [
+   [
+    "B018",
+    "shop_rule",
+    0
+   ],
+   [
+    "B018",
+    "routed",
+    0
+   ],
+   [
+    "B018",
+    "super_only",
+    0
+   ],
+   [
+    "B018",
+    "ultra_only",
+    0
+   ],
+   [
+    "B018",
+    "super_vl",
+    0
+   ],
+   [
+    "B006",
+    "shop_rule",
+    0
+   ],
+   [
+    "B006",
+    "routed",
+    0
+   ],
+   [
+    "B006",
+    "super_only",
+    0
+   ],
+   [
+    "B006",
+    "ultra_only",
+    0
+   ],
+   [
+    "B006",
+    "super_vl",
+    0
+   ],
+   [
+    "B001",
+    "routed",
+    0
+   ],
+   [
+    "B001",
+    "ultra_only",
+    0
+   ],
+   [
+    "B005",
+    "routed",
+    0
+   ],
+   [
+    "B005",
+    "ultra_only",
+    0
+   ],
+   [
+    "B002",
+    "routed",
+    0
+   ],
+   [
+    "B002",
+    "ultra_only",
+    0
+   ],
+   [
+    "B004",
+    "routed",
+    0
+   ],
+   [
+    "B004",
+    "ultra_only",
+    0
+   ],
+   [
+    "B003",
+    "routed",
+    0
+   ],
+   [
+    "B003",
+    "ultra_only",
+    0
+   ],
+   [
+    "B009",
+    "routed",
+    0
+   ],
+   [
+    "B009",
+    "ultra_only",
+    0
+   ],
+   [
+    "B007",
+    "routed",
+    0
+   ],
+   [
+    "B007",
+    "ultra_only",
+    0
+   ],
+   [
+    "B012",
+    "routed",
+    0
+   ],
+   [
+    "B012",
+    "ultra_only",
+    0
+   ],
+   [
+    "B010",
+    "routed",
+    0
+   ],
+   [
+    "B010",
+    "ultra_only",
+    0
+   ],
+   [
+    "B013",
+    "routed",
+    0
+   ],
+   [
+    "B013",
+    "ultra_only",
+    0
+   ],
+   [
+    "B011",
+    "routed",
+    0
+   ],
+   [
+    "B011",
+    "ultra_only",
+    0
+   ],
+   [
+    "B016",
+    "routed",
+    0
+   ],
+   [
+    "B016",
+    "ultra_only",
+    0
+   ],
+   [
+    "B045",
+    "routed",
+    0
+   ],
+   [
+    "B045",
+    "ultra_only",
+    0
+   ],
+   [
+    "B057",
+    "routed",
+    0
+   ],
+   [
+    "B057",
+    "ultra_only",
+    0
+   ]
+  ],
+  "per_type": 2,
+  "per_type_policies": [
+   "routed",
+   "ultra_only"
+  ],
+  "purpose": "mechanics and cost only (decision_rules.smoke)",
+  "repeat_policies": [
+   "shop_rule",
+   "routed",
+   "super_only",
+   "ultra_only",
+   "super_vl"
+  ]
+ },
+ "status": "pre-registered; not yet run",
+ "supersedes": {
+  "sha256": "699e3c92aa887d688df5cd8ceca6cfeaa13bbe2fea684aa6860a1c2cf7a30771",
+  "why": "phase A acceptance (24.10) found defects before any tournament run; changes are listed in tournament/CHANGES.md"
+ }
 }

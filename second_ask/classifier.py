@@ -112,7 +112,7 @@ def classify(client, model, state_text, trace, method="tool", fallback=(M.SUPER,
             reply = client.chat(m, messages, **params)
         except TFError as e:
             attempts.append((m, f"HTTP {e.status}"))
-            trace.add(Step("classify", m, ok=False, note=f"{meth}: {str(e)[:200]}"))
+            trace.add(Step.platform_failure("classify", m, f"{meth}: {e}"))
             continue
         obj, problem = parse(reply, meth)
         trace.add(Step.from_reply("classify", reply, ok=obj is not None, note=f"{meth}: {problem or obj['label']}"))
