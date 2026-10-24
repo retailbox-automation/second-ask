@@ -12,7 +12,7 @@
 smoke and full take every parameter from MANIFEST.json, refuse to start when the manifest does not verify against the
 live code or when an SA_* / TF_BASE_URL / TF_CAPS / TF_LEDGER variable is set, and run through runner.run.
 """
-import argparse, json, random, statistics, sys, time, zlib
+import argparse, json, random, re, statistics, sys, time, zlib
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
@@ -321,6 +321,12 @@ def spent_since_start(ledger, out, tag, sha):
     return start, lambda: ledger.spent()[1].get(tag, 0.0) - start
 
 
+def blind_log(line):
+    """v2 runs are blind to policy outcomes until the pre-registered analysis: progress lines keep the conversation's
+    key and status, not whether it booked, how it ended or what it cost."""
+    print(re.sub(r" booked=.*$", "", line))
+
+
 def manifest_jobs(m):
     ids = [c.id for c in cards()]
     assert len(ids) == m["buyers"]["n"], "buyers.json does not hold the manifest's n buyers"
@@ -336,12 +342,13 @@ def cmd_smoke(a):
     ledger = Ledger(p["ledger"]["path"], caps=p["caps_usd"])
     _, spent = spent_since_start(ledger, out, p["ledger"]["tag"], a.approve)
     jobs = [tuple(j) for j in m["smoke_plan"]["jobs"]]
+    blind = m.get("test") == MF.V2_TEST
     report = R.run(jobs, {c.id: c for c in cards()}, live_conversations(m, ledger), out,
                    concurrency=m["budget"]["concurrency"], ultra_concurrency=m["budget"]["ultra_concurrency"],
-                   ceiling_usd=m["smoke_plan"]["ceiling_usd"], spent=spent)
+                   ceiling_usd=m["smoke_plan"]["ceiling_usd"], spent=spent, log=blind_log if blind else print)
     rows, _ = R.read_lines(out / "rows.jsonl")
     clean = [r for r in rows if R.is_clean(r)]
-    if clean:
+    if clean and not blind:  # v2: no outcome table (blind until tools/v2_analysis.py after the full run)
         summarize(clean, cards(), "SMOKE (mechanics and cost only, not results)")
     print(json.dumps(report, indent=1))
     return 0 if report["stop"] == "complete" else 3
@@ -370,7 +377,7 @@ def cmd_full(a):
                   "limit_usd": limit, "accept_failed": accept}
     report = R.run(manifest_jobs(m), {c.id: c for c in cards()}, live_conversations(m, ledger), out,
                    concurrency=b["concurrency"], ultra_concurrency=b["ultra_concurrency"], checkpoint=checkpoint,
-                   ceiling_usd=limit, spent=spent)
+                   ceiling_usd=limit, spent=spent, log=blind_log if m.get("test") == MF.V2_TEST else print)
     print(json.dumps(report, indent=1))
     write_results(out, m)
     return 0 if report["stop"] == "complete" else 3

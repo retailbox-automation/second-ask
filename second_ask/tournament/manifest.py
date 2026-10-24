@@ -224,7 +224,31 @@ V2_RUN_CEILING_USD = 4.50
 V2_SMOKE_CEILING_USD = 0.50
 V2_JUDGE_CEILING_USD = 0.50
 V2_JUDGE_MODEL = "Qwen/Qwen3-235B-A22B-Instruct-2507"
-V2_GATES = {"L_own_max": 0.59, "fidelity_min": 0.90, "template_max": 0.02}
+V2_GATES = {"L_own_max": 0.59, "fidelity_min": 0.90, "template_max": 0.02}  # unchanged by the amendment
+V2_FIRST_SHA = "83010fc474bf3a7b0a5aaf3269276ff695f221b75a1055a3c2b915e5f0a03e7d"
+V2_DISCLOSURE = (
+    "Policy outcomes of the first v2 smoke were seen before the amendment, in two episodes. (1) 2026-10-24T12:14:49Z: the "
+    "smoke command printed its per-policy table (net and bookings, 52 conversations) and it was read: on the same 23 "
+    "customers smart_rules $11,308 and super_only $10,773, and super_vl on 2 customers $1,066; this was before the "
+    "amendment was proposed (12:18:52Z). (2) about 2026-10-24T12:20:09Z, after the blinding condition had been set, a "
+    "check of the log printed the whole table, so routed (2 customers, $1,066) and shop_rule (2 customers, $982) were also "
+    "seen. No interval, D2 or DiD was computed. From this manifest on, v2 smokes print no outcome table, and the second "
+    "smoke and the full run are read only through tools/v2_analysis.py after the full run.")
+
+
+def v2_smoke_round2(cards):
+    """The second v2 smoke, on customers the first one did not use: the first three unused customers of each type on
+    super_only and smart_rules, and the next unused price and family customer on shop_rule, routed and super_vl."""
+    used = {b for b, _, _ in R.smoke_plan(cards, V2_SMOKE_REPEAT, V2_SMOKE_TYPE, per_type=3)}
+    jobs = []
+    for typ in dict.fromkeys(c.type for c in cards):
+        fresh = [c for c in cards if c.type == typ and c.id not in used]
+        jobs += [(c.id, p, 0) for c in fresh[:3] for p in V2_SMOKE_TYPE]
+    taken = used | {b for b, _, _ in jobs}
+    for typ in ("price", "family"):
+        c = next(c for c in cards if c.type == typ and c.id not in taken)
+        jobs += [(c.id, p, 0) for p in ("shop_rule", "routed", "super_vl")]
+    return jobs
 
 
 def with_v2(m, buyers_file):
@@ -242,19 +266,25 @@ def with_v2(m, buyers_file):
                                 params=E.V2_WRITER_PARAMS, prompt=E.V2_SYSTEM,
                                 input="the turn's facts from env.intent (the same facts env.instruction gives the v1 "
                                       "writer, as data); never the simulator's instruction sentences or any policy's rules")
-    m["smoke_plan"] = {"repeat_policies": list(V2_SMOKE_REPEAT), "per_type_policies": list(V2_SMOKE_TYPE), "per_type": 3,
-                       "jobs": [list(j) for j in R.smoke_plan(B.load(ROOT / buyers_file), V2_SMOKE_REPEAT,
-                                                              V2_SMOKE_TYPE, per_type=3)],
-                       "ceiling_usd": V2_SMOKE_CEILING_USD,
+    cs = B.load(ROOT / buyers_file)
+    m["smoke_plan"] = {"round": 2, "rule": inspect.cleandoc(v2_smoke_round2.__doc__),
+                       "jobs": [list(j) for j in v2_smoke_round2(cs)],
+                       "first_smoke": {"dir": "tournament/v2/smoke.83010fc4", "manifest_sha256": V2_FIRST_SHA,
+                                       "jobs": [list(j) for j in R.smoke_plan(cs, V2_SMOKE_REPEAT, V2_SMOKE_TYPE, per_type=3)],
+                                       "gates": "failed: L_own 71.0 % (> 59 %), fidelity 79.7 % (< 90 %); published"},
+                       "ceiling_usd": V2_SMOKE_CEILING_USD, "prints_outcomes": False,
                        "purpose": "mechanics, cost and the v2 gates (gates_v2) only"}
     m["budget"] = dict(m["budget"], run_ceiling_usd=V2_RUN_CEILING_USD)
     m["gates_v2"] = {
         **V2_GATES,
         "L_own": "share of model-written buyer lines (type != opt_out) on which the smart_rules rule meant for the "
-                 "customer's type fires (tools/v2_analysis.py OWN_RULE); v1 baseline from tournament/full/outcomes.jsonl",
+                 "customer's type fires (tools/v2_analysis.py OWN_RULE), the $-amount pattern excluded; L_own with it "
+                 "and the v1 values are reported as descriptive numbers",
         "fidelity": f"share of model-written v2 lines from which an independent judge ({V2_JUDGE_MODEL}, not the writer, "
                     "not NVIDIA, sees no rules) recovers the turn's facts: kind, amount within 5 %, weeks within 1, weekday "
-                    "exact, household, item; reference: the v1 writer on 300 sampled turns (seed 7) judged the same way",
+                    "exact, someone else with a say (household member, partner, landlord), item; household-must-review "
+                    "accepts the judge's 'undecided' when someone else is mentioned; the share under the first mapping is "
+                    "reported too; reference: the v1 writer on 300 sampled turns (seed 7) judged the same way",
         "template": "share of v2 buyer messages that fell back to the v1 template",
         "integrity": "as v1: all smoke rows clean, no errored row after re-runs, no HTTP 429, 0 off-arm calls",
         "on_failure": "one revision of the writer prompt, with a line in tournament/v2/CHANGES.md and a new manifest; a "
@@ -269,6 +299,15 @@ def with_v2(m, buyers_file):
         "otherwise": "no advantage shown on live wording; the v1 headline stands",
         "publication": "published whatever the outcome, both tests in RESULTS.md",
         "not_tested": "ultra_only (left out for budget)"}
+    m["amendment"] = {
+        "from_manifest_sha256": V2_FIRST_SHA, "why": "the first v2 smoke failed both writer gates; part of the failure was "
+        "the measuring instrument, not the writer (tournament/v2/CHANGES.md)",
+        "changes": ["judge mapping: household-must-review accepts 'undecided' when someone else is mentioned, and a "
+                    "landlord counts as someone with a say", "L_own: the $-amount pattern is out of the gated metric "
+                    "(threshold unchanged at 59 %)", "one revision of the writer prompt: plain meaning of each act, no "
+                    "added questions, no day, date or time not in the facts"],
+        "unchanged": "hypothesis H1, decision rules, metrics, policies, thresholds, budget and ceilings",
+        "disclosure": V2_DISCLOSURE, "second_failure": "stop v2: the writer did not pass the gate; the v1 framing stands"}
     m["analysis"] = {"script": V2_ANALYSIS, "sha256": sha256_file(ROOT / V2_ANALYSIS), "judge_model": V2_JUDGE_MODEL,
                      "judge_ceiling_usd": V2_JUDGE_CEILING_USD}
     return m

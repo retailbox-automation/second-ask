@@ -118,6 +118,49 @@ def test_v2_manifest_ceilings_policies_and_writer(m2):
     assert m2["baseline"]["rows_sha256"] == MF.sha256_file(MF.ROOT / "tournament" / "full" / "rows.jsonl")
     assert len(RUN.manifest_jobs(m2)) == 200 * 6 + 2 * 100 * 4
     assert m2["analysis"]["sha256"] == MF.sha256_file(MF.ROOT / "tools" / "v2_analysis.py")
+    assert (m2["gates_v2"]["L_own_max"], m2["gates_v2"]["fidelity_min"], m2["gates_v2"]["template_max"]) == (0.59, 0.90, 0.02)
+    assert m2["amendment"]["from_manifest_sha256"] == MF.V2_FIRST_SHA and "No interval, D2 or DiD" in m2["amendment"]["disclosure"]
+
+
+def test_second_smoke_uses_customers_the_first_did_not(m2):
+    first = {j[0] for j in m2["smoke_plan"]["first_smoke"]["jobs"]}
+    second = [tuple(j) for j in m2["smoke_plan"]["jobs"]]
+    assert len(second) == 48 and not first & {b for b, _, _ in second} and m2["smoke_plan"]["prints_outcomes"] is False
+    first_dir = MF.ROOT / "tournament" / "v2" / "smoke.83010fc4"
+    ran = {r["buyer"] for r in R.read_lines(first_dir / "rows.jsonl")[0]}
+    assert ran == first and json.loads((first_dir / "MANIFEST.json").read_text())["smoke_plan"]["jobs"] == m2["smoke_plan"]["first_smoke"]["jobs"]
+
+
+def test_v2_smoke_prints_no_outcome_table(m2, tmp_path, monkeypatch, capsys):
+    class FakeLedger:
+        def __init__(self, *a, **k):
+            pass
+
+        def spent(self):
+            return 7.0, {"b2": 6.5}
+    row = {"buyer": "B001", "type": "timing_slot", "trade": "HVAC", "policy": "super_only", "repeat": 0, "attempt": 1,
+           "status": "ok", "booked": True, "margin": 123.0, "given_away": 0.0, "lost": 0.0, "model_usd": 0.001, "net": 122.999,
+           "violations": 0, "unsure": 0, "feasible": True, "oracle": 123.0}
+
+    def fake_run(jobs, cards, conv, out, **kw):
+        kw["log"]("[run] B001 super_only r0 a1: ok booked=True end=booked $0.00100")
+        R.append_line(out / "rows.jsonl", row)
+        return {"stop": "complete"}
+    monkeypatch.setattr(RUN, "Ledger", FakeLedger)
+    monkeypatch.setattr(RUN, "live_conversations", lambda m, l: None)
+    monkeypatch.setattr(R, "run", fake_run)
+    for test, m, blind in (("v2", m2, True), ("v1", V1, False)):
+        monkeypatch.setattr(RUN, "guard", lambda approve, environ=None, test="v1", m=m: m)
+        monkeypatch.setitem(RUN.TESTS, test, (tmp_path / f"{test}.json", tmp_path / f"{test}-smoke", tmp_path / f"{test}-full"))
+        RUN.main(["smoke", "--approve", "x", "--test", test])
+        out = capsys.readouterr().out
+        assert ("| super_only |" in out) is not blind and ("booked=" in out) is not blind, test
+
+
+def test_writer_prompt_carries_no_rule_trigger():
+    assert V.fires(E.V2_SYSTEM) == set()
+    for clause in ("no new requests or questions", "no day, date or time that is not in the facts", "What the acts mean"):
+        assert clause in E.V2_SYSTEM
 
 
 def test_full_v2_runs_under_the_v2_ceiling(m2, tmp_path, monkeypatch):
@@ -209,14 +252,16 @@ def test_leakage_counts_the_rule_meant_for_the_type():
              ("timing_slot", "We need it done by Wednesday."), ("timing_slot", "Midweek at the latest, the house is an oven."),
              ("price", "Could you do $3,400?")]
     lk = V.leakage(lines)
-    assert lk["L_own"]["share"] == pytest.approx(3 / 5) and lk["L_own_by_type"]["timing_pause"]["share"] == 0.5
+    assert lk["L_own"]["share"] == pytest.approx(2 / 5) and lk["L_own_by_type"]["timing_pause"]["share"] == 0.5
+    assert lk["L_own_with_amount"]["share"] == pytest.approx(3 / 5)  # the $-amount pattern only counts descriptively
 
 
 def test_v1_baseline_is_the_one_in_the_draft():
     lk = V.leakage(V.v1_lines(R.read_lines(V.V1_OUTCOMES)[0]))
-    assert lk["L_own"]["n"] == 3133 and round(lk["L_own"]["share"], 2) == 0.79 and round(lk["L_any"]["share"], 2) == 0.97
+    assert lk["L_own"]["n"] == 3133 and lk["L_own"]["share"] == 0.7667 and round(lk["L_any"]["share"], 2) == 0.97
+    assert lk["L_own_with_amount"]["share"] == 0.7897  # the pre-registered definition of 83010fc4 (79 %)
     assert {t: v["share"] for t, v in lk["L_own_by_type"].items()} == {
-        "channel": 1.0, "family": 0.6831, "price": 0.9975, "ready": 0.9961, "timing_pause": 0.5798, "timing_slot": 0.8615}
+        "channel": 1.0, "family": 0.6831, "price": 0.9069, "ready": 0.9961, "timing_pause": 0.5798, "timing_slot": 0.8615}
 
 
 @pytest.mark.parametrize("facts,judge,ok", [
@@ -228,10 +273,17 @@ def test_v1_baseline_is_the_one_in_the_draft():
     ({"act": "needs_it_sooner", "done_by": "Wednesday"}, {"kind": "need_sooner", "weekday": "wednesday"}, True),
     ({"act": "household_view", "discussed_with": "my wife", "unnecessary_item": "Surge protector"},
      {"kind": "household", "household": True, "item": "the surge protector"}, True),
-    ({"act": "household_must_review", "who": "my dad"}, {"kind": "undecided", "household": True}, False),
+    ({"act": "household_must_review", "who": "my dad"}, {"kind": "undecided", "household": True}, True),
+    ({"act": "household_must_review", "who": "my dad"}, {"kind": "undecided", "household": False}, False),
+    ({"act": "household_must_review", "who": "my landlord"}, {"kind": "household", "household": True}, True),
 ])
 def test_faithful(facts, judge, ok):
     assert V.faithful(facts, judge)[0] is ok
+
+
+def test_old_mapping_is_kept_for_comparison():
+    facts, j = {"act": "household_must_review", "who": "my partner"}, {"kind": "undecided", "household": True}
+    assert V.faithful(facts, j)[0] and not V.faithful(facts, j, V.OLD_ACCEPT)[0]
 
 
 def test_fidelity_reports_lines_the_judge_did_not_read():
@@ -245,6 +297,7 @@ def test_fidelity_reports_lines_the_judge_did_not_read():
     res = V.fidelity([({"act": "go_ahead"}, "yes"), ({"act": "go_ahead"}, "skip"), ({"act": "cost_concern"}, "no"),
                       ({"act": "go_ahead"}, "down")], J(), workers=1)
     assert res["share"] == 0.5 and res["not_judged"] == 2 and res["n"] == 2 and res["judge_errors"] == ["TFError: 503"]
+    assert res["share_old_mapping"] == 0.5 and len(res["judged"]) == 2
 
 
 def _final(diff_by_buyer, test):

@@ -1,5 +1,7 @@
 # v2: wording robustness (pre-registration)
 
+> **Amended after a failed smoke** (manifest 2, sha256 `0f6f76bc31d04a3197271422f666da014e02c82de8c23dd1010824019e2b899e`): two defects of the measuring instrument were fixed (the judge mapping for household-must-review, and the $-amount pattern out of the gated L_own), the writer prompt got its one revision, and the second smoke uses new customers. Thresholds, hypothesis, decision rules, policies and budget are unchanged. Before, after, why, and a disclosure that policy outcomes of the first smoke were seen before the amendment: `tournament/v2/CHANGES.md`. The text below is the original pre-registration of manifest 1.
+
 Written and pushed before the first live call of v2. Manifest `tournament/v2/MANIFEST.json`, sha256
 `83010fc474bf3a7b0a5aaf3269276ff695f221b75a1055a3c2b915e5f0a03e7d` (canonical JSON, as for v1). Analysis script
 `tools/v2_analysis.py`, sha256 `f13d1f11a7ed4f51ff68922712dd773ede93f153059b28a3c22dd4feb356d499` (recorded in the

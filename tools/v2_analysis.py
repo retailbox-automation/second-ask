@@ -29,8 +29,11 @@ CODE_TEXTS = {"We talked it over. Let's book it."}
 # ---- leakage: does the smart_rules rule meant for the customer's type fire on the line? ----------------------------
 TRIGGERS = {"not_needed": P._NOT_NEEDED, "sooner": P._SOONER, "weeks": P._WEEKS, "family": P._FAMILY,
             "ready": P._READY, "price": P._PRICE, "think": P._THINK}
-OWN_RULE = {"timing_slot": {"sooner"}, "timing_pause": {"weeks", "later"}, "price": {"amount", "price"},
+# Amended after the first v2 smoke (tournament/v2/CHANGES.md): the $-amount pattern is out of the gated L_own, because a
+# faithful line has to state the amount a price customer names; OWN_RULE_WITH_AMOUNT is kept as a descriptive number.
+OWN_RULE = {"timing_slot": {"sooner"}, "timing_pause": {"weeks", "later"}, "price": {"price"},
             "family": {"family"}, "ready": {"ready"}, "channel": {"ready"}}
+OWN_RULE_WITH_AMOUNT = dict(OWN_RULE, price={"amount", "price"})
 
 
 def fires(text):
@@ -69,13 +72,16 @@ def _share_ci(flags, draws=2000, seed=7):
 
 
 def leakage(lines):
-    """L_own and L_any overall and by type, with bootstrap intervals over lines."""
+    """L_own (gated: the amount pattern excluded), L_own_with_amount and L_any (descriptive), overall and by type, with
+    bootstrap intervals over lines."""
     own = [bool(fires(text) & OWN_RULE.get(typ, set())) for typ, text in lines]
+    with_amount = [bool(fires(text) & OWN_RULE_WITH_AMOUNT.get(typ, set())) for typ, text in lines]
     anyf = [bool(fires(text)) for _, text in lines]
     by = defaultdict(list)
     for (typ, _), f in zip(lines, own):
         by[typ].append(f)
-    return {"L_own": _share_ci(own), "L_any": _share_ci(anyf), "L_own_by_type": {t: _share_ci(v) for t, v in sorted(by.items())}}
+    return {"L_own": _share_ci(own), "L_own_with_amount": _share_ci(with_amount), "L_any": _share_ci(anyf),
+            "L_own_by_type": {t: _share_ci(v) for t, v in sorted(by.items())}}
 
 
 # ---- fidelity: can an independent judge recover the turn's facts from the line? -------------------------------------
@@ -87,22 +93,25 @@ JUDGE_SYSTEM = (
     "has to agree or has given a view), \"undecided\" (still thinking, no reason given), \"other\"; \"amount\": a dollar "
     "amount they say they could pay, as a number, or null; \"weeks\": how many weeks they want to wait, as a number, or "
     "null; \"weekday\": the weekday they need the work done by, or null; \"household\": true if they mention someone else "
-    "in the household, else false; \"item\": a line item they say is not needed, or null. Answer only with the JSON "
-    "object.")
+    "who has a say in the decision (a family member, a partner, a landlord), else false; \"item\": a line item they say is "
+    "not needed, or null. Answer only with the JSON object.")
 JUDGE_PARAMS = {"temperature": 0.0, "max_tokens": 200}
 ACCEPT = {"saw_it_only_now": {"go_ahead"}, "go_ahead": {"go_ahead"}, "cost_concern": {"cost_too_high"},
           "will_decide_later": {"undecided", "wait_until_later"}, "needs_to_think": {"undecided"},
           "still_thinking": {"undecided"}, "wants_it_later": {"wait_until_later"}, "still_not_ready": {"wait_until_later"},
-          "schedule_problem": {"need_sooner"}, "needs_it_sooner": {"need_sooner"}, "household_must_review": {"household"},
+          "schedule_problem": {"need_sooner"}, "needs_it_sooner": {"need_sooner"},
+          "household_must_review": {"household", "undecided"},  # amended: undecided + someone else mentioned (checked below)
           "household_still_discussing": {"household", "undecided"}, "household_view": {"household", "cost_too_high", "other"}}
+OLD_ACCEPT = dict(ACCEPT, household_must_review={"household"})  # the pre-registered table of 83010fc4, for comparison
 
 
-def faithful(facts, j):
+def faithful(facts, j, accept=None):
     """(ok, reasons): the judge's reading carries the turn's facts."""
+    accept = ACCEPT if accept is None else accept
     why = []
     if not isinstance(j, dict):
         return False, ["judge reply not an object"]
-    if j.get("kind") not in ACCEPT.get(facts["act"], set()):
+    if j.get("kind") not in accept.get(facts["act"], set()):
         why.append(f"kind {j.get('kind')!r} for act {facts['act']}")
 
     def num(x):
@@ -165,9 +174,11 @@ def fidelity(items, judge, workers=8):
     judged = [(f, t, j) for (f, t), j in zip(items, reads) if j is not None and "error" not in j]
     errors = [j["error"] for j in reads if j is not None and "error" in j]
     oks = [faithful(f, j) for f, _, j in judged]
+    old = [faithful(f, j, OLD_ACCEPT)[0] for f, _, j in judged]
     fails = Counter(w.split(" ")[0] for ok, why in oks if not ok for w in why)
-    return {**_share_ci([ok for ok, _ in oks]), "not_judged": len(items) - len(judged), "judge_errors": errors[:5],
-            "failure_kinds": dict(fails),
+    return {**_share_ci([ok for ok, _ in oks]), "share_old_mapping": round(sum(old) / len(old), 4) if old else None,
+            "not_judged": len(items) - len(judged), "judge_errors": errors[:5], "failure_kinds": dict(fails),
+            "judged": [{"facts": f, "text": t, "judge": j, "ok": ok} for (f, t, j), (ok, _) in zip(judged, oks)],
             "examples_failed": [{"facts": f, "text": t, "judge": j} for (f, t, j), (ok, _) in zip(judged, oks) if not ok][:12]}
 
 
@@ -275,6 +286,10 @@ def cmd_gates(d, judge=None, writer_client=None):
     res["judge_spent_usd"], res["judge_skipped"] = round(judge.spent(), 4), judge.skipped
     L = res["leakage_v2"]["L_own"]["share"]
     F = res["fidelity_v2"]["share"]
+    res["descriptive"] = {"L_own_with_amount": res["leakage_v2"]["L_own_with_amount"],
+                          "L_own_v1_without_amount": v1["L_own"], "L_own_v1_with_amount": v1["L_own_with_amount"],
+                          "would_pass_v1_minus_20pp": L is not None and v1["L_own"]["share"] is not None
+                          and L <= round(v1["L_own"]["share"] - 0.20, 4)}
     res["gates"] = {"integrity": res["integrity"]["ok"],
                     "template": res["template"]["share"] is not None and res["template"]["share"] <= g["template_max"],
                     "L_own": L is not None and L <= g["L_own_max"],
@@ -283,7 +298,10 @@ def cmd_gates(d, judge=None, writer_client=None):
     (Path(d) / "gates.json").write_text(json.dumps(res, indent=1) + "\n")
     print(json.dumps({k: res[k] for k in ("gates", "pass")} | {"L_own": res["leakage_v2"]["L_own"], "L_own_v1": v1["L_own"],
                       "fidelity": {k: res["fidelity_v2"][k] for k in ("share", "lo", "hi", "n", "not_judged")},
+                      "fidelity_old_mapping": res["fidelity_v2"]["share_old_mapping"],
                       "reference_fidelity": res["reference_v1_writer"]["fidelity"]["share"],
+                      "reference_fidelity_old_mapping": res["reference_v1_writer"]["fidelity"]["share_old_mapping"],
+                      "descriptive": res["descriptive"],
                       "template": res["template"]}, indent=1))
     return 0 if res["pass"] else 1
 

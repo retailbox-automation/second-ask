@@ -298,9 +298,19 @@ V2_WRITER_PARAMS = {"temperature": 1.0, "top_p": 0.95, "max_tokens": 300, "reaso
 V2_SYSTEM = ("You write one text message from a homeowner to a home-service company that sent them an estimate. The facts "
              "this homeowner wants to get across in this message are given as a small JSON object. Put them in your own "
              "words, the way this particular person would text: 1-3 sentences, natural and specific to them, no emojis. Get "
-             "every fact across and add nothing the facts do not say: no new requests, no new numbers, no agreeing or "
-             "refusing. Write figures and dates however this person would. Keep short private notes for your next message "
-             '(under 40 words). Answer only with a JSON object: {"message": "...", "notes": "..."}')
+             "every fact across and add nothing the facts do not say: no new requests or questions, no new numbers, no day, "
+             "date or time that is not in the facts, no agreeing or refusing. Write figures and dates however this person "
+             "would. What the acts mean: saw_it_only_now - they only now saw the estimate, it is fine, and they want a "
+             "visit time; go_ahead - they are happy with it and want a visit time; cost_concern - the total is the problem "
+             "(could_pay is what they could pay; give_a_figure false means name no figure); will_decide_later, "
+             "needs_to_think, still_thinking - they have not decided and give no reason or date; wants_it_later, "
+             "still_not_ready - they want the job, just not until about wait_weeks_about weeks from now; schedule_problem "
+             "- the visit date offered does not suit them (give_reason false means say only that); needs_it_sooner - the "
+             "visit date offered falls after the day it must be finished (done_by); household_must_review, "
+             "household_still_discussing - someone else (who) has to see it too before they decide; household_view - they "
+             "went through it with someone (discussed_with) and pass on that view. repeat true means they have said this "
+             "before. Keep short private notes for your next message (under 40 words). Answer only with a JSON object: "
+             '{"message": "...", "notes": "..."}')
 
 
 class FreeWordingWriter:
