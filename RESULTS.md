@@ -1,54 +1,35 @@
 # Second Ask: tournament results
 
-Pre-registered manifest `tournament/MANIFEST.json`, sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` (changes from the first manifest: `tournament/CHANGES.md`). Run directory `tournament/full/`: started 2026-10-24T10:58:31Z, finished 2026-10-24T11:37:04Z, stop: **complete**; 2403 conversation rows (2400 clean, 3 errored); spend in the run window $5.7776 by the shared ledger.
+**Second Ask, measured: in our pre-registered test, Nemotron did not beat a good rulebook. Against `smart_rules`, a rulebook we wrote with full knowledge of the simulator, the routed design (Lightning labels, Super chooses) came out at -$36,147 [-$63,856, -$13,051] against it over 200 simulated customers (-$181 [-$319, -$65] per customer): behind. Super-only: -$16,720 [-$43,004, +$8,643] (-$84 [-$215, +$43] per customer): no clear difference. The test changed what we ship: Super labels by default. All $ are simulated margin on illustrative prices (not market data).**
 
-Every number on this page is computed from `tournament/full/rows.jsonl` and `outcomes.jsonl` by `python3 -m second_ask.tournament.run results` (tables) and `python3 tools/run_checks.py results-md` (this page). Nothing is typed by hand.
+Pre-registered manifest `tournament/MANIFEST.json`: sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` of its canonical JSON (sorted keys, no spaces; the file's own sha256 is `e3551d565a561fd1…`). Frozen in commit `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; the run started 2026-10-24T10:58:31Z and finished 2026-10-24T11:37:04Z. `second_ask/**` and the manifest did not change after the freeze. Run: 2403 conversation rows (2400 clean, 3 errored and re-run clean), real Token Factory spend $5.78.
 
-## Headline
+Numbers on this page are computed from the run files by `python3 -m second_ask.tournament.run results` (the pre-registered tables) and `tools/run_checks.py results-md` (this page). That generator is not in the manifest and was first committed in `db01ff6` at 2026-10-24T11:39:15Z, after the run: the numbers are computed, but the presentation and wording were chosen with the results known.
 
-- Against the shop's old rule (`shop_rule`: discount to the floor at the first objection, then weekly reminders), difference in net summed over 200 buyers [95 % interval]: `routed` $81,020 [$53,395, $110,597]; `super_only` $100,447 [$67,011, $139,369]; `super_vl` $110,626 [$78,469, $148,226]; `ultra_only` $119,819 [$86,014, $159,317].
-- Against `smart_rules`, the strongest rule baseline we could write (pre-registered main comparison), difference in net [95 % interval]: `routed` -$36,147 [-$63,856, -$13,051]: behind (interval below 0); `super_only` -$16,720 [-$43,004, $8,643]: no clear difference (interval includes 0); `super_vl` -$6,541 [-$29,232, $15,492]: no clear difference (interval includes 0); `ultra_only` $2,652 [-$13,955, $21,811]: no clear difference (interval includes 0).
-- Highest net: `ultra_only` ($232,872); `smart_rules` $230,220; `shop_rule` $113,053.
-- Model $ per booking: `routed` $0.0023; `super_only` $0.0028; `super_vl` $0.0024; `ultra_only` $0.0113.
-- Default label model by the pre-registered rule: **Super**.
+## Main comparison (pre-registered): Nemotron against a good rulebook
 
-## What was run
-
-- 200 simulated homeowners (cards fixed by seed 20261023, `tournament/buyers.json` sha256 `722dd96f6c4d…`), each with a hidden walkaway price and a reason for going quiet. Every buyer decision is code; a non-NVIDIA model (`Qwen/Qwen3-30B-A3B-Instruct-2507`) only writes the buyer's words and never sees the walkaway.
-- 7 policies. `shop_rule` and `concession_heuristic` never read the buyer's words and run once per buyer; `smart_rules` and the four Nemotron policies read them and run 3 times on a fixed subsample of 100 buyers.
-- Totals are per buyer first: each buyer's mean over its repeats, then the sum over buyers. Only buyers finished in every policy count.
-- **net** = margin earned on booked jobs minus the shop's model spend. **given away** = margin left on the table on booked jobs; **lost** = margin of buyers who could have booked and did not.
-- Main comparison (pre-registered): `routed` and `super_only` against `smart_rules`, the strongest rule baseline we could write without a model. Intervals: paired bootstrap over buyers, 2,000 draws, 95 %.
-
-## Main comparisons
-
-| comparison (net, summed over buyers) | difference [95 % interval] | buyers | reading |
+| comparison: net, simulated margin on illustrative prices (not market data) | over 200 customers [95 % interval] | per customer | reading |
 |---|---|---|---|
-| routed - smart_rules | -$36,147 [-$63,856, -$13,051] | 200 | behind (interval below 0) |
-| super_only - smart_rules | -$16,720 [-$43,004, $8,643] | 200 | no clear difference (interval includes 0) |
-| ultra_only - smart_rules | $2,652 [-$13,955, $21,811] | 200 | no clear difference (interval includes 0) |
-| super_vl - smart_rules | -$6,541 [-$29,232, $15,492] | 200 | no clear difference (interval includes 0) |
-| shop_rule - smart_rules | -$117,167 [-$155,302, -$83,655] | 200 | behind (interval below 0) |
-| concession_heuristic - smart_rules | -$145,696 [-$187,338, -$109,192] | 200 | behind (interval below 0) |
+| routed - smart_rules | -$36,147 [-$63,856, -$13,051] | -$181 [-$319, -$65] per customer | behind: the whole interval is below 0 |
+| super_only - smart_rules | -$16,720 [-$43,004, +$8,643] | -$84 [-$215, +$43] per customer | no clear difference, which is not equivalence: from $215 per customer behind to $43 ahead is inside the interval |
 
-Against the shop's old rule (`shop_rule`), secondary:
+Read this with how `smart_rules` was made. We wrote it with full knowledge of the simulator's vocabulary and decision code: asking why turns the 49 customers who start vague into clear ones, who then state amounts, weeks and deadlines in the simulator's phrasing, and an amount a customer names is 88–97 % of their hidden walkaway (`second_ask/tournament/buyers.py`). It takes 91.0% of the oracle margin ($253,040 over 161 feasible customers), so any policy has little room above it here. This favours the rulebook in this simulator and says nothing about live customers. Paired bootstrap over customers, 2,000 draws, seed 7.
 
-| comparison | difference [95 % interval] | buyers |
-|---|---|---|
-| concession_heuristic - shop_rule | -$28,530 [-$51,064, -$9,278] | 200 |
-| routed - shop_rule | $81,020 [$53,395, $110,597] | 200 |
-| smart_rules - shop_rule | $117,167 [$83,655, $155,302] | 200 |
-| super_only - shop_rule | $100,447 [$67,011, $139,369] | 200 |
-| super_vl - shop_rule | $110,626 [$78,469, $148,226] | 200 |
-| ultra_only - shop_rule | $119,819 [$86,014, $159,317] | 200 |
+## What the test changed: the default label model
 
-## Default label model (pre-registered rule)
+The product as first designed (routed: Lightning labels, Super chooses) finished behind the rulebook and failed the pre-registered label rule against super_only: routed - super_only -$19,427 [-$43,215, +$35] (-$97 [-$216, +$0.17] per customer); the rule keeps Lightning only if the lower bound is at or above -$2,000 and routed is not worse on violations, unsure and off-arm calls (violations 0.0 vs 0.0; unsure 98.3 vs 28.7; off_arm_calls 0.0 vs 0.0). The test changed the default label model to **Super**. Keeping Lightning in routed was already a disclosed deviation from spike S2, where Lightning scored 5/10 and 4/10 (`decision_rules.deviation_from_S2`); the tournament's rule reversed it. "Not worse" is a strict comparison of summed counts; violations and off-arm calls are 0 by construction in the rows that count.
 
-routed (Lightning labels) minus super_only (Super labels), net: -$19,427 [-$43,215, $35] over 200 buyers. The rule keeps Lightning only if the lower bound is at or above -$2,000 and routed is not worse on violations, unsure and off-arm calls: the lower bound misses the margin; violations 0.0 vs 0.0 (not worse); unsure 98.3 vs 28.7 (worse); off_arm_calls 0.0 vs 0.0 (not worse). **Default label model: Super.** Non-inferiority was not shown, so the default stays Super, as the S2 rule requires. "Not worse" is a strict comparison of the summed counts; violations and off-arm calls are 0 by construction in the rows that count (opt-outs are enforced in code; a conversation with an off-arm call is not clean). routed and super_only differ in the label model, the label output format (JSON object vs named tool) and the label fallback, not in the model alone.
+## Secondary comparisons (unadjusted 95 % intervals)
 
-Rows 2403; buyers kept 200 of 200; excluded []; incomplete 0; errored rows 3; re-runs 3.
+- ultra_only - smart_rules: +$2,652 [-$13,955, +$21,811] (+$13 [-$70, +$109] per customer): no clear difference, which is not equivalence: from $70 per customer behind to $109 ahead is inside the interval.
+- super_vl - smart_rules: -$6,541 [-$29,232, +$15,492] (-$33 [-$146, +$77] per customer): no clear difference, which is not equivalence: from $146 per customer behind to $77 ahead is inside the interval.
+- Against a naive discount-first rule (`shop_rule`: discount to the floor at the first objection, then weekly reminders; our stand-in, not a real shop's data), in one line: `smart_rules` (no model) +$117,167 [+$83,655, +$155,302] (+$586 per customer); `routed` +$81,020 [+$53,395, +$110,597] (+$405 per customer); `super_only` +$100,447 [+$67,011, +$139,369] (+$502 per customer); `super_vl` +$110,626 [+$78,469, +$148,226] (+$553 per customer); `ultra_only` +$119,819 [+$86,014, +$159,317] (+$599 per customer). The rulebook without a model gains about as much or more: the gain over the naive rule comes from the menu (ask why, an earlier slot, a resend on the other channel), not from the model.
+- `concession_heuristic` (naive gap-halving, also our stand-in) - smart_rules: -$145,696 [-$187,338, -$109,192].
+- Descriptive, not pre-registered: ultra_only - super_only +$19,372 [+$3,050, +$40,433] at $1.30 more model spend. Spike S7 kept Ultra out of routing on the spike's gold set; that choice is not confirmed here.
 
-## Per policy (each buyer's mean over its repeats, summed over buyers)
+## Per policy
+
+Each customer's mean over its repeats, summed over 200 customers; simulated margin on illustrative prices (not market data). Net per customer: `concession_heuristic` $423; `routed` $970; `shop_rule` $565; `smart_rules` $1,151; `super_only` $1,067; `super_vl` $1,118; `ultra_only` $1,164. Listed alphabetically: the differences among the top policies are not clear (see above).
 
 | policy | buyers | K | bookings | rate | margin $ | given away $ (to full payers / menu gap) | lost $ (price) | model $ | $/booking | net $ | violations | unsure | off-arm | label fallback | platform failures |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -72,24 +53,9 @@ Rows 2403; buyers kept 200 of 200; excluded []; incomplete 0; errored rows 3; re
 | super_vl | 100 | 3 | 102,060 [97,666, 106,361] | 102,060 [97,666, 106,361] | 70 [69, 71] |
 | ultra_only | 100 | 3 | 101,716 [98,187, 106,524] | 101,717 [98,188, 106,525] | 71 [69, 73] |
 
-## Paired bootstrap of the summed per-buyer net difference (95 %)
+## Where routed loses
 
-| comparison | point $ | interval $ | buyers |
-|---|---|---|---|
-| concession_heuristic - smart_rules | -145,696 | [-187,338, -109,192] | 200 |
-| routed - smart_rules | -36,147 | [-63,856, -13,051] | 200 |
-| shop_rule - smart_rules | -117,167 | [-155,302, -83,655] | 200 |
-| super_only - smart_rules | -16,720 | [-43,004, 8,643] | 200 |
-| super_vl - smart_rules | -6,541 | [-29,232, 15,492] | 200 |
-| ultra_only - smart_rules | 2,652 | [-13,955, 21,811] | 200 |
-| concession_heuristic - shop_rule | -28,530 | [-51,064, -9,278] | 200 |
-| routed - shop_rule | 81,020 | [53,395, 110,597] | 200 |
-| smart_rules - shop_rule | 117,167 | [83,655, 155,302] | 200 |
-| super_only - shop_rule | 100,447 | [67,011, 139,369] | 200 |
-| super_vl - shop_rule | 110,626 | [78,469, 148,226] | 200 |
-| ultra_only - shop_rule | 119,819 | [86,014, 159,317] | 200 |
-
-## Cells where routed earns less than the best policy in the cell
+Pre-registered test by cell (objection type x trade): only 6 of 28 cells have n >= 10, so "no clear loss" in a cell means not testable, not no loss; in total routed is clearly behind (above).
 
 | type | trade | n | routed net/buyer | best | best net/buyer | gap | interval | clear loss |
 |---|---|---|---|---|---|---|---|---|
@@ -117,32 +83,35 @@ Rows 2403; buyers kept 200 of 200; excluded []; incomplete 0; errored rows 3; re
 | timing_slot | HVAC | 7 | 1,376 | smart_rules | 1,376 | 0 | [-0.0, -0.0] at 0.9917 | False |
 | timing_slot | electrical | 5 | 103 | smart_rules | 103 | 0 | [-0.0, -0.0] at 0.9917 | False |
 
+Of the 23 cells listed, 7 differ by less than $1 per customer (model spend only); clear losses (n >= 10 and the interval below 0): 0.
 
-Of the 23 cells listed above, 7 differ by less than $1 per buyer; in 7 of them routed and the best policy earned the same margin from every buyer, so the gap is model spend only. Cells with a gap of $1 or more: 16; clear losses (n >= 10 and the whole interval below 0): 0. The intervals are in dollars per buyer.
+Descriptive, by objection type (post-hoc, not pre-registered): routed - smart_rules, net summed over the type's customers [95 % interval].
+
+| type | customers | difference [95 % interval] |
+|---|---|---|
+| channel | 30 | -$4,931 [-$13,946, -$243] |
+| family | 34 | -$737 [-$4,409, +$1,712] |
+| opt_out | 10 | $0 [$0, $0] |
+| price | 50 | -$5,753 [-$17,273, +$2,116] |
+| ready | 22 | -$0.02 [-$0.02, -$0.02] |
+| timing_pause | 34 | -$17,346 [-$33,794, -$3,651] |
+| timing_slot | 20 | -$7,380 [-$22,140, -$0.03] |
 
 ## Compliance
 
-Violations = messages sent after the buyer asked to stop. Opt-out buyers' words come from code (published keyword and phrase lists), and the shared code layer catches every one of them, so 0 there is by construction for every policy, not a model result:
+Violations (messages after a customer asked to stop) are 0 for every policy by construction: opt-out customers' words come from published lists, and a shared code layer stops every policy on them. That is not an achievement of any model:
 
-- concession_heuristic: keyword 0 violations over n = 7; phrase 0 violations over n = 3
-- routed: keyword 0 violations over n = 7; phrase 0 violations over n = 3
-- shop_rule: keyword 0 violations over n = 7; phrase 0 violations over n = 3
-- smart_rules: keyword 0 violations over n = 7; phrase 0 violations over n = 3
-- super_only: keyword 0 violations over n = 7; phrase 0 violations over n = 3
-- super_vl: keyword 0 violations over n = 7; phrase 0 violations over n = 3
-- ultra_only: keyword 0 violations over n = 7; phrase 0 violations over n = 3
+- concession_heuristic: keyword 0 over n = 7; phrase 0 over n = 3
+- routed: keyword 0 over n = 7; phrase 0 over n = 3
+- shop_rule: keyword 0 over n = 7; phrase 0 over n = 3
+- smart_rules: keyword 0 over n = 7; phrase 0 over n = 3
+- super_only: keyword 0 over n = 7; phrase 0 over n = 3
+- super_vl: keyword 0 over n = 7; phrase 0 over n = 3
+- ultra_only: keyword 0 over n = 7; phrase 0 over n = 3
 
-Conversations of buyers who are not opt-out buyers that still ended on an opt-out (a buyer-model phrase read as a stop by the shared layer):
-
-- concession_heuristic: 0
-- routed: 0
-- shop_rule: 0
-- smart_rules: 0
-- super_only: 0
-- super_vl: 0
-- ultra_only: 0
-
-Buyer-model lines that the opt-out layer reads as a stop (type is not opt_out): 0 of 3321; read as ambiguous: 1.
+False opt-outs (a customer who did not ask to stop, stopped as an opt-out): 1.
+- B139 (timing_pause), routed, repeat 0: stopped by the label model, after the customer wrote "I'll think about it and get back to you."; a feasible customer was lost (oracle margin $202.50). Published as a failure.
+- Customer lines that the shared opt-out code layer reads as a stop: 0 of 3321; read as ambiguous: 1.
 
 ## Unsure flags (messages sent despite a flag)
 
@@ -155,65 +124,48 @@ Buyer-model lines that the opt-out layer reads as a stop (type is not opt_out): 
 
 ## Integrity
 
-- Errored rows 3, excluded buyers [] (by type -), re-runs 3, buyers kept 200 of 200.
-- Token Factory error replies in the run window, by model and code: {'Qwen/Qwen3-30B-A3B-Instruct-2507 HTTP 503': 31, 'nvidia/Nemotron-3-Ultra-550b-a55b HTTP 503': 6, 'nvidia/Nemotron-3.5-Super-VL HTTP 502': 1, 'nvidia/Nemotron-3.5-Super-VL HTTP 503': 2, 'nvidia/Nemotron-3_5-Lightning HTTP 503': 2, 'nvidia/nemotron-3-super-120b-a12b HTTP 503': 2}; reservations kept (network or malformed replies, no usage, or in flight at the end): {'Qwen/Qwen3-30B-A3B-Instruct-2507': 4, 'nvidia/nemotron-3-super-120b-a12b': 4, 'nvidia/Nemotron-3_5-Lightning': 1, 'nvidia/Nemotron-3-Ultra-550b-a55b': 3, 'nvidia/Nemotron-3.5-Super-VL': 1}. Calls by model: {'Qwen/Qwen3-30B-A3B-Instruct-2507': 3168, 'nvidia/nemotron-3-super-120b-a12b': 2171, 'nvidia/Nemotron-3_5-Lightning': 751, 'nvidia/Nemotron-3-Ultra-550b-a55b': 1399, 'nvidia/Nemotron-3.5-Super-VL': 1410}.
-- Duplicate outcome lines (interrupted between the two writes): none.
-- Usage-based cost of the kept conversations: shop $5.5897, buyer writer $0.1439; the ledger window ($5.7776) also holds the errored attempts' calls and the reservations kept on network-level retries.
-
-| policy | attempts | errored | platform failures | off-arm calls | fallback labels | chronology errors | buyer text from the template |
-|---|---|---|---|---|---|---|---|
-| concession_heuristic | 200 | 0 | 0 | 0 | 0 | 0 | 0 |
-| routed | 400 | 0 | 0 | 0 | 2 | 0 | 0 |
-| shop_rule | 201 | 1 | 1 | 0 | 0 | 0 | 0 |
-| smart_rules | 400 | 0 | 0 | 0 | 0 | 0 | 0 |
-| super_only | 400 | 0 | 0 | 0 | 0 | 0 | 0 |
-| super_vl | 401 | 1 | 1 | 0 | 0 | 0 | 0 |
-| ultra_only | 401 | 1 | 1 | 0 | 0 | 0 | 0 |
+- Errored rows 3 (HTTP 503 after the client's retries), each clean on its second attempt; customers excluded 0; customers kept 200 of 200.
+- Token Factory error replies in the run window, all retried: Qwen3-30B-A3B-Instruct-2507 HTTP 503 x31; Nemotron-3-Ultra-550b-a55b HTTP 503 x6; Nemotron-3.5-Super-VL HTTP 502 x1; Nemotron-3.5-Super-VL HTTP 503 x2; Nemotron-3_5-Lightning HTTP 503 x2; nemotron-3-super-120b-a12b HTTP 503 x2; HTTP 429: 0. Reservations kept on network-level retries (held as spend): 13.
+- Usage-based cost of the kept conversations: shop $5.5897, buyer writer $0.1439; the ledger window ($5.7776) also holds the errored attempts and the kept reservations.
+- Off-arm calls 0, chronology errors 0, buyer text from the template 0, fallback labels 2 (routed), duplicate outcome lines 0.
 
 ## Simulator gates (text-blind rule policies)
 
-- Booking rate in 30–80 %: {'shop_rule': 0.455, 'concession_heuristic': 0.33} -> {'shop_rule': True, 'concession_heuristic': True}.
-- Price buyers' booking rate by walkaway tercile: [0, 0.029, 0.471] (rises: True); spread by type >= 0.20: True.
-- Bookings above the walkaway 0, below the floor 0: both hold by construction (integrity checks, not evidence of realism).
+- Booking rate in 30–80 %: shop_rule 0.455, concession_heuristic 0.330; price customers' booking rate by walkaway tercile [0, 0.029, 0.471].
+- Bookings above the walkaway 0, below the floor 0: invariants by construction, integrity checks, not evidence of realism.
 
 ## Smoke before the run (mechanics and cost only)
 
-`tournament/smoke-b/`: 38 conversations, 38 clean, 0 errored, spend $0.1334. Not results: its buyers are two per type, not the population mix, and `smart_rules` and `concession_heuristic` were not in it (their only cost is the buyer writer; their mechanics are covered by the dry run and the tests). The 10 phase-A conversations, re-run on the frozen code (phase A ran before three simulator fixes):
-
-- B006 shop_rule: phase A booked=True price=785 end='booked'; now booked=True price=785 end='booked'
-- B018 shop_rule: phase A booked=True price=1765 end='booked'; now booked=True price=1765 end='booked'
-- B018 super_vl: phase A booked=True price=1480.0 end='booked'; now booked=True price=1480.0 end='booked'
-- B006 routed: phase A booked=True price=890.0 end='booked'; now booked=True price=890.0 end='booked'
-- B018 ultra_only: phase A booked=True price=1480.0 end='booked'; now booked=True price=1480.0 end='booked'
-- B006 super_vl: phase A booked=False price=None end='move cap'; now booked=True price=890.0 end='booked'
-- B018 super_only: phase A booked=True price=1480.0 end='booked'; now booked=True price=1480.0 end='booked'
-- B018 routed: phase A booked=True price=1480.0 end='booked'; now booked=True price=1480.0 end='booked'
-- B006 ultra_only: phase A booked=True price=890.0 end='booked'; now booked=True price=890.0 end='booked'
-- B006 super_only: phase A booked=True price=890.0 end='booked'; now booked=True price=890.0 end='booked'
+`tournament/smoke-b/`: 38 conversations, 38 clean, spend $0.1334. Two customers per type rather than the population mix; `smart_rules` and `concession_heuristic` were not in it (their only cost is the buyer writer). Not results.
 
 ## What is real, what is seeded, what is simulated
 
-- Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text; the compliance rules (statutes cited in second_ask/compliance.py).
-- Seeded: buyer archetypes: parameter ranges seeded from ten real home-service negotiations (seeds/home_cases.json holds only the ranges); speaking styles from CaSiNo strategy-label counts (seeds/casino_profiles.json).
+- Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text, on simulated conversations. The $ score depends only on the chosen move: the buyer code never reads the shop's message (`second_ask/tournament/env.py`, `react`), so message wording changes no customer decision and message quality is not measured. The compliance rules in code.
+- Seeded: ten paraphrased cases from one homeowner's history set the parameter ranges of 83 of 200 customers (6 of the 10 cases mapped from other trades); the other 117 customers, the type mix, prices and floors are our assumptions. The agent was not tested on the real cases. Speaking styles come from CaSiNo strategy-label counts.
 - Simulated: the shop, its estimates, prices, costs and calendar; every buyer's hidden parameters and every buyer decision (code); the buyers' words (a non-NVIDIA model); the owner's one-tap approval (a stub that approves at or above the floor); time (a simulated clock).
 
 ## Limitations
 
-- The buyers are simulated: their decisions are code drawn from a seeded card, so the numbers say how the policies do against this simulator, not against real homeowners.
-- `smart_rules` was written by us against the simulator's own instruction vocabulary ("need it done by", "in about N weeks", named amounts). That favours the baseline and makes the comparison conservative for the Nemotron policies.
-- Only channel buyers have an unopened estimate and silence; there are no opened-and-silent buyers.
-- Ultra is not routed in (spike S7: Super with reasoning chose at least as well, at about a quarter of the price); `ultra_only` is a separate arm, not part of `routed`. In this tournament `ultra_only`'s total net is $19,372 above `super_only`'s at $1.30 more model spend; that comparison was not pre-registered and is descriptive only.
-- given away splits into money given to buyers who would have paid the full list (`given_to_full_payers`) and the gap the menu's discrete prices cannot reach (`menu_gap`).
-- In the losing-cells table the best policy of each cell is picked in-sample, which biases toward a loss; a clear loss needs n >= 10 and a Bonferroni interval below 0.
-- The compliance rules are applied conservatively in code and are not legal advice; whether Fla. Stat. §501.616(6) covers SMS follow-ups to an estimate is not confirmed.
-- Shop and trade names are made up; any real business with the same name is unrelated.
+1. The customers are simulated: their decisions are code drawn from a seeded card, and their words come from a non-NVIDIA model (`Qwen/Qwen3-30B-A3B-Instruct-2507`). The result says how the policies behave in this simulator, not with live homeowners.
+2. `smart_rules` was written by us knowing the simulator's vocabulary and decision code: asking why makes the 49 vague customers clear, and a named amount is 88–97 % of the hidden walkaway. It takes 91% of the oracle, so any policy has little room to grow here. This works for the baseline and says nothing about live customers.
+3. All $ are simulated margin on illustrative prices (not market data), summed over 200 customers. The shop and its name are made up.
+4. The $ score depends only on the chosen move: message wording changes no customer decision. The quality and persuasiveness of Nemotron's messages were not measured.
+5. Real layer: ten paraphrased cases from one homeowner's history set parameter ranges for only 83 of 200 customers, some mapped from other trades. The agent was not tested on the real cases themselves.
+6. Silence comes in one kind only: the estimate was never opened (channel customers). There are no customers who opened the estimate and stayed silent.
+7. The by-cell test has little power: n >= 10 in only 6 of 28 cells. "No clear loss" means not testable, not no loss.
+8. A published failure: 1 false opt-out (B139 routed): the label model read a customer's sentence as a request to stop, and a feasible customer was lost.
+9. Opt-out violations are 0 by construction (the shared code layer), not to any model's credit. Whether Fla. Stat. §501.616(6) covers SMS reminders about an estimate is not confirmed; the compliance code is not legal advice.
+10. Repeats (K = 3) ran only on a subsample of 100 customers; the other 100 ran once, at temperature 1.0.
+11. Before the first manifest, the simulator was calibrated to the 30–80 % booking-rate gate on the text-blind rule policies with fake models: the first dry run gave 15 % and 13 %, and the buyer model was changed to lose customers to time. Nemotron took no part in that calibration. The generator of this page was written after the run and is not in the manifest.
+12. Routing deliberately departed from spike S2's rule (Lightning 5/10 and 4/10); the deviation was disclosed. The tournament's pre-registered rule brought back Super labels.
+13. `shop_rule` and `concession_heuristic` are our stand-ins, not observed practice of real shops.
+14. Ultra is not in the routing, per spike S7 on the spike's gold set; in this tournament, descriptively, ultra_only - super_only = +$19,372 [+$3,050, +$40,433]: S7's choice is not confirmed here.
 
 ## Reproduce
 
 ```
 python3 -m pytest -q                                        # offline tests
-python3 -m second_ask.tournament.run dry-run                 # fake models, mechanics only
 python3 -m second_ask.tournament.run full --approve 1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e   # live, needs NEBIUS_API_KEY
-python3 -m second_ask.tournament.run results                 # tables from tournament/full/rows.jsonl
-python3 tools/run_checks.py results-md tournament/full       # this page
+python3 -m second_ask.tournament.run results                 # pre-registered tables from rows.jsonl
+python3 tools/run_checks.py results-md tournament/full       # this page and the answer in README.md
 ```

@@ -11,6 +11,10 @@ picks a move id and writes the text. NVIDIA Nemotron models on Nebius Token Fact
 
 ## Is it better than a rule?
 
+<!-- results:start -->
+Not in our pre-registered test: against a rulebook we wrote with full knowledge of the simulator, the routed design came out at -$181 [-$319, -$65] per customer [-$36,147 over 200 simulated customers; simulated margin on illustrative prices, not market data], Super-only showed no clear difference (-$84 [-$215, +$43] per customer), and the test switched the default label model to Super.
+<!-- results:end -->
+
 We measured that before writing any claim: a tournament of seven policies against 200 simulated homeowners, with the
 cards, code, models, scoring and decision rules hashed into `tournament/MANIFEST.json` before the run. Results, with
 intervals and the cells where routing loses: [`RESULTS.md`](RESULTS.md). What changed between the first and the final
@@ -30,8 +34,8 @@ and their mechanics are covered by the dry run and the tests.
 - `second_ask/tournament/` buyers, environment, policies, scoring, manifest, runner. Frozen by the manifest.
 - `tests/` offline tests (`python3 -m pytest -q`); `tests/test_live.py` calls Token Factory and is skipped without a key.
 - `spikes/`, `evidence/` platform spikes with their pre-registered plans and raw replies.
-- `seeds/` parameter ranges seeded from ten real home-service negotiations, and speaking styles derived from CaSiNo
-  (see `NOTICE`).
+- `seeds/` parameter ranges from ten paraphrased home-service negotiations (they seed 83 of the 200 simulated
+  customers; the rest are our assumptions), and speaking styles derived from CaSiNo (see `NOTICE`).
 - `tools/run_checks.py` checks on a run directory and the generator of `RESULTS.md`.
 
 ## Run
@@ -49,7 +53,8 @@ python3 tools/run_checks.py results-md tournament/full # RESULTS.md
 
 ## Notes
 
-- The shop and trade names are made up; any real business with the same name is unrelated.
+- The shop and its name are made up; any real business with the same name is unrelated. All $ in the results are
+  simulated margin on illustrative prices (not market data).
 - The compliance rules are applied conservatively and are not legal advice; whether Fla. Stat. §501.616(6) covers SMS
   follow-ups to an estimate is not confirmed.
 - Third-party data and model licences: see `NOTICE`.
