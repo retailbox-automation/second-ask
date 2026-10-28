@@ -89,6 +89,12 @@ def test_ready_offers_the_earliest_slot_from_the_quoted_week():
     assert off(ready=True, decider="my wife")["timing"] == {"kind": "slot", "day": "2026-11-11"}
 
 
+def test_ready_counts_the_quoted_week_from_its_monday():
+    c = card(quoted=10.0, open_days=(2.0, 3.0, 7.0, 10.0, 12.0))  # quoted Thu Nov 12; Mon Nov 9 is open
+    assert O.offer(Facts(ready=True), c, TODAY)["timing"] == {"kind": "slot", "day": "2026-11-09"}
+    assert O.offer(Facts(ready=True), c, "2026-11-10")["timing"] == {"kind": "slot", "day": "2026-11-12"}
+
+
 def test_ready_falls_back_to_the_earliest_slot_when_none_in_or_after_the_quoted_week():
     c = card(quoted=9.0, open_days=(2.0, 3.0))
     assert O.offer(Facts(ready=True), c, TODAY)["timing"] == {"kind": "slot", "day": "2026-11-04"}
