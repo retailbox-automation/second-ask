@@ -12,7 +12,7 @@
 smoke and full take every parameter from MANIFEST.json, refuse to start when the manifest does not verify against the
 live code or when an SA_* / TF_BASE_URL / TF_CAPS / TF_LEDGER variable is set, and run through runner.run.
 """
-import argparse, json, random, re, statistics, sys, time, zlib
+import argparse, json, random, re, statistics, sys, threading, time, zlib
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
@@ -25,13 +25,15 @@ from ..compliance import Recipient
 from ..tf_client import Client, Ledger
 from ..trace import Trace
 from . import buyers as B, env as E, manifest as MF, runner as R, scoring as S
-from .policies import ALL, LLM_POLICIES, REPEATED, RULE_POLICIES, FakeSimClient, make
+from .policies import ALL, HYBRID, LLM_POLICIES, REPEATED, RULE_POLICIES, FakeSimClient, make
 
 OUT = MF.ROOT / "tournament"
 TESTS = {  # test -> (manifest, smoke directory, full-run directory)
     "v1": (OUT / "MANIFEST.json", OUT / "smoke-b", OUT / "full"),
     "v2": (OUT / "v2" / "MANIFEST.json", OUT / "v2" / "smoke", OUT / "v2" / "full"),
+    "v3": (OUT / "v3" / "MANIFEST.json", OUT / "v3" / "smoke", OUT / "v3" / "full"),
 }
+BLIND = (MF.V2_TEST, MF.V3_TEST)  # tests whose smokes and runs print no outcomes until the pre-registered analysis
 BUYER_PARAMS = E.BUYER_PARAMS
 SMOKE_POLICIES = MF.SMOKE_REPEAT_POLICIES  # the phase-A smoke (0652f17)
 SAFETY = 1.3  # projected cost is multiplied by this
@@ -233,6 +235,8 @@ def cmd_project(a):
 def cmd_manifest(a):
     if a.test == "v2":
         return manifest_v2()
+    if a.test == "v3":
+        return manifest_v3()
     proj = json.loads((OUT / "projection.json").read_text())
     pick = proj["pick"]
     cs = cards()
@@ -274,6 +278,31 @@ def manifest_v2():
     return 0
 
 
+def manifest_v3():
+    """tournament/v3/MANIFEST.json: v1's buyers and writer model; K = 5 on every buyer. Projection (an upper bound): every
+    hybrid conversation costs what a whole v1 super_only conversation cost, every smart_rules one what a v1 smart_rules
+    conversation cost."""
+    v1 = json.loads(TESTS["v1"][0].read_text())
+    outs, _ = R.read_lines(TESTS["v1"][2] / "outcomes.jsonl")
+    by = defaultdict(list)
+    for o in outs:
+        by[o["policy"]].append(o["seller_cost"] + o["buyer_cost"])
+    per = {"smart_rules": statistics.mean(by["smart_rules"]), HYBRID: statistics.mean(by["super_only"])}
+    n = v1["buyers"]["n"] * MF.V3_K
+    usd = SAFETY * n * (per["smart_rules"] + per[HYBRID])
+    proj = {"basis": "v1 measured $ per conversation (tournament/full/outcomes.jsonl): smart_rules for smart_rules, "
+                     "super_only for the hybrid (an upper bound: the hybrid calls the model only on rules 8 and 9)",
+            "usd_per_conversation": {k: round(v, 6) for k, v in per.items()}, "jobs": 2 * n, "safety_factor": SAFETY,
+            "projected_usd": round(usd, 2), "run_ceiling_usd": MF.V3_RUN_CEILING_USD}
+    m = MF.build(v1["buyers"]["file"], v1["buyers"]["n"], MF.V3_K, "all", v1["buyer_simulator"]["model"], None, proj,
+                 v3=True)
+    TESTS["v3"][0].parent.mkdir(parents=True, exist_ok=True)
+    h = MF.write(m, TESTS["v3"][0])
+    print(f"tournament/v3/MANIFEST.json sha256 {h}; projected ${proj['projected_usd']} (upper bound) for {proj['jobs']} "
+          f"conversations")
+    return 0
+
+
 def guard(approve, environ=None, test="v1"):
     """The frozen manifest, or None (with the reason printed) when a live command must not start."""
     bad = R.env_overrides(environ)
@@ -297,10 +326,13 @@ def live_conversations(m, ledger):
                                    fallbacks=dict(p["client"]["fallbacks"])))
     bs = m["buyer_simulator"]
     writer = E.WRITERS[bs.get("writer", "v1")](client, bs["model"], bs["params"])
+    shared = ({}, threading.Lock()) if "common_random_numbers" in bs else None
 
     def converse(card, policy, rep):
-        return E.run_one(card, make(policy, client), writer, rep)
+        w = E.SharedWriter(writer, rep, *shared) if shared else writer
+        return E.run_one(card, make(policy, client), w, rep)
     converse.writer = writer
+    converse.shared = shared
     return converse
 
 
@@ -330,7 +362,7 @@ def blind_log(line):
 def manifest_jobs(m):
     ids = [c.id for c in cards()]
     assert len(ids) == m["buyers"]["n"], "buyers.json does not hold the manifest's n buyers"
-    pols = [p for p in ALL if p in (m.get("run_policies") or m["policies"])]
+    pols = [p for p in ALL + (HYBRID,) if p in (m.get("run_policies") or m["policies"])]
     return R.plan(ids, pols, m["repeats"]["repeated"], m["repeats"]["k"], m["repeats"]["subsample"])
 
 
@@ -342,7 +374,7 @@ def cmd_smoke(a):
     ledger = Ledger(p["ledger"]["path"], caps=p["caps_usd"])
     _, spent = spent_since_start(ledger, out, p["ledger"]["tag"], a.approve)
     jobs = [tuple(j) for j in m["smoke_plan"]["jobs"]]
-    blind = m.get("test") == MF.V2_TEST
+    blind = m.get("test") in BLIND
     report = R.run(jobs, {c.id: c for c in cards()}, live_conversations(m, ledger), out,
                    concurrency=m["budget"]["concurrency"], ultra_concurrency=m["budget"]["ultra_concurrency"],
                    ceiling_usd=m["smoke_plan"]["ceiling_usd"], spent=spent, log=blind_log if blind else print)
@@ -377,7 +409,7 @@ def cmd_full(a):
                   "limit_usd": limit, "accept_failed": accept}
     report = R.run(manifest_jobs(m), {c.id: c for c in cards()}, live_conversations(m, ledger), out,
                    concurrency=b["concurrency"], ultra_concurrency=b["ultra_concurrency"], checkpoint=checkpoint,
-                   ceiling_usd=limit, spent=spent, log=blind_log if m.get("test") == MF.V2_TEST else print)
+                   ceiling_usd=limit, spent=spent, log=blind_log if m.get("test") in BLIND else print)
     print(json.dumps(report, indent=1))
     write_results(out, m)
     return 0 if report["stop"] == "complete" else 3

@@ -19,6 +19,7 @@ from ..chooser import CONFIGS, DEFAULTS
 from ..classifier import LABELS
 from ..menu import amounts_in, build_menu, concession, template_message
 from ..tf_client import PRICES, _parse
+from ..trace import Step
 
 LLM_POLICIES = {
     "super_only": AgentConfig(classifier_model=M.SUPER, classifier_method="tool", chooser="super_think"),
@@ -133,6 +134,12 @@ class SmartRules:
 
     @staticmethod
     def choose(conv, menu):
+        return SmartRules.choose_with_branch(conv, menu)[0]
+
+    @staticmethod
+    def choose_with_branch(conv, menu):
+        """(move, branch): the move of the docstring's rules and which rule chose it (silence_resend, silence_checkin,
+        silence, drop, amount, amount_lowest, amount_answer, sooner, later, family, ready, price, think, none)."""
         est, offer = conv.estimate, conv.offer
         by = {m.id: m for m in menu}
         shop_moves = [e.move_id for e in conv.events if e.who == "shop"]
@@ -145,28 +152,28 @@ class SmartRules:
         last = conv.last_customer_text()
         if last is None:
             if not any(e.who == "customer" for e in conv.events) and conv.views == 0 and offer.channel == est.channel:
-                return next((m for m in menu if m.kind == "resend"), by["ask_why"])
+                return next((m for m in menu if m.kind == "resend"), by["ask_why"]), "silence_resend"
             if shop_moves and shop_moves[-1].startswith("checkin_"):
-                return by["offer_slot"]
-            return ask_then("checkin_7")
+                return by["offer_slot"], "silence_checkin"
+            return ask_then("checkin_7"), "silence"
         text = last.translate(str.maketrans({"\u2019": "'", "\u2018": "'"})).lower()
         if _NOT_NEEDED.search(text):
             for m in menu:
                 extra = m.dropped - offer.dropped
                 if m.kind == "drop" and len(extra) == 1 and next(iter(extra)).lower() in text:
-                    return m
+                    return m, "drop"
         visible = {i.price for i in est.items}
         asks = [a for a in amounts_in(text) if a < offer.price and a not in visible]
         if asks:
             fits = [m for m in priced if m.price <= max(asks)]
             if fits:
-                return max(fits, key=lambda m: (m.price - est.cost(m.dropped), m.price))
+                return max(fits, key=lambda m: (m.price - est.cost(m.dropped), m.price)), "amount"
             lowest = min(priced, key=lambda m: (m.price, m.id), default=None)
             if lowest and lowest.id not in shop_moves:
-                return lowest
-            return by["answer"]
+                return lowest, "amount_lowest"
+            return by["answer"], "amount_answer"
         if _SOONER.search(text):
-            return next((m for m in menu if m.kind == "earlier_slot"), by["offer_slot"])
+            return next((m for m in menu if m.kind == "earlier_slot"), by["offer_slot"]), "sooner"
         days = None
         w = _WEEKS.search(text)
         if w:
@@ -177,19 +184,53 @@ class SmartRules:
         if days is not None:
             checkins = [m for m in menu if m.kind == "checkin"]
             if checkins:
-                return min(checkins, key=lambda m: (abs(m.checkin_days - days), m.checkin_days))
+                return min(checkins, key=lambda m: (abs(m.checkin_days - days), m.checkin_days)), "later"
         if _FAMILY.search(text):
-            return ask_then("answer")
+            return ask_then("answer"), "family"
         if _READY.search(text):
-            return by["offer_slot"]
+            return by["offer_slot"], "ready"
         if _PRICE.search(text):
             if not asked:
-                return by["ask_why"]
+                return by["ask_why"], "price"
             below = [m for m in priced if m.price < offer.price]
-            return max(below, key=lambda m: (m.price, m.price - est.cost(m.dropped))) if below else by["answer"]
+            return (max(below, key=lambda m: (m.price, m.price - est.cost(m.dropped))) if below else by["answer"]), "price"
         if _THINK.search(text):
-            return ask_then("checkin_7")
-        return ask_then("answer")
+            return ask_then("checkin_7"), "think"
+        return ask_then("answer"), "none"
+
+
+# v3 (tournament/v3/PREREG.md): the rulebook decides; Nemotron is called only where the rulebook does not know the answer.
+UNKNOWN_BRANCHES = ("think", "none")  # SmartRules rules 8 and 9: the customer's words name no reason the rules key on
+HYBRID = "rules_then_super"
+
+
+class RulesThenSuper:
+    """smart_rules, except on rules 8 and 9 of a customer's message (think / get back / not sure / maybe, or nothing the
+    rules recognise): there the super_only agent (Nemotron Super labels, Super chooses from the same menu) decides.
+    Silence, rules 1-7 and a customer the shared opt-out layer has already stopped stay with the rules. Every hand-off
+    is logged as a model-less "handoff" step: the rule's branch, the move the rules would have made, and what the agent
+    did."""
+    name, llm, next_check_days = HYBRID, True, 3
+
+    def __init__(self, client):
+        self.agent = Agent(client, LLM_POLICIES["super_only"])
+
+    def act(self, conv, now, hint):  # hint ignored, as in smart_rules
+        menu = _menu(conv, now)
+        move, branch = SmartRules.choose_with_branch(conv, menu)
+        if branch not in UNKNOWN_BRANCHES or conv.recipient.opted_out:
+            return _stop_decision(conv, now, move)
+        decision = self.agent.decide(conv, now)
+        conv.trace.add(Step("handoff", None, note=json.dumps({
+            "branch": branch, "rule_move": move.id,
+            "model_move": decision.move.id if decision.move is not None else None,
+            "stop": decision.stop_reason if decision.move is None else None}, sort_keys=True)))
+        return decision
+
+    def arm(self):
+        cfg = LLM_POLICIES["super_only"]
+        return {"classify": {cfg.classifier_model}, "choose": {CONFIGS[cfg.chooser][0]},
+                "label_fallback": {M.SUPER} - {cfg.classifier_model}, "handoff": {None}}
 
 
 class LLMPolicy:
@@ -215,6 +256,8 @@ def make(name, client=None):
         return ConcessionHeuristic()
     if name == SMART:
         return SmartRules()
+    if name == HYBRID:
+        return RulesThenSuper(client)
     return LLMPolicy(name, client)
 
 

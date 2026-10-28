@@ -11,7 +11,7 @@ Who decides what:
 - Time only moves forward: the shop decides no earlier than its own last scheduled send, a customer message is never
   stamped before it, and a household that decides books the offer that had been delivered by then.
 """
-import json, random, re
+import json, random, re, threading
 from dataclasses import dataclass, field
 from datetime import timedelta
 
@@ -362,6 +362,47 @@ class FreeWordingWriter:
 
 
 WRITERS = {"v1": LLMWriter, V2_WRITER: FreeWordingWriter}
+
+
+class SharedWriter:
+    """v3 common random numbers: within one repeat, a buyer's line is written once per (buyer, repeat, the whole
+    conversation so far, the buyer's state) and reused by every policy that reaches the same point. Two policies that
+    send the same messages at the same times therefore meet the same words, and their outcomes part only after their
+    first different message. The writer's notes are restored with the line; the cost of a line is booked once, on the
+    conversation that wrote it. A line whose writing failed is not cached: the next caller writes its own."""
+
+    def __init__(self, writer, repeat, cache, lock):
+        self.writer, self.repeat, self.cache, self.lock = writer, repeat, cache, lock
+        self.model = getattr(writer, "model", None)
+
+    def key(self, card, st, spec, conv, t):
+        events = tuple((e.at.isoformat(), e.who, e.channel, e.text, e.move_id) for e in conv.events)
+        return (card.id, self.repeat, spec, round(t, 9), st.clarity, st.decided, st.seen, st.ready_like, st.notes, events)
+
+    def write(self, card, st, spec, conv, t, rng):
+        k = self.key(card, st, spec, conv, t)
+        with self.lock:
+            entry = self.cache.get(k)
+            owner = entry is None
+            if owner:
+                entry = self.cache[k] = {"done": threading.Event()}
+        if not owner:
+            entry["done"].wait()
+            if "line" in entry:
+                text, notes, fallback = entry["line"]
+                st.notes = notes
+                return text, [], fallback
+            return self.writer.write(card, st, spec, conv, t, rng)
+        try:
+            text, steps, fallback = self.writer.write(card, st, spec, conv, t, rng)
+            entry["line"] = (text, st.notes, fallback)
+            return text, steps, fallback
+        except BaseException:
+            with self.lock:
+                self.cache.pop(k, None)
+            raise
+        finally:
+            entry["done"].set()
 
 
 @dataclass

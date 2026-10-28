@@ -92,8 +92,8 @@ def test_everything_but_the_writer_hookup_is_the_v1_code():
     now = MF.source_hashes()
     assert set(now) == set(V1["code"]), "files added or removed under second_ask/"
     changed = {f for f in now if now[f] != V1["code"][f]}
-    assert changed <= V2_CHANGED, changed - V2_CHANGED
-    for f in ("second_ask/tournament/policies.py", "second_ask/agent.py", "second_ask/chooser.py", "second_ask/menu.py",
+    assert changed <= V2_CHANGED | set(MF.V3_CHANGED), changed - V2_CHANGED  # v3 changed policies.py later (test_v3.py)
+    for f in ("second_ask/agent.py", "second_ask/chooser.py", "second_ask/menu.py",
               "second_ask/compliance.py", "second_ask/tournament/scoring.py", "second_ask/tournament/runner.py",
               "second_ask/tf_client.py", "second_ask/tournament/buyers.py", "second_ask/classifier.py"):
         assert now[f] == V1["code"][f], f

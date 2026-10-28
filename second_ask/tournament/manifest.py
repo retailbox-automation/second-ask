@@ -13,7 +13,8 @@ from .. import tf_client as TF
 from ..chooser import CONFIGS
 from ..classifier import classify, request as label_request
 from . import buyers as B, env as E, runner as R, scoring as S
-from .policies import ALL, LLM_POLICIES, REPEATED, RULE_POLICIES, SMART, LLMPolicy, SmartRules, make
+from .policies import (ALL, HYBRID, LLM_POLICIES, REPEATED, RULE_POLICIES, SMART, UNKNOWN_BRANCHES, LLMPolicy,
+                       RulesThenSuper, SmartRules, make)
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -48,6 +49,14 @@ def policy_spec(name):
     if name == SMART:
         return {"kind": "rule", "reads_text": True, "rhythm_days": rhythm, "model_usd": 0,
                 "spec": inspect.cleandoc(SmartRules.__doc__)}
+    if name == HYBRID:
+        sup = policy_spec("super_only")
+        return {"kind": "hybrid", "reads_text": True, "rhythm_days": RulesThenSuper.next_check_days,
+                "spec": inspect.cleandoc(RulesThenSuper.__doc__), "rules": policy_spec(SMART)["spec"],
+                "unknown_branches": {"ids": list(UNKNOWN_BRANCHES), "rules": "SmartRules rules 8 (think / get back / not "
+                                     "sure / maybe) and 9 (nothing else matched) on the customer's latest message, as "
+                                     "SmartRules.choose_with_branch returns them"},
+                "model_on_unknown": {"agent": "super_only", "label": sup["label"], "choose": sup["choose"]}}
     cfg = LLM_POLICIES[name]
     _, label_params = label_request(cfg.classifier_model, "", cfg.classifier_method)
     label_params = {k: v for k, v in label_params.items() if k not in ("tools", "tool_choice", "response_format")}
@@ -59,9 +68,9 @@ def policy_spec(name):
             "choose": {"config": cfg.chooser, "model": model, "params": params, "tool_choice": "auto"}}
 
 
-def build(buyers_file, n_buyers, k, subsample, buyer_model, smoke, projection, v2=False):
+def build(buyers_file, n_buyers, k, subsample, buyer_model, smoke, projection, v2=False, v3=False):
     """The whole manifest from its few inputs and the live code (verify calls this again and compares). v2=True: the
-    wording-robustness test (with_v2)."""
+    wording-robustness test (with_v2). v3=True: rules first, Nemotron where the rules do not know (with_v3)."""
     m = {
         "name": "Second Ask tournament",
         "status": "pre-registered; not yet run",
@@ -193,6 +202,8 @@ def build(buyers_file, n_buyers, k, subsample, buyer_model, smoke, projection, v
                    "run_ceiling_usd": R.RUN_CEILING_USD,
                    "budget_cap": "a BudgetExceeded from the ledger stops the run; finished conversations are kept"},
     }
+    if v3:
+        return with_v3(m, buyers_file)
     return with_v2(m, buyers_file) if v2 else m
 
 
@@ -204,10 +215,10 @@ MAX_ATTEMPTS = 4
 
 def inputs(m):
     """The few build() arguments a manifest records; everything else is rebuilt from the live code."""
-    v2 = m.get("test") == V2_TEST
+    v2, v3 = m.get("test") == V2_TEST, m.get("test") == V3_TEST
     return {"buyers_file": m["buyers"]["file"], "n_buyers": m["buyers"]["n"], "k": m["repeats"]["k"],
             "subsample": m["repeats"]["subsample"], "buyer_model": V1_BUYER_MODEL if v2 else m["buyer_simulator"]["model"],
-            "smoke": m["smoke"], "projection": m["projection"], "v2": v2}
+            "smoke": m["smoke"], "projection": m["projection"], "v2": v2, "v3": v3}
 
 
 # --- v2: the wording-robustness test (docs: tournament/v2/PREREG.md) ---------------------------------------------------
@@ -310,6 +321,80 @@ def with_v2(m, buyers_file):
         "disclosure": V2_DISCLOSURE, "second_failure": "stop v2: the writer did not pass the gate; the v1 framing stands"}
     m["analysis"] = {"script": V2_ANALYSIS, "sha256": sha256_file(ROOT / V2_ANALYSIS), "judge_model": V2_JUDGE_MODEL,
                      "judge_ceiling_usd": V2_JUDGE_CEILING_USD}
+    return m
+
+
+# --- v3: rules first, Nemotron only where the rules do not know (docs: tournament/v3/PREREG.md) --------------------------
+V3_TEST = "v3 rules then Nemotron"
+V2_SHA = "0f6f76bc31d04a3197271422f666da014e02c82de8c23dd1010824019e2b899e"
+V3_CHANGED = ("second_ask/tournament/policies.py", "second_ask/tournament/env.py", "second_ask/tournament/manifest.py",
+              "second_ask/tournament/run.py")
+V3_POLICIES = (SMART, HYBRID)
+V3_K = 5
+V3_RUN_CEILING_USD = 3.00
+V3_SMOKE_CEILING_USD = 0.30
+V3_PREREG = "tournament/v3/PREREG.md"
+V3_ANALYSIS = "tools/v3_analysis.py"
+V3_DISCLOSURE = (
+    "v3 is the third test of the same simulator. It was designed after v1's results were known (and after v2 stopped at "
+    "its gate): the hybrid's hand-off branches were chosen from smart_rules' code (rules 8 and 9 of SmartRules), not "
+    "from v1 outcomes by branch. Before the freeze we counted, on v1's smart_rules transcripts, how often those branches "
+    "fire (94 of 649 customer lines, a text-level count); no v1 outcome was split by branch.")
+
+
+def v3_smoke_plan(cards):
+    """The v3 smoke: for each type in order of first appearance, the first two vague buyers (the first two buyers when the
+    type has fewer than two vague ones), on both v3 policies, repeat 0."""
+    jobs = []
+    for typ in dict.fromkeys(c.type for c in cards):
+        of = [c for c in cards if c.type == typ]
+        vague = [c for c in of if c.clarity == "vague"]
+        pick = vague[:2] if len(vague) >= 2 else of[:2]
+        jobs += [(c.id, p, 0) for c in pick for p in V3_POLICIES]
+    return jobs
+
+
+def with_v3(m, buyers_file):
+    """The v1 manifest with only the policies (smart_rules and the hybrid), K, the buyer writer's common random numbers,
+    the smoke, the ceilings and the decision rules changed. Menu, compliance, scoring, buyers, writer model and runner
+    are the code of manifest 1c231403 (tests/test_v3.py)."""
+    m = dict(m, test=V3_TEST)
+    m.pop("supersedes", None)
+    m["baseline"] = {"manifest_sha256": V1_SHA, "commit": "6d66d53", "rows": V1_ROWS,
+                     "rows_sha256": sha256_file(ROOT / V1_ROWS), "v2_manifest_sha256": V2_SHA,
+                     "changed_files": list(V3_CHANGED),
+                     "note": "every other file under second_ask/ has the sha256 it has in manifest 1c231403 except the "
+                             "v2 changes to env.py, manifest.py and run.py; smart_rules makes the same move as in v1 at "
+                             "every decision point (tests/test_v3.py); v1 is reproduced at commit 6d66d53"}
+    m["policies"] = {name: policy_spec(name) for name in V3_POLICIES}
+    m["run_policies"] = list(V3_POLICIES)
+    m["repeats"] = {"k": V3_K, "subsample": "all", "once": [], "repeated": list(V3_POLICIES),
+                    "rule": f"both policies run {V3_K} times on every buyer"}
+    m["buyer_simulator"] = dict(m["buyer_simulator"], common_random_numbers=inspect.cleandoc(E.SharedWriter.__doc__))
+    cs = B.load(ROOT / buyers_file)
+    m["smoke_plan"] = {"rule": inspect.cleandoc(v3_smoke_plan.__doc__), "jobs": [list(j) for j in v3_smoke_plan(cs)],
+                       "ceiling_usd": V3_SMOKE_CEILING_USD, "prints_outcomes": False,
+                       "purpose": "mechanics and cost only; prints no outcome table; its rows are not results"}
+    m["budget"] = dict(m["budget"], run_ceiling_usd=V3_RUN_CEILING_USD)
+    m["scoring"] = dict(m["scoring"], comparisons={"main": [f"{HYBRID} vs {SMART}"], "metric": "net",
+                                                     "secondary": "descriptive only: by objection type; hand-offs and "
+                                                                  "how often the model's move differed from the rule's; "
+                                                                  "against v1 smart_rules rows"})
+    m["decision_rules"] = {
+        "primary": f"{HYBRID} beats smart_rules only if the 95 % paired-bootstrap lower bound of D3 = sum over the 200 "
+                   f"customers of (net {HYBRID} - net smart_rules) is above 0 (each customer's mean over its {V3_K} "
+                   f"repeats; 2000 draws, seed 7), and {HYBRID} is not worse than smart_rules on opt-out violations, "
+                   f"false opt-outs and off-arm calls (summed per-customer means; strict comparison)",
+        "behind": "the upper bound of D3 is below 0",
+        "otherwise": "no clear difference (not equivalence)",
+        "false_opt_out": "a conversation with a customer whose type is not opt_out that ends because a model read an "
+                         "opt-out; counted per policy in the main table",
+        "publication": "published whatever the outcome. Beats: the headline becomes rules + Nemotron beat rules alone, "
+                       "with the interval; v1 and v2 stay below as history. Otherwise: v1's framing stands and the test is "
+                       "reported in one line with its number and interval, and in its own RESULTS section"}
+    m["prereg"] = {"file": V3_PREREG, "sha256": sha256_file(ROOT / V3_PREREG)}
+    m["analysis"] = {"script": V3_ANALYSIS, "sha256": sha256_file(ROOT / V3_ANALYSIS)}
+    m["disclosure"] = V3_DISCLOSURE
     return m
 
 
