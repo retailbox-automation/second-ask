@@ -327,7 +327,12 @@ def find_dates(text, today):
     for f in found:
         if _BEFORE.search(text[max(0, f[1] - 30):f[1]]):
             f[0] = f[0] - timedelta(days=1)
+    found = [f for f in found if not _NOT_DEADLINE.search(text[max(0, f[1] - 20):f[1]])]
     return [tuple(f) for f in sorted(found, key=lambda f: f[1])]
+
+
+_NOT_DEADLINE = re.compile(r"\b(?:since|until|till|til|after|from|starting|desde|despues del?|a partir del?)\s+"
+                           r"(?:the\s+|el\s+|this\s+|next\s+)?$")
 
 
 # ---------------------------------------------------------------------------------------------------------- facts
@@ -440,6 +445,10 @@ def _n(word):
     return _SMALL_WORDS.get(word)
 
 
+_PAST_WEEKS = re.compile(r"\b(?:been|for the (?:past|last)|over the (?:past|last)|since|hace|desde hace|"
+                         r"llevo|llevamos|waited)\b[^.!?,]{0,18}$")
+
+
 def read_wait(text):
     """Whole weeks they want to wait, from "N weeks", "a couple of weeks", "a month", "two months" (Spanish too)."""
     for m in _WEEKS.finditer(text):
@@ -449,6 +458,10 @@ def read_wait(text):
         if a is None:
             continue
         n = max(a, b) if b else a
+        future = re.match(r"\s*(?:from now|out|later|away|de ahora|desde hoy|mas adelante)\b", text[m.end():])
+        if not future and _PAST_WEEKS.search(text[max(0, m.start() - 30):m.start()]) or re.match(r"\s*(?:ago|back|atras)\b",
+                                                                                     text[m.end():]):
+            continue
         # "within 2 weeks"/"in the next 2 weeks" is a deadline, not a wait
         if re.search(r"\b(?:within|in the next|no later than|before|dentro de las proximas)\s+$",
                      text[max(0, m.start() - 22):m.start()]):
@@ -489,7 +502,7 @@ _READY = re.compile(
     r"|^(?:please |ok,? |okay,? |great,? |sounds good,? )?book\b|\bplease book\b|\bbook (?:it|this|me|us) (?:in|for)\b"
     r"|\bbook (?:us|me) in\b|\bbook it\b(?! (?:with|if))|\bsign (?:me|us) up\b"
     r"|\bput (?:me|us) (?:on|in) (?:the|your) (?:schedule|calendar|books)\b"
-    r"|\blet'?s (?:do it|do this|go|book|get (?:it|this) (?:done|booked|scheduled|on the calendar))\b"
+    r"|\blet'?s (?:do it|do this|go ahead|book|get (?:it|this) (?:done|booked|scheduled|on the calendar))\b"
     r"|\b(?:go ahead and|ready to) (?:book|schedule|start|do it)\b"
     # Spanish / Spanglish
     r"|\bcuando (?:puede|pueden|podrian|podria|vienen|viene|podemos|pudieran|llegan|empiezan|comienzan|tienen "
@@ -693,6 +706,9 @@ def read_ceiling(text, items, spans):
         if re.search(r"[\d/]$|\d[-/]$", text[max(0, s - 2):s]):   # part of 11/10 or 3-4
             continue
         if not dollar and v < 50:
+            continue
+        if not dollar and 1950 <= v <= 2035 and "," not in text[s:e] and re.search(
+                r"\b(?:since|in|from|back in|year|del|en|desde|built|of)\s+$", text[max(0, s - 12):s]):
             continue
         cands.append((v, s, e, dollar))
     digit_spans = [(s, e) for _, s, e, _ in cands]

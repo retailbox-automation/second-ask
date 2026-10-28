@@ -315,5 +315,20 @@ def test_spanish(job, text, want):
         {k: (v.lower() if k == "decider" and v else v) for k, v in expected.items()}
 
 
+@pytest.mark.parametrize("job,text,want", [
+    ("shower", "it's been a crazy couple of weeks, but the most I can pay is $400", {"ceiling_usd": 400.0}),
+    ("shower", "the leak started 2 weeks ago. need it fixed by the 12th", {"need_by": "2026-11-12"}),
+    ("shower", "hace 2 semanas que gotea, lo necesito para el 12 de noviembre", {"need_by": "2026-11-12"}),
+    ("shower", "I've been thinking maybe 3 weeks from now", {"wait_weeks": 3}),
+    ("shower", "we've had this problem since the 3rd, the most I'll pay is $410", {"ceiling_usd": 410.0}),
+    ("shower", "we've lived here since 2019 and the most I'll pay is $410", {"ceiling_usd": 410.0}),
+    ("ev", "let's go with just the circuit, we don't need the load management module",
+     {"drop_items": ["Load management module"]}),
+])
+def test_no_extra_facts_from_small_talk(job, text, want):
+    got = read(job, text).to_dict()
+    assert got == Facts().to_dict() | want
+
+
 def test_day_of_month_said_alone():
     assert read("shower", "it's needed by the 9th").need_by == "2026-11-09"
