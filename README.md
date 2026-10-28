@@ -48,6 +48,11 @@ with each step's model, time, cost and response id, picked by a rule written in 
 visitor plays the homeowner, is off unless switched on. It is capped per visitor address (5 conversations a day,
 6 messages each) and by a shared $5 budget. The shop is a seeded demo shop and the homeowners are simulated.
 
+The published page, https://second-ask.retailbox-automation.com/, is a static build of the replay (`demo/static/`,
+`python3 -m demo.static_build`). It opens on the agent's next move and its dollar effect against a discount-first reply
+on the same menu (our stand-in rule, `demo/static_build.py`), and each step says who did it: the shop's code or which
+Nemotron model. Being static, it serves several visitors at once.
+
 ```
 python3 -m demo.server                         # REPLAY: http://127.0.0.1:8080/api, /api/scenarios
 DEMO_LIVE=1 NEBIUS_API_KEY=... python3 -m demo.server   # also LIVE (POST /api/live/start, /message, /owner, /book)
