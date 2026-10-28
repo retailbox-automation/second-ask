@@ -11,10 +11,10 @@
 <header class="bar">
   <div class="brand"><b>Second Ask</b><span class="mode">Replay</span></div>
   <nav class="views" aria-label="Screens">
-    <a data-view="summary" href="#view=summary">Morning summary</a>
+    <a data-view="owner" href="#view=owner">Next move</a>
     <a data-view="why" href="#view=why">Why it stalled</a>
-    <a data-view="owner" href="#view=owner">Owner card</a>
     <a data-view="receipt" href="#view=receipt">Booked &amp; receipt</a>
+    <a data-view="summary" href="#view=summary">Morning summary</a>
   </nav>
   <label class="pick">Conversation
     <select id="scenario" aria-label="Recorded conversation"></select>
@@ -50,6 +50,14 @@
   </section>
 
   <section class="view v-owner" data-v="owner" hidden>
+    <aside class="next card" id="next" aria-label="Next move and its effect">
+      <div class="nk">Next move</div>
+      <h1 id="nMove"></h1>
+      <div class="eff" id="nEff"></div>
+      <div class="nk">Who did what</div>
+      <ol class="who" id="nWho"></ol>
+      <p class="nout" id="nOut"></p>
+    </aside>
     <div class="cal cal-soft" id="ownerCal" data-overlap-ok="the phone sits over the calendar, as in the approved frame"></div>
     <div class="phone owner-phone"><div class="notch"></div>
       <div class="ocard">

@@ -73,7 +73,7 @@ def _playwright():
     return str(Path(r.stdout.strip()).parent) if r.returncode == 0 else None
 
 
-@pytest.fixture(scope="module", params=[(1920, 1080), (390, 844)], ids=["1920", "390"])
+@pytest.fixture(scope="module", params=[(1920, 1080), (1440, 900), (390, 844)], ids=["1920", "1440", "390"])
 def page(request):
     mod = _playwright()
     if not mod:
@@ -99,8 +99,9 @@ def test_every_step_on_the_page_is_the_recorded_step(page):
         shown = [{k: s[k] for k in STEP_KEYS} for s in st["steps"]]
         if st["view"] == "why":
             want = [s for s in groups[st["d"] - 1] if s["step"] == "classify"]
-        elif st["view"] == "owner":
-            want = [s for s in groups[st["d"] - 1] if s["step"] == "choose"]
+        elif st["view"] == "owner":  # the next-move panel lists who did what (label, then choice), the phone the choice
+            g = groups[st["d"] - 1]
+            want = [s for s in g if s["step"] == "classify"] + [s for s in g if s["step"] == "choose"] * 2
         elif st["view"] == "receipt":
             want = [s for g in groups for s in g]
         else:  # summary: the first label of every scenario
@@ -131,3 +132,34 @@ def test_seeded_tag_and_results_link_are_visible(page):
         assert s["result_link"].startswith("results.html#main-comparison")
     b139 = [s for s in page["states"] if s["s"] == "B139-routed" and s["view"] == "why"][-1]
     assert b139["label"] == "Asked to stop"  # the published false opt-out is shown as it happened
+
+
+def _data():
+    s = (STATIC / "data.js").read_text()
+    return json.loads(s[s.index("{"):s.rindex("}") + 1])
+
+
+def test_page_opens_on_the_next_move_of_the_rule_picked_conversation():
+    """The page opens with the result: the next move and its $ effect (judges' advice, Will It Ship 20.10), on the
+    conversation app.js hero() picks by a fixed rule, not by hand."""
+    js, html = (STATIC / "app.js").read_text(), (STATIC / "index.html").read_text()
+    assert 'var st = { view: "owner", sid: hero(), d: 0 };' in js
+    assert html.index('data-view="owner"') < html.index('data-view="why"') < html.index('data-view="summary"')
+    S = _data()["scenarios"]
+    ok = [x for x in S if x["result"]["booked"] and ((x["decisions_view"][0].get("effect") or {}).get("kept") or 0) > 0]
+    hero = min(ok, key=lambda x: (len(x["decisions_view"]), S.index(x)))
+    assert hero["id"] == "B001-super_only" and hero["decisions_view"][0]["effect"]["kept"] == 125.0
+
+
+def test_effect_is_against_what_the_discount_first_rule_offers():
+    """shop_rule concedes to the package floor on an objection or silence and offers the slot to a ready customer."""
+    for sc in _data()["scenarios"]:
+        for d in sc["decisions_view"]:
+            if not d.get("move"):
+                continue
+            e, floor_move = d["effect"], next((m for m in d["menu"] if m["id"] == "concede_pkg_floor"), None)
+            if sc["type"] == "ready":
+                assert e == {"discount_first": None, "kept": None}
+            elif e["discount_first"]:
+                assert e["discount_first"]["price"] == floor_move["price"] == floor_move["floor"]
+                assert e["kept"] == round(d["move"]["price"] - floor_move["price"], 2)

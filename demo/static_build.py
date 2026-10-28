@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 from demo import replay  # noqa: E402
 from second_ask.menu import amounts_in, build_menu, check_message, initial_offer  # noqa: E402
 from second_ask.tournament import buyers as B  # noqa: E402
-from second_ask.tournament.env import SELLER_LATENCY_DAYS  # noqa: E402
+from second_ask.tournament.env import SELLER_LATENCY_DAYS, coarse_act  # noqa: E402
 
 STATIC = Path(__file__).resolve().parent / "static"
 RESULTS = ROOT / "RESULTS.md"
@@ -41,6 +41,26 @@ def _move(m, est):
     return {"id": m.id, "kind": m.kind, "description": m.description, "price": m.price, "dropped": sorted(m.dropped),
             "floor": est.floor(m.dropped), "list": est.list_price(m.dropped), "slot": _slot(m.slot) if m.slot else None,
             "channel": m.channel, "needs_owner": m.needs_owner, "proposes_booking": m.proposes_booking}
+
+
+def effect(move, by, offer, est, ready):
+    """The $ effect of the move against a discount-first reply on the same menu: what `shop_rule` (our stand-in for a
+    naive shop, second_ask/tournament/policies.py ShopRule) would offer at this point: the slot to a customer who is
+    ready (the simulator's coarse act, env.coarse_act), otherwise a concession to the package floor whenever the price
+    is above it. `kept` = the move's price minus that offer (what the move does not give away); None when the
+    discount-first reply would not discount here."""
+    alt = by.get("concede_pkg_floor") if not ready and offer.price > est.floor(offer.dropped) else None
+    if alt is None:
+        return {"discount_first": None, "kept": None}
+    return {"discount_first": {"id": alt.id, "price": alt.price, "description": alt.description},
+            "kept": round(move.price - alt.price, 2)}
+
+
+def spec(card, before):
+    """The simulator's spec of the customer message being answered: a channel customer's first message is "missed",
+    any customer's first is "first", later ones "again" (env.run_one)."""
+    n = sum(e["who"] == "customer" for e in before)
+    return "missed" if card.type == "channel" and n == 1 else ("first" if n == 1 else "again")
 
 
 def decisions(sc, card):
@@ -79,7 +99,8 @@ def decisions(sc, card):
         if bad:
             raise SystemExit(f"{sc['id']} decision {k + 1}: the sent message does not match move {move.id}: {bad}")
         d.update({"day": msg["day"], "replying_to": before[-1]["text"] if replying else None,
-                  "price_before": offer.price, "move": _move(move, est), "menu": [_move(m, est) for m in menu]})
+                  "price_before": offer.price, "move": _move(move, est), "menu": [_move(m, est) for m in menu],
+                  "effect": effect(move, by, offer, est, replying and coarse_act(card, spec(card, before)) == "ready")})
         out.append(d)
         offer = move.offer(offer)
     return out, offer

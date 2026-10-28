@@ -40,7 +40,14 @@
     return steps.map(function (s) { return "served_model: " + esc(s.served_model) + (s.ok ? "" : " (failed attempt)"); }).join("<br>");
   }
 
-  var st = { view: "summary", sid: S[0].id, d: 0 };
+  /* the conversation the page opens on, by a fixed rule (no hand-picking): booked, its first move keeps money a
+     discount-first reply would give away, the fewest decisions; ties by list order */
+  function hero() {
+    var ok = S.filter(function (x) { var e = x.decisions_view[0].effect; return x.result.booked && e && e.kept > 0; });
+    ok.sort(function (a, b) { return a.decisions_view.length - b.decisions_view.length || S.indexOf(a) - S.indexOf(b); });
+    return (ok[0] || S[0]).id;
+  }
+  var st = { view: "owner", sid: hero(), d: 0 };
   function parse() {
     var h = {}; location.hash.replace(/^#/, "").split("&").forEach(function (kv) { var p = kv.split("="); if (p[0]) h[p[0]] = decodeURIComponent(p[1] || ""); });
     if (["summary", "why", "owner", "receipt"].indexOf(h.view) >= 0) st.view = h.view;
@@ -166,8 +173,50 @@
     return rows.map(function (r) { return "<li>" + r[0] + "<span>" + r[1] + "</span>" + (r[2] ? '<span class="amt">' + r[2] + "</span>" : "") + "</li>"; }).join("");
   }
 
+  function moveLine(sc, dec) {
+    var m = dec.move, c = sc.code;
+    if (m.kind === "earlier_slot") return "Offer an earlier slot, " + m.slot.label + ", at the same " + usd(m.price);
+    if (m.kind === "offer_slot") return "Book " + m.slot.label + " at " + usd(m.price);
+    if (m.kind === "drop") return "Drop the optional " + m.dropped.join(", ").toLowerCase() + ": " + usd(m.price);
+    if (m.kind === "resend") return "Resend the estimate by " + m.channel.toUpperCase() + ", price " + usd(m.price) + " unchanged";
+    if (m.kind === "checkin") return "No pressure: check back in " + m.description.match(/(\d+) days/)[1] + " days, price unchanged";
+    if (m.kind === "answer") return "Answer what the " + usd(m.price) + " covers, no discount";
+    if (m.kind === "ask_why") return "Ask what is holding them back, no offer";
+    return m.description;
+  }
+  function whoRow(n, who, what, s) {
+    return '<li' + (s ? stepAttrs(s) : "") + '><span class="wn">' + n + '</span><span class="ww"><b>' + esc(who) + "</b>" + what + "</span>" +
+      '<span class="wm">' + (s ? secs(s.seconds) + " · " + usd(s.cost) : "no model") + "</span></li>";
+  }
+  function renderNext(sc, dec) {
+    var e = dec.effect || {}, m = dec.move, rows = [], n = 0;
+    if (!m) {
+      $("nMove").textContent = "No message: the conversation stopped";
+      $("nEff").innerHTML = '<span class="effno">' + esc(dec.stopped) + "</span>";
+    } else {
+      $("nMove").textContent = moveLine(sc, dec);
+      $("nEff").innerHTML = e.kept != null
+        ? '<b class="effv">' + (e.kept >= 0 ? "+" : "−") + usd(Math.abs(e.kept)) + '</b><span>kept against a discount-first reply, which would offer ' +
+          usd(e.discount_first.price) + " here (the floor). Our stand-in rule, simulated prices.</span>"
+        : '<b class="effv zero">$0</b><span>given away: a discount-first reply would not discount here either.</span>';
+    }
+    rows.push(whoRow(++n, "Shop code", " lists the " + (dec.menu || []).length + " moves it allows; the floor (" + usd(sc.code.floor) + ") lives in the code", null));
+    if (dec.rule) rows.push(whoRow(++n, "Rules", dec.rule, null));
+    dec.label_steps.forEach(function (s) { rows.push(whoRow(++n, model(s.model), " read why: " + esc(lbl(dec.label)) + (s.ok ? "" : " (failed attempt)"), s)); });
+    dec.choose_steps.forEach(function (s) { rows.push(whoRow(++n, model(s.model), " picked the move and wrote the reply" + (s.ok ? "" : " (failed attempt)"), s)); });
+    if (m) {
+      rows.push(whoRow(++n, "Shop code", " checked the floor, quiet hours and STOP, added the assistant line", null));
+      rows.push(whoRow(++n, "Owner", m.needs_owner ? " one tap to approve the lower price" : " no tap needed: the price did not go down", null));
+    }
+    $("nWho").innerHTML = rows.join("");
+    var r = sc.result;
+    $("nOut").textContent = "Recorded outcome: " + (r.booked ? "booked at " + usd(r.price) : /opt-out/.test(r.end) ? "lost, read as a stop" : "not booked (" + r.end + ")") +
+      " · decision " + (st.d + 1) + " of " + sc.decisions_view.length + " · seeded demo shop, simulated customer";
+  }
+
   function renderOwner() {
     var sc = cur(), dec = sc.decisions_view[st.d];
+    renderNext(sc, dec);
     $("oTitle").textContent = short(sc.id) + " · " + lbl(dec.label).toLowerCase() + (dec.label === "price" ? " objection" : "");
     var menu = $("oMenu"), act = $("oAct"), msg = $("oMsg");
     if (!dec.move) {
@@ -265,6 +314,13 @@
     if (e.key === "ArrowLeft" && !$("prev").disabled && !$("stepper").hidden) $("prev").click();
   });
   window.addEventListener("hashchange", render);
+  /* the desktop layout is drawn on a 1920 px canvas: scale it to the window instead of cutting it */
+  function fit() {
+    var z = innerWidth >= 1200 ? Math.min(1, innerWidth / 1920) : 1;
+    document.documentElement.style.setProperty("--z", z);
+  }
+  window.addEventListener("resize", fit);
+  fit();
   renderResult();
   render();
 })();
