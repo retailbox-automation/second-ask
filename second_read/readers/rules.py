@@ -100,8 +100,10 @@ def _word_number(words):
         groups.append(g)
         if len(groups) == 2 and 10 <= groups[0] <= 99 and 10 <= groups[1] <= 99:
             return groups[0] * 100 + groups[1]
-    for k, v in vals:
-        if k in "ut":
+    for n, (k, v) in enumerate(vals):
+        if k == "u" and v < 10 and cur == 0 and total and n + 1 < len(vals) and vals[n + 1][0] == "t":
+            cur += v * 100          # "nine thousand two fifty": the digit after a thousand counts hundreds
+        elif k in "ut":
             cur += v
         elif k == "h":
             cur += v
@@ -123,7 +125,7 @@ def word_amounts(text):
     toks = [(m.group(), m.start(), m.end()) for m in re.finditer(r"[a-z]+", text)]
     i = 0
     while i < len(toks):
-        if toks[i][0] in _NUM_WORD and toks[i][0] not in ("un", "una", "uno", "k", "mil", "grand"):
+        if toks[i][0] in _NUM_WORD and toks[i][0] not in ("un", "una", "uno", "k", "grand"):
             j = i
             while j + 1 < len(toks) and (toks[j + 1][0] in _NUM_WORD or (toks[j + 1][0] in ("and", "y")
                                          and j + 2 < len(toks) and toks[j + 2][0] in _NUM_WORD)):
@@ -138,7 +140,7 @@ def word_amounts(text):
     return out
 
 
-_DIGIT_AMOUNT = re.compile(r"(\$\s?)?(\d{1,3}(?:,\d{3})+|\d+)(\.\d{1,2})?\s?(k\b|grand\b|mil\b)?")
+_DIGIT_AMOUNT = re.compile(r"(\$\s?)?(\d{1,3}(?:,\d{3})+|\d+)(\.\d{1,2})?\s?(k\b|grand\b|mil\b|thousand\b)?")
 
 
 def digit_amounts(text):
@@ -190,11 +192,12 @@ _REL = [
     (re.compile(r"\b(?:end of next week|end of the next week|fin de la (?:proxima|otra) semana|"
                 r"finales de la (?:proxima|otra) semana)\b"), "eonw"),
     (re.compile(r"\b(?:end of (?:this|the) week|fin de (?:esta|la) semana|this weekend|este fin de semana)\b"), "eotw"),
-    (re.compile(r"\b(?:tomorrow|tmrw|tmr|pasado manana)\b|\bpara manana\b|\bmanana mismo\b"), "tomorrow"),
+    (re.compile(r"\b(?:day after tomorrow|pasado manana)\b"), "after_tomorrow"),
+    (re.compile(r"\b(?:tomorrow|tmrw|tmr)\b|\bpara manana\b|\bmanana mismo\b"), "tomorrow"),
 ]
-_BEFORE = re.compile(r"\b(?:before|prior to|antes del?|no later than the day before)\s+(?:the\s+|el\s+)?$")
-_WD_ALONE = re.compile(rf"\b(?:by|before|on|until|til|till|para el|para|antes del?|el|this|next|este|el proximo|"
-                       rf"no later than|deadline)\s+(?:this\s+|next\s+|coming\s+)?({_WD_RE})\b"
+_BEFORE = re.compile(r"\b(?:before|prior to|antes(?: de| del)?)\s+(?:the\s+|el\s+)?$")
+_WD_ALONE = re.compile(rf"\b(?:by|before|done on|finished on|ready on|completed on|para el|para|antes del?|el|this|"
+                       rf"next|este|el proximo|no later than|deadline)\s+(?:this\s+|next\s+|coming\s+)?({_WD_RE})\b"
                        rf"(?!\.?\s*,?\s*(?:the\s+|el\s+)?(?:\d|(?:{_MONTH_RE})\b))")
 
 
@@ -249,9 +252,12 @@ def find_dates(text, today):
             elif kind in ("dm", "dofm"):
                 d = _resolve_md(_MONTHS[m.group(2)], int(m.group(1)), today, m.group(3))
             elif kind == "slash":
-                mo, dy = int(m.group(1)), int(m.group(2))
-                if 1 <= mo <= 12:
-                    d = _resolve_md(mo, dy, today, ("20" + m.group(3)[-2:]) if m.group(3) else None)
+                a, b = int(m.group(1)), int(m.group(2))
+                year = ("20" + m.group(3)[-2:]) if m.group(3) else None
+                options = [x for x in (_resolve_md(a, b, today, year) if 1 <= a <= 12 else None,
+                                       _resolve_md(b, a, today, year) if 1 <= b <= 12 else None) if x]
+                near = [x for x in options if 0 < (x - today).days <= 120]
+                d = (near or options or [None])[0]
             else:
                 day = int(next(g for g in m.groups() if g))
                 if 1 <= day <= 31:
@@ -266,7 +272,7 @@ def find_dates(text, today):
                 continue
             d = {"eonw": friday_next_week(today),
                  "eotw": today - timedelta(days=today.weekday()) + timedelta(days=4 if kind == "eotw" else 0),
-                 "tomorrow": today + timedelta(days=1)}[kind]
+                 "tomorrow": today + timedelta(days=1), "after_tomorrow": today + timedelta(days=2)}[kind]
             if kind == "eotw" and d <= today:
                 d = today + timedelta(days=(4 - today.weekday()) % 7 or 7)
             taken.append((m.start(), m.end()))
@@ -290,7 +296,8 @@ def find_dates(text, today):
 
 _STOP_PHRASES = re.compile(
     r"\b(?:stop|quit|cease) (?:texting|messaging|contacting|calling|emailing|sending|reaching|writing|bugging|bothering)\b"
-    r"|\b(?:do not|don't|dont|never|no longer|please don't|pls don't) (?:text|message|contact|call|reach out|reach|email|"
+    r"|\b(?:do not|don't|dont|never|no longer|please don't|pls don't|didn't|did not|wouldn't|would not) (?:text|message|"
+    r"contact|call|reach out|reach|email|"
     r"write|send|bother)(?: (?:me|us|to me))?(?: (?:again|anymore|any more|ever|further|about this))\b"
     r"|\bnever (?:text|message|contact|call|reach out to|write to|email) (?:me|us)\b"
     r"|\b(?:don't|do not|dont) (?:want|need) (?:any )?(?:more )?(?:texts|messages|calls|emails)\b"
@@ -308,6 +315,11 @@ _STOP_PHRASES = re.compile(
     r"|\b(?:no quiero|no queremos) (?:recibir )?(?:mas )?(?:mensajes|textos|llamadas)\b"
     r"|\b(?:borren|borrenme|quiten|quitenme|saquen|saquenme|eliminen|eliminenme|sacar|quitar|borrar)(?:me)? "
     r"(?:de )?(?:su |la |tu )?lista\b|\bde su lista\b|\bdar(?:me)? de baja\b|\bdenme de baja\b"
+    r"|\bno (?:quiero|queremos) que (?:me|nos) (?:sigan |vuelvan a )?(?:contacten|escriban|llamen|manden|envien|"
+    r"molesten|contactando|escribiendo|llamando|mandando|enviando|molestando|contactar|escribir|llamar)\b"
+    r"|\bno (?:me |nos )?(?:vuelvan?|vuelvas) a (?:contactar|escribir|llamar|mandar|enviar|molestar|textear)(?:me|nos)?\b"
+    r"|\bno mas (?:mensajes|textos|llamadas)\b|\bbasta de (?:mensajes|textos|llamadas)\b"
+    r"|\b(?:borr|elimin|quit)(?:en|a|e) mi (?:numero|contacto|telefono)\b"
     r"|\bstop a los mensajes\b|\bpara(?:r)? (?:los|con los) mensajes\b")
 _STOP_UPPER = re.compile(r"(?<![A-Za-z])(?:STOP|UNSUBSCRIBE|QUIT|CANCEL)(?![A-Za-z])")
 
@@ -315,23 +327,29 @@ _STOP_UPPER = re.compile(r"(?<![A-Za-z])(?:STOP|UNSUBSCRIBE|QUIT|CANCEL)(?![A-Za
 def read_stop(raw, text):
     if _STOP_UPPER.search(raw or ""):
         return True
-    if opt_out_status(raw) == "opt_out":
+    if opt_out_status(_OPT_OUT_OF_ITEM.sub(" ", raw or "")) == "opt_out":
         return True
-    return bool(_STOP_PHRASES.search(text))
+    return bool(_STOP_PHRASES.search(_OPT_OUT_OF_ITEM.sub(" ", text)))
+
+
+# "opt out of the surge protector" leaves out a line item; it is not an opt-out of messages
+_OPT_OUT_OF_ITEM = re.compile(r"(?i)\bopt(?:ing|ed)?[ -]?out of (?:the|that|this|your|an?) (?!(?:texts?|messages?|"
+                              r"messaging|texting|list|calls?|emails?|contact|marketing|sms)\b)[a-z\- ]+")
 
 
 _DECIDERS = [
     ("HOA", r"hoa|h\.o\.a\.?|homeowners'? association|homeowner'?s association|home owners association|"
-            r"(?:the |our |my )(?:hoa )?board|asociacion(?: de propietarios| de vecinos)?|la junta|condo association"),
-    ("landlord", r"landlord|landlady|property manager|property owner|owner of the (?:house|property|building)|"
+            r"(?:the |our |my )(?:hoa |condo |association |co-op |coop )?board|condo board|asociacion(?: de propietarios| de vecinos)?|la junta|condo association"),
+    ("landlord", r"landlord|landlady|property manager|property management|management company|property owner|owner of the (?:house|property|building)|"
                  r"casero|casera|dueno de la casa|duena de la casa|el dueno|la duena|arrendador|arrendadora"),
     ("husband", r"husband|hubby|esposo|marido"),
-    ("wife", r"wife|wifey|esposa|mi mujer"),
-    ("partner", r"partner|boyfriend|girlfriend|fiance|fiancee|pareja|novio|novia"),
+    ("wife", r"wife|wifey|esposa|mi mujer|missus|mrs|senora"),
+    ("partner", r"partner|boyfriend|girlfriend|fiance|fiancee|pareja|novio|novia|better half|significant other"),
+    ("in-laws", r"in-laws|in laws|mother-in-law|father-in-law|suegra|suegro|suegros"),
     ("spouse", r"spouse|conyuge"),
     ("dad", r"dad|father|papa|padre|pops|my old man"),
     ("mom", r"mom|mother|mama|madre|mum|ma"),
-    ("parents", r"parents|padres|folks"),
+    ("parents", r"parents|padres|folks|papas"),
     ("brother", r"brother|hermano"),
     ("sister", r"sister|hermana"),
     ("son", r"son|hijo"),
@@ -359,7 +377,7 @@ _WEEKS = re.compile(
     r"\b(\d{1,2}|a couple of|a couple|couple of|couple|a few|few|one|two|three|four|five|six|seven|eight|nine|ten|"
     r"eleven|twelve|un par de|par de|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)"
     r"(?:\s*(?:-|to|or|a|o)\s*(\d{1,2}|two|three|four|five|six|seven|eight|nine|ten|dos|tres|cuatro|cinco|seis|siete|"
-    r"ocho|nueve|diez))?\s+(?:more\s+|extra\s+|mas\s+)?(weeks?|wks?|semanas?)\b")
+    r"ocho|nueve|diez))?(?:-?ish)?\s+(?:more\s+|extra\s+|mas\s+)?(weeks?|wks?|semanas?)\b")
 _ONE_WEEK = re.compile(r"\b(?:about|around|like|in|for|wait|maybe|roughly|approximately|approx|another|just|only|"
                        r"give it|give me|como|en|dentro de|unos?|unas?)\s+(?:a|one|una)\s+(?:week|semana)\b"
                        r"|\b(?:a|one|una) (?:week|semana) (?:from now|out|or so|later|de ahora|desde hoy|mas)\b"
@@ -368,7 +386,10 @@ _MONTHS_WAIT = re.compile(
     r"\b(?:(a|one|an|un|una|1)\s+(?:month|mes)(?:\s+(?:and a half|y medio))?|(\d{1,2}|two|three|four|five|six|"
     r"dos|tres|cuatro|cinco|seis|a couple of|a couple|couple of|un par de)\s+(?:months|meses))\b")
 _NEXT_MONTH = re.compile(r"\b(?:next month|el (?:mes que viene|proximo mes)|el otro mes)\b")
-_NOT_WEEKS = re.compile(r"\b(?:next|this|last|that|end of the|end of next|esta|la proxima|la otra|la que viene)\s+$")
+_NEXT_WEEK_WAIT = re.compile(r"\b(?:until|till|til|wait(?: for| till| until)?|hold off(?: until| till)?|"
+                             r"push it(?: to| out to)?|after|sometime|some time|hasta|despues de)\s+(?:sometime\s+)?"
+                             r"(?:next week|la (?:proxima|otra) semana|la semana que viene)\b")
+_NOT_WEEKS = re.compile(r"\b(?:next|this|last|past|that|end of the|end of next|esta|la proxima|la otra|la que viene)\s+$")
 
 
 def _n(word):
@@ -396,6 +417,8 @@ def read_wait(text):
     m = _ONE_WEEK.search(text)
     if m and not re.search(r"\b(?:within|before)\s+$", text[max(0, m.start() - 10):m.start()]):
         return 1
+    if re.search(r"\b(?:un )?mes y medio\b|\ba month and a half\b", text):
+        return 6
     m = _MONTHS_WAIT.search(text)
     if m:
         if m.group(1):
@@ -404,39 +427,56 @@ def read_wait(text):
         return 4 * n if n else None
     if _NEXT_MONTH.search(text):
         return 4
+    if _NEXT_WEEK_WAIT.search(text):
+        return 1
     return None
 
 
 _READY = re.compile(
     r"\bwhen (?:can|could|will|would|do|are)\b[^.?!]{0,40}?\b(?:come|start|get (?:here|out|started|this done|"
-    r"it done|going)|be (?:here|out|over)|schedule|show up|fit (?:me|us) in|begin)\b"
+    r"it done|going)|be (?:here|out|over)|schedule|show up|fit (?:me|us) in|begin|book)\b"
     r"|\bwhen (?:the |your |you |ur |y'all |you all |your guys |the guys )?(?:crew|team|guys|you|they|someone|workers?|"
     r"installers?|techs?|technicians?|people|folks)\s+(?:can|could|would|will|are able to|are free to|might)\s+"
     r"(?:\w+\s+)?(?:come|start|get (?:here|out|started)|be (?:here|out|over)|show up|fit (?:me|us) in|begin|do it)\b"
+    r"|\bwhen (?:are|is) (?:you|your crew|the crew|your team|y'all|you guys) (?:free|available|open)\b"
     r"|\bwhen(?:'s| is) (?:the )?(?:earliest|soonest|first|next)\b"
-    r"|\b(?:earliest|soonest|first) (?:available|opening|slot|date|day|time)\b"
+    r"|\b(?:earliest|soonest|first|next) (?:available|opening|slot|date|day|time|availability|opening)\b"
+    r"|\bwhat (?:days?|dates?|times?) (?:work|works|do you have|are open|are available|can you come)\b"
     r"|\b(?:book|schedule|lock|sign) (?:it|this|me|us|the job|that|the work|the install|the repair)?\s*(?:in|up|on)?\s*"
-    r"(?:now|today|asap|right away|ya|ahora)\b"
+    r"(?:now|today|asap|right away|right now|ya|ahora)\b"
     r"|\b(?:want|wanna|ready|like|love|need|would like|i'd like|we'd like|let's|lets|please|can we|could we|can you|"
-    r"could you|go ahead and|gonna|going to)\s+(?:to\s+)?(?:go ahead and\s+)?(?:book|schedule|lock in|reserve)\b"
-    r"|^(?:please )?book\b|\bplease book\b|\bbook (?:it|this|me|us) (?:in|for)\b|\bbook (?:us|me) in\b"
+    r"could you|go ahead and|gonna|going to)\s+(?:to\s+)?(?:go ahead and\s+)?(?:book|lock in|reserve)\b"
+    r"|^(?:please |ok,? |okay,? |great,? |sounds good,? )?book\b|\bplease book\b|\bbook (?:it|this|me|us) (?:in|for)\b"
+    r"|\bbook (?:us|me) in\b|\bbook it\b(?! (?:with|if))|\bsign (?:me|us) up\b"
+    r"|\bput (?:me|us) (?:on|in) (?:the|your) (?:schedule|calendar|books)\b"
     r"|\blet'?s (?:do it|do this|go|book|get (?:it|this) (?:done|booked|scheduled|on the calendar))\b"
     r"|\b(?:go ahead and|ready to) (?:book|schedule|start|do it)\b"
     # Spanish / Spanglish
-    r"|\bcuando (?:puede|pueden|podrian|podria|vienen|viene|podemos|pudieran|llegan|empiezan|comienzan)\b"
+    r"|\bcuando (?:puede|pueden|podrian|podria|vienen|viene|podemos|pudieran|llegan|empiezan|comienzan|tienen "
+    r"(?:espacio|disponibilidad|cupo)|hay (?:espacio|disponibilidad|cupo))\b"
+    r"|\bque (?:dia|dias|fecha|fechas) (?:pueden|puede|vienen|tienen|hay)\b"
+    r"|\bcuando (?:\w+ ){1,2}(?:puede|pueden|podrian|podria|vienen|viene)\b|\bcuando tienen disponible\b"
+    r"|\b(?:agendalo|agendenlo|agendelo|reservalo|reservenlo|programalo|programenlo|apartalo)\b"
+    r"|\bhow soon (?:can|could)\b|\b(?:your|the crew's|the team's) availability\b"
+    r"|\bget (?:me|us|it|this) (?:on|in) (?:the|your) (?:schedule|calendar|books)\b"
+    r"|\bsend (?:the |your |a )?(?:crew|team|guys|someone|tech)\b"
     r"|\b(?:quiero|queremos|quisiera|quisieramos|me gustaria|nos gustaria|vamos a)\s+(?:agendar|reservar|programar|"
     r"apartar|book|schedule|hacer la cita|que vengan)\b"
     r"|\b(?:agendemos|reservemos|hagamoslo|dale|vamos con eso)\b"
     r"|\bbook it ya\b|\bbook it now\b")
 _NOT_READY = re.compile(r"\b(?:before|until|till|til|antes de(?: que)?|hasta que)\s+(?:i|we|yo|nosotros)?\s*"
                         r"(?:can |could |)?(?:book|schedule|lock|commit|agendar|reservar)")
+_STRONG_READY = re.compile(r"\b(?:book|schedule)\b[^.?!]{0,12}\b(?:now|today|asap)\b|\bwhen (?:can|could)\b[^.?!]{0,40}"
+                           r"\bcome\b|\bcuando (?:puede|pueden)\b")
+_CONDITIONAL = re.compile(r"^\W*(?:\w+\W+){0,3}?(?:if|once|as soon as|si|cuando (?:mi|el|la))\b")
 
 
 def read_ready(text):
-    if not _READY.search(text):
+    hits = [m for m in _READY.finditer(text) if not _CONDITIONAL.match(text[m.end():m.end() + 25])
+            and not re.search(r"\b(?:if|si)\b[^.?!,]{0,30}$", text[max(0, m.start() - 40):m.start()])]
+    if not hits:
         return False
-    if _NOT_READY.search(text) and not re.search(r"\b(?:book|schedule)\b[^.?!]{0,12}\b(?:now|today|asap)\b|"
-                                                 r"\bwhen (?:can|could)\b[^.?!]{0,40}\bcome\b", text):
+    if _NOT_READY.search(text) and not _STRONG_READY.search(text):
         return False
     return True
 
@@ -444,43 +484,61 @@ def read_ready(text):
 # ---- line items -------------------------------------------------------------------------------------------------
 
 _SYNONYMS = {  # a word of an optional item's name -> other ways people say it (English and Spanish)
-    "surge": ["surge", "sobretension", "sobrevoltaje", "picos de voltaje", "picos de corriente", "spike", "power spike"],
+    "surge": ["surge", "sobretension", "sobrevoltaje", "picos de voltaje", "picos de corriente", "picos", "spike",
+              "power spike", "spike protector", "surge suppressor"],
     "protector": ["protector"],
     "protection": ["protection", "proteccion"],
-    "maintenance": ["maintenance", "upkeep", "tune-up", "tune up", "tuneup", "service plan", "yearly plan",
-                    "annual plan", "yearly service", "annual service", "check-up plan", "checkup plan",
-                    "mantenimiento", "maintenance plan", "membership", "service agreement", "plan anual"],
-    "thermostat": ["thermostat", "termostato", "nest", "ecobee"],
-    "purifier": ["purifier", "purificador", "uv light", "uv lamp", "uv thing", "uv", "air cleaner", "air scrubber",
-                 "luz uv", "purificador de aire"],
-    "expansion": ["expansion", "expansion tank", "tanque de expansion", "tanque", "tank"],
+    "maintenance": ["maintenance", "upkeep", "tune-up", "tune up", "tuneup", "tune-ups", "service plan", "yearly plan",
+                    "annual plan", "yearly service", "annual service", "check-up plan", "checkup plan", "check-ups",
+                    "checkups", "yearly visits", "yearly visit", "annual visit", "the plan", "that plan", "this plan",
+                    "mantenimiento", "maintenance plan", "membership", "service agreement", "service contract",
+                    "plan anual", "el plan", "ese plan"],
+    "thermostat": ["thermostat", "termostato", "nest", "ecobee", "smart thing", "wifi thing", "smart one"],
+    "purifier": ["purifier", "purificador", "purification", "purificacion", "uv light", "uv lamp", "uv thing", "uv",
+                 "air cleaner", "air scrubber", "air cleaning", "air quality", "germ", "germ killer", "germ-killing",
+                 "luz uv", "luz ultravioleta", "ultraviolet", "purificador de aire"],
+    "expansion": ["expansion", "expansion tank", "tanque de expansion", "tanque", "tank", "tanquecito"],
     "shutoff": ["shutoff", "shut-off", "shut off", "main valve", "valvula de cierre", "llave de paso",
                 "valvula de paso", "valvula principal", "cutoff", "cut-off", "master valve"],
+    "valve": ["valve", "valvula", "llave"],
     "gutter": ["gutter", "gutters", "canaleta", "canaletas", "canalon", "canalones", "desague"],
     "cleaning": ["cleaning", "clean out", "cleanout", "clean-out", "limpieza"],
-    "guards": ["guards", "guard", "protectores de canaleta", "cubiertas", "mallas", "screens", "covers"],
+    "guards": ["guards", "guard", "protectores de canaleta", "cubiertas", "mallas", "screens", "covers", "leaf filter"],
     "ridge": ["ridge", "cumbrera"],
-    "vent": ["vent", "venting", "ventilation", "ventilacion", "ventila", "respiradero", "rejilla"],
+    "vent": ["vent", "vents", "venting", "ventilation", "ventilacion", "ventila", "respiradero", "rejilla"],
     "load": ["load management", "load manager", "load module", "load", "power-sharing", "power sharing",
              "power management", "power thing", "power gadget", "power module", "power splitter", "power manager",
-             "manejo de carga", "gestion de carga", "control de carga", "modulo de carga", "carga"],
+             "energy management", "load balancing", "load-sharing", "load sharing", "power", "manejo de carga",
+             "gestion de carga", "control de carga", "modulo de carga", "carga"],
     "management": ["management"],
     "module": ["module", "modulo"],
 }
 _GENERIC = {"whole", "home", "air", "the", "and", "plan", "smart", "annual", "uv", "of", "a", "optional", "extra"}
-_NEG = (r"(?:don't|do not|dont|doesn't|does not|won't|will not|didn't) (?:really |even |actually |think (?:i|we) |"
-        r"think (?:i|we) really )?(?:need|want|care for|require|use)"
-        r"|\bno need (?:for|of)?|\bnot (?:need|want|interested in|necessary|needed|wanted|required)\b|\bwithout\b|\bskip\b"
-        r"|\bskipping\b|\bdrop\b|\bdropping\b|\bremove\b|\bremoving\b|\btake (?:out|off)\b|\btake (?:it|that|them|this) "
-        r"(?:out|off)\b|\btake\b[^.!?]{0,40}\boff\b|\bleave (?:out|off)\b|\bleave\b[^.!?]{0,40}\b(?:out|off)\b"
-        r"|\bpass on\b|\bpass\b|\bnix\b|\bcut\b|\bget rid of\b|\bexclude\b|\bminus\b|\bforget (?:about )?\b"
-        r"|\bno thanks\b|\bno thank you\b|\bhold off on\b|\bnot (?:the|that|those)\b|\bno\b|\bnot\b|\bwe're good\b"
-        r"|\bi'm good\b|\bwe are good\b|\bwe'll pass\b|\bgood without\b|\bunnecessary\b|\bnot interested\b"
-        # Spanish
-        r"|\bno (?:lo |la |los |las |le )?(?:quiero|queremos|necesito|necesitamos|hace falta|hacen falta|me interesa|"
-        r"nos interesa|ocupo|ocupamos)\b|\bsin\b|\bquit(?:a|en|ar|ame|enme)\b|\bsaca(?:r|n|me|nme)?\b"
-        r"|\belimin(?:a|en|ar)\b|\bborr(?:a|en|ar)\b|\bmenos\b|\bno\b")
-_NEG_RE = re.compile(_NEG)
+# "no" said before the item ("don't need the thermostat", "sin el purificador", "skip the vent")
+_PRE_NEG = re.compile(
+    r"(?:don't|do not|dont|doesn't|does not|won't|will not|didn't|wouldn't|would not) (?:really |even |actually |"
+    r"think (?:i|we) (?:really )?|see (?:the )?)?(?:need|want|care for|require|use|bother with|go for|do)\b"
+    r"|\bno need (?:for|of)?\b|\bnot (?:need|want|interested in|including|include|doing|do|bothering with)\b"
+    r"|\bwithout\b|\bskip\b|\bskipping\b|\bdrop\b|\bdropping\b|\bremove\b|\bremoving\b|\btake (?:out|off)\b"
+    r"|\btake (?:it|that|them|this|the)\b|\bleave (?:out|off)\b|\bleave (?:the|that|it)\b|\bpass on\b|\bnix\b"
+    r"|\bcut\b|\bget rid of\b|\bexclude\b|\bminus\b|\bforget (?:about )?\b|\bno thanks (?:to|on)\b|\bhold off on\b"
+    r"|\bnot (?:the|that|those|this|any)\b|\bno\b(?! (?:worries|worry|problem|rush|hurry|pressure|prisa|apuro|pasa nada|te preocupes|later than|more than|sooner))|\bgood without\b|\bfine without\b|\bok without\b|\bnor\b"
+    r"|\bcan do without\b|\bnot interested in\b|\bnot sure (?:we|i) need\b|\bdon't bother with\b|\bno (?:extra|optional)\b"
+    r"|\bknock (?:off|out)\b|\bknock (?:the|that|it)\b|\bexcept\b|\bexcluding\b|\bforgo\b|\bforego\b|\brather not\b"
+    r"|\bdecline\b|\bdeclining\b|\bopt out of\b|\bopting out of\b|\bscratch\b|\bditch\b|\blose the\b|\bexcepto\b"
+    # Spanish
+    r"|\bno (?:lo |la |los |las |le )?(?:quiero|queremos|necesito|necesitamos|hace falta|hacen falta|me interesa|"
+    r"nos interesa|ocupo|ocupamos|incluyan|pongan|instalen)\b|\bsin\b|\bni\b|\bquit(?:a|en|ar|ame|enme|enle|ale)\b"
+    r"|\bsaca(?:r|n|me|nme|le)?\b|\belimin(?:a|en|ar)\b|\bborr(?:a|en|ar)\b|\bmenos\b")
+# "no" said after the item ("the purifier we don't need", "the module isn't needed", "el tanque no lo necesito")
+_POST_NEG = re.compile(
+    r"^[^.!?]{0,30}?(?:\b(?:we|i) (?:don't|do not|dont|won't) (?:really )?(?:need|want)\b|\bisn't (?:needed|necessary)\b"
+    r"|\bis not (?:needed|necessary)\b|\baren't (?:needed|necessary)\b|\bnot (?:needed|necessary|wanted|required)\b"
+    r"|\bcan go\b|\bcan be (?:removed|dropped|skipped|taken off|left off|left out)\b|\bno thanks\b|\bno thank you\b"
+    r"|\b(?:we|i) can skip\b|\bwe'll skip\b|\bi'll skip\b|\bwe'll pass\b|\bi'll pass\b|\b(?:off|out) (?:of )?(?:the|my|our) "
+    r"(?:estimate|quote|bill|total|list)\b|\bno (?:lo|la|los|las) (?:quiero|queremos|necesito|necesitamos)\b"
+    r"|\bno hace(?:n)? falta\b|\bno, gracias\b|\bno gracias\b|\bunnecessary\b|\bnot interested\b)")
+_POSITIVE_RE = re.compile(r"(?<!no )(?<!not )(?<!n't )(?<!nor )(?<!ni )\b(?:keep|want|wants|include|add|with|go ahead with|quiero|queremos|con|y el|y la)\b")
 _CLAUSE_SPLIT = re.compile(r"[.!?;\n]+|\s-\s|,?\s+(?:but|pero|however|though|aunque|also|ademas|and also|y tambien)\s+")
 
 
@@ -492,50 +550,55 @@ def item_keys(item, required_names):
     words = [w for w in re.findall(r"[a-z]+", normalize(item)) if w not in _GENERIC and len(w) > 2]
     keys = {normalize(item)}
     for w in words:
-        if w in req_words:
-            continue
-        keys.add(w)
         keys.update(normalize(s) for s in _SYNONYMS.get(w, []))
+        if w not in req_words:
+            keys.add(w)
     return {k for k in keys if k and k not in req_words}
 
 
-def _mentions(clause, keys):
+def _positions(clause, keys):
+    """(start, end) of every mention of the item in the clause (longest key first, no overlaps)."""
+    spans = []
     for k in sorted(keys, key=len, reverse=True):
-        if re.search(rf"(?<![a-z]){re.escape(k)}s?(?![a-z])", clause):
-            return True
-    return False
+        for m in re.finditer(rf"(?<![a-z]){re.escape(k)}s?(?![a-z])", clause):
+            if all(m.end() <= a or m.start() >= b for a, b in spans):
+                spans.append((m.start(), m.end()))
+    return sorted(spans)
 
 
 def read_drops(text, items):
-    """Optional items they say they do not want: an item named (or described) in a clause that also says no to it."""
+    """Optional items they say they do not want: the item named (or described) with a "no" right before it in the same
+    clause ("don't need the thermostat", "sin el purificador") or right after it ("the module isn't needed")."""
     optional = [i["name"] for i in items if i["optional"]]
     if not optional:
         return []
     required = [i["name"] for i in items if not i["optional"]]
     keys = {name: item_keys(name, required) for name in optional}
-    # one item's keys must not claim another optional item's words (e.g. two gutter items never share an estimate)
     out = set()
-    clauses = [c for c in _CLAUSE_SPLIT.split(text) if c and c.strip()]
-    for c in clauses:
-        named = [n for n in optional if _mentions(c, keys[n])]
-        if not named:
+    for c in (c for c in _CLAUSE_SPLIT.split(text) if c and c.strip()):
+        mentions = sorted((s, e, n) for n in optional for s, e in _positions(c, keys[n]))
+        if not mentions:
             continue
-        if _NEG_RE.search(c) and not _positive_only(c):
-            out.update(named)
+        for idx, (s, e, n) in enumerate(mentions):
+            prev_end = mentions[idx - 1][1] if idx else 0
+            if idx and mentions[idx - 1][2] != n:
+                # another item sits in between: only the stretch after it counts, unless a list joins them
+                # ("no thermostat or purifier", "ni el termostato ni el purificador")
+                gap = c[prev_end:s]
+                if re.fullmatch(r"\s*(?:,|or|and|nor|ni|o|y|&|/)?\s*(?:the|el|la|los|las|that|ni)?\s*", gap):
+                    if n not in out and mentions[idx - 1][2] in out:
+                        out.add(n)
+                    continue
+                window = c[prev_end:s]
+            else:
+                window = c[max(0, s - 60):s]
+            pre = list(_PRE_NEG.finditer(window))
+            if pre and not _POSITIVE_RE.search(window, pre[-1].end()):
+                out.add(n)
+                continue
+            if _POST_NEG.match(c[e:]):
+                out.add(n)
     return sorted(out)
-
-
-_POSITIVE = re.compile(r"\b(?:go ahead with|we'd like|i'd like|want|add|include|keep|with the|y el|con el|quiero el|"
-                       r"queremos el)\b")
-
-
-def _positive_only(clause):
-    """A clause whose only 'no' is not about the item: e.g. "no rush, we want the thermostat too"."""
-    if re.search(r"\bno (?:rush|hurry|worries|problem|prisa|apuro)\b", clause) and not re.search(
-            r"(?:don't|do not|dont) (?:need|want)|\bskip\b|\bwithout\b|\bremove\b|\bsin\b|\bno (?:quiero|necesito)\b",
-            clause):
-        return True
-    return False
 
 
 # ---- amounts ----------------------------------------------------------------------------------------------------
@@ -584,8 +647,9 @@ def read_ceiling(text, items, spans):
         if not dollar and v < 50:
             continue
         cands.append((v, s, e, dollar))
+    digit_spans = [(s, e) for _, s, e, _ in cands]
     for v, s, e in word_amounts(text):
-        if blocked(s, e) or v < 50:
+        if blocked(s, e) or v < 50 or any(not (e <= a or s >= b) for a, b in digit_spans):
             continue
         if _UNIT_AFTER.match(text[e:]):
             continue
@@ -595,7 +659,8 @@ def read_ceiling(text, items, spans):
         before = text[max(0, s - 40):s]
         cue = bool(_CUE.search(before)) and not _NEG_CUE.search(before)
         after = text[e:e + 30]
-        too_much = re.search(r"^\s*(?:is|es)\s+(?:too|a bit|way|kind of|kinda|demasiado|mucho)", after)
+        too_much = re.search(r"^\s*(?:is|es|seems|feels|sounds|esta)\s+(?:too|a bit|a little|way|kind of|kinda|"
+                             r"more than|over|above|out of|beyond|demasiado|mucho|muy|caro|steep|high|a lot)", after)
         if too_much:
             continue
         if round(v, 2) in refs and not cue:
