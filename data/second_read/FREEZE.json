@@ -1,0 +1,138 @@
+{
+ "arms": {
+  "lightning": {
+   "method": "json_object",
+   "model": "nvidia/Nemotron-3_5-Lightning",
+   "params": {
+    "max_tokens": 1024,
+    "reasoning_effort": "none",
+    "response_format": {
+     "type": "json_object"
+    },
+    "temperature": 1.0,
+    "top_p": 0.95
+   },
+   "reader": "second_read.readers.nemotron.NemotronReader",
+   "tool_schema_sha256": null
+  },
+  "rules": {
+   "model": null,
+   "reader": "second_read.readers.rules.RuleReader"
+  },
+  "super": {
+   "method": "tool",
+   "model": "nvidia/nemotron-3-super-120b-a12b",
+   "params": {
+    "max_tokens": 1024,
+    "reasoning_effort": "none",
+    "temperature": 1.0,
+    "tool_choice": {
+     "function": {
+      "name": "record_facts"
+     },
+     "type": "function"
+    },
+    "top_p": 0.95
+   },
+   "reader": "second_read.readers.nemotron.NemotronReader",
+   "tool_schema_sha256": "5472fa1bc6b9f3876b5e08377b8e675371c6ba94153fb3e18b97b62960eebe1b"
+  },
+  "super_vl": {
+   "method": "tool",
+   "model": "nvidia/Nemotron-3.5-Super-VL",
+   "params": {
+    "max_tokens": 1024,
+    "reasoning_effort": "none",
+    "temperature": 1.0,
+    "tool_choice": {
+     "function": {
+      "name": "record_facts"
+     },
+     "type": "function"
+    },
+    "top_p": 0.95
+   },
+   "reader": "second_read.readers.nemotron.NemotronReader",
+   "tool_schema_sha256": "5472fa1bc6b9f3876b5e08377b8e675371c6ba94153fb3e18b97b62960eebe1b"
+  },
+  "ultra": {
+   "method": "think_tools",
+   "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+   "params": {
+    "chat_template_kwargs": {
+     "enable_thinking": true,
+     "force_nonempty_content": true
+    },
+    "max_tokens": 8192,
+    "temperature": 1.0,
+    "tool_choice": "auto",
+    "top_p": 0.95
+   },
+   "reader": "second_read.readers.nemotron.NemotronReader",
+   "tool_schema_sha256": "5472fa1bc6b9f3876b5e08377b8e675371c6ba94153fb3e18b97b62960eebe1b"
+  }
+ },
+ "cards": {
+  "file": "tournament/buyers.json",
+  "sha256": "722dd96f6c4d705f6431d6b0eb66aef5d117fd0b43172b8c46ec993efb8784aa"
+ },
+ "decision_rule": {
+  "bootstrap": {
+   "draws": 2000,
+   "seed": 7
+  },
+  "min_gain_pp": 10.0,
+  "primary": [
+   "super",
+   "rules"
+  ],
+  "sha256": "16e3f6a041e680355723f042120de7bfb48c0b42ce45af4275b738441cd0ec01",
+  "text": "Nemotron Super reading beats the hardened rules only if the paired difference in match rate is ≥ +10 percentage points AND the lower bound of the 95 % paired bootstrap interval (2,000 draws, seed 7, over test lines) is > 0, AND Super's missed-stop count is not higher than the rules'. Upper bound < 0 → behind. Otherwise → no clear difference (not a tie)."
+ },
+ "dev_data": {
+  "file": "data/second_read/dev.jsonl",
+  "lines": 200,
+  "sha256": "ceeb7cc92bb53d5e11c4a3c6f2ee5c9cfd0664a01a24fe356d04b2506130d635"
+ },
+ "files": {
+  "second_read/NEMOTRON-PROMPT-LOG.md": "ef7cc9e5b7d9e4845a1a60a2bc2a18c998581a94f1ecc1bd44147fb55b9361ee",
+  "second_read/PREREG.md": "ad7c34643078aad76d8eaeefee25b21f3666e5edf6949c5c931b56458cb8205e",
+  "second_read/RULES-HARDENING-LOG.md": "4278fa3314c24cd044a97ad4f83705e3c065bfce748aca8a7620be4020deb729",
+  "second_read/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "second_read/analysis.py": "fe67e688342c45e49aca374bb8ef76da9758da404c934e1bdcc2fa0c89fc454d",
+  "second_read/cases.py": "6753a5cb448c70e2cf4edfc2b983d0cf5f34eb25505ad35173363d002755826f",
+  "second_read/contract.py": "0970f0e1f0b43a004112cfe7cef74c90e18daabfdb81d3aa67a5591114ce7d7c",
+  "second_read/data.py": "dbbdc6e5b1953791ec8f5db043079e12f4c91aeb91aaee3c41a05ea6e798c111",
+  "second_read/nemotron_dev_score.py": "16bbd8b7866fc07fd737dad715824aee18e58e36221a47fbee8e88203e4ac9dc",
+  "second_read/offer.py": "a2039cadee51248f6158331ee843172ac1f960ad540a241a8240a6927f5e5bf2",
+  "second_read/prereg.py": "55641d501f53dc4b1cb30cdcbcfd7202a34e643d4ba080be0c73ce86612ba448",
+  "second_read/readers/__init__.py": "44cc94f6056aba459ed16245b3598faf2f29172453c68943f46be5a395ca6f83",
+  "second_read/readers/nemotron.py": "5da931f7b1b4f9823428547f2b07b48f0050c6a745ce4299bf251977c1b70ae8",
+  "second_read/readers/rules.py": "0c0ee59c7b18b42f23e390e79b7bc9256fcd47870dc0c61b2260a8e4b78f17e6",
+  "second_read/rules_dev_score.py": "8c94df353e19cce499050f3df311e8beabe4f898448968fcc45d0c760b5e5e0e",
+  "second_read/run.py": "21129720b28dfc892385e9ae4f91ff4cf45be599fefe89f40b28fd17251d7d87"
+ },
+ "name": "Second Read (v4) freeze",
+ "spend": {
+  "concurrency": 8,
+  "ledger_tag": "b2",
+  "platform_reruns": 2,
+  "ultra_concurrency": 3,
+  "v4_ceiling_usd": 8.0
+ },
+ "system_prompt": {
+  "chars": 3892,
+  "sha256": "1c0c19cf8e2baaf8a2686bec0c9cafebfd9264d5cd97e5b2256dc71bfcee3993"
+ },
+ "test_split": {
+  "n": 600,
+  "seed": "test-20261028",
+  "stop_share": 0.08,
+  "strata_weights": {
+   "S1": 0.25,
+   "S2": 0.35,
+   "S3": 0.25,
+   "S4": 0.15
+  }
+ }
+}
