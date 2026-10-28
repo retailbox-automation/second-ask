@@ -317,3 +317,20 @@ def test_test_command_refuses_without_committed_freeze(tmp_path):
 
 def test_repo_test_split_is_not_written():
     assert not (D.DATA / "test.jsonl").exists()
+
+
+def test_test_guard_reads_the_harness_freeze_format(tmp_path):
+    """The harness writes the dev hash as dev_data.sha256; the generator's guard must accept exactly that."""
+    import json, subprocess
+    from second_read import data as D
+    d = tmp_path / "data" / "second_read"
+    d.mkdir(parents=True)
+    (d / "dev.jsonl").write_text('{"id": "x"}\n')
+    (d / "FREEZE.json").write_text(json.dumps({"dev_data": {"sha256": D.sha256(d / "dev.jsonl")}}))
+    for args in (["init", "-q"], ["add", "."], ["-c", "user.email=x@x", "-c", "user.name=x", "commit", "-qm", "f"]):
+        subprocess.run(["git", "-C", str(tmp_path), *args], check=True)
+    ok, why = D.freeze_ok(tmp_path, d)
+    assert ok, why
+    (d / "dev.jsonl").write_text('{"id": "y"}\n')
+    subprocess.run(["git", "-C", str(tmp_path), "-c", "user.email=x@x", "-c", "user.name=x", "commit", "-qam", "g"], check=True)
+    assert not D.freeze_ok(tmp_path, d)[0]

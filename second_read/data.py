@@ -551,9 +551,11 @@ def freeze_ok(root=ROOT, data_dir=None):
     if subprocess.run(git + ["diff", "--quiet", "HEAD", "--", rel], capture_output=True).returncode != 0:
         return False, f"{rel} differs from the committed version"
     try:
-        want = json.loads(fz.read_text())["dev_sha256"]
+        rec = json.loads(fz.read_text())
+        # the harness (`python -m second_read.run freeze`) records it as dev_data.sha256
+        want = rec["dev_data"]["sha256"] if "dev_data" in rec else rec["dev_sha256"]
     except (json.JSONDecodeError, KeyError, TypeError) as e:
-        return False, f"{rel} has no dev_sha256 ({type(e).__name__})"
+        return False, f"{rel} has no dev data sha256 ({type(e).__name__})"
     if not dev.exists():
         return False, f"{dev} does not exist"
     if sha256(dev) != want:
