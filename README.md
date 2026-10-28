@@ -10,6 +10,7 @@ Best Apps and Agents).
 | Main test (v1), pre-registered | `tournament/MANIFEST.json`, [`RESULTS.md`](RESULTS.md) | manifest `1c231403c8fd…` (canonical JSON); frozen in `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; run 2026-10-24T10:58:31Z to 2026-10-24T11:37:04Z; 2400 conversations; $5.78 of real Token Factory spend |
 | Main result | [`RESULTS.md`](RESULTS.md) | routed -$181 [-$319, -$65] per customer, Super-only -$84 [-$215, +$43] per customer against `smart_rules`; default label model after the test: Super |
 | Second test (v2): free wording | `tournament/v2/` (PREREG, CHANGES) | Stopped before its main run: the buyer writer did not pass the vocabulary gate (L_own 71.8 % against at most 59.0 %). |
+| Third test (v3): rules first, Nemotron where they do not know | `tournament/v3/` (PREREG), [`RESULTS.md`](RESULTS.md) | We also tested rules first, with Nemotron only where the rules don't know: -$71 [-$159, -$9] per customer, behind (third pre-registered test). |
 | Limitations | [`RESULTS.md#limitations`](RESULTS.md#limitations) | simulated customers; a rulebook written for the simulator; one published false opt-out; and more |
 | Platform spikes | `evidence/spikes/` | pre-registered plans, raw replies, results |
 | Replay demo | `demo/data/replay.json` | 8 recorded conversations picked by the rule in `demo/replay.py`, served step for step |
@@ -18,7 +19,7 @@ Best Apps and Agents).
 ## Is it better than a rule?
 
 <!-- results:start -->
-Not in our pre-registered test: against a rulebook we wrote with full knowledge of the simulator, the routed design came out at -$181 [-$319, -$65] per customer [-$36,147 over 200 simulated customers; simulated margin on illustrative prices, not market data], Super-only showed no clear difference (-$84 [-$215, +$43] per customer), and the test switched the default label model to Super. A second pre-registered test, with customers wording the same facts freely, stopped before its main run: the buyer writer did not pass the vocabulary gate (L_own 71.8 % against at most 59.0 %).
+Not in our pre-registered test: against a rulebook we wrote with full knowledge of the simulator, the routed design came out at -$181 [-$319, -$65] per customer [-$36,147 over 200 simulated customers; simulated margin on illustrative prices, not market data], Super-only showed no clear difference (-$84 [-$215, +$43] per customer), and the test switched the default label model to Super. A second pre-registered test, with customers wording the same facts freely, stopped before its main run: the buyer writer did not pass the vocabulary gate (L_own 71.8 % against at most 59.0 %). We also tested rules first, with Nemotron only where the rules don't know: -$71 [-$159, -$9] per customer, behind (third pre-registered test).
 <!-- results:end -->
 
 We wrote the test down before running it, published it with its failures, and let it change the product: the default

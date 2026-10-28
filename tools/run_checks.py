@@ -397,6 +397,97 @@ def v2_section():
     return L + [""]
 
 
+V3 = ROOT / "tournament" / "v3"
+V3_READING = {"beats": "ahead: the whole interval is above 0, and not worse on opt-outs or off-arm calls",
+              "behind": "behind: the whole interval is below 0", "no clear difference": "no clear difference (not a tie)"}
+
+
+def v3_results():
+    f = V3 / "full" / "v3-results.json"
+    return json.loads(f.read_text()) if f.exists() else None
+
+
+def v3_status():
+    """One sentence on the third test for README, or None (written as pre-registered in tournament/v3/PREREG.md)."""
+    r = v3_results()
+    if not r:
+        return None
+    n = r["d3"]["buyers"]
+    if r["verdict"] == "beats":
+        return (f"Rules + Nemotron beat rules alone: {_per(r['d3'], n)} over {n} simulated customers (third pre-registered "
+                f"test: the rules decide, Nemotron Super only where the rules do not know).")
+    return (f"We also tested rules first, with Nemotron only where the rules don't know: {_per(r['d3'], n)}, "
+            f"{'behind' if r['verdict'] == 'behind' else 'no clear gain'} (third pre-registered test).")
+
+
+def v3_section():
+    """The third test (v3), from its manifest, run files and tools/v3_analysis.py output only."""
+    r = v3_results()
+    if not r:
+        return []
+    m = json.loads((V3 / "MANIFEST.json").read_text())
+    sha = (V3 / "MANIFEST.sha256").read_text().split()[0]
+    st = json.loads((V3 / "full" / "run_state.json").read_text())
+    rep = json.loads((V3 / "full" / "run_report.json").read_text())
+    freeze = _git("log", "-1", "--format=%h", "--", "tournament/v3/MANIFEST.sha256")
+    freeze_t = datetime.fromisoformat(_git("log", "-1", "--format=%cI", freeze)).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    smoke = json.loads((V3 / "smoke" / "run_report.json").read_text())
+    d3, n, t, h = r["d3"], r["d3"]["buyers"], r["table"], r["handoffs"]
+    L = ["## Third test (v3): rules first, Nemotron only where the rules do not know", "",
+         f"**Pre-registered verdict: {r['verdict']}.** rules_then_super - smart_rules, net over {n} customers: "
+         f"{_ci_s(d3)} ({_per(d3, n)}); {V3_READING[r['verdict']]}.", "",
+         "The hybrid `rules_then_super` is `smart_rules` unchanged, except where the rules do not know the answer: rule 8 "
+         "(the customer's latest message says only think / get back / not sure / maybe) and rule 9 (nothing the rules "
+         "recognise). There the `super_only` agent decides (Nemotron Super labels the reply, Nemotron Super picks a move "
+         "from the same code-built menu; the floor check and the compliance gate are the same). Silence, rules 1 to 7 and "
+         "customers the shared opt-out layer has stopped stay with the rules. Both policies ran fresh in one run, "
+         f"{m['repeats']['k']} times on all {n} customers, with the same buyer writer as v1 and common random numbers: "
+         "within a repeat both policies meet the same customer words until the hybrid's first hand-off.", "",
+         f"- Pre-registered: manifest `{sha}` (`tournament/v3/PREREG.md`; the pre-registration and "
+         f"`tools/v3_analysis.py` are pinned by sha256 in it), frozen in `{freeze}` at {freeze_t}, pushed "
+         f"{_pushed('tournament/v3/MANIFEST.sha256')}. Smoke {smoke.get('rows')} conversations (mechanics only, no outcome "
+         f"printed); run started {st.get('started')}, {rep.get('rows')} rows ({rep.get('clean_rows')} clean, "
+         f"{rep.get('errored_rows')} errored and re-run).",
+         f"- Disclosure: {m['disclosure']}", "",
+         "| policy | customers | bookings | net $ | model $ | violations | false opt-outs (conversations) | off-arm |",
+         "|---|---|---|---|---|---|---|---|"]
+    for p_, a in t.items():
+        L.append(f"| {p_} | {a['buyers']} | {a['bookings']:.1f} | {a['net']:,.0f} | {a['model_usd']:.4f} | "
+                 f"{a['violations']:.1f} | {a['false_opt_outs']:.2f} ({a['false_opt_out_conversations']}) | "
+                 f"{a['off_arm_calls']:.1f} |")
+    L += ["", "Each customer's mean over its repeats, summed over customers; simulated margin on illustrative prices (not "
+          "market data).", "",
+          f"- Hand-offs to Nemotron: {h['total']} in {h['conversations_with_handoff']} conversations (rule 8: "
+          f"{h['by_branch'].get('think', 0)}, rule 9: {h['by_branch'].get('none', 0)}). Nemotron's move differed from the "
+          f"move the rules would have made in {h['model_move_differs']} of {h['total']}"
+          + (f"; it stopped the conversation {sum(h['model_stopped'].values())} times" if h["model_stopped"] else "") + ".",
+          "- By objection type (descriptive, not adjusted): " + "; ".join(
+              f"{k} {_ci_s(v)}" for k, v in r["by_type"].items() if v) + "."]
+    if r.get("vs_v1_smart_rules"):
+        L.append(f"- Against v1's smart_rules rows (independent customer words there, descriptive): {_ci_s(r['vs_v1_smart_rules'])}.")
+    if r["false_opt_outs"]:
+        L.append("- False opt-outs by Nemotron: " + "; ".join(f"{f['buyer']} ({f['type']}), repeat {f['repeat']}"
+                                                            for f in r["false_opt_outs"]) + ".")
+    outs = [json.loads(x) for x in (V3 / "full" / "outcomes.jsonl").read_text().splitlines() if x.strip()]
+    cap = Counter(o["policy"] for o in outs if o["type"] == "timing_pause" and o["end"] == "move cap")
+    tp = Counter(o["policy"] for o in outs if o["type"] == "timing_pause")
+    think = [json.loads(s_["note"]) for o in outs if o["policy"] == "rules_then_super" for s_ in o["steps"]
+             if s_.get("step") == "handoff" and json.loads(s_["note"])["branch"] == "think"]
+    chk = sum((x["model_move"] or "").startswith("checkin_") for x in think)
+    L += [f"- Where it lost (post-hoc, descriptive; written after the run): on rule 8 (\"I'll think about it\"), where the "
+          f"rules ask why, Nemotron chose a check-in in {chk} of {len(think)} hand-offs. In this simulator a customer who "
+          "waits for a date and has not said when stays silent after a check-in (`second_ask/tournament/env.py`, `react`), "
+          "while asking why makes them name the weeks, which the rules then match. Timing-pause conversations that ended at "
+          f"the five-message cap: rules_then_super {cap['rules_then_super']} of {tp['rules_then_super']}, smart_rules "
+          f"{cap['smart_rules']} of {tp['smart_rules']}.",
+          f"- Spend: run {_usd(rep.get('spent_usd', 0), 3)}, smoke {_usd(smoke.get('spent_usd', 0), 4)} of real Token "
+          f"Factory spend (ceilings $3.00 and $0.30)."]
+    L += ["- What this shows, and what it does not: the same simulator and the same rulebook written for it, so the room "
+          "above the rules is small by construction (smart_rules takes most of the oracle margin). It says nothing about "
+          "live customers."]
+    return L + [""]
+
+
 def cmd_results_md(d, out_path=None):
     """RESULTS.md, every number computed here from the run files (rows, outcomes, results.json, smoke-b, manifest,
     buyers, ledger, git). The wording around the numbers is fixed in this function, written after the run."""
@@ -563,6 +654,7 @@ def cmd_results_md(d, out_path=None):
           f"{_usd(sreport.get('spent_usd', 0), 4)}. Two customers per type rather than the population mix; `smart_rules` "
           "and `concession_heuristic` were not in it (their only cost is the buyer writer). Not results.", ""]
     L += v2_section()
+    L += v3_section()
     L += ["## What is real, what is seeded, what is simulated", "",
           f"- Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text, on "
           "simulated conversations. The $ score depends only on the chosen move: the buyer code never reads the shop's "
@@ -624,7 +716,8 @@ def cmd_results_md(d, out_path=None):
                   f"the routed design came out at {_per(main_r, n)} [{_sd(main_r['point'])} over {n} simulated customers; "
                   f"simulated margin on illustrative prices, not market data], "
                   f"Super-only showed no clear difference ({_per(main_s, n)}), and the test switched the default label "
-                  f"model to {lab['default_label_model']}." + (f" {v2}" if v2 else "") + f"\n{b}")
+                  f"model to {lab['default_label_model']}." + (f" {v2}" if v2 else "")
+                  + (f" {v3_status()}" if v3_status() else "") + f"\n{b}")
         txt = txt[:txt.index(a)] + answer + txt[txt.index(b) + len(b):]
         ea, eb = "<!-- evidence:start -->", "<!-- evidence:end -->"
         if ea in txt and eb in txt:
@@ -638,6 +731,8 @@ def cmd_results_md(d, out_path=None):
                     ("Second test (v2): free wording", "`tournament/v2/` (PREREG, CHANGES)",
                      (v2_status() or "see RESULTS.md").replace("A second pre-registered test, with customers wording the "
                                                                "same facts freely, stopped", "Stopped")),
+                    *([("Third test (v3): rules first, Nemotron where they do not know",
+                        "`tournament/v3/` (PREREG), [`RESULTS.md`](RESULTS.md)", v3_status())] if v3_status() else []),
                     ("Limitations", "[`RESULTS.md#limitations`](RESULTS.md#limitations)",
                      "simulated customers; a rulebook written for the simulator; one published false opt-out; and more"),
                     ("Platform spikes", "`evidence/spikes/`", "pre-registered plans, raw replies, results"),

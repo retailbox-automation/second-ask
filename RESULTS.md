@@ -152,6 +152,29 @@ Why: on v1's 3,133 buyer lines, 97.1 % trip at least one of `smart_rules`' trigg
 - What this shows, and what it does not: a writer that never saw the rules, writing the same facts in its own words, still mostly used phrasing the rulebook catches, because the facts themselves (how many weeks, the deadline day, who else decides, the amount) are what the rulebook keys on. So this design could not separate wording from facts. It says nothing either way about whether the rulebook or Nemotron holds up on real customers' wording.
 - v2 spend (two smokes, the judge and the references): $0.19 of the $6 budget.
 
+## Third test (v3): rules first, Nemotron only where the rules do not know
+
+**Pre-registered verdict: behind.** rules_then_super - smart_rules, net over 200 customers: -$14,226 [-$31,783, -$1,845] (-$71 [-$159, -$9] per customer); behind: the whole interval is below 0.
+
+The hybrid `rules_then_super` is `smart_rules` unchanged, except where the rules do not know the answer: rule 8 (the customer's latest message says only think / get back / not sure / maybe) and rule 9 (nothing the rules recognise). There the `super_only` agent decides (Nemotron Super labels the reply, Nemotron Super picks a move from the same code-built menu; the floor check and the compliance gate are the same). Silence, rules 1 to 7 and customers the shared opt-out layer has stopped stay with the rules. Both policies ran fresh in one run, 5 times on all 200 customers, with the same buyer writer as v1 and common random numbers: within a repeat both policies meet the same customer words until the hybrid's first hand-off.
+
+- Pre-registered: manifest `01b6dc1f8d24869c0e187c3758629cf8690717cee4fdc8962fdb9a5a7a1fc1a2` (`tournament/v3/PREREG.md`; the pre-registration and `tools/v3_analysis.py` are pinned by sha256 in it), frozen in `b577466` at 2026-10-28T13:59:14Z, pushed 2026-10-28T13:59:16Z. Smoke 28 conversations (mechanics only, no outcome printed); run started 2026-10-28T14:01:45Z, 2000 rows (2000 clean, 0 errored and re-run).
+- Disclosure: v3 is the third test of the same simulator. It was designed after v1's results were known (and after v2 stopped at its gate): the hybrid's hand-off branches were chosen from smart_rules' code (rules 8 and 9 of SmartRules), not from v1 outcomes by branch. Before the freeze we counted, on v1's smart_rules transcripts, how often those branches fire (94 of 649 customer lines, a text-level count); no v1 outcome was split by branch.
+
+| policy | customers | bookings | net $ | model $ | violations | false opt-outs (conversations) | off-arm |
+|---|---|---|---|---|---|---|---|
+| smart_rules | 200 | 154.4 | 231,594 | 0.0000 | 0.0 | 0.00 (0) | 0.0 |
+| rules_then_super | 200 | 146.2 | 217,368 | 0.0587 | 0.0 | 0.00 (0) | 0.0 |
+
+Each customer's mean over its repeats, summed over customers; simulated margin on illustrative prices (not market data).
+
+- Hand-offs to Nemotron: 262 in 140 conversations (rule 8: 241, rule 9: 21). Nemotron's move differed from the move the rules would have made in 228 of 262.
+- By objection type (descriptive, not adjusted): channel $0 [$0, $0]; family -$50 [-$131, -$0.01]; opt_out $0 [$0, $0]; price $0 [$0, $0]; ready $0 [$0, $0]; timing_pause -$14,303 [-$30,807, -$2,356]; timing_slot +$126 [$0, +$378].
+- Against v1's smart_rules rows (independent customer words there, descriptive): -$12,852 [-$30,692, -$1,334].
+- Where it lost (post-hoc, descriptive; written after the run): on rule 8 ("I'll think about it"), where the rules ask why, Nemotron chose a check-in in 198 of 241 hand-offs. In this simulator a customer who waits for a date and has not said when stays silent after a check-in (`second_ask/tournament/env.py`, `react`), while asking why makes them name the weeks, which the rules then match. Timing-pause conversations that ended at the five-message cap: rules_then_super 58 of 170, smart_rules 13 of 170.
+- Spend: run $0.379, smoke $0.0139 of real Token Factory spend (ceilings $3.00 and $0.30).
+- What this shows, and what it does not: the same simulator and the same rulebook written for it, so the room above the rules is small by construction (smart_rules takes most of the oracle margin). It says nothing about live customers.
+
 ## What is real, what is seeded, what is simulated
 
 - Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text, on simulated conversations. The $ score depends only on the chosen move: the buyer code never reads the shop's message (`second_ask/tournament/env.py`, `react`), so message wording changes no customer decision and message quality is not measured. The compliance rules in code.
