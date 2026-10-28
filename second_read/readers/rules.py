@@ -41,8 +41,9 @@ _ES_DAYS = {"primero": 1, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5
             "dieciseis": 16, "diecisiete": 17, "dieciocho": 18, "diecinueve": 19, "veinte": 20, "veintiuno": 21,
             "veintidos": 22, "veintitres": 23, "veinticuatro": 24, "veinticinco": 25, "veintiseis": 26,
             "veintisiete": 27, "veintiocho": 28, "veintinueve": 29, "treinta": 30, "treinta y uno": 31}
-_SHORTHAND = [(r"\bw(?:h)?en\b", "when"), (r"\bwhn\b", "when"), (r"\bu\b", "you"), (r"\bur\b", "your"), (r"\bpl[sz]\b", "please"), (r"\bb4\b", "before"),
-              (r"\bnxt\b", "next"), (r"\bthru\b", "through"), (r"&", " and "), (r"\bw/o\b", "without"),
+_SHORTHAND = [(r"\bw(?:h)?en\b", "when"), (r"\bwhn\b", "when"), (r"\bu\b", "you"), (r"\bur\b", "your"),
+              (r"\bpl[sz]\b", "please"), (r"\bb4\b", "before"), (r"\bnxt\b", "next"),
+              (r"\bthru\b", "through"), (r"&", " and "), (r"\bw/o\b", "without"),
               (r"\bmos\b", "months"), (r"\bwk\b", "week"), (r"\bwks\b", "weeks"), (r"\bhrs\b", "hours")]
 
 
@@ -94,7 +95,7 @@ _SMALL_WORDS = {"one": 1, "a": 1, "an": 1, "two": 2, "three": 3, "four": 4, "fiv
                 "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "couple": 2, "a couple": 2,
                 "a couple of": 2, "couple of": 2, "a few": 3, "few": 3,
                 "un": 1, "una": 1, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7,
-                "ocho": 8, "nueve": 9, "diez": 10, "un par de": 2, "par de": 2, "unas": None}
+                "ocho": 8, "nueve": 9, "diez": 10, "un par de": 2, "par de": 2}
 
 
 def _word_number(words):
@@ -116,8 +117,7 @@ def _word_number(words):
             vals.append(("s", _SCALE[w]))
         else:
             return None
-    total, cur, pending_pair = 0, 0, None
-    i = 0
+    total, cur = 0, 0
     # year-like "eighteen fifty": two 2-digit groups with no scale word
     if all(k in "ut" for k, _ in vals) and len(vals) >= 2:
         groups, g = [], 0
@@ -151,9 +151,6 @@ def _word_number(words):
     return total + cur
 
 
-_TOKEN = re.compile(r"\$?\d[\d,]*(?:\.\d+)?k?|[a-z]+|-")
-
-
 def word_amounts(text):
     """[(value, start, end)] for runs of number words in normalized text, e.g. "four hundred" -> 400."""
     out = []
@@ -175,7 +172,8 @@ def word_amounts(text):
     return out
 
 
-_DIGIT_AMOUNT = re.compile(r"(\$\s?)?(\d{1,3}(?:,\d{3})+|\d{1,3}(?:\.\d{3})+(?![\d,])|\d+)(\.\d{1,2})?\s?(k\b|grand\b|mil\b|thousand\b)?")
+_DIGIT_AMOUNT = re.compile(r"(\$\s?)?(\d{1,3}(?:,\d{3})+|\d{1,3}(?:\.\d{3})+(?![\d,])|\d+)(\.\d{1,2})?"
+                           r"\s?(k\b|grand\b|mil\b|thousand\b)?")
 
 
 def digit_amounts(text):
@@ -384,9 +382,11 @@ _OPT_OUT_OF_ITEM = re.compile(r"(?i)\bopt(?:ing|ed)?[ -]?out of (?:the|that|this
 
 _DECIDERS = [
     ("HOA", r"hoa|h\.o\.a\.?|homeowners'? association|homeowner'?s association|home owners association|"
-            r"(?:the |our |my )(?:hoa |condo |association |co-op |coop )?board|condo board|asociacion(?: de propietarios| de vecinos)?|la junta|condo association"),
-    ("landlord", r"landlord|landlady|property manager|property management|management company|property owner|owner of the (?:house|property|building)|"
-                 r"casero|casera|dueno de la casa|duena de la casa|el dueno|la duena|arrendador|arrendadora"),
+            r"(?:the |our |my )(?:hoa |condo |association |co-op |coop )?board|condo board|"
+            r"asociacion(?: de propietarios| de vecinos)?|la junta|condo association"),
+    ("landlord", r"landlord|landlady|property manager|property management|management company|property owner|"
+                 r"owner of the (?:house|property|building)|casero|casera|dueno de la casa|duena de la casa|el dueno|"
+                 r"la duena|arrendador|arrendadora"),
     ("husband", r"husband|hubby|esposo|marido"),
     ("wife", r"wife|wifey|esposa|mi mujer|missus|mrs|senora"),
     ("partner", r"partner|boyfriend|girlfriend|fiance|fiancee|pareja|novio|novia|better half|significant other"),
@@ -412,10 +412,7 @@ def read_decider(text):
         m = rx.search(text)
         if m:
             hits.append((m.start(), name))
-    if not hits:
-        return None
-    # "my mom" inside "my mom's house" (a place, not a person who must agree) is still a person; keep the first named
-    return min(hits)[1]
+    return min(hits)[1] if hits else None   # the first person named
 
 
 _WEEKS = re.compile(
@@ -459,8 +456,8 @@ def read_wait(text):
             continue
         n = max(a, b) if b else a
         future = re.match(r"\s*(?:from now|out|later|away|de ahora|desde hoy|mas adelante)\b", text[m.end():])
-        if not future and _PAST_WEEKS.search(text[max(0, m.start() - 30):m.start()]) or re.match(r"\s*(?:ago|back|atras)\b",
-                                                                                     text[m.end():]):
+        past = _PAST_WEEKS.search(text[max(0, m.start() - 30):m.start()])
+        if (past and not future) or re.match(r"\s*(?:ago|back|atras)\b", text[m.end():]):
             continue
         # "within 2 weeks"/"in the next 2 weeks" is a deadline, not a wait
         if re.search(r"\b(?:within|in the next|no later than|before|dentro de las proximas)\s+$",
@@ -493,7 +490,8 @@ _READY = re.compile(
     r"(?:\w+\s+)?(?:come|start|get (?:here|out|started)|be (?:here|out|over)|show up|fit (?:me|us) in|begin|do it)\b"
     r"|\bwhen (?:are|is) (?:you|your crew|the crew|your team|y'all|you guys) (?:free|available|open)\b"
     r"|\bwhen(?:'s| is) (?:the )?(?:earliest|soonest|first|next)\b"
-    r"|\b(?:earliest|soonest|first|next) (?:available|opening|slot|date|day|time|availability|opening)\b"
+    r"|\b(?:earliest|soonest) (?:available|opening|slot|date|day|time|availability)\b"
+    r"|\b(?:first|next) (?:available|opening|open slot|availability)\b"
     r"|\bwhat (?:days?|dates?|times?) (?:work|works|do you have|are open|are available|can you come)\b"
     r"|\b(?:book|schedule|lock|sign) (?:it|this|me|us|the job|that|the work|the install|the repair)?\s*(?:in|up|on)?\s*"
     r"(?:now|today|asap|right away|right now|ya|ahora)\b"
@@ -574,7 +572,9 @@ _PRE_NEG = re.compile(
     r"|\bwithout\b|\bskip\b|\bskipping\b|\bdrop\b|\bdropping\b|\bremove\b|\bremoving\b|\btake (?:out|off)\b"
     r"|\btake (?:it|that|them|this|the)\b|\bleave (?:out|off)\b|\bleave (?:the|that|it)\b|\bpass on\b|\bnix\b"
     r"|\bcut\b|\bget rid of\b|\bexclude\b|\bminus\b|\bforget (?:about )?\b|\bno thanks (?:to|on)\b|\bhold off on\b"
-    r"|\bnot (?:the|that|those|this|any)\b|\bno\b(?! (?:worries|worry|problem|rush|hurry|pressure|prisa|apuro|pasa nada|te preocupes|later than|more than|sooner))|\bgood without\b|\bfine without\b|\bok without\b|\bnor\b"
+    r"|\bnot (?:the|that|those|this|any)\b|\bgood without\b|\bfine without\b|\bok without\b|\bnor\b"
+    r"|\bno\b(?! (?:worries|worry|problem|rush|hurry|pressure|prisa|apuro|pasa nada|te preocupes|later than|more than|"
+    r"sooner))"
     r"|\bcan do without\b|\bnot interested in\b|\bnot sure (?:we|i) need\b|\bdon't bother with\b|\bno (?:extra|optional)\b"
     r"|\bknock (?:off|out)\b|\bknock (?:the|that|it)\b|\bexcept\b|\bexcluding\b|\bforgo\b|\bforego\b|\brather not\b"
     r"|\bdecline\b|\bdeclining\b|\bopt out of\b|\bopting out of\b|\bscratch\b|\bditch\b|\blose the\b|\bexcepto\b"
@@ -590,7 +590,8 @@ _POST_NEG = re.compile(
     r"|\b(?:we|i) can skip\b|\bwe'll skip\b|\bi'll skip\b|\bwe'll pass\b|\bi'll pass\b|\b(?:off|out) (?:of )?(?:the|my|our) "
     r"(?:estimate|quote|bill|total|list)\b|\bno (?:lo|la|los|las) (?:quiero|queremos|necesito|necesitamos)\b"
     r"|\bno hace(?:n)? falta\b|\bno, gracias\b|\bno gracias\b|\bunnecessary\b|\bnot interested\b)")
-_POSITIVE_RE = re.compile(r"(?<!no )(?<!not )(?<!n't )(?<!nor )(?<!ni )\b(?:keep|want|wants|include|add|with|go ahead with|quiero|queremos|con|y el|y la)\b")
+_POSITIVE_RE = re.compile(r"(?<!no )(?<!not )(?<!n't )(?<!nor )(?<!ni )\b(?:keep|want|wants|include|add|with|"
+                          r"go ahead with|quiero|queremos|con|y el|y la)\b")
 _CLAUSE_SPLIT = re.compile(r"[.!?;\n]+|\s-\s|,?\s+(?:but|pero|however|though|aunque|also|ademas|and also|y tambien)\s+")
 
 
@@ -618,8 +619,8 @@ def _positions(clause, keys):
     return sorted(spans)
 
 
-_LIST_GAP = re.compile(r"[\s,]*(?:[a-z'\-]+\s+){0,2}?(?:or|and|nor|ni|o|y|&|/|plus|as well as|or even)?[\s,]*(?:(?:the|el|la|los|las|that|"
-                       r"those|any|ni|also|tambien)\s+)?(?:[a-z'\-]+\s+){0,2}?")
+_LIST_GAP = re.compile(r"[\s,]*(?:[a-z'\-]+\s+){0,2}?(?:or|and|nor|ni|o|y|&|/|plus|as well as|or even)?[\s,]*"
+                       r"(?:(?:the|el|la|los|las|that|those|any|ni|also|tambien)\s+)?(?:[a-z'\-]+\s+){0,2}?")
 
 
 def read_drops(text, items):
@@ -641,8 +642,9 @@ def read_drops(text, items):
                 # another item sits in between: only the stretch after it counts, unless a list joins them
                 # ("no thermostat or purifier", "ni el termostato ni el purificador")
                 gap = c[prev_end:s]
-                if _LIST_GAP.fullmatch(gap) and not _POSITIVE_RE.search(gap) and not (
-                        _PRE_NEG.search(gap) and not re.fullmatch(r"[\s,]*(?:nor|ni)\s+(?:(?:the|el|la|los|las)\s+)?", gap)):
+                negated_gap = _PRE_NEG.search(gap) and not re.fullmatch(r"[\s,]*(?:nor|ni)\s+(?:(?:the|el|la|los|las)\s+)?",
+                                                                        gap)
+                if _LIST_GAP.fullmatch(gap) and not _POSITIVE_RE.search(gap) and not negated_gap:
                     if n not in out and mentions[idx - 1][2] in out:
                         out.add(n)
                     continue
