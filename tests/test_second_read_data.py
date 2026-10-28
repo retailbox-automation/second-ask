@@ -315,8 +315,12 @@ def test_test_command_refuses_without_committed_freeze(tmp_path):
     assert fc.calls == []
 
 
-def test_repo_test_split_is_not_written():
-    assert not (D.DATA / "test.jsonl").exists()
+def test_repo_test_split_exists_only_after_the_freeze():
+    """Before the freeze the test split must not exist; once it does, it was first committed after the freeze commit."""
+    if not (D.DATA / "test.jsonl").exists():
+        return
+    from second_read import run as R
+    R.guard(split="test")  # raises Refused unless FREEZE is committed and test.jsonl first appears after it
 
 
 def test_test_guard_reads_the_harness_freeze_format(tmp_path):

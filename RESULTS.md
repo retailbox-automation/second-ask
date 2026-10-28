@@ -175,6 +175,33 @@ Each customer's mean over its repeats, summed over customers; simulated margin o
 - Spend: run $0.379, smoke $0.0139 of real Token Factory spend (ceilings $3.00 and $0.30).
 - What this shows, and what it does not: the same simulator and the same rulebook written for it, so the room above the rules is small by construction (smart_rules takes most of the oracle margin). It says nothing about live customers.
 
+## Fourth test (v4): the rules decide, Nemotron only reads
+
+**Pre-registered verdict: no clear difference.** On 600 customer replies frozen before the run, the shop sent the same offer as a perfect read on 99.0 % of replies with Nemotron 3 Super reading and on 99.3 % with the hardened rulebook reading: Super - rules -0.33 pp [-1.33, +0.67] (paired bootstrap, 2,000 draws, seed 7). The rule needed +10 pp with the interval above 0.
+
+v1–v3 had the model choose the shop's move inside a simulator whose buyers never read the words. v4 tests reading alone: one deterministic `offer()` (`second_read/offer.py`; prices only from the shop's menu, never below the owner's floor) turns what a reader extracted from a reply (stop, a price ceiling, items to drop, a deadline, a wait, someone else who must agree, ready to book) into an offer. A reply counts as matched when that offer equals the offer from the true facts.
+
+- Pre-registered: `second_read/PREREG.md`; freeze `data/second_read/FREEZE.json` (canonical digest `0e035897…1e496`: sha256 of every file under `second_read/`, the Nemotron prompt, the dev data, the test seed, the strata weights and the decision rule), committed in `9502754` at 2026-10-28T22:47:41Z and pushed before the test split existed. Test split (600 replies, seed `test-20261028`) generated after that and committed in `a4e97c1` at 2026-10-28T22:50:37Z (sha256 `df37cd7a…1898c`). Smoke 30 replies × 5 readers (mechanics and cost only); run started 2026-10-28T22:51:16Z, 3,000 rows.
+- Both readers were built on a separate 200-reply dev split only: the rulebook by a lane that never called Nemotron (24 minutes of a 2-hour box, `second_read/RULES-HARDENING-LOG.md`), the Nemotron prompt in 13 minutes (`second_read/NEMOTRON-PROMPT-LOG.md`). On dev: rules 100 %, Super 99.0 %.
+- Disclosure: v4 is the fourth test of B2, designed after v1–v3 were known.
+
+| reader | replies | same offer as a perfect read | 95 % CI | invalid / failed | missed stops (of 48) | false stops | $ per 1,000 replies | p50 s |
+|---|---|---|---|---|---|---|---|---|
+| hardened rules | 600 | 99.3 % | [98.3, 99.7] | 0 | 2 | 0 | 0 | 0 |
+| Nemotron 3 Super (primary) | 600 | 99.0 % | [97.8, 99.5] | 0 | 0 | 0 | 0.66 | 1.25 |
+| Nemotron 3.5 Lightning | 600 | 96.2 % | [94.3, 97.4] | 15 | 10 | 0 | 0.09 | 0.73 |
+| Nemotron 3 Ultra | 600 | 100.0 % | [99.4, 100.0] | 0 | 0 | 0 | 2.83 | 1.86 |
+| Nemotron 3.5 Super-VL | 600 | 99.8 % | [99.1, 100.0] | 0 | 0 | 0 | 0.63 | 1.00 |
+
+Lightning, Ultra and Super-VL are descriptive (not part of the decision rule).
+
+- Per stratum, Super - rules: one plain fact -2.67 pp [-5.33, -0.67]; two or three facts 0.0 [-1.43, +1.43]; paraphrase +0.67 [-1.33, +3.33]; Spanish/Spanglish +1.11 [0.0, +3.33]. Unadjusted.
+- Stops (secondary, pre-registered): 48 of the 600 replies ask the shop to stop, 24 of them without the word "stop". The rulebook missed 2 ("Please don't ever contact me again."; "Please, no más contacto de ustedes."); Super, Ultra and Super-VL missed none; Lightning missed 10.
+- Where each lost (post-hoc, descriptive; written after the run): the rulebook's 4 misses are the 2 stops above, an optional item named loosely ("that extra surge thing") and an item dropped in a sentence that also named a price. Super's 6 misses: 4 replies where the customer repeated the estimate's own price and Super read it as a price ceiling, 1 dropped item missed, and "a couple months or so" read as 2 weeks instead of 8.
+- Fidelity: a blind non-NVIDIA judge (`Qwen/Qwen3-235B-A22B-Instruct-2507`) gives the gold offer on 82.0 % of replies. On the 492 replies where it agrees with gold: Super - rules +0.2 pp [-0.61, +1.02].
+- Spend: run $2.65, smoke $0.12, test replies $0.11 of real Token Factory spend (v4 ceiling $8.00 in code).
+- What this shows, and what it does not: both readers are near the ceiling on these replies, so this test cannot separate them. The replies were written by one model from facts we chose, and the rulebook was hardened on 200 replies from the same writer, so its 99.3 % says how well rules cover that writer's phrasing, not how they would cover real customers. What the run does show: the shop can keep every money decision in code and let Nemotron read, with no loss in this test, 0 missed stops of 48 for Super, Ultra and Super-VL, and about $0.66 per 1,000 replies for Super.
+
 ## What is real, what is seeded, what is simulated
 
 - Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text, on simulated conversations. The $ score depends only on the chosen move: the buyer code never reads the shop's message (`second_ask/tournament/env.py`, `react`), so message wording changes no customer decision and message quality is not measured. The compliance rules in code.

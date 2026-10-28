@@ -1,0 +1,252 @@
+{
+ "arms": {
+  "lightning": {
+   "failures_by_kind": {
+    "invalid": 15,
+    "platform": 0
+   },
+   "false_stops": 0,
+   "match": 577,
+   "match_ci95_pct": [
+    94.31,
+    97.43
+   ],
+   "match_rate_pct": 96.17,
+   "missed_stops": 10,
+   "missed_stops_from_failures": 10,
+   "missing_lines": 0,
+   "money_per_100": {
+    "booked": 74.67,
+    "gained_usd": 36.75,
+    "given_away_usd": 22.25,
+    "lost_usd": 351.92,
+    "margin_usd": 101401.0,
+    "messages_after_stop": 0
+   },
+   "n": 600,
+   "p50_seconds": 0.73,
+   "reader_failures": 15,
+   "usd_per_1000": 0.0926,
+   "usd_total": 0.0555
+  },
+  "rules": {
+   "failures_by_kind": {
+    "invalid": 0,
+    "platform": 0
+   },
+   "false_stops": 0,
+   "match": 596,
+   "match_ci95_pct": [
+    98.3,
+    99.74
+   ],
+   "match_rate_pct": 99.33,
+   "missed_stops": 2,
+   "missed_stops_from_failures": 0,
+   "missing_lines": 0,
+   "money_per_100": {
+    "booked": 75.0,
+    "gained_usd": 0.0,
+    "given_away_usd": 0.0,
+    "lost_usd": 374.0,
+    "margin_usd": 101364.42,
+    "messages_after_stop": 2
+   },
+   "n": 600,
+   "p50_seconds": 0.0,
+   "reader_failures": 0,
+   "usd_per_1000": 0.0,
+   "usd_total": 0.0
+  },
+  "super": {
+   "failures_by_kind": {
+    "invalid": 0,
+    "platform": 0
+   },
+   "false_stops": 0,
+   "match": 594,
+   "match_ci95_pct": [
+    97.84,
+    99.54
+   ],
+   "match_rate_pct": 99.0,
+   "missed_stops": 0,
+   "missed_stops_from_failures": 0,
+   "missing_lines": 0,
+   "money_per_100": {
+    "booked": 75.17,
+    "gained_usd": 0.0,
+    "given_away_usd": 154.17,
+    "lost_usd": 90.75,
+    "margin_usd": 101493.5,
+    "messages_after_stop": 0
+   },
+   "n": 600,
+   "p50_seconds": 1.253,
+   "reader_failures": 0,
+   "usd_per_1000": 0.6566,
+   "usd_total": 0.394
+  },
+  "super_vl": {
+   "failures_by_kind": {
+    "invalid": 0,
+    "platform": 0
+   },
+   "false_stops": 0,
+   "match": 599,
+   "match_ci95_pct": [
+    99.06,
+    99.97
+   ],
+   "match_rate_pct": 99.83,
+   "missed_stops": 0,
+   "missed_stops_from_failures": 0,
+   "missing_lines": 0,
+   "money_per_100": {
+    "booked": 75.33,
+    "gained_usd": 0.0,
+    "given_away_usd": 18.0,
+    "lost_usd": 0.0,
+    "margin_usd": 101720.42,
+    "messages_after_stop": 0
+   },
+   "n": 600,
+   "p50_seconds": 1.003,
+   "reader_failures": 0,
+   "usd_per_1000": 0.6327,
+   "usd_total": 0.3796
+  },
+  "ultra": {
+   "failures_by_kind": {
+    "invalid": 0,
+    "platform": 0
+   },
+   "false_stops": 0,
+   "match": 600,
+   "match_ci95_pct": [
+    99.36,
+    100.0
+   ],
+   "match_rate_pct": 100.0,
+   "missed_stops": 0,
+   "missed_stops_from_failures": 0,
+   "missing_lines": 0,
+   "money_per_100": {
+    "booked": 75.33,
+    "gained_usd": 0.0,
+    "given_away_usd": 0.0,
+    "lost_usd": 0.0,
+    "margin_usd": 101738.42,
+    "messages_after_stop": 0
+   },
+   "n": 600,
+   "p50_seconds": 1.862,
+   "reader_failures": 0,
+   "usd_per_1000": 2.8263,
+   "usd_total": 1.6958
+  }
+ },
+ "decision_rule": "Nemotron Super reading beats the hardened rules only if the paired difference in match rate is ≥ +10 percentage points AND the lower bound of the 95 % paired bootstrap interval (2,000 draws, seed 7, over test lines) is > 0, AND Super's missed-stop count is not higher than the rules'. Upper bound < 0 → behind. Otherwise → no clear difference (not a tie).",
+ "fidelity": {
+  "agreement_pct": 82.0,
+  "lines_with_judge": 600,
+  "per_stratum_pct": {
+   "S1": 70.0,
+   "S2": 88.1,
+   "S3": 80.67,
+   "S4": 90.0
+  }
+ },
+ "freeze_digest": "0e0358977b9143953e0765d43222a0de64ed849e41d6c533b9c7d908f041e496",
+ "gold_reference_per_100": {
+  "booked": 75.33,
+  "margin_usd": 101738.42
+ },
+ "lines": 600,
+ "per_stratum": {
+  "S1": {
+   "match_rate_pct": {
+    "lightning": 97.33,
+    "rules": 100.0,
+    "super": 97.33,
+    "super_vl": 99.33,
+    "ultra": 100.0
+   },
+   "n": 150,
+   "super_minus_rules": {
+    "diff_pp": -2.67,
+    "hi_pp": -0.67,
+    "lo_pp": -5.33,
+    "n": 150
+   }
+  },
+  "S2": {
+   "match_rate_pct": {
+    "lightning": 94.29,
+    "rules": 99.52,
+    "super": 99.52,
+    "super_vl": 100.0,
+    "ultra": 100.0
+   },
+   "n": 210,
+   "super_minus_rules": {
+    "diff_pp": 0.0,
+    "hi_pp": 1.43,
+    "lo_pp": -1.43,
+    "n": 210
+   }
+  },
+  "S3": {
+   "match_rate_pct": {
+    "lightning": 98.0,
+    "rules": 98.67,
+    "super": 99.33,
+    "super_vl": 100.0,
+    "ultra": 100.0
+   },
+   "n": 150,
+   "super_minus_rules": {
+    "diff_pp": 0.67,
+    "hi_pp": 3.33,
+    "lo_pp": -1.33,
+    "n": 150
+   }
+  },
+  "S4": {
+   "match_rate_pct": {
+    "lightning": 95.56,
+    "rules": 98.89,
+    "super": 100.0,
+    "super_vl": 100.0,
+    "ultra": 100.0
+   },
+   "n": 90,
+   "super_minus_rules": {
+    "diff_pp": 1.11,
+    "hi_pp": 3.33,
+    "lo_pp": 0.0,
+    "n": 90
+   }
+  }
+ },
+ "primary": {
+  "arms": [
+   "super",
+   "rules"
+  ],
+  "complete": true,
+  "diff_pp": -0.33,
+  "hi_pp": 0.67,
+  "lo_pp": -1.33,
+  "n": 600
+ },
+ "sensitivity_judge_agreed": {
+  "diff_pp": 0.2,
+  "hi_pp": 1.02,
+  "lo_pp": -0.61,
+  "n": 492
+ },
+ "split": "test",
+ "split_sha256": "df37cd7ad6dd711a8859e7e7bf36d6d0eff89ca7daafb52a434d3e2a1851898c",
+ "verdict": "no clear difference"
+}
