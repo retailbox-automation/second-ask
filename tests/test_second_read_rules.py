@@ -285,3 +285,35 @@ def test_start_point_reader_runs():
 def test_more_wordings(job, text, field, want):
     got = getattr(read(job, text), field)
     assert (got.lower() if field == "decider" else got) == (want.lower() if field == "decider" else want)
+
+
+@pytest.mark.parametrize("job,text,want", [
+    ("ev", "no puedo gastar más de 1500", {"ceiling_usd": 1500.0}),
+    ("ev", "me cotizaron 1,600 en otro lado, si me lo igualan lo hago con ustedes", {"ceiling_usd": 1600.0}),
+    ("furnace", "no necesitamos el plan de mantenimiento anual", {"drop_items": ["Annual maintenance plan"]}),
+    ("ac", "quítenme el termostato inteligente", {"drop_items": ["Smart thermostat"]}),
+    ("ac", "el purificador no lo queremos", {"drop_items": ["UV air purifier"]}),
+    ("chimney", "sin la limpieza de canaletas", {"drop_items": ["Gutter cleaning"]}),
+    ("ev", "eso del módulo de carga no lo necesito", {"drop_items": ["Load management module"]}),
+    ("shower", "lo necesito listo antes del viernes", {"need_by": "2026-11-05"}),   # before Friday = by Thursday
+    ("shower", "a más tardar el 20 de este mes", {"need_by": "2026-11-20"}),
+    ("shower", "dentro de unas 3 semanas", {"wait_weeks": 3}),
+    ("shower", "en dos semanitas", {"wait_weeks": 2}),
+    ("shower", "de aquí a dos meses", {"wait_weeks": 8}),
+    ("shower", "el casero tiene que aprobar", {"decider": "landlord"}),
+    ("shower", "mi marido tiene que dar el visto bueno", {"decider": "husband"}),
+    ("shower", "¿cuándo me lo pueden hacer?", {"ready": True}),
+    ("shower", "vamos a hacerlo, ¿cuándo empiezan?", {"ready": True}),
+    ("shower", "por favor no contacten más", {"stop": True}),
+    ("shower", "favor de no contactarme", {"stop": True}),
+    ("shower", "ya no quiero recibir mensajes", {"stop": True}),
+])
+def test_spanish(job, text, want):
+    got = read(job, text).to_dict()
+    expected = Facts().to_dict() | want
+    assert {k: (v.lower() if k == "decider" and v else v) for k, v in got.items()} == \
+        {k: (v.lower() if k == "decider" and v else v) for k, v in expected.items()}
+
+
+def test_day_of_month_said_alone():
+    assert read("shower", "it's needed by the 9th").need_by == "2026-11-09"

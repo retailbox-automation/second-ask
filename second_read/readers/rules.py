@@ -219,7 +219,7 @@ _DATE_PATTERNS = [
     ("wd_day", re.compile(rf"\b(?:{_WD_RE})\.?,?\s+(?:the\s+)?(\d{{1,2}}){_ORD}\b(?!\s*(?:weeks?|semanas?|days?|dias?))")),
     # "the 12th", "el 12"
     ("day", re.compile(r"\b(?:the|el|del|al)\s+(\d{1,2})(?:st|nd|rd|th)\b|\b(?:el|del|al|para el)\s+(\d{1,2})\b"
-                       r"(?!\s*(?:weeks?|semanas?|days?|dias?|de\s+\w+|%))")),
+                       rf"(?!\s*(?:weeks?|semanas?|semanitas?|days?|dias?|%|(?:de\s+)?(?:{_MONTH_RE})\b))")),
     # bare ordinal "by 12th"
     ("day", re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)\b(?!\s*(?:of|de)\b)")),
 ]
@@ -344,7 +344,7 @@ _STOP_PHRASES = re.compile(
     r"|\b(?:lose|delete) my number\b|\bunsubscribe\b|\bopt(?:-| )?out\b|\bleave (?:me|us) alone\b"
     r"|\bno more (?:texts|messages|calls|contact)\b|\bstop all (?:texts|messages|contact)\b"
     # Spanish
-    r"|\bno (?:me|nos) (?:vuelvan a |vuelva a |vuelvas a )?(?:contacten|contacte|contactes|escriban|escriba|escribas|"
+    r"|\bno (?:(?:me|nos) )?(?:vuelvan a |vuelva a |vuelvas a )?(?:contacten|contacte|contactes|escriban|escriba|escribas|"
     r"llamen|llame|llames|manden|mande|mandes|envien|envie|envies|textees|texteen|molesten|moleste|"
     r"contactar|escribir|llamar|mandar|enviar|molestar)\b"
     r"|\bya no (?:me |nos )?(?:contacten|escriban|llamen|manden|envien|molesten|quiero (?:mas )?(?:mensajes|que me))\b"
@@ -356,6 +356,7 @@ _STOP_PHRASES = re.compile(
     r"|\bno (?:quiero|queremos) que (?:me|nos) (?:sigan |vuelvan a )?(?:contacten|escriban|llamen|manden|envien|"
     r"molesten|contactando|escribiendo|llamando|mandando|enviando|molestando|contactar|escribir|llamar)\b"
     r"|\bno (?:me |nos )?(?:vuelvan?|vuelvas) a (?:contactar|escribir|llamar|mandar|enviar|molestar|textear)(?:me|nos)?\b"
+    r"|\bno (?:contactarme|contactarnos|escribirme|escribirnos|llamarme|mandarme|enviarme|textearme|molestarme)\b"
     r"|\bno mas (?:mensajes|textos|llamadas)\b|\bbasta de (?:mensajes|textos|llamadas)\b"
     r"|\b(?:borr|elimin|quit)(?:en|a|e) mi (?:numero|contacto|telefono)\b"
     r"|\bstop a los mensajes\b|\bpara(?:r)? (?:los|con los) mensajes\b")
@@ -416,7 +417,7 @@ _WEEKS = re.compile(
     r"\b(\d{1,2}|a couple of|a couple|couple of|couple|a few|few|one|two|three|four|five|six|seven|eight|nine|ten|"
     r"eleven|twelve|un par de|par de|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)"
     r"(?:\s*(?:-|to|or|a|o)\s*(\d{1,2}|two|three|four|five|six|seven|eight|nine|ten|dos|tres|cuatro|cinco|seis|siete|"
-    r"ocho|nueve|diez))?(?:-?ish)?\s*(?:more\s+|extra\s+|mas\s+)?(weeks?|wks?|semanas?)\b")
+    r"ocho|nueve|diez))?(?:-?ish)?\s*(?:more\s+|extra\s+|mas\s+)?(weeks?|wks?|semanas?|semanitas?)\b")
 _ONE_WEEK = re.compile(r"\b(?:about|around|like|in|for|wait|maybe|roughly|approximately|approx|another|just|only|"
                        r"give it|give me|como|en|dentro de|unos?|unas?)\s+(?:a|one|una)\s+(?:week|semana)\b"
                        r"|\b(?:a|one|una) (?:week|semana) (?:from now|out|or so|later|de ahora|desde hoy|mas)\b"
@@ -501,7 +502,7 @@ _READY = re.compile(
     r"|\bsend (?:the |your |a )?(?:crew|team|guys|someone|tech)\b"
     r"|\b(?:quiero|queremos|quisiera|quisieramos|me gustaria|nos gustaria|vamos a)\s+(?:agendar|reservar|programar|"
     r"apartar|book|schedule|hacer la cita|que vengan)\b"
-    r"|\b(?:agendemos|reservemos|hagamoslo|dale|vamos con eso)\b"
+    r"|\b(?:agendemos|reservemos|hagamoslo|dale|vamos con eso|vamos a hacerlo|adelante con la cita)\b"
     r"|\bbook it ya\b|\bbook it now\b")
 _NOT_READY = re.compile(r"\b(?:before|until|till|til|antes de(?: que)?|hasta que)\s+(?:i|we|yo|nosotros)?\s*"
                         r"(?:can |could |)?(?:book|schedule|lock|commit|agendar|reservar)")
