@@ -54,6 +54,9 @@ def test_no_index_no_network_no_keys():
     assert "X-Robots-Tag: noindex" in (STATIC / "_headers").read_text()
     for f in ("index.html", "app.js", "app.css"):
         t = (STATIC / f).read_text()
+        if f == "index.html":  # the one exception: the visit counter, loaded only on the published https page
+            assert 'if (location.protocol === "https:")' in t and t.count("https://") == 1
+            t = t.replace("https://t.retailbox-automation.com/t.js", "")
         assert not re.search(r"https?://", t), f  # no external scripts, fonts, images or calls
         assert not re.search(r"\b(fetch|XMLHttpRequest|WebSocket|sendBeacon)\b", t), f
     every = "".join((STATIC / f).read_text() for f in os.listdir(STATIC))
