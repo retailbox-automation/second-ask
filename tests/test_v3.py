@@ -53,6 +53,12 @@ def states_from_v1_transcripts(cards):
                 conv.events.append(A.Event(E.at(e["day"]), e["who"], e["channel"], e["text"], e["move"]))
             now = E.at(o["transcript"][i - 1]["day"] + E.SELLER_LATENCY_DAYS)
             yield conv, build_menu(est, conv.offer, conv.slots_after(now))
+            if o["transcript"][i - 1]["who"] == "customer" and not any(e.move_id == "ask_why" for e in conv.events):
+                asked = A.Conversation(est, Recipient(c.tz, c.state), c.open_slots(), trace=Trace(sink=lambda _: None))
+                asked.views, asked.events = conv.views, conv.events[:-1] + [
+                    A.Event(conv.events[-1].at, "shop", conv.events[-1].channel, "What is holding you back?", "ask_why"),
+                    conv.events[-1]]
+                yield asked, build_menu(est, asked.offer, asked.slots_after(now))  # the same words after asking why
 
 
 def test_smart_rules_make_v1s_move_at_every_v1_state(cards, v1_policies):
@@ -343,11 +349,14 @@ def synthetic(tmp_path, gain, false_stop=False, n=200, k=5):
 
 
 @pytest.mark.parametrize("gain,false_stop,expect", [(5.0, False, "beats"), (-5.0, False, "behind"), (0.0, False, "no clear difference"),
+                                                    (0.3, False, "no clear difference"),
                                                     (5.0, True, "no clear difference")])
 def test_decision_rule(tmp_path, m3, gain, false_stop, expect):
     d, jobs = synthetic(tmp_path, gain, false_stop)
     res = V.analyse(d, m3, jobs)
     assert res["verdict"] == expect
+    if gain == 0.3:
+        assert res["d3"]["point"] > 0 > res["d3"]["lo"]  # a positive point estimate alone is not a win
     assert res["handoffs"]["total"] == 1000 and res["handoffs"]["model_move_differs"] == 1000
     if false_stop:
         assert res["table"][HYBRID]["false_opt_out_conversations"] == 1 and res["not_worse_failed_on"] == ["false_opt_outs"]
