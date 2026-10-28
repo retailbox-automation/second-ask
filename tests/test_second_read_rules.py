@@ -264,6 +264,23 @@ def test_start_point_reader_runs():
     ("ac", "I'd appreciate it if you didn't contact me again", "stop", True),
     ("ac", "borren mi número por favor", "stop", True),
     ("ac", "no rush, we want the thermostat and the AC", "drop_items", ()),
+    ("shower", "has to be done by the nineteenth", "need_by", "2026-11-19"),
+    ("shower", "by november twenty-first", "need_by", "2026-11-21"),
+    ("shower", "para el quince de noviembre", "need_by", "2026-11-15"),
+    ("shower", "by next friday (nov 13)", "need_by", "2026-11-13"),     # the written date wins over the weekday
+    ("shower", "by friday next week", "need_by", "2026-11-13"),
+    ("shower", "has to be done b4 the 14th", "need_by", "2026-11-13"),
+    ("ev", "lo máximo que puedo pagar es $1.850", "ceiling_usd", 1850.0),
+    ("ev", "2,450 is my max, sorry", "ceiling_usd", 2450.0),           # the cue after the number
+    ("ev", "Not interested. Stop.", "stop", True),
+    ("shower", "not for another month", "wait_weeks", 4),
+    ("shower", "in like 3wks", "wait_weeks", 3),
+    ("ac", "please don't add the thermostat", "drop_items", ("Smart thermostat",)),
+    ("ac", "no me pongan el termostato", "drop_items", ("Smart thermostat",)),
+    ("ac", "skip the smart thermostat upgrade and the UV light thing", "drop_items",
+     ("Smart thermostat", "UV air purifier")),
+    ("ac", "if you can do $9,000, book it and tell me when the crew can come", "ready", True),
+    ("ac", "wen can u guys come", "ready", True),
 ])
 def test_more_wordings(job, text, field, want):
     got = getattr(read(job, text), field)

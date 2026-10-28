@@ -31,11 +31,46 @@ _PUNCT = str.maketrans({"’": "'", "‘": "'", "ʼ": "'", "“": '"', "”": '"
                         "–": " - ", "¿": " ", "¡": " ", " ": " "})
 
 
+_ORD_WORDS = {"first": 1, "second": 2, "third": 3, "fourth": 4, "fifth": 5, "sixth": 6, "seventh": 7, "eighth": 8,
+              "ninth": 9, "tenth": 10, "eleventh": 11, "twelfth": 12, "thirteenth": 13, "fourteenth": 14,
+              "fifteenth": 15, "sixteenth": 16, "seventeenth": 17, "eighteenth": 18, "nineteenth": 19, "twentieth": 20,
+              "thirtieth": 30}
+_ORD_TENS = {"twenty": 20, "thirty": 30}
+_ES_DAYS = {"primero": 1, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8,
+            "nueve": 9, "diez": 10, "once": 11, "doce": 12, "trece": 13, "catorce": 14, "quince": 15,
+            "dieciseis": 16, "diecisiete": 17, "dieciocho": 18, "diecinueve": 19, "veinte": 20, "veintiuno": 21,
+            "veintidos": 22, "veintitres": 23, "veinticuatro": 24, "veinticinco": 25, "veintiseis": 26,
+            "veintisiete": 27, "veintiocho": 28, "veintinueve": 29, "treinta": 30, "treinta y uno": 31}
+_SHORTHAND = [(r"\bw(?:h)?en\b", "when"), (r"\bwhn\b", "when"), (r"\bu\b", "you"), (r"\bur\b", "your"), (r"\bpl[sz]\b", "please"), (r"\bb4\b", "before"),
+              (r"\bnxt\b", "next"), (r"\bthru\b", "through"), (r"&", " and "), (r"\bw/o\b", "without"),
+              (r"\bmos\b", "months"), (r"\bwk\b", "week"), (r"\bwks\b", "weeks"), (r"\bhrs\b", "hours")]
+
+
+def _ordinal_words(t):
+    def tens(m):
+        return f"{_ORD_TENS[m.group(1)] + _ORD_WORDS[m.group(2)]}th"
+    t = re.sub(r"\b(twenty|thirty)[\s-](first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)\b", tens, t)
+    t = re.sub(r"\b(" + "|".join(_ORD_WORDS) + r")\b(?=\s+(?:of\s+)?(?:" + "|".join(
+        ("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec")) + r"))",
+        lambda m: f"{_ORD_WORDS[m.group(1)]}th", t)
+    t = re.sub(r"\bthe (" + "|".join(_ORD_WORDS) + r")\b(?! (?:time|one|thing|step|part|week|weeks|month|option|"
+               r"item|of all|half))", lambda m: f"the {_ORD_WORDS[m.group(1)]}th", t)
+    t = re.sub(r"\b(" + "|".join(sorted(_ES_DAYS, key=len, reverse=True)) + r") de (enero|febrero|marzo|abril|mayo|"
+               r"junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\b",
+               lambda m: f"{_ES_DAYS[m.group(1)]} de {m.group(2)}", t)
+    return t
+
+
 def normalize(text):
-    """Lower case, curly quotes and dashes made plain, accents removed (miércoles -> miercoles), spaces collapsed."""
+    """Lower case, curly quotes and dashes made plain, accents removed (miércoles -> miercoles), texting shorthand
+    spelled out ("u" -> "you", "b4" -> "before"), ordinal words as numbers ("the nineteenth" -> "the 19th",
+    "el quince de noviembre" -> "el 15 de noviembre"), spaces collapsed."""
     t = (text or "").translate(_PUNCT)
-    t = "".join(c for c in unicodedata.normalize("NFKD", t) if not unicodedata.combining(c))
-    return re.sub(r"[ \t]+", " ", t.lower()).strip()
+    t = "".join(c for c in unicodedata.normalize("NFKD", t) if not unicodedata.combining(c)).lower()
+    for pat, sub in _SHORTHAND:
+        t = re.sub(pat, sub, t)
+    t = _ordinal_words(t)
+    return re.sub(r"[ \t]+", " ", t).strip()
 
 
 # ---------------------------------------------------------------------------------------------------------- numbers
@@ -140,14 +175,14 @@ def word_amounts(text):
     return out
 
 
-_DIGIT_AMOUNT = re.compile(r"(\$\s?)?(\d{1,3}(?:,\d{3})+|\d+)(\.\d{1,2})?\s?(k\b|grand\b|mil\b|thousand\b)?")
+_DIGIT_AMOUNT = re.compile(r"(\$\s?)?(\d{1,3}(?:,\d{3})+|\d{1,3}(?:\.\d{3})+(?![\d,])|\d+)(\.\d{1,2})?\s?(k\b|grand\b|mil\b|thousand\b)?")
 
 
 def digit_amounts(text):
     """[(value, start, end, has_dollar)] for digit amounts ("$1,850", "1850", "2k", "$2.5k")."""
     out = []
     for m in _DIGIT_AMOUNT.finditer(text):
-        raw = m.group(2).replace(",", "") + (m.group(3) or "")
+        raw = m.group(2).replace(",", "").replace(".", "") + (m.group(3) or "")
         v = float(raw)
         if m.group(4):
             v *= 1000
@@ -277,13 +312,16 @@ def find_dates(text, today):
                 d = today + timedelta(days=(4 - today.weekday()) % 7 or 7)
             taken.append((m.start(), m.end()))
             found.append([d, m.start(), m.end()])
+    explicit = bool(found)
     for m in _WD_ALONE.finditer(text):
         s, e = m.start(1), m.end(1)
-        if not free(s, e):
+        if explicit or not free(s, e):   # "next friday (nov 13)": the written date wins over the weekday
             continue
-        d = _next_weekday(_WEEKDAYS[m.group(1)], today)
-        if re.search(r"\bnext\s+$", text[max(0, s - 6):s]) and (d - today).days < 7 and False:
-            d += timedelta(days=7)
+        wd = _WEEKDAYS[m.group(1)]
+        d = _next_weekday(wd, today)
+        if re.match(r"\s*(?:of\s+)?next week\b|\s*(?:de\s+)?la (?:proxima|otra) semana\b|\s*de la semana que viene\b",
+                    text[e:e + 30]):
+            d = today - timedelta(days=today.weekday()) + timedelta(days=7 + wd)   # "friday next week"
         taken.append((s, e))
         found.append([d, s, e])
     for f in found:
@@ -327,7 +365,8 @@ _STOP_UPPER = re.compile(r"(?<![A-Za-z])(?:STOP|UNSUBSCRIBE|QUIT|CANCEL)(?![A-Za
 def read_stop(raw, text):
     if _STOP_UPPER.search(raw or ""):
         return True
-    if opt_out_status(_OPT_OUT_OF_ITEM.sub(" ", raw or "")) == "opt_out":
+    cleaned = _OPT_OUT_OF_ITEM.sub(" ", raw or "")
+    if any(opt_out_status(part) == "opt_out" for part in [cleaned] + re.split(r"[.!?\n]+", cleaned) if part.strip()):
         return True
     return bool(_STOP_PHRASES.search(_OPT_OUT_OF_ITEM.sub(" ", text)))
 
@@ -377,13 +416,13 @@ _WEEKS = re.compile(
     r"\b(\d{1,2}|a couple of|a couple|couple of|couple|a few|few|one|two|three|four|five|six|seven|eight|nine|ten|"
     r"eleven|twelve|un par de|par de|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)"
     r"(?:\s*(?:-|to|or|a|o)\s*(\d{1,2}|two|three|four|five|six|seven|eight|nine|ten|dos|tres|cuatro|cinco|seis|siete|"
-    r"ocho|nueve|diez))?(?:-?ish)?\s+(?:more\s+|extra\s+|mas\s+)?(weeks?|wks?|semanas?)\b")
+    r"ocho|nueve|diez))?(?:-?ish)?\s*(?:more\s+|extra\s+|mas\s+)?(weeks?|wks?|semanas?)\b")
 _ONE_WEEK = re.compile(r"\b(?:about|around|like|in|for|wait|maybe|roughly|approximately|approx|another|just|only|"
                        r"give it|give me|como|en|dentro de|unos?|unas?)\s+(?:a|one|una)\s+(?:week|semana)\b"
                        r"|\b(?:a|one|una) (?:week|semana) (?:from now|out|or so|later|de ahora|desde hoy|mas)\b"
                        r"|\bweek from now\b")
 _MONTHS_WAIT = re.compile(
-    r"\b(?:(a|one|an|un|una|1)\s+(?:month|mes)(?:\s+(?:and a half|y medio))?|(\d{1,2}|two|three|four|five|six|"
+    r"\b(?:(a|one|an|un|una|1|another|otro)\s+(?:month|mes)(?:\s+(?:and a half|y medio))?|(\d{1,2}|two|three|four|five|six|"
     r"dos|tres|cuatro|cinco|seis|a couple of|a couple|couple of|un par de)\s+(?:months|meses))\b")
 _NEXT_MONTH = re.compile(r"\b(?:next month|el (?:mes que viene|proximo mes)|el otro mes)\b")
 _NEXT_WEEK_WAIT = re.compile(r"\b(?:until|till|til|wait(?: for| till| until)?|hold off(?: until| till)?|"
@@ -468,13 +507,10 @@ _NOT_READY = re.compile(r"\b(?:before|until|till|til|antes de(?: que)?|hasta que
                         r"(?:can |could |)?(?:book|schedule|lock|commit|agendar|reservar)")
 _STRONG_READY = re.compile(r"\b(?:book|schedule)\b[^.?!]{0,12}\b(?:now|today|asap)\b|\bwhen (?:can|could)\b[^.?!]{0,40}"
                            r"\bcome\b|\bcuando (?:puede|pueden)\b")
-_CONDITIONAL = re.compile(r"^\W*(?:\w+\W+){0,3}?(?:if|once|as soon as|si|cuando (?:mi|el|la))\b")
 
 
 def read_ready(text):
-    hits = [m for m in _READY.finditer(text) if not _CONDITIONAL.match(text[m.end():m.end() + 25])
-            and not re.search(r"\b(?:if|si)\b[^.?!,]{0,30}$", text[max(0, m.start() - 40):m.start()])]
-    if not hits:
+    if not _READY.search(text):
         return False
     if _NOT_READY.search(text) and not _STRONG_READY.search(text):
         return False
@@ -503,7 +539,8 @@ _SYNONYMS = {  # a word of an optional item's name -> other ways people say it (
     "valve": ["valve", "valvula", "llave"],
     "gutter": ["gutter", "gutters", "canaleta", "canaletas", "canalon", "canalones", "desague"],
     "cleaning": ["cleaning", "clean out", "cleanout", "clean-out", "limpieza"],
-    "guards": ["guards", "guard", "protectores de canaleta", "cubiertas", "mallas", "screens", "covers", "leaf filter"],
+    "guards": ["guards", "guard", "protectores de canaleta", "cubiertas", "mallas", "screens", "covers", "leaf filter",
+               "leaf", "leaves", "hojas"],
     "ridge": ["ridge", "cumbrera"],
     "vent": ["vent", "vents", "venting", "ventilation", "ventilacion", "ventila", "respiradero", "rejilla"],
     "load": ["load management", "load manager", "load module", "load", "power-sharing", "power sharing",
@@ -517,7 +554,8 @@ _GENERIC = {"whole", "home", "air", "the", "and", "plan", "smart", "annual", "uv
 # "no" said before the item ("don't need the thermostat", "sin el purificador", "skip the vent")
 _PRE_NEG = re.compile(
     r"(?:don't|do not|dont|doesn't|does not|won't|will not|didn't|wouldn't|would not) (?:really |even |actually |"
-    r"think (?:i|we) (?:really )?|see (?:the )?)?(?:need|want|care for|require|use|bother with|go for|do)\b"
+    r"think (?:i|we) (?:really )?|see (?:the )?)?(?:need|want|care for|require|use|bother with|go for|do|add|include|"
+    r"install|put in|get)\b|\bstrike\b|\bdejen? fuera\b|\bdeja fuera\b"
     r"|\bno need (?:for|of)?\b|\bnot (?:need|want|interested in|including|include|doing|do|bothering with)\b"
     r"|\bwithout\b|\bskip\b|\bskipping\b|\bdrop\b|\bdropping\b|\bremove\b|\bremoving\b|\btake (?:out|off)\b"
     r"|\btake (?:it|that|them|this|the)\b|\bleave (?:out|off)\b|\bleave (?:the|that|it)\b|\bpass on\b|\bnix\b"
@@ -527,7 +565,7 @@ _PRE_NEG = re.compile(
     r"|\bknock (?:off|out)\b|\bknock (?:the|that|it)\b|\bexcept\b|\bexcluding\b|\bforgo\b|\bforego\b|\brather not\b"
     r"|\bdecline\b|\bdeclining\b|\bopt out of\b|\bopting out of\b|\bscratch\b|\bditch\b|\blose the\b|\bexcepto\b"
     # Spanish
-    r"|\bno (?:lo |la |los |las |le )?(?:quiero|queremos|necesito|necesitamos|hace falta|hacen falta|me interesa|"
+    r"|\bno (?:lo |la |los |las |le |me |nos )?(?:quiero|queremos|necesito|necesitamos|hace falta|hacen falta|me interesa|"
     r"nos interesa|ocupo|ocupamos|incluyan|pongan|instalen)\b|\bsin\b|\bni\b|\bquit(?:a|en|ar|ame|enme|enle|ale)\b"
     r"|\bsaca(?:r|n|me|nme|le)?\b|\belimin(?:a|en|ar)\b|\bborr(?:a|en|ar)\b|\bmenos\b")
 # "no" said after the item ("the purifier we don't need", "the module isn't needed", "el tanque no lo necesito")
@@ -566,6 +604,10 @@ def _positions(clause, keys):
     return sorted(spans)
 
 
+_LIST_GAP = re.compile(r"[\s,]*(?:[a-z'\-]+\s+){0,2}?(?:or|and|nor|ni|o|y|&|/|plus|as well as|or even)?[\s,]*(?:(?:the|el|la|los|las|that|"
+                       r"those|any|ni|also|tambien)\s+)?(?:[a-z'\-]+\s+){0,2}?")
+
+
 def read_drops(text, items):
     """Optional items they say they do not want: the item named (or described) with a "no" right before it in the same
     clause ("don't need the thermostat", "sin el purificador") or right after it ("the module isn't needed")."""
@@ -585,7 +627,8 @@ def read_drops(text, items):
                 # another item sits in between: only the stretch after it counts, unless a list joins them
                 # ("no thermostat or purifier", "ni el termostato ni el purificador")
                 gap = c[prev_end:s]
-                if re.fullmatch(r"\s*(?:,|or|and|nor|ni|o|y|&|/)?\s*(?:the|el|la|los|las|that|ni)?\s*", gap):
+                if _LIST_GAP.fullmatch(gap) and not _POSITIVE_RE.search(gap) and not (
+                        _PRE_NEG.search(gap) and not re.fullmatch(r"[\s,]*(?:nor|ni)\s+(?:(?:the|el|la|los|las)\s+)?", gap)):
                     if n not in out and mentions[idx - 1][2] in out:
                         out.add(n)
                     continue
@@ -611,6 +654,10 @@ _CUE = re.compile(r"(?:max|maximum|most|up to|upto|go over|go above|more than|ov
                   r"willing|offer|offering|match|all-in|all in|ceiling|limit|top|under|tops|no more than|at most|"
                   r"maximo|pagar|pago|cotizo|cotizaron|presupuesto|hasta|ofrezco|tope|limite|gastar|mas de)\W*"
                   r"(?:\w+\W+){0,3}$")
+_CUE_AFTER = re.compile(r"\s*(?:dollars|bucks|usd|dolares)?\s*(?:,\s*)?(?:(?:is|would be|will be|es|seria|as)\s+)?"
+                        r"(?:(?:my|the|our|mi|el|mis|absolute|tops|at most)\s+)*(?:max|maximum|limit|budget|ceiling|top|"
+                        r"tops|cap|tope|limite|maximo|most|best i can|all-in|all in|todo incluido|or less|and not a "
+                        r"penny more|is all|is what i can)\b")
 _NEG_CUE = re.compile(r"(?:can't|cannot|can not|won't|not)\s+(?:do|pay|afford|spend)\s*$")
 
 
@@ -657,8 +704,8 @@ def read_ceiling(text, items, spans):
     good = []
     for v, s, e, dollar in cands:
         before = text[max(0, s - 40):s]
-        cue = bool(_CUE.search(before)) and not _NEG_CUE.search(before)
         after = text[e:e + 30]
+        cue = (bool(_CUE.search(before)) and not _NEG_CUE.search(before)) or bool(_CUE_AFTER.match(after))
         too_much = re.search(r"^\s*(?:is|es|seems|feels|sounds|esta)\s+(?:too|a bit|a little|way|kind of|kinda|"
                              r"more than|over|above|out of|beyond|demasiado|mucho|muy|caro|steep|high|a lot)", after)
         if too_much:
