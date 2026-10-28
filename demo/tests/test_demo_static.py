@@ -57,6 +57,9 @@ def test_no_index_no_network_no_keys():
         if f == "index.html":  # the one exception: the visit counter, loaded only on the published https page
             assert 'if (location.protocol === "https:")' in t and t.count("https://") == 1
             t = t.replace("https://t.retailbox-automation.com/t.js", "")
+        if f == "app.js":  # a plain link to the public repo (an anchor, not a request)
+            assert t.count("https://") == 1 and 'var REPO = "https://github.com/retailbox-automation/second-ask";' in t
+            t = t.replace("https://github.com/retailbox-automation/second-ask", "")
         assert not re.search(r"https?://", t), f  # no external scripts, fonts, images or calls
         assert not re.search(r"\b(fetch|XMLHttpRequest|WebSocket|sendBeacon)\b", t), f
     every = "".join((STATIC / f).read_text() for f in os.listdir(STATIC))

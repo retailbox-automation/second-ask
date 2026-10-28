@@ -4,6 +4,9 @@ A follow-up agent for home-service shops, built on NVIDIA Nemotron models served
 pre-registered test of whether it beats a good set of rules. Entry for the Nebius × NVIDIA Global AI Hackathon (track:
 Best Apps and Agents).
 
+Demo: https://second-ask.retailbox-automation.com/ (a static replay of recorded conversations; it opens on the agent's
+next move and its dollar effect). Results: [RESULTS.md](RESULTS.md).
+
 <!-- evidence:start -->
 | Evidence | Where | What it shows |
 |---|---|---|
@@ -40,6 +43,22 @@ A shop sends an estimate and the customer goes quiet. For each reply, or each si
 Prices on the menu never go below the owner's floor. The messaging rules (quiet hours, message caps, opt-out, disclosure
 that it is an assistant) are enforced in code; the model only picks a move id and writes the text. In the shipped
 configuration Nemotron Super labels and chooses.
+
+## Nemotron on Token Factory: which model does what
+
+Every model call goes to Nebius Token Factory (`second_ask/tf_client.py`; model IDs in `second_ask/models.py`).
+
+| Step | Model | How it is called | Why this model (measured) |
+|---|---|---|---|
+| Label why the customer is quiet | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off | spike S3: label right on 19/20 test states with a named tool; the tournament's pre-registered rule replaced Lightning with Super ([RESULTS.md](RESULTS.md)) |
+| Pick the next move from the code-built menu, write the message | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning on | spike S7: 0.950 of 60 calls right, against 0.883 for Ultra at about 3.9 times the cost per choice (`evidence/spikes/RESULTS.md`) |
+| Book the accepted job (tool loop: slots, book, record) | `nvidia/nemotron-3-super-120b-a12b` | tools, reasoning on | spike: 20/20 tool calls parsed |
+| Comparison arms in the tests | Nemotron 3.5 Lightning, Nemotron 3 Ultra, Nemotron 3.5 Super-VL | as above, per policy | the first design labelled with Lightning; Ultra and Super-VL ran as policies of their own |
+| Simulated customers' words (test harness only) | `Qwen/Qwen3-30B-A3B-Instruct-2507` (v2: `deepseek-ai/DeepSeek-V4-Flash-0731`) | JSON object | deliberately not NVIDIA, so Nemotron never grades itself |
+
+Prices never come from a model: the shop's code builds the menu and enforces the owner's floor, quiet hours, message caps
+and opt-out before anything is sent. In the third test (v3), the rules decide and Super is called only where the rules
+do not recognise the reason in the customer's words.
 
 ## Demo
 
@@ -91,6 +110,23 @@ python3 -m second_ask.tournament.run full --approve 1c231403c8fd5e1109ad1bad04ad
   - the clock.
 
 All $ are simulated margin on illustrative prices, not market data.
+
+## Platform findings (Token Factory, 2026)
+
+From our spikes and runs; evidence in `evidence/spikes/` and `evidence/platform/`.
+
+1. Spend control. The console has no spend cap or budget alert (the /organization/budgets page returned "Not found" on 2026-10-24), and the billing docs say a negative balance is charged to the card at the start of the month. We had to build a hard cap in our own client. A per-key or per-project cap would help most.
+2. Nano reasoning reporting. Nemotron Nano reports no reasoning tokens: completion_tokens_details was null in 83 of 83 Nano responses, so in the usage we receive, hidden reasoning cannot be told apart from visible output. gpt-oss-120b behaves the same way.
+3. Nano reasoning switch. reasoning_effort "none" on Nano returns HTTP 200 with empty content and the answer in message.reasoning. chat_template_kwargs.enable_thinking=false works on all four ladder models. One documented switch that works the same way on every Nemotron would help.
+4. The reasoning text field differs per model: Nano uses message.reasoning, Lightning and Super fill reasoning and reasoning_content, Ultra fills only reasoning_content.
+5. Rate-limit headers do not match enforcement. Super ran 577 calls/min for two minutes against x-ratelimit-limit-requests 300, and x-ratelimit-remaining-requests read 0 on 564 calls with no 429.
+6. 503 bursts. In one 38-minute run we saw HTTP 503 x31 on Qwen3-30B, x6 on Ultra, x2 each on Lightning and Super, and 502/503 on Super-VL; the client's retries absorbed most of them, and three conversations still needed a re-run by our runner.
+7. Model ID casing is inconsistent (nemotron-3-super-120b-a12b in lower case, Nemotron-3_5-Lightning capitalized with an underscore). A filter on "Super" missed a model.
+8. Super-VL lists no supported sampling parameters in /v1/models?verbose=true, and no model supports seed, which makes repeated runs harder to compare.
+9. Strict json_schema is accepted on Lightning, which contradicts the OpenAPI field description.
+10. Flex tier: service_tier "flex" worked (p50 1.69 s against 0.86 s) and did not decrement the token rate limit, but we could not see flex billed separately.
+11. Credits and onboarding. The Devpost activation code is not a promo code ("Invalid promo code" in Top up); the real code arrives by e-mail after a form. The bare promo form answers "Error: no event name found" without the event link parameters. Onboarding requires a card even with promo credit, and the "Company" payer type requires a Tax ID.
+12. Usage and billing lag: on 2026-10-23 the Usage page trailed our runs by about two hours.
 
 ## Layout
 

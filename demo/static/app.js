@@ -3,6 +3,7 @@
   "use strict";
   var D = window.SECOND_ASK, S = D.scenarios, T0 = Date.UTC(2026, 10, 2, 14, 0); // every estimate is sent Mon Nov 2
   var RESULTS_ANCHOR = "results.html#main-comparison-pre-registered-nemotron-against-a-good-rulebook";
+  var REPO = "https://github.com/retailbox-automation/second-ask";
   var $ = function (id) { return document.getElementById(id); };
   var LABELS = { price: "Price", timing: "Timing", family: "Family decision", channel: "Missed message",
     ready_to_book: "Ready to book", opt_out: "Asked to stop" };
@@ -197,7 +198,7 @@
       $("nMove").textContent = moveLine(sc, dec);
       $("nEff").innerHTML = e.kept != null
         ? '<b class="effv">' + (e.kept >= 0 ? "+" : "−") + usd(Math.abs(e.kept)) + '</b><span>kept against a discount-first reply, which would offer ' +
-          usd(e.discount_first.price) + " here (the floor). Our stand-in rule, simulated prices.</span>"
+          usd(e.discount_first.price) + " here (the floor). Our stand-in rule, simulated prices. Against a good rulebook Nemotron did not win: see the result below.</span>"
         : '<b class="effv zero">$0</b><span>given away: a discount-first reply would not discount here either.</span>';
     }
     rows.push(whoRow(++n, "Shop code", " lists the " + (dec.menu || []).length + " moves it allows; the floor (" + usd(sc.code.floor) + ") lives in the code", null));
@@ -278,10 +279,10 @@
 
   function renderResult() {
     var R = D.results.rows;
-    $("result").innerHTML = "<span><b>Main result, pre-registered:</b> Nemotron did not beat a good rulebook. First design (Lightning labels, Super chooses): " +
+    $("result").innerHTML = "<span><b>Second Ask</b> picks the next move for a quiet home-service estimate, with NVIDIA Nemotron on Nebius Token Factory. <b>Main result, pre-registered:</b> Nemotron did not beat a good rulebook. First design (Lightning labels, Super chooses): " +
       '<span class="neg">' + esc(R["routed - smart_rules"].per_customer) + "</span>, behind. Super alone: " +
-      '<span class="ncd">' + esc(R["super_only - smart_rules"].per_customer) + "</span>, no clear difference (not a tie). Simulated margin on illustrative prices; seeded demo shop.</span>" +
-      '<a href="' + RESULTS_ANCHOR + '">Read RESULTS</a>';
+      '<span class="ncd">' + esc(R["super_only - smart_rules"].per_customer) + "</span>, no clear difference (not a tie). A third test, rules first with Nemotron only where they don't know, also came out behind. Simulated margin on illustrative prices; seeded demo shop.</span>" +
+      '<span class="links"><a href="' + RESULTS_ANCHOR + '">Read RESULTS</a><a href="' + REPO + '">Repo</a></span>';
   }
 
   function render() {

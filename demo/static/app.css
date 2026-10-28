@@ -166,7 +166,8 @@ button,select{font:inherit;color:inherit}
 .result b{color:var(--ink)}
 .result .neg{color:var(--red);font-weight:700;white-space:nowrap}
 .result .ncd{color:#5d606a;font-weight:700;white-space:nowrap}
-.result a{margin-left:auto;flex:none;font-weight:700;color:#fff;background:var(--ink);padding:8px 14px;border-radius:10px;text-decoration:none;white-space:nowrap}
+.result .links{margin-left:auto;flex:none;display:flex;gap:8px}
+.result a{flex:none;font-weight:700;color:#fff;background:var(--ink);padding:8px 14px;border-radius:10px;text-decoration:none;white-space:nowrap}
 
 /* phones and narrow screens: one column, no absolute layout */
 @media (max-width:1199px){
@@ -229,7 +230,7 @@ button,select{font:inherit;color:inherit}
   .rows .end{font-size:14px;margin-left:auto}
   .rows .mchip{font-size:14px;padding:4px 10px}
   .result{flex-wrap:wrap;padding:12px 16px;font-size:14px}
-  .result a{margin-left:0}
+  .result .links{margin-left:0}
   /* calendar: agenda list instead of a week grid */
   .cal{display:block;height:auto}
   .cal .hours,.cal .hl,.cal .dh{display:none}
