@@ -69,3 +69,13 @@ size. The pre-registered v4 run reads every size on the test split anyway.
 
 Time box closed 2026-10-28 22:37Z (about 13 minutes of the 2 hours used; the $0.80 budget, not the clock, ended the
 work). Full suite at the commit: 617 passed, 14 skipped.
+
+## Main-session check after the lane closed (2026-10-28 22:37:54–22:38:37Z)
+
+Two example amounts in the prompt were numbers taken from single dev lines ("I can't go over 560", "if we can keep it at
+2500 total"). They were replaced by amounts that appear in no dev line ("700", "3200"), so the prompt holds no dev-line
+number. One re-score on dev with the changed prompt (Super, tool, single sample): offer match 198/200 = 99.0 %, exact
+Facts 187/200 = 93.5 %, reader failures 0, false stops 0, missed stops 0, $0.1311, p50 1.5 s; per field stop 100 %,
+ceiling 99.5 %, drop items 100 %, need_by 98.0 %, wait 100 %, decider 100 %, ready 96.0 %; per stratum offer match S1
+49/50, S2 70/70, S3 50/50, S4 29/30. Within the one-line run-to-run spread the lane measured. This is the prompt that
+goes into the freeze.
