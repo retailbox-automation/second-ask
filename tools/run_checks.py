@@ -488,6 +488,134 @@ def v3_section():
     return L + [""]
 
 
+V4 = ROOT / "data" / "second_read"
+V4_ARMS = (("rules", "hardened rules"), ("super", "Nemotron 3 Super (primary)"), ("lightning", "Nemotron 3.5 Lightning"),
+           ("ultra", "Nemotron 3 Ultra"), ("super_vl", "Nemotron 3.5 Super-VL"))
+V4_STRATA = {"S1": "one plain fact", "S2": "two or three facts", "S3": "paraphrase", "S4": "Spanish/Spanglish"}
+
+
+def v4_results():
+    f = V4 / "test" / "results.json"
+    return json.loads(f.read_text()) if f.exists() else None
+
+
+def _pp(c):
+    return f"{c['diff_pp']:+.2f} pp [{c['lo_pp']:+.2f}, {c['hi_pp']:+.2f}]".replace("+0.00", "0.00")
+
+
+def v4_status():
+    """One sentence on the fourth test for README, or None (written as pre-registered in second_read/PREREG.md)."""
+    r = v4_results()
+    if not r:
+        return None
+    a, p = r["arms"], r["primary"]
+    if r["verdict"] == "beats":
+        return (f"Fourth test: with the rules keeping every money decision and Nemotron Super reading the reply, the shop "
+                f"sent the same offer as a perfect read on {a['super']['match_rate_pct']} % of {p['n']} replies against "
+                f"{a['rules']['match_rate_pct']} % for the hardened rules ({_pp(p)}, pre-registered).")
+    return (f"A fourth test had Nemotron only read the customer while the rules decide: same offer as a perfect read on "
+            f"{a['super']['match_rate_pct']} % of {p['n']} synthetic replies with Super, {a['rules']['match_rate_pct']} % "
+            f"with the hardened rules, {r['verdict']} (pre-registered).")
+
+
+def _v4_miss_kinds(rows, tests, arm):
+    """Post-hoc: what the read got wrong on each mismatched reply, by field (counts)."""
+    kinds = Counter()
+    for x in rows:
+        if x["arm"] != arm or x["match"]:
+            continue
+        g, f = tests[x["id"]]["gold"], x["facts"] or {}
+        if x["failure"]:
+            kinds["no valid read"] += 1
+            continue
+        if g["stop"] and not f.get("stop"):
+            kinds["missed a stop"] += 1
+            continue
+        if g.get("ceiling_usd") is None and f.get("ceiling_usd") is not None:
+            kinds["read a price as a ceiling"] += 1
+        if sorted(g.get("drop_items") or []) != sorted(f.get("drop_items") or []):
+            kinds["missed or added a dropped item"] += 1
+        if g.get("wait_weeks") != f.get("wait_weeks"):
+            kinds["wrong wait"] += 1
+        if g.get("need_by") != f.get("need_by"):
+            kinds["wrong deadline"] += 1
+    return kinds
+
+
+def v4_section():
+    """The fourth test (v4), from data/second_read/ (FREEZE, test split, run rows, second_read.analysis output) only."""
+    r = v4_results()
+    if not r:
+        return []
+    rows = [json.loads(x) for x in (V4 / "test" / "rows.jsonl").read_text().splitlines() if x.strip()]
+    tests = {t["id"]: t for t in (json.loads(x) for x in (V4 / "test.jsonl").read_text().splitlines() if x.strip())}
+    smoke = [json.loads(x) for x in (V4 / "smoke-test" / "rows.jsonl").read_text().splitlines() if x.strip()]
+    st = json.loads((V4 / "test" / "run_state.json").read_text())
+    summ = json.loads((V4 / "test-summary.json").read_text())
+    fz = json.loads((V4 / "FREEZE.json").read_text())
+    when = lambda c: datetime.fromisoformat(_git("log", "-1", "--format=%cI", c)).astimezone(timezone.utc).strftime(
+        "%Y-%m-%dT%H:%M:%SZ")
+    freeze = _git("log", "-1", "--format=%h", "--", "data/second_read/FREEZE.json")
+    split = _git("log", "--diff-filter=A", "--format=%h", "--", "data/second_read/test.jsonl").splitlines()[-1]
+    a, p, n = r["arms"], r["primary"], r["lines"]
+    stops = [t for t in tests.values() if t["gold"]["stop"]]
+    worded = sum(1 for t in stops if "stop" not in t["text"].lower())
+    missed = lambda arm: [tests[x["id"]]["text"] for x in rows if x["arm"] == arm and x["gold_stop"] and not x["read_stop"]]
+    usd = lambda rs: sum(x.get("usd") or 0.0 for x in rs)
+    kinds = lambda arm: "; ".join(f"{k} {v}" for k, v in _v4_miss_kinds(rows, tests, arm).most_common())
+    nmiss = lambda arm: sum(1 for x in rows if x["arm"] == arm and not x["match"])
+    L = ["## Fourth test (v4): the rules decide, Nemotron only reads", "",
+         f"**Pre-registered verdict: {r['verdict']}.** On {n} customer replies frozen before the run, the shop sent the "
+         f"same offer as a perfect read on {a['super']['match_rate_pct']} % of replies with Nemotron 3 Super reading and "
+         f"on {a['rules']['match_rate_pct']} % with the hardened rulebook reading: Super - rules {_pp(p)} (paired "
+         f"bootstrap, 2,000 draws, seed 7). The rule needed at least +10 pp with the whole interval above 0.", "",
+         "v1–v3 had the model choose the shop's move inside a simulator whose buyers never read the words. v4 tests "
+         "reading alone: one deterministic `offer()` (`second_read/offer.py`; prices only from the shop's menu, never "
+         "below the owner's floor) turns what a reader extracted from a reply (stop, a price ceiling, items to drop, a "
+         "deadline, a wait, someone else who must agree, ready to book) into an offer. A reply counts as matched when "
+         "that offer equals the offer from the true facts.", "",
+         f"- Pre-registered: `second_read/PREREG.md`; `data/second_read/FREEZE.json` ({len(fz['files'])} files under "
+         f"`second_read/` by sha256, the Nemotron prompt, the dev data, the test seed, the strata weights and the decision "
+         f"rule; canonical digest `{r['freeze_digest'][:12]}…`), committed in `{freeze}` at {when(freeze)} and pushed "
+         f"before the test split existed. Test split ({n} replies, seed `{fz['test_split']['seed']}`, sha256 "
+         f"`{r['split_sha256'][:12]}…`) generated after that and first committed in `{split}` at {when(split)}. Smoke "
+         f"{len({x['id'] for x in smoke})} replies × {len({x['arm'] for x in smoke})} readers (mechanics and cost only); "
+         f"run started {st['started']}, {len(rows)} rows.",
+         "- Both readers were built on a separate 200-reply dev split only: the rulebook by a lane that never called "
+         "Nemotron (`second_read/RULES-HARDENING-LOG.md`), the Nemotron prompt in its own log "
+         "(`second_read/NEMOTRON-PROMPT-LOG.md`). Both reached about 99–100 % on dev.",
+         "- Disclosure: v4 is the fourth test of B2, designed after v1–v3 were known. The replies are synthetic: one "
+         "non-NVIDIA model (`deepseek-ai/DeepSeek-V4-Flash-0731`) wrote them from facts our code chose, and the rulebook "
+         "was hardened on 200 replies from the same writer.", "",
+         f"| reader | replies | same offer as a perfect read | 95 % CI | failed reads | missed stops (of {len(stops)}) "
+         "| false stops | $ per 1,000 replies | p50 s |", "|---|---|---|---|---|---|---|---|---|"]
+    for k, name in V4_ARMS:
+        x = a[k]
+        L.append(f"| {name} | {x['n']} | {x['match_rate_pct']} % | [{x['match_ci95_pct'][0]}, {x['match_ci95_pct'][1]}] "
+                 f"| {x['reader_failures']} | {x['missed_stops']} | {x['false_stops']} | {round(x['usd_per_1000'] or 0, 2)} "
+                 f"| {x['p50_seconds'] or 0} |")
+    L += ["", "Lightning, Ultra and Super-VL are descriptive (not part of the decision rule).", "",
+          "- Per stratum, Super - rules (unadjusted): " + "; ".join(
+              f"{V4_STRATA[s]} {_pp(v['super_minus_rules'])}" for s, v in sorted(r["per_stratum"].items())) + ".",
+          f"- Stops (secondary, pre-registered): {len(stops)} of the {n} replies ask the shop to stop, {worded} of them "
+          f"without the word \"stop\". The rulebook missed {len(missed('rules'))}"
+          + (" (" + "; ".join(f"\"{t}\"" for t in missed("rules")) + ")" if missed("rules") else "")
+          + "; " + ", ".join(f"{name.split(' (')[0]} {len(missed(k))}" for k, name in V4_ARMS[1:]) + ". These are "
+          "synthetic replies; the counts say nothing about real customers.",
+          f"- Where each lost (post-hoc, descriptive, by field): the rulebook's {nmiss('rules')} misses: {kinds('rules')}. "
+          f"Super's {nmiss('super')} misses: {kinds('super')}.",
+          f"- Fidelity: a blind non-NVIDIA judge (`Qwen/Qwen3-235B-A22B-Instruct-2507`) gives the gold offer on "
+          f"{r['fidelity']['agreement_pct']} % of replies. On the {r['sensitivity_judge_agreed']['n']} replies where it "
+          f"agrees with gold: Super - rules {_pp(r['sensitivity_judge_agreed'])}.",
+          f"- Spend: run {_usd(usd(rows), 2)}, smoke {_usd(usd(smoke), 2)}, test replies "
+          f"{_usd(summ['spend_usd']['total'], 2)} of real Token Factory spend (v4 ceiling $8.00 in code).",
+          "- What this shows, and what it does not: both readers are near the ceiling on these replies, so this test "
+          "cannot separate them. The rulebook's score says how well rules cover one writer's phrasing after being tuned "
+          "on it, not how they would cover real customers. What the run does show: the shop can keep every money "
+          "decision in code and let Nemotron read, with no measurable loss in this test, at about "
+          f"{_usd(a['super']['usd_per_1000'], 2)} per 1,000 replies for Super.", ""]
+    return L
+
 def cmd_results_md(d, out_path=None):
     """RESULTS.md, every number computed here from the run files (rows, outcomes, results.json, smoke-b, manifest,
     buyers, ledger, git). The wording around the numbers is fixed in this function, written after the run."""
@@ -655,6 +783,7 @@ def cmd_results_md(d, out_path=None):
           "and `concession_heuristic` were not in it (their only cost is the buyer writer). Not results.", ""]
     L += v2_section()
     L += v3_section()
+    L += v4_section()
     L += ["## What is real, what is seeded, what is simulated", "",
           f"- Real: Token Factory calls and their usage-based cost; Nemotron labels, move choices and message text, on "
           "simulated conversations. The $ score depends only on the chosen move: the buyer code never reads the shop's "
@@ -717,7 +846,7 @@ def cmd_results_md(d, out_path=None):
                   f"simulated margin on illustrative prices, not market data], "
                   f"Super-only showed no clear difference ({_per(main_s, n)}), and the test switched the default label "
                   f"model to {lab['default_label_model']}." + (f" {v2}" if v2 else "")
-                  + (f" {v3_status()}" if v3_status() else "") + f"\n{b}")
+                  + (f" {v3_status()}" if v3_status() else "") + (f" {v4_status()}" if v4_status() else "") + f"\n{b}")
         txt = txt[:txt.index(a)] + answer + txt[txt.index(b) + len(b):]
         ea, eb = "<!-- evidence:start -->", "<!-- evidence:end -->"
         if ea in txt and eb in txt:
@@ -733,6 +862,9 @@ def cmd_results_md(d, out_path=None):
                                                                "same facts freely, stopped", "Stopped")),
                     *([("Third test (v3): rules first, Nemotron where they do not know",
                         "`tournament/v3/` (PREREG), [`RESULTS.md`](RESULTS.md)", v3_status())] if v3_status() else []),
+                    *([("Fourth test (v4): the rules decide, Nemotron only reads",
+                        "`second_read/` (PREREG), `data/second_read/`, [`RESULTS.md`](RESULTS.md)", v4_status())]
+                      if v4_status() else []),
                     ("Limitations", "[`RESULTS.md#limitations`](RESULTS.md#limitations)",
                      "simulated customers; a rulebook written for the simulator; one published false opt-out; and more"),
                     ("Platform spikes", "`evidence/spikes/`", "pre-registered plans, raw replies, results"),

@@ -132,3 +132,16 @@ def test_cmd_analyze_refuses_without_rows(tmp_path):
     (tmp_path / R.DATA_REL / "test.jsonl").write_text("")
     with pytest.raises(R.Refused):
         R.cmd_analyze(tmp_path, "test", log=lambda *_: None)
+
+
+def test_results_md_v4_section_is_generated():
+    """RESULTS.md is written by tools/run_checks.py; the v4 section there must equal what the generator gives now."""
+    import importlib.util
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    if not (root / "data/second_read/test/results.json").exists():
+        return
+    spec = importlib.util.spec_from_file_location("run_checks", root / "tools/run_checks.py")
+    rc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rc)
+    assert "\n".join(rc.v4_section()) in (root / "RESULTS.md").read_text()
