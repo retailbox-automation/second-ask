@@ -74,10 +74,17 @@ def test_wait_weeks_comes_before_need_by_ready_and_changes():
     assert o == {"stop": False, "dropped": ["Opt B"], "price": 1200.0, "timing": {"kind": "checkin", "days": 14}}
 
 
-def test_need_by_takes_the_earliest_open_slot_after_today():
-    assert off(need_by="2026-11-20")["timing"] == {"kind": "slot", "day": "2026-11-04"}
-    assert off(need_by="2026-11-01")["timing"] == {"kind": "slot", "day": "2026-11-04"}  # none before it: earliest
-    assert O.offer(Facts(need_by="2026-11-20"), C, "2026-11-04")["timing"] == {"kind": "slot", "day": "2026-11-05"}
+def test_need_by_takes_the_earliest_open_slot_and_says_whether_it_meets_the_deadline():
+    assert off(need_by="2026-11-20")["timing"] == {"kind": "slot", "day": "2026-11-04", "meets_deadline": True}
+    assert off(need_by="2026-11-04")["timing"] == {"kind": "slot", "day": "2026-11-04", "meets_deadline": True}
+    assert off(need_by="2026-11-03")["timing"] == {"kind": "slot", "day": "2026-11-04", "meets_deadline": False}
+    assert O.offer(Facts(need_by="2026-11-20"), C, "2026-11-04")["timing"] == {"kind": "slot", "day": "2026-11-05",
+                                                                              "meets_deadline": True}
+
+
+def test_a_misread_deadline_date_changes_the_offer_only_around_the_first_slot():
+    assert not O.match(off(need_by="2026-11-03"), off(need_by="2026-11-04"))
+    assert O.match(off(need_by="2026-11-20"), off(need_by="2026-11-27"))
 
 
 def test_need_by_comes_before_ready():
@@ -110,8 +117,10 @@ def test_ceiling_at_or_above_list_is_not_a_change():
     assert off(ceiling_usd=1400)["timing"] == {"kind": "answer"}
 
 
-def test_decider_answers_and_waits_without_a_discount():
-    assert off(decider="my landlord") == {"stop": False, "dropped": [], "price": 1300.0, "timing": {"kind": "answer"}}
+def test_decider_waits_a_week_without_a_discount():
+    assert off(decider="my landlord") == {"stop": False, "dropped": [], "price": 1300.0,
+                                          "timing": {"kind": "checkin", "days": O.DECIDER_CHECKIN_DAYS}}
+    assert not O.match(off(decider="my landlord"), off())  # reading the decider changes what the shop sends
 
 
 def test_no_open_slot_after_today_falls_through_to_answer():

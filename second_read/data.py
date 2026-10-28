@@ -41,16 +41,17 @@ from second_ask.tournament.env import V2_WRITER_MODEL, V2_WRITER_PARAMS
 from second_ask.tournament.manifest import V2_JUDGE_MODEL
 
 from .contract import FIELDS, SCHEMA, Facts, FactsError, parse
+from second_read import prereg as P
 
 ROOT = Path(__file__).resolve().parents[1]
 CARDS = ROOT / "tournament" / "buyers.json"
 DATA = ROOT / "data" / "second_read"
 FREEZE = DATA / "FREEZE.json"
 
-SPLITS = {"dev": {"n": 200, "seed": "dev-20261028", "spend_limit": 1.20},
-          "test": {"n": 600, "seed": "test-20261028", "spend_limit": 3.00}}
-STRATA = {"S1": 0.25, "S2": 0.35, "S3": 0.25, "S4": 0.15}
-STOP_SHARE = 0.08
+SPLITS = {"dev": {"n": P.DEV_N, "seed": "dev-20261028", "spend_limit": 1.20},
+          "test": {"n": P.TEST_N, "seed": P.TEST_SEED, "spend_limit": 3.00}}
+STRATA = dict(P.STRATA_WEIGHTS)   # pre-registered in second_read/prereg.py (single source)
+STOP_SHARE = P.STOP_SHARE
 INFEASIBLE_SHARE = 0.15          # ceilings below the package floor
 BEFORE_EARLIEST_SHARE = 0.30     # need_by dates before the earliest open slot (when there is room for one)
 COMPETITOR_SHARE = 0.30          # ceilings worded as another company's all-in price they would book at

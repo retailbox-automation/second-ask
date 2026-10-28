@@ -17,7 +17,7 @@ ARMS = ("rules", "super", "lightning", "ultra", "super_vl")
 DESCRIPTIVE = ("lightning", "ultra", "super_vl")
 
 # Test split (V4-DESIGN §4): generated only after both readers are frozen.
-TEST_SEED = 20261029
+TEST_SEED = "test-20261028"  # the data generator's seed for the test split (second_read/data.py reads it from here)
 TEST_N = 600
 DEV_N = 200
 STRATA_WEIGHTS = {"S1": 0.25, "S2": 0.35, "S3": 0.25, "S4": 0.15}

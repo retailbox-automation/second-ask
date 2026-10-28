@@ -24,6 +24,7 @@ from second_ask.menu import build_menu, initial_offer
 from .contract import Facts, parse
 
 SLOT, CHECKIN, ANSWER = "slot", "checkin", "answer"
+DECIDER_CHECKIN_DAYS = 7  # waiting on a household decision: check back in a week, never a discount (home case H08)
 
 
 def _day(x):
@@ -86,13 +87,15 @@ def offer(facts, card, today):
     if facts.wait_weeks is not None:
         timing = {"kind": CHECKIN, "days": _checkin(facts.wait_weeks, moves)}
     elif facts.need_by is not None and days:
-        by = _day(facts.need_by)
-        timing = _slot(next((d for d in days if d <= by), days[0]))
+        # the earliest open slot, and whether it is on or before the customer's deadline (the shop says so either way)
+        timing = dict(_slot(days[0]), meets_deadline=days[0] <= _day(facts.need_by))
     elif (facts.ready or changed) and days:
         quoted = est.default_slot.start.date()
         monday = quoted - timedelta(days=quoted.weekday())
         timing = _slot(next((d for d in days if d >= monday), days[0]))
-    else:  # a decider (answer and wait), nothing actionable, or no open slot left
+    elif facts.decider is not None:  # someone else decides: no discount, check back once they have talked it over
+        timing = {"kind": CHECKIN, "days": DECIDER_CHECKIN_DAYS}
+    else:  # nothing actionable, or no open slot left
         timing = {"kind": ANSWER}
     return {"stop": False, "dropped": dropped, "price": price, "timing": timing}
 
