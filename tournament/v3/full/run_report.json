@@ -1,0 +1,16 @@
+{
+ "stop": "complete",
+ "jobs": 2000,
+ "clean_rows": 2000,
+ "errored_rows": 0,
+ "rows": 2000,
+ "finished_buyers": 200,
+ "excluded_buyers": [],
+ "pending_jobs": 0,
+ "clean_by_policy": {
+  "smart_rules": 1000,
+  "rules_then_super": 1000
+ },
+ "unreadable_row_lines": 0,
+ "spent_usd": 0.379
+}

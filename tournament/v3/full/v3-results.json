@@ -1,0 +1,128 @@
+{
+ "manifest_sha256": "01b6dc1f8d24869c0e187c3758629cf8690717cee4fdc8962fdb9a5a7a1fc1a2",
+ "kept": {
+  "buyers_planned": 200,
+  "buyers_kept": 200,
+  "excluded": [],
+  "incomplete": [],
+  "errored_rows": 0,
+  "reruns": 0
+ },
+ "d3": {
+  "point": -14226.35882,
+  "lo": -31782.67358,
+  "hi": -1845.0442400000002,
+  "buyers": 200
+ },
+ "d3_per_customer": {
+  "point": -71.1317941,
+  "lo": -158.9133679,
+  "hi": -9.2252212
+ },
+ "not_worse_failed_on": [],
+ "verdict": "behind",
+ "table": {
+  "smart_rules": {
+   "buyers": 200,
+   "net": 231594.3,
+   "bookings": 154.4,
+   "model_usd": 0.0,
+   "violations": 0.0,
+   "false_opt_outs": 0.0,
+   "false_opt_out_conversations": 0,
+   "off_arm_calls": 0.0,
+   "unsure": 0.0
+  },
+  "rules_then_super": {
+   "buyers": 200,
+   "net": 217367.94118,
+   "bookings": 146.2,
+   "model_usd": 0.058748,
+   "violations": 0.0,
+   "false_opt_outs": 0.0,
+   "false_opt_out_conversations": 0,
+   "off_arm_calls": 0.0,
+   "unsure": 11.6
+  }
+ },
+ "handoffs": {
+  "total": 262,
+  "by_branch": {
+   "think": 241,
+   "none": 21
+  },
+  "by_type": {
+   "family": 48,
+   "timing_slot": 15,
+   "price": 3,
+   "timing_pause": 196
+  },
+  "model_move_differs": 228,
+  "model_stopped": {},
+  "pairs": {
+   "ask_why -> checkin_7": 100,
+   "ask_why -> checkin_3": 95,
+   "ask_why -> earlier_slot_1": 12,
+   "ask_why -> ask_why": 34,
+   "ask_why -> concede_pkg_3": 1,
+   "ask_why -> answer": 11,
+   "ask_why -> drop_surge_protector": 2,
+   "answer -> checkin_7": 2,
+   "ask_why -> checkin_14": 3,
+   "ask_why -> drop_annual_maintenance_plan": 1,
+   "answer -> checkin_3": 1
+  },
+  "conversations_with_handoff": 140
+ },
+ "false_opt_outs": [],
+ "by_type": {
+  "channel": {
+   "point": 0.0,
+   "lo": 0.0,
+   "hi": 0.0,
+   "buyers": 30
+  },
+  "family": {
+   "point": -49.51041999999972,
+   "lo": -131.41721999999936,
+   "hi": -0.006039999999692191,
+   "buyers": 34
+  },
+  "opt_out": {
+   "point": 0.0,
+   "lo": 0.0,
+   "hi": 0.0,
+   "buyers": 10
+  },
+  "price": {
+   "point": -0.0005600000000072214,
+   "lo": -0.0016800000000216642,
+   "hi": 0.0,
+   "buyers": 50
+  },
+  "ready": {
+   "point": 0.0,
+   "lo": 0.0,
+   "hi": 0.0,
+   "buyers": 22
+  },
+  "timing_pause": {
+   "point": -14302.84466,
+   "lo": -30807.06264,
+   "hi": -2356.2405000000003,
+   "buyers": 34
+  },
+  "timing_slot": {
+   "point": 125.99682000000001,
+   "lo": -0.0044799999999156626,
+   "hi": 377.99694,
+   "buyers": 20
+  }
+ },
+ "vs_v1_smart_rules": {
+  "point": -12851.725486666666,
+  "lo": -30691.8877,
+  "hi": -1333.85154,
+  "buyers": 200
+ }
+}

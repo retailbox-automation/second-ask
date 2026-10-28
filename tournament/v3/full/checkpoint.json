@@ -1,0 +1,15 @@
+{
+ "spent_usd": 0.0278,
+ "rest_usd": 0.241,
+ "safety": 1.2,
+ "projected_total_usd": 0.317,
+ "usd_per_conversation": {
+  "smart_rules": 7.530392156862745e-05,
+  "rules_then_super": 0.00019304901960784314
+ },
+ "pending_jobs": 1796,
+ "at": "2026-10-28T14:02:47Z",
+ "finished_buyers": 20,
+ "limit_usd": 3.0,
+ "passed": true
+}

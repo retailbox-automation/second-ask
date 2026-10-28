@@ -1,0 +1,242 @@
+{
+ "rows": 2000,
+ "kept": {
+  "buyers_planned": 200,
+  "buyers_kept": 200,
+  "excluded": [],
+  "incomplete": [],
+  "errored_rows": 0,
+  "reruns": 0
+ },
+ "aggregate": {
+  "rules_then_super": {
+   "n": 200,
+   "K": 5,
+   "bookings": 146.2,
+   "booking_rate": 0.731,
+   "margin": 217368.0,
+   "given_away": 9068.5,
+   "given_to_full_payers": 49.5,
+   "menu_gap": 2389.5,
+   "lost": 26603.5,
+   "lost_price": 1205.5,
+   "model_usd": 0.058748,
+   "buyer_usd": 0.002857,
+   "net": 217367.94118,
+   "violations": 0.0,
+   "unsure": 11.6,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.00040183310533515736,
+   "band": {
+    "n": 200,
+    "K": 5,
+    "booked": {
+     "mean": 146.2,
+     "min": 145.0,
+     "max": 147.0
+    },
+    "margin": {
+     "mean": 217368.0,
+     "min": 216342.0,
+     "max": 217903.5
+    },
+    "given_away": {
+     "mean": 9068.5,
+     "min": 9019.0,
+     "max": 9104.5
+    },
+    "lost": {
+     "mean": 26603.5,
+     "min": 26054.5,
+     "max": 27593.5
+    },
+    "model_usd": {
+     "mean": 0.058748,
+     "min": 0.056681,
+     "max": 0.062982
+    },
+    "net": {
+     "mean": 217367.94118,
+     "min": 216341.9414,
+     "max": 217903.4433
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 11.6,
+     "min": 6.0,
+     "max": 16.0
+    }
+   }
+  },
+  "smart_rules": {
+   "n": 200,
+   "K": 5,
+   "bookings": 154.4,
+   "booking_rate": 0.772,
+   "margin": 231594.3,
+   "given_away": 9019.0,
+   "given_to_full_payers": 0.0,
+   "menu_gap": 2389.5,
+   "lost": 12426.7,
+   "lost_price": 1205.5,
+   "model_usd": 0.0,
+   "buyer_usd": 0.0142048,
+   "net": 231594.3,
+   "violations": 0.0,
+   "unsure": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "platform_failures": 0.0,
+   "chronology_errors": 0.0,
+   "usd_per_booking": 0.0,
+   "band": {
+    "n": 200,
+    "K": 5,
+    "booked": {
+     "mean": 154.4,
+     "min": 154.0,
+     "max": 156.0
+    },
+    "margin": {
+     "mean": 231594.3,
+     "min": 229819.5,
+     "max": 238693.5
+    },
+    "given_away": {
+     "mean": 9019.0,
+     "min": 9019.0,
+     "max": 9019.0
+    },
+    "lost": {
+     "mean": 12426.7,
+     "min": 5327.5,
+     "max": 14201.5
+    },
+    "model_usd": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "net": {
+     "mean": 231594.3,
+     "min": 229819.5,
+     "max": 238693.5
+    },
+    "violations": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "unsure": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   }
+  }
+ },
+ "comparisons": {
+  "rules_then_super - smart_rules": {
+   "point": -14226.35882,
+   "lo": -31782.67358,
+   "hi": -1845.0442400000002,
+   "buyers": 200
+  }
+ },
+ "sanity_gates": {
+  "invariants": [
+   "bookings_above_walkaway",
+   "bookings_below_floor"
+  ],
+  "bookings_above_walkaway": 0,
+  "bookings_below_floor": 0,
+  "booking_rate_by_policy": {},
+  "booking_rate_in_30_80": {},
+  "price_buyers_booking_rate_by_walkaway_tercile": [
+   0,
+   0,
+   0
+  ],
+  "rises_with_walkaway": false,
+  "booking_rate_by_type": {
+   "shop_rule": {
+    "channel": 0,
+    "family": 0,
+    "opt_out": 0,
+    "price": 0,
+    "ready": 0,
+    "timing_pause": 0,
+    "timing_slot": 0
+   },
+   "concession_heuristic": {
+    "channel": 0,
+    "family": 0,
+    "opt_out": 0,
+    "price": 0,
+    "ready": 0,
+    "timing_pause": 0,
+    "timing_slot": 0
+   }
+  },
+  "type_spread": {
+   "shop_rule": 0,
+   "concession_heuristic": 0
+  },
+  "differs_by_type": false
+ },
+ "opt_out_violations": {
+  "rules_then_super": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  },
+  "smart_rules": {
+   "keyword": {
+    "violations": 0.0,
+    "n": 7
+   },
+   "phrase": {
+    "violations": 0.0,
+    "n": 3
+   }
+  }
+ },
+ "integrity_all_attempts": {
+  "smart_rules": {
+   "attempts": 1000.0,
+   "errored": 0.0,
+   "platform_failures": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  },
+  "rules_then_super": {
+   "attempts": 1000.0,
+   "errored": 0.0,
+   "platform_failures": 0.0,
+   "off_arm_calls": 0.0,
+   "label_fallback_calls": 0.0,
+   "chronology_errors": 0.0,
+   "writer_fallbacks": 0.0
+  }
+ },
+ "unreadable_row_lines": 0,
+ "unsure_flags": {
+  "rules_then_super": {
+   "label with low confidence": 58
+  }
+ }
+}
