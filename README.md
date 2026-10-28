@@ -149,3 +149,6 @@ From our spikes and runs; evidence in `evidence/spikes/` and `evidence/platform/
 - The compliance rules are applied conservatively and are not legal advice. Whether Fla. Stat. §501.616(6) covers SMS
   follow-ups to an estimate is not confirmed.
 - Code: MIT (`LICENSE`). Third-party data and model licences: `NOTICE`.
+- Checking the timing: commit times are in `git log`; push times are in GitHub's public events for this repository
+  (`https://api.github.com/repos/retailbox-automation/second-ask/events`), for example the v1 freeze `6d66d53` pushed at
+  2026-10-24T10:36:04Z, before the run started at 10:58:31Z.
