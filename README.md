@@ -96,9 +96,11 @@ visitor plays the homeowner, is off unless switched on. It is capped per visitor
 6 messages each) and by a shared $5 budget. The shop is a seeded demo shop and the homeowners are simulated.
 
 The published page, https://second-ask.retailbox-automation.com/, is a static build of the replay (`demo/static/`,
-`python3 -m demo.static_build`). It opens on the agent's next move and its dollar effect against a discount-first reply
-on the same menu (our stand-in rule, `demo/static_build.py`), and each step says who did it: the shop's code or which
-Nemotron model. Being static, it serves several visitors at once.
+`python3 -m demo.static_build`). It opens on the owner's morning: the recorded `read_first/` runs over 8 test-4 replies
+(`demo/data/read_first_morning.json`), each with what Nemotron 3 Super read, the offer the shop's code set, the draft and
+who did each step; every number on it is built from that file and `data/second_read/test/results.json`, and the words
+highlighted in a reply are matched by code, not taken from the model. Below it, the earlier design (tests 1-3) is kept
+as a replay. Being static, it serves several visitors at once.
 
 ```
 python3 -m demo.server                         # REPLAY: http://127.0.0.1:8080/api, /api/scenarios

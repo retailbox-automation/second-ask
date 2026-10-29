@@ -4,10 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Second Ask: replay demo</title>
+<title>Second Ask: the owner's morning</title>
 <link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="morning.css">
 </head>
 <body>
+<svg class="m-sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M2.5 12.2V4.6c0-1.2.9-2.1 2.1-2.1h7.6l9.3 9.3c.8.8.8 2.1 0 2.9l-7.2 7.2c-.8.8-2.1.8-2.9 0z"/><circle cx="7.4" cy="7.4" r="1.9" fill="#fff"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 20V11h3v9zM10.5 20V5h3v15zM17 20v-6h3v6z"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 8.5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="m" id="morning">
+  <header class="m-top">
+    <b class="m-brand" id="mBrand"></b>
+    <div class="m-pills" id="mPills"></div>
+  </header>
+  <section class="m-hero" aria-labelledby="mHead">
+    <svg class="m-scene" viewBox="0 0 1200 190" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="g-sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fff6d8"/><stop offset=".35" stop-color="#ffe4a0" stop-opacity=".85"/><stop offset="1" stop-color="#ffd38a" stop-opacity="0"/></radialGradient>
+        <linearGradient id="g-h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a98f"/><stop offset="1" stop-color="#c99a86"/></linearGradient>
+        <linearGradient id="g-h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b58a7e"/><stop offset="1" stop-color="#9c7a72"/></linearGradient>
+        <linearGradient id="g-h3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d6a63"/><stop offset="1" stop-color="#5f5450"/></linearGradient>
+      </defs>
+      <circle cx="930" cy="146" r="150" fill="url(#g-sun)"/>
+      <circle cx="930" cy="146" r="18" fill="#fffaf0"/>
+      <path d="M0 160 C120 140 220 150 330 138 S540 120 660 140 S860 128 980 146 S1120 130 1200 138 V190 H0z" fill="url(#g-h1)" opacity=".55"/>
+      <path d="M0 176 C160 162 260 170 400 160 S620 150 760 166 S980 156 1200 162 V190 H0z" fill="url(#g-h2)" opacity=".6"/>
+      <path d="M600 190 C700 178 820 176 900 180 S1080 168 1200 170 V190z" fill="url(#g-h3)" opacity=".75"/>
+      <g fill="#4f4a47" opacity=".85">
+        <path d="M1020 170 l12 -40 l12 40z"/><path d="M1040 172 l16 -58 l16 58z"/><path d="M1066 174 l11 -34 l11 34z"/>
+        <path d="M1186 176 l9 -30 l9 30z"/>
+      </g>
+      <g opacity=".8"><path d="M1108 150 l34 -24 l34 24 v26 h-68z" fill="#e9ddd0"/><path d="M1102 152 l40 -30 l40 30" fill="none" stroke="#6b5e57" stroke-width="5"/><rect x="1132" y="158" width="12" height="18" fill="#8a7a70"/><rect x="1152" y="154" width="12" height="10" fill="#f6dfb4"/></g>
+    </svg>
+    <h1 id="mHead"></h1>
+    <p id="mSub"></p>
+  </section>
+  <div class="m-tiles" id="mTiles"></div>
+  <div class="m-main">
+    <ul class="m-inbox" id="mInbox" aria-label="Replies that came in overnight"></ul>
+    <article class="m-open" id="mOpen" aria-live="polite"></article>
+  </div>
+  <div class="m-proof" id="mProof"></div>
+</div>
+
+<section class="earlier" aria-labelledby="earlierHead">
+<h2 class="earlier-head" id="earlierHead"></h2>
 <header class="bar">
   <div class="brand"><b>Second Ask</b><span class="mode">Replay</span></div>
   <nav class="views" aria-label="Screens">
@@ -83,10 +128,13 @@
     </div>
   </section>
 </main>
+</section>
 
 <footer class="result" id="result"></footer>
+<div class="m-toast" id="mToast" role="status" aria-live="polite" hidden></div>
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="morning.js"></script>
 <script>/* visit counter (no cookies), only on the published https page: file:// copies (tests, video recording) send nothing */
 if (location.protocol === "https:") { var t = document.createElement("script"); t.defer = true;
   t.src = "https://t.retailbox-automation.com/t.js"; t.setAttribute("data-asset", "nebius-b2"); document.body.appendChild(t); }</script>
