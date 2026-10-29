@@ -8,6 +8,8 @@ templates and the owner tap downstream are the existing code.
 Mapping (offer -> move):
 - package and price equal the standing offer: the timing picks the move. A slot -> the offer_slot / earlier_slot move
   for that day, else offer_slot carrying the open slot of that day; a check-in of N days -> checkin_N; answer -> answer.
+- the same package at a price above the standing one (offer() starts from the list price, and the shop already sent
+  a concession): the price already sent is kept, never raised, and the owner sees a flag saying so; then as above.
 - package or price differ: the drop or concede move with exactly that package and that price (the menu's price, never
   a new one). A slot or check-in from offer() is carried on that move.
 - no such move (for example a partial package whose floor is not on the menu, a check-in the 90-day SMS rule removed,
@@ -57,6 +59,7 @@ class Mapping:
     move: object
     exact: bool          # False: no menu move carries this offer; the code default was used
     note: str
+    owner_flag: str | None = None  # shown to the owner: the price already sent was kept instead of offer()'s
 
 
 def _money(x):
@@ -76,21 +79,25 @@ def map_offer(off, conv, menu, now, facts=None):
     by = {m.id: m for m in menu}
     std = conv.offer
     dropped, price, timing = frozenset(off["dropped"]), off["price"], off["timing"]
+    kept = None
+    if dropped == std.dropped and price > std.price + 0.005:  # never raise a price after a concession went out
+        kept = f"offer() list price {_money(price)}; kept the {_money(std.price)} already sent"
+        price = std.price
     slot = slot_on(conv, timing["day"], now) if timing["kind"] == SLOT else None
     if dropped == std.dropped and abs(price - std.price) < 0.005:
         if timing["kind"] == SLOT and slot is not None:
             m = next((m for m in menu if m.kind in ("offer_slot", "earlier_slot") and m.slot is not None
                       and m.slot.start.date().isoformat() == timing["day"]), None)
             if m is not None:
-                return Mapping(m, True, f"{m.id}: the slot offer() chose")
+                return Mapping(m, True, f"{m.id}: the slot offer() chose", kept)
             base = by["offer_slot"]
             return Mapping(replace(base, slot=slot, description=f"Offer to book {slot.start:%a %b %d %I:%M %p} at "
                                                                 f"{_money(base.price)}."),
-                           True, "offer_slot carrying the slot offer() chose")
+                           True, "offer_slot carrying the slot offer() chose", kept)
         if timing["kind"] == CHECKIN and f"checkin_{timing['days']}" in by:
-            return Mapping(by[f"checkin_{timing['days']}"], True, f"check back in {timing['days']} days")
+            return Mapping(by[f"checkin_{timing['days']}"], True, f"check back in {timing['days']} days", kept)
         if timing["kind"] == ANSWER:
-            return Mapping(by["answer"], True, "answer; nothing to change")
+            return Mapping(by["answer"], True, "answer; nothing to change", kept)
     else:
         m = next((m for m in menu if m.kind in ("drop", "concede") and m.dropped == dropped
                   and abs(m.price - price) < 0.005), None)
@@ -102,7 +109,7 @@ def map_offer(off, conv, menu, now, facts=None):
             return Mapping(m, True, f"{m.id}: {sorted(dropped) or 'full package'} at {_money(price)}")
     m = default_move(label_for(facts), menu)
     return Mapping(m, False, f"no menu move carries {sorted(dropped) or 'the full package'} at {_money(price)} with "
-                             f"timing {timing}; code default {m.id} used")
+                             f"timing {timing}; code default {m.id} used", kept)
 
 
 # --- dates in a written message --------------------------------------------------------------------------------------

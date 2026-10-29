@@ -244,8 +244,20 @@ def test_a_price_already_conceded_is_never_raised_back_to_list():
     c.offer = MN.Offer(frozenset(), 705.0, c.estimate.default_slot, "email")
     ag, _ = agent([facts(ready=True), text("We can book you at $705.")])
     rd = ag.decide(c, NOW)
-    assert rd.offer["price"] == 740.0 and not rd.mapping.exact
-    assert rd.move.id == "offer_slot" and rd.move.price == 705
+    assert rd.offer["price"] == 740.0 and rd.mapping.exact and rd.move.slot.id == "s9"
+    assert rd.move.id == "offer_slot" and rd.move.price == 705 and "$740" not in rd.message
+    assert "offer() list price $740; kept the $705 already sent" in rd.flags
+    assert rd.to_dict()["mapping"]["owner_flag"] == "offer() list price $740; kept the $705 already sent"
+
+
+def test_kept_price_also_holds_on_the_code_default():
+    est = estimate(sent_at=NOW - timedelta(days=80), channel="sms")
+    c = conv("in a couple of weeks", est=est)
+    c.offer = MN.Offer(frozenset(), 705.0, est.default_slot, "sms")
+    ag, _ = agent([facts(wait_weeks=2), text("Quick question: is it the timing?")])
+    rd = ag.decide(c, NOW)
+    assert rd.move.price == 705 and not rd.mapping.exact
+    assert "offer() list price $740; kept the $705 already sent" in rd.flags
 
 
 def test_partial_package_floor_not_on_the_menu_falls_back():

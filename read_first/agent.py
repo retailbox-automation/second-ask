@@ -102,7 +102,8 @@ class ReadFirstDecision:
                "facts": self.facts.to_dict() if self.facts is not None else None, "offer": self.offer,
                "branch": self.branch, "stages": [s.to_dict() for s in self.stages]}
         if self.mapping is not None:
-            out["mapping"] = {"exact": self.mapping.exact, "note": self.mapping.note}
+            out["mapping"] = {"exact": self.mapping.exact, "note": self.mapping.note,
+                              "owner_flag": self.mapping.owner_flag}
         if self.written is not None:
             out["writer"] = {"template_used": self.written.template_used, "problems": self.written.problems,
                              "model": self.written.model}
@@ -169,6 +170,8 @@ class ReadFirstAgent:
         rd.offer = decide_offer(facts, R.ConversationCard(conv), R.today_of(now))
         menu = menu_for(conv, now)
         rd.mapping = map_offer(rd.offer, conv, menu, now, facts)
+        if rd.mapping.owner_flag:
+            flags.append(rd.mapping.owner_flag)
         if not rd.mapping.exact:
             flags.append(rd.mapping.note)
         self._decided(conv, rd, t0, {"offer": rd.offer, "move": rd.mapping.move.id, "exact": rd.mapping.exact})
