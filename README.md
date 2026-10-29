@@ -24,12 +24,13 @@ Second Ask does that part before the owner wakes up:
   happened, is replaced by the code's template.
 - Anything below the list price waits for the owner's one tap. Stop requests end the conversation, and no message goes out after one.
 
-A recorded morning (`demo/data/read_first_morning.json`, Token Factory, 2026-10-29): 8 replies (7 read by Nemotron, 1 ended by the code's stop words), 6 offers ready,
-2 of them discounts waiting for the owner's tap, 2 stop requests honoured, $0.0064 of Nemotron and 18.7 s of model
-time for the whole morning. The replies are synthetic (from our test set below), the shop is made up, and each reply keeps its own test date
-(Nov 3–9 on the simulated clock). One of the eight
-is a reply Nemotron misread in our test: it took a price the customer repeated as their limit; the code turned that into
-a discount, so it waits for the owner instead of going out.
+A recorded morning (`demo/data/read_first_morning.json`, Token Factory, 2026-10-29, the first run after the last code
+change, kept as it came out): 8 replies (7 read by Nemotron, 1 ended by the code's stop words), 6 offers ready, 1 of them
+a discount waiting for the owner's tap, 2 stop requests honoured, $0.0065 of Nemotron and 15.6 s of model time for the
+whole morning. The replies are synthetic (from our test set below), the shop is made up, and each reply keeps its own test
+date (Nov 3–9 on the simulated clock). One of the eight is a reply Nemotron misread in test 4: it took a price the
+customer repeated as their limit. In this morning's run it read that reply right. When it does misread that way, the
+price falls below the list, and the code holds the offer for the owner's tap instead of sending it.
 
 Why the code, and not the model, decides the price: we tested that four times, writing the rule down before each run.
 <!-- evidence:start -->
@@ -87,7 +88,7 @@ Every model call goes to Nebius Token Factory (`second_ask/tf_client.py`; model 
 |---|---|---|---|
 | Read the customer's reply into Facts | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off (the frozen test-4 reader) | test 4: same offer as a perfect read on 99.0 % of 600 synthetic replies, 0 of 48 stop requests missed, about $0.66 per 1,000 replies ([RESULTS.md](RESULTS.md)) |
 | Decide price, items, date, check-back, stop | none: the shop's code | `second_read/offer.py`, `second_ask/menu.py` | tests 1 and 3: when Nemotron chose the move, a good rulebook beat it |
-| Write the message for the chosen offer | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off; text checked by code | in the recorded morning, 2 of 6 drafts went to the code template (one named "today", one named the customer's own deadline day) |
+| Write the message for the chosen offer | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off; text checked by code | in the recorded morning all 6 drafts passed the code's checks; in earlier recordings the code replaced drafts that named a day it had not chosen, claimed a booking, said "as discussed" or left the check-back to the customer |
 | Book the accepted job (tool loop: slots, book, record) | `nvidia/nemotron-3-super-120b-a12b` | tools, reasoning on | spike: 20/20 first tool calls parsed (one call each); the full booking loop is tested offline only |
 | Other readers in test 4 (descriptive) | Nemotron 3 Ultra, Nemotron 3.5 Super-VL, Nemotron 3.5 Lightning | same reader input | 100.0 %, 99.83 %, 96.17 % on the same 600 replies; Lightning missed 10 of 48 stops |
 | Test harness only | `deepseek-ai/DeepSeek-V4-Flash-0731` (test-4 replies), `Qwen/Qwen3-235B-A22B-Instruct-2507` (fidelity judge), `Qwen/Qwen3-30B-A3B-Instruct-2507` (tests 1 and 3 customers; DeepSeek-V4-Flash also wrote test 2's) | JSON | deliberately not NVIDIA, so Nemotron never grades itself |
