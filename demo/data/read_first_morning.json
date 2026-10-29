@@ -1,0 +1,1738 @@
+{
+ "generated_at": "2026-10-29T02:31:47+00:00",
+ "ledger_tag": "b2",
+ "ceiling_usd": 0.1,
+ "worst_case_per_run_usd": 0.005904,
+ "spent_usd": 0.006343,
+ "stopped": null,
+ "rule": "(applied by `pick`, from the two files alone; nothing is hand-picked):\n1. the first line by id where the frozen v4 Super read missed (rows: arm \"super\", match false);\n2. the first line by id, not yet picked, where the v4 rulebook read missed (arm \"rules\", match false);\n3. the first line by id, not yet picked, that asks the shop to stop (gold stop) without the word \"stop\";\n4. five more lines in line-id order, not yet picked: first, for each stratum S1-S4 (in that order) that the picks do\n   not cover yet, the first line of that stratum; then the next lines by id until there are eight.",
+ "source": {
+  "replies": "data/second_read/test.jsonl",
+  "v4_rows": "data/second_read/test/rows.jsonl"
+ },
+ "models": {
+  "read": "nvidia/nemotron-3-super-120b-a12b",
+  "write": "nvidia/nemotron-3-super-120b-a12b"
+ },
+ "owner": "no tap given: offers below list wait for the owner",
+ "summary": {
+  "replies_overnight": 8,
+  "offers_ready": 6,
+  "waiting_for_owner_tap": 2,
+  "ready_to_send_without_tap": 4,
+  "stop_requests_honoured": 2,
+  "blocked_by_compliance": 0,
+  "messages_from_template": 1,
+  "total_usd": 0.006344,
+  "total_seconds": 16.697
+ },
+ "conversations": [
+  {
+   "id": "test-0168",
+   "pick_reason": "Nemotron 3 Super's frozen v4 read missed this reply (first by line id; Super missed 6 of 600)",
+   "stratum": "S1",
+   "buyer": "B145",
+   "reply": "Hi, please book the repipe kitchen and bath supply lines for the $5,970 price. I'm a bit stressed and need to know when the crew can come.",
+   "now": "2026-11-09T12:00:00+00:00",
+   "estimate": {
+    "title": "Repipe kitchen and bath supply lines",
+    "items": [
+     {
+      "name": "Repipe kitchen and bath supply lines",
+      "price": 5970.0,
+      "optional": false
+     },
+     {
+      "name": "Whole-home shutoff valve",
+      "price": 390.0,
+      "optional": true
+     }
+    ],
+    "total": 6360.0,
+    "floor": 5725,
+    "sent_by": "email",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 6
+   },
+   "path": "reply",
+   "stop_reason": null,
+   "flags": [
+    "model's message replaced by the template: claims a done booking (\"booked\") but move concede_pkg_floor only offers",
+    "delayed to 2026-11-09T13:00:00+00:00 (quiet hours or 3-per-24h cap)"
+   ],
+   "needs_owner": true,
+   "facts": {
+    "stop": false,
+    "ceiling_usd": 5970.0,
+    "drop_items": [],
+    "need_by": null,
+    "wait_weeks": null,
+    "decider": null,
+    "ready": true
+   },
+   "offer": {
+    "stop": false,
+    "dropped": [],
+    "price": 5725.0,
+    "timing": {
+     "kind": "slot",
+     "day": "2026-11-10"
+    }
+   },
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.047,
+     "usd": 0.000657,
+     "ok": true,
+     "note": "{\"ceiling_usd\": 5970.0, \"decider\": null, \"drop_items\": [], \"need_by\": null, \"ready\": true, \"stop\": false, \"wait_weeks\": null}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 0.00022,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"concede_pkg_floor\", \"offer\": {\"dropped\": [], \"price\": 5725.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-10\", \"kind\": \"slot\"}}}"
+    },
+    {
+     "stage": "write",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.122,
+     "usd": 0.000323,
+     "ok": false,
+     "note": "claims a done booking (\"booked\") but move concede_pkg_floor only offers"
+    }
+   ],
+   "mapping": {
+    "exact": true,
+    "note": "concede_pkg_floor: full package at $5,725",
+    "owner_flag": null
+   },
+   "writer": {
+    "template_used": true,
+    "problems": [
+     "claims a done booking (\"booked\") but move concede_pkg_floor only offers"
+    ],
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   },
+   "move": {
+    "id": "concede_pkg_floor",
+    "kind": "concede",
+    "description": "Lower this package (Repipe kitchen and bath supply lines, Whole-home shutoff valve) to $5,725 (10% below list); owner approves with one tap.",
+    "price": 5725,
+    "dropped": [],
+    "slot": "2026-11-10T14:00:00+00:00",
+    "checkin_days": null,
+    "needs_owner": true
+   },
+   "effect": {
+    "price_before": 6360.0,
+    "price_after": 5725,
+    "change": -635.0,
+    "margin_after": 2227.0
+   },
+   "message": "[Sunrise Home Services assistant, not a person] We can do Repipe kitchen and bath supply lines, Whole-home shutoff valve for $5,725. Reply YES to book. Reply STOP to opt out.",
+   "send_at": "2026-11-09T13:00:00+00:00",
+   "gate": {
+    "ok": true,
+    "send_at": "2026-11-09T13:00:00+00:00",
+    "blocked": null
+   },
+   "opted_out": false,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 6360.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.047,
+     "prompt_tokens": 1909,
+     "completion_tokens": 94,
+     "reasoning_tokens": 0,
+     "cost": 0.000657,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-a1a1cc7bfbad9bd4",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 0.00022,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"concede_pkg_floor\", \"offer\": {\"dropped\": [], \"price\": 5725.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-10\", \"kind\": \"slot\"}}}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    },
+    {
+     "step": "write",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.122,
+     "prompt_tokens": 812,
+     "completion_tokens": 88,
+     "reasoning_tokens": 0,
+     "cost": 0.000323,
+     "ok": false,
+     "note": "claims a done booking (\"booked\") but move concede_pkg_floor only offers",
+     "response_id": "chatcmpl-bd5680eb6a8528ad",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "seconds": 2.169,
+   "usd": 0.00098,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 6360.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-10",
+       "kind": "slot"
+      }
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.000511,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": 5970.0,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 5725.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-10",
+       "kind": "slot"
+      }
+     },
+     "match": false,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.255,
+     "usd": 0.000657,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": 6360.0,
+     "stop": false,
+     "timing": {
+      "day": "2026-11-10",
+      "kind": "slot"
+     }
+    },
+    "true_facts": {
+     "stop": false,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": null,
+     "wait_weeks": null,
+     "decider": null,
+     "ready": true
+    }
+   }
+  },
+  {
+   "id": "test-0248",
+   "pick_reason": "the v4 rulebook's read missed this reply (first by line id; the rulebook missed 4 of 600)",
+   "stratum": "S4",
+   "buyer": "B151",
+   "reply": "Please, no m\u00e1s contacto de ustedes. I'm overwhelmed and don't want this estimate anymore. Gracias.",
+   "now": "2026-11-05T12:00:00+00:00",
+   "estimate": {
+    "title": "Full asphalt roof replacement",
+    "items": [
+     {
+      "name": "Full asphalt roof replacement",
+      "price": 15270.0,
+      "optional": false
+     },
+     {
+      "name": "Gutter guards",
+      "price": 930.0,
+      "optional": true
+     }
+    ],
+    "total": 16200.0,
+    "floor": 15390,
+    "sent_by": "sms",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 2
+   },
+   "path": "stopped",
+   "stop_reason": "the reader read a request to stop; no further messages",
+   "flags": [],
+   "needs_owner": false,
+   "facts": {
+    "stop": true,
+    "ceiling_usd": null,
+    "drop_items": [],
+    "need_by": null,
+    "wait_weeks": null,
+    "decider": null,
+    "ready": false
+   },
+   "offer": null,
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.723,
+     "usd": 0.000649,
+     "ok": true,
+     "note": "{\"ceiling_usd\": null, \"decider\": null, \"drop_items\": [], \"need_by\": null, \"ready\": false, \"stop\": true, \"wait_weeks\": null}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 1e-06,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"stop\": true}"
+    }
+   ],
+   "opted_out": true,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 16200.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.723,
+     "prompt_tokens": 1889,
+     "completion_tokens": 91,
+     "reasoning_tokens": 0,
+     "cost": 0.000649,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-9f2b305a94706098",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 1e-06,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"stop\": true}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    }
+   ],
+   "seconds": 1.723,
+   "usd": 0.000649,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 16200.0,
+      "stop": false,
+      "timing": {
+       "kind": "answer"
+      }
+     },
+     "match": false,
+     "model": null,
+     "seconds": 0.000465,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": true,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": null,
+      "stop": true,
+      "timing": null
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.225,
+     "usd": 0.000649,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": null,
+     "stop": true,
+     "timing": null
+    },
+    "true_facts": {
+     "stop": true,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": null,
+     "wait_weeks": null,
+     "decider": null,
+     "ready": false
+    }
+   }
+  },
+  {
+   "id": "test-0027",
+   "pick_reason": "asks the shop to stop without the word \"stop\" (first by line id; 24 such replies in the split)",
+   "stratum": "S2",
+   "buyer": "B025",
+   "reply": "Please remove me from your contact list and don't reach out again\u2014thanks for the estimate, but I'm not interested.",
+   "now": "2026-11-04T12:00:00+00:00",
+   "estimate": {
+    "title": "Full asphalt roof replacement",
+    "items": [
+     {
+      "name": "Full asphalt roof replacement",
+      "price": 11590.0,
+      "optional": false
+     },
+     {
+      "name": "Gutter guards",
+      "price": 1550.0,
+      "optional": true
+     }
+    ],
+    "total": 13140.0,
+    "floor": 12355,
+    "sent_by": "sms",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 1
+   },
+   "path": "stopped",
+   "stop_reason": "customer asked to stop (opt-out keyword); no further messages",
+   "flags": [],
+   "needs_owner": false,
+   "facts": null,
+   "offer": null,
+   "branch": null,
+   "stages": [],
+   "opted_out": true,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 13140.0,
+    "dropped": []
+   },
+   "steps": [],
+   "seconds": 0,
+   "usd": 0,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": true,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": null,
+      "stop": true,
+      "timing": null
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.000143,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": true,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": null,
+      "stop": true,
+      "timing": null
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.06,
+     "usd": 0.00065,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": null,
+     "stop": true,
+     "timing": null
+    },
+    "true_facts": {
+     "stop": true,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": null,
+     "wait_weeks": null,
+     "decider": null,
+     "ready": false
+    }
+   }
+  },
+  {
+   "id": "test-0001",
+   "pick_reason": "next line by id (S4: Spanish or Spanglish)",
+   "stratum": "S4",
+   "buyer": "B007",
+   "reply": "Oye, lo m\u00e1ximo que puedo pagar por esto son $360. Y mi landlord tiene que dar el ok antes de que sigamos, estoy un poco estresado con eso.",
+   "now": "2026-11-07T12:00:00+00:00",
+   "estimate": {
+    "title": "Fix leaking shower valve",
+    "items": [
+     {
+      "name": "Fix leaking shower valve",
+      "price": 370.0,
+      "optional": false
+     }
+    ],
+    "total": 370.0,
+    "floor": 345,
+    "sent_by": "email",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 4
+   },
+   "path": "reply",
+   "stop_reason": null,
+   "flags": [
+    "delayed to 2026-11-07T13:00:00+00:00 (quiet hours or 3-per-24h cap)"
+   ],
+   "needs_owner": true,
+   "facts": {
+    "stop": false,
+    "ceiling_usd": 360.0,
+    "drop_items": [],
+    "need_by": null,
+    "wait_weeks": null,
+    "decider": "landlord",
+    "ready": false
+   },
+   "offer": {
+    "stop": false,
+    "dropped": [],
+    "price": 360.0,
+    "timing": {
+     "kind": "slot",
+     "day": "2026-11-09"
+    }
+   },
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.789,
+     "usd": 0.00065,
+     "ok": true,
+     "note": "{\"ceiling_usd\": 360.0, \"decider\": \"landlord\", \"drop_items\": [], \"need_by\": null, \"ready\": false, \"stop\": false, \"wait_weeks\": null}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 0.00014,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"concede_pkg_3\", \"offer\": {\"dropped\": [], \"price\": 360.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-09\", \"kind\": \"slot\"}}}"
+    },
+    {
+     "stage": "write",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.256,
+     "usd": 0.000308,
+     "ok": true,
+     "note": "model text passed the checks"
+    }
+   ],
+   "mapping": {
+    "exact": true,
+    "note": "concede_pkg_3: full package at $360",
+    "owner_flag": null
+   },
+   "writer": {
+    "template_used": false,
+    "problems": [],
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   },
+   "move": {
+    "id": "concede_pkg_3",
+    "kind": "concede",
+    "description": "Lower this package (Fix leaking shower valve) to $360 (3% below list); owner approves with one tap.",
+    "price": 360,
+    "dropped": [],
+    "slot": "2026-11-09T14:00:00+00:00",
+    "checkin_days": null,
+    "needs_owner": true
+   },
+   "effect": {
+    "price_before": 370.0,
+    "price_after": 360,
+    "change": -10.0,
+    "margin_after": 156.5
+   },
+   "message": "[Sunrise Home Services assistant, not a person] Sunrise Home Services offers Fix leaking shower valve at $360 (down from $370) as requested. Your landlord needs to approve before we proceed. Reply YES if approved and ready to schedule for Mon Nov 09, otherwise let us know your decision. Reply STOP to opt out.",
+   "send_at": "2026-11-07T13:00:00+00:00",
+   "gate": {
+    "ok": true,
+    "send_at": "2026-11-07T13:00:00+00:00",
+    "blocked": null
+   },
+   "opted_out": false,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 370.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.789,
+     "prompt_tokens": 1885,
+     "completion_tokens": 94,
+     "reasoning_tokens": 0,
+     "cost": 0.00065,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-a874a7189b8de089",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 0.00014,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"concede_pkg_3\", \"offer\": {\"dropped\": [], \"price\": 360.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-09\", \"kind\": \"slot\"}}}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    },
+    {
+     "step": "write",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.256,
+     "prompt_tokens": 792,
+     "completion_tokens": 78,
+     "reasoning_tokens": 0,
+     "cost": 0.000308,
+     "ok": true,
+     "note": "text passed the checks",
+     "response_id": "chatcmpl-879ca69412c3b70b",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "seconds": 2.045,
+   "usd": 0.000958,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": 360.0,
+      "decider": "landlord",
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 360.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-09",
+       "kind": "slot"
+      }
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.001267,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": 360.0,
+      "decider": "landlord",
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 360.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-09",
+       "kind": "slot"
+      }
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.136,
+     "usd": 0.00065,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": 360.0,
+     "stop": false,
+     "timing": {
+      "day": "2026-11-09",
+      "kind": "slot"
+     }
+    },
+    "true_facts": {
+     "stop": false,
+     "ceiling_usd": 360.0,
+     "drop_items": [],
+     "need_by": null,
+     "wait_weeks": null,
+     "decider": "landlord",
+     "ready": false
+    }
+   }
+  },
+  {
+   "id": "test-0002",
+   "pick_reason": "next line by id (S1: one fact in plain English)",
+   "stratum": "S1",
+   "buyer": "B067",
+   "reply": "Can you book the Furnace igniter and flame sensor for $750? Let me know when the crew can come.",
+   "now": "2026-11-03T12:00:00+00:00",
+   "estimate": {
+    "title": "Furnace igniter and flame sensor",
+    "items": [
+     {
+      "name": "Furnace igniter and flame sensor",
+      "price": 580.0,
+      "optional": false
+     },
+     {
+      "name": "Annual maintenance plan",
+      "price": 170.0,
+      "optional": true
+     }
+    ],
+    "total": 750.0,
+    "floor": 660,
+    "sent_by": "email",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 0
+   },
+   "path": "reply",
+   "stop_reason": null,
+   "flags": [
+    "delayed to 2026-11-03T13:00:00+00:00 (quiet hours or 3-per-24h cap)"
+   ],
+   "needs_owner": false,
+   "facts": {
+    "stop": false,
+    "ceiling_usd": null,
+    "drop_items": [],
+    "need_by": null,
+    "wait_weeks": null,
+    "decider": null,
+    "ready": true
+   },
+   "offer": {
+    "stop": false,
+    "dropped": [],
+    "price": 750.0,
+    "timing": {
+     "kind": "slot",
+     "day": "2026-11-09"
+    }
+   },
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.915,
+     "usd": 0.00065,
+     "ok": true,
+     "note": "{\"ceiling_usd\": null, \"decider\": null, \"drop_items\": [], \"need_by\": null, \"ready\": true, \"stop\": false, \"wait_weeks\": null}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 0.000154,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"earlier_slot_2\", \"offer\": {\"dropped\": [], \"price\": 750.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-09\", \"kind\": \"slot\"}}}"
+    },
+    {
+     "stage": "write",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.976,
+     "usd": 0.000277,
+     "ok": true,
+     "note": "model text passed the checks"
+    }
+   ],
+   "mapping": {
+    "exact": true,
+    "note": "earlier_slot_2: the slot offer() chose",
+    "owner_flag": null
+   },
+   "writer": {
+    "template_used": false,
+    "problems": [],
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   },
+   "move": {
+    "id": "earlier_slot_2",
+    "kind": "earlier_slot",
+    "description": "Offer an earlier slot Mon Nov 09 02:00 PM (quoted slot is Wed Nov 11) at $750.",
+    "price": 750.0,
+    "dropped": [],
+    "slot": "2026-11-09T14:00:00+00:00",
+    "checkin_days": null,
+    "needs_owner": false
+   },
+   "effect": {
+    "price_before": 750.0,
+    "price_after": 750.0,
+    "change": 0.0,
+    "margin_after": 337.5
+   },
+   "message": "[Sunrise Home Services assistant, not a person] We offer furnace igniter & flame sensor plus annual maintenance plan for $750. We're available Mon Nov 09\u2014reply YES to book. Reply STOP to opt out.",
+   "send_at": "2026-11-03T13:00:00+00:00",
+   "gate": {
+    "ok": true,
+    "send_at": "2026-11-03T13:00:00+00:00",
+    "blocked": null
+   },
+   "opted_out": false,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 750.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.915,
+     "prompt_tokens": 1892,
+     "completion_tokens": 91,
+     "reasoning_tokens": 0,
+     "cost": 0.00065,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-9f8d87ccca4a95ef",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 0.000154,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"earlier_slot_2\", \"offer\": {\"dropped\": [], \"price\": 750.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-09\", \"kind\": \"slot\"}}}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    },
+    {
+     "step": "write",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.976,
+     "prompt_tokens": 765,
+     "completion_tokens": 53,
+     "reasoning_tokens": 0,
+     "cost": 0.000277,
+     "ok": true,
+     "note": "text passed the checks",
+     "response_id": "chatcmpl-9d06e0bf36a101fb",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "seconds": 1.891,
+   "usd": 0.000927,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 750.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-09",
+       "kind": "slot"
+      }
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.003425,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 750.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-09",
+       "kind": "slot"
+      }
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.485,
+     "usd": 0.00065,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": 750.0,
+     "stop": false,
+     "timing": {
+      "day": "2026-11-09",
+      "kind": "slot"
+     }
+    },
+    "true_facts": {
+     "stop": false,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": null,
+     "wait_weeks": null,
+     "decider": null,
+     "ready": true
+    }
+   }
+  },
+  {
+   "id": "test-0003",
+   "pick_reason": "next line by id (S1: one fact in plain English)",
+   "stratum": "S1",
+   "buyer": "B178",
+   "reply": "We do want the job done, but not until about 5 weeks from now. Thanks.",
+   "now": "2026-11-03T12:00:00+00:00",
+   "estimate": {
+    "title": "Replace 3-ton AC and air handler",
+    "items": [
+     {
+      "name": "Replace 3-ton AC and air handler",
+      "price": 8560.0,
+      "optional": false
+     },
+     {
+      "name": "Smart thermostat",
+      "price": 410.0,
+      "optional": true
+     },
+     {
+      "name": "UV air purifier",
+      "price": 590.0,
+      "optional": true
+     }
+    ],
+    "total": 9560.0,
+    "floor": 8605,
+    "sent_by": "sms",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 0
+   },
+   "path": "reply",
+   "stop_reason": null,
+   "flags": [
+    "delayed to 2026-11-03T13:00:00+00:00 (quiet hours or 3-per-24h cap)"
+   ],
+   "needs_owner": false,
+   "facts": {
+    "stop": false,
+    "ceiling_usd": null,
+    "drop_items": [],
+    "need_by": null,
+    "wait_weeks": 5,
+    "decider": null,
+    "ready": false
+   },
+   "offer": {
+    "stop": false,
+    "dropped": [],
+    "price": 9560.0,
+    "timing": {
+     "kind": "checkin",
+     "days": 30
+    }
+   },
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.074,
+     "usd": 0.000654,
+     "ok": true,
+     "note": "{\"ceiling_usd\": null, \"decider\": null, \"drop_items\": [], \"need_by\": null, \"ready\": false, \"stop\": false, \"wait_weeks\": 5}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 0.00019,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"checkin_30\", \"offer\": {\"dropped\": [], \"price\": 9560.0, \"stop\": false, \"timing\": {\"days\": 30, \"kind\": \"checkin\"}}}"
+    },
+    {
+     "stage": "write",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.185,
+     "usd": 0.000316,
+     "ok": true,
+     "note": "model text passed the checks"
+    }
+   ],
+   "mapping": {
+    "exact": true,
+    "note": "check back in 30 days",
+    "owner_flag": null
+   },
+   "writer": {
+    "template_used": false,
+    "problems": [],
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   },
+   "move": {
+    "id": "checkin_30",
+    "kind": "checkin",
+    "description": "No pressure, no price change; say you will check back in 30 days.",
+    "price": 9560.0,
+    "dropped": [],
+    "slot": null,
+    "checkin_days": 30,
+    "needs_owner": false
+   },
+   "effect": {
+    "price_before": 9560.0,
+    "price_after": 9560.0,
+    "change": 0.0,
+    "margin_after": 4302.0
+   },
+   "message": "[Sunrise Home Services assistant, not a person] Hi there! Just checking back as discussed\u2014still good to proceed with your HVAC replacement (incl. smart thermostat & UV purifier) for $9,560? We suggest revisiting in ~30 days to schedule around late Dec/early Jan. Reply YES if this works, else let us know better timing! Reply STOP to opt out.",
+   "send_at": "2026-11-03T13:00:00+00:00",
+   "gate": {
+    "ok": true,
+    "send_at": "2026-11-03T13:00:00+00:00",
+    "blocked": null
+   },
+   "opted_out": false,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 9560.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.074,
+     "prompt_tokens": 1907,
+     "completion_tokens": 91,
+     "reasoning_tokens": 0,
+     "cost": 0.000654,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-9360d81c9087fb33",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 0.00019,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"checkin_30\", \"offer\": {\"dropped\": [], \"price\": 9560.0, \"stop\": false, \"timing\": {\"days\": 30, \"kind\": \"checkin\"}}}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    },
+    {
+     "step": "write",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.185,
+     "prompt_tokens": 785,
+     "completion_tokens": 89,
+     "reasoning_tokens": 0,
+     "cost": 0.000316,
+     "ok": true,
+     "note": "text passed the checks",
+     "response_id": "chatcmpl-8d38f9e14f944afb",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "seconds": 2.259,
+   "usd": 0.00097,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": false,
+      "wait_weeks": 5
+     },
+     "offer": {
+      "dropped": [],
+      "price": 9560.0,
+      "stop": false,
+      "timing": {
+       "days": 30,
+       "kind": "checkin"
+      }
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.001298,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": null,
+      "ready": false,
+      "stop": false,
+      "wait_weeks": 5
+     },
+     "offer": {
+      "dropped": [],
+      "price": 9560.0,
+      "stop": false,
+      "timing": {
+       "days": 30,
+       "kind": "checkin"
+      }
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.094,
+     "usd": 0.000654,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": 9560.0,
+     "stop": false,
+     "timing": {
+      "days": 30,
+      "kind": "checkin"
+     }
+    },
+    "true_facts": {
+     "stop": false,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": null,
+     "wait_weeks": 5,
+     "decider": null,
+     "ready": false
+    }
+   }
+  },
+  {
+   "id": "test-0004",
+   "pick_reason": "next line by id (S2: two or three facts)",
+   "stratum": "S2",
+   "buyer": "B056",
+   "reply": "Hi, I need this done by Thursday Nov 12, I'm a bit stressed about it. Can you book me in and let me know when the crew can come?",
+   "now": "2026-11-06T12:00:00+00:00",
+   "estimate": {
+    "title": "Fix leaking shower valve",
+    "items": [
+     {
+      "name": "Fix leaking shower valve",
+      "price": 600.0,
+      "optional": false
+     }
+    ],
+    "total": 600.0,
+    "floor": 555,
+    "sent_by": "sms",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 3
+   },
+   "path": "reply",
+   "stop_reason": null,
+   "flags": [
+    "delayed to 2026-11-06T13:00:00+00:00 (quiet hours or 3-per-24h cap)"
+   ],
+   "needs_owner": false,
+   "facts": {
+    "stop": false,
+    "ceiling_usd": null,
+    "drop_items": [],
+    "need_by": "2026-11-12",
+    "wait_weeks": null,
+    "decider": null,
+    "ready": true
+   },
+   "offer": {
+    "stop": false,
+    "dropped": [],
+    "price": 600.0,
+    "timing": {
+     "kind": "slot",
+     "day": "2026-11-08",
+     "meets_deadline": true
+    }
+   },
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.257,
+     "usd": 0.000654,
+     "ok": true,
+     "note": "{\"ceiling_usd\": null, \"decider\": null, \"drop_items\": [], \"need_by\": \"2026-11-12\", \"ready\": true, \"stop\": false, \"wait_weeks\": null}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 0.000109,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"earlier_slot_1\", \"offer\": {\"dropped\": [], \"price\": 600.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-08\", \"kind\": \"slot\", \"meets_deadline\": true}}}"
+    },
+    {
+     "stage": "write",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.894,
+     "usd": 0.00027,
+     "ok": true,
+     "note": "model text passed the checks"
+    }
+   ],
+   "mapping": {
+    "exact": true,
+    "note": "earlier_slot_1: the slot offer() chose",
+    "owner_flag": null
+   },
+   "writer": {
+    "template_used": false,
+    "problems": [],
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   },
+   "move": {
+    "id": "earlier_slot_1",
+    "kind": "earlier_slot",
+    "description": "Offer an earlier slot Sun Nov 08 02:00 PM (quoted slot is Mon Nov 09) at $600.",
+    "price": 600.0,
+    "dropped": [],
+    "slot": "2026-11-08T14:00:00+00:00",
+    "checkin_days": null,
+    "needs_owner": false
+   },
+   "effect": {
+    "price_before": 600.0,
+    "price_after": 600.0,
+    "change": 0.0,
+    "margin_after": 270.0
+   },
+   "message": "[Sunrise Home Services assistant, not a person] Hi! For fixing your leaking shower valve on Sunday Nov 08, our price is $600 total. Reply YES to book! Reply STOP to opt out.",
+   "send_at": "2026-11-06T13:00:00+00:00",
+   "gate": {
+    "ok": true,
+    "send_at": "2026-11-06T13:00:00+00:00",
+    "blocked": null
+   },
+   "opted_out": false,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 600.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.257,
+     "prompt_tokens": 1881,
+     "completion_tokens": 100,
+     "reasoning_tokens": 0,
+     "cost": 0.000654,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-ad772fc931af0bec",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 0.000109,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"earlier_slot_1\", \"offer\": {\"dropped\": [], \"price\": 600.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-08\", \"kind\": \"slot\", \"meets_deadline\": true}}}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    },
+    {
+     "step": "write",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 0.894,
+     "prompt_tokens": 751,
+     "completion_tokens": 50,
+     "reasoning_tokens": 0,
+     "cost": 0.00027,
+     "ok": true,
+     "note": "text passed the checks",
+     "response_id": "chatcmpl-ace3cbcc4dab76d2",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "seconds": 2.151,
+   "usd": 0.000924,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": "2026-11-12",
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 600.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-08",
+       "kind": "slot",
+       "meets_deadline": true
+      }
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.000467,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": "2026-11-12",
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 600.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-08",
+       "kind": "slot",
+       "meets_deadline": true
+      }
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.166,
+     "usd": 0.000654,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": 600.0,
+     "stop": false,
+     "timing": {
+      "day": "2026-11-08",
+      "kind": "slot",
+      "meets_deadline": true
+     }
+    },
+    "true_facts": {
+     "stop": false,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": "2026-11-12",
+     "wait_weeks": null,
+     "decider": null,
+     "ready": true
+    }
+   }
+  },
+  {
+   "id": "test-0006",
+   "pick_reason": "first S3 line by id (paraphrase (item without its name, amounts in words, relative dates)), so every stratum is in the morning",
+   "stratum": "S3",
+   "buyer": "B058",
+   "reply": "Hey, this needs to be done before the 17th\u2014can you make that work?",
+   "now": "2026-11-06T12:00:00+00:00",
+   "estimate": {
+    "title": "Install EV charger circuit",
+    "items": [
+     {
+      "name": "Install EV charger circuit",
+      "price": 1760.0,
+      "optional": false
+     },
+     {
+      "name": "Load management module",
+      "price": 310.0,
+      "optional": true
+     }
+    ],
+    "total": 2070.0,
+    "floor": 1905,
+    "sent_by": "sms",
+    "sent_at": "2026-11-02T14:00:00+00:00",
+    "days_before": 3
+   },
+   "path": "reply",
+   "stop_reason": null,
+   "flags": [
+    "delayed to 2026-11-06T13:00:00+00:00 (quiet hours or 3-per-24h cap)"
+   ],
+   "needs_owner": false,
+   "facts": {
+    "stop": false,
+    "ceiling_usd": null,
+    "drop_items": [],
+    "need_by": "2026-11-17",
+    "wait_weeks": null,
+    "decider": null,
+    "ready": false
+   },
+   "offer": {
+    "stop": false,
+    "dropped": [],
+    "price": 2070.0,
+    "timing": {
+     "kind": "slot",
+     "day": "2026-11-08",
+     "meets_deadline": true
+    }
+   },
+   "branch": null,
+   "stages": [
+    {
+     "stage": "read",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.268,
+     "usd": 0.000655,
+     "ok": true,
+     "note": "{\"ceiling_usd\": null, \"decider\": null, \"drop_items\": [], \"need_by\": \"2026-11-17\", \"ready\": false, \"stop\": false, \"wait_weeks\": null}"
+    },
+    {
+     "stage": "decide",
+     "actor": "code",
+     "model": null,
+     "seconds": 0.000158,
+     "usd": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"earlier_slot_2\", \"offer\": {\"dropped\": [], \"price\": 2070.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-08\", \"kind\": \"slot\", \"meets_deadline\": true}}}"
+    },
+    {
+     "stage": "write",
+     "actor": "Nemotron 3 Super",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 3.191,
+     "usd": 0.000281,
+     "ok": true,
+     "note": "model text passed the checks"
+    }
+   ],
+   "mapping": {
+    "exact": true,
+    "note": "earlier_slot_2: the slot offer() chose",
+    "owner_flag": null
+   },
+   "writer": {
+    "template_used": false,
+    "problems": [],
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   },
+   "move": {
+    "id": "earlier_slot_2",
+    "kind": "earlier_slot",
+    "description": "Offer an earlier slot Sun Nov 08 02:00 PM (quoted slot is Wed Nov 11) at $2,070.",
+    "price": 2070.0,
+    "dropped": [],
+    "slot": "2026-11-08T14:00:00+00:00",
+    "checkin_days": null,
+    "needs_owner": false
+   },
+   "effect": {
+    "price_before": 2070.0,
+    "price_after": 2070.0,
+    "change": 0.0,
+    "margin_after": 931.5
+   },
+   "message": "[Sunrise Home Services assistant, not a person] We can install your EV charger circuit and load management module on Sunday Nov 08 for $2,070 as quoted. Does that fit your deadline? Reply YES to proceed. Reply STOP to opt out.",
+   "send_at": "2026-11-06T13:00:00+00:00",
+   "gate": {
+    "ok": true,
+    "send_at": "2026-11-06T13:00:00+00:00",
+    "blocked": null
+   },
+   "opted_out": false,
+   "sent": false,
+   "job": null,
+   "offer_after": {
+    "price": 2070.0,
+    "dropped": []
+   },
+   "steps": [
+    {
+     "step": "read",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.268,
+     "prompt_tokens": 1884,
+     "completion_tokens": 100,
+     "reasoning_tokens": 0,
+     "cost": 0.000655,
+     "ok": true,
+     "note": "facts passed the contract",
+     "response_id": "chatcmpl-85953fd2f9cd717e",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    },
+    {
+     "step": "decide",
+     "model": null,
+     "seconds": 0.000158,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "reasoning_tokens": 0,
+     "cost": 0.0,
+     "ok": true,
+     "note": "{\"exact\": true, \"move\": \"earlier_slot_2\", \"offer\": {\"dropped\": [], \"price\": 2070.0, \"stop\": false, \"timing\": {\"day\": \"2026-11-08\", \"kind\": \"slot\", \"meets_deadline\": true}}}",
+     "response_id": null,
+     "served_model": null,
+     "platform_error": false
+    },
+    {
+     "step": "write",
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 3.191,
+     "prompt_tokens": 759,
+     "completion_tokens": 59,
+     "reasoning_tokens": 0,
+     "cost": 0.000281,
+     "ok": true,
+     "note": "text passed the checks",
+     "response_id": "chatcmpl-8c8f41925b2d8555",
+     "served_model": "nvidia/nemotron-3-super-120b-a12b",
+     "platform_error": false
+    }
+   ],
+   "seconds": 4.459,
+   "usd": 0.000936,
+   "v4": {
+    "rules": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": "2026-11-16",
+      "ready": false,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 2070.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-08",
+       "kind": "slot",
+       "meets_deadline": true
+      }
+     },
+     "match": true,
+     "model": null,
+     "seconds": 0.000712,
+     "usd": 0.0,
+     "failure": null
+    },
+    "super": {
+     "facts": {
+      "ceiling_usd": null,
+      "decider": null,
+      "drop_items": [],
+      "need_by": "2026-11-16",
+      "ready": true,
+      "stop": false,
+      "wait_weeks": null
+     },
+     "offer": {
+      "dropped": [],
+      "price": 2070.0,
+      "stop": false,
+      "timing": {
+       "day": "2026-11-08",
+       "kind": "slot",
+       "meets_deadline": true
+      }
+     },
+     "match": true,
+     "model": "nvidia/nemotron-3-super-120b-a12b",
+     "seconds": 1.207,
+     "usd": 0.000655,
+     "failure": null
+    },
+    "perfect_read_offer": {
+     "dropped": [],
+     "price": 2070.0,
+     "stop": false,
+     "timing": {
+      "day": "2026-11-08",
+      "kind": "slot",
+      "meets_deadline": true
+     }
+    },
+    "true_facts": {
+     "stop": false,
+     "ceiling_usd": null,
+     "drop_items": [],
+     "need_by": "2026-11-16",
+     "wait_weeks": null,
+     "decider": null,
+     "ready": false
+    }
+   }
+  }
+ ],
+ "wall_seconds": 17.5
+}
