@@ -324,3 +324,46 @@ def test_date_problems_accepts_only_the_moves_own_day_and_span():
     chk = MN.Move("checkin_14", "checkin", "", frozenset(), 740, None, "email", checkin_days=14)
     assert D.date_problems("We'll check back in 14 days, or two weeks.", chk) == []
     assert D.date_problems("We'll check back in a week.", chk) and D.date_problems("See you Oct 29", chk)
+
+
+# --- the text may offer a booking, never claim one -------------------------------------------------------------------
+
+def test_text_claiming_a_done_booking_is_replaced_by_the_template():
+    # the live morning's test-0002 draft, moved onto this estimate's offer (Thu Oct 29, $740)
+    overclaim = ("Hi! Your service for the AC repair is booked for $740. We’ve scheduled your appointment for "
+                 "Thursday October 29th. Please let us know if anything changes!")
+    ag, _ = agent([facts(ready=True), text(overclaim)])
+    rd = ag.decide(conv("Looks good, when can you come?"), NOW)
+    assert rd.move.kind == "offer_slot" and rd.written.template_used
+    assert "booked" not in rd.message and rd.message.endswith("Reply YES to confirm. Reply STOP to opt out.")
+    flag = next(f for f in rd.flags if "replaced by the template" in f)
+    assert '("booked")' in flag and '("We’ve scheduled")' in flag
+    ag, _ = agent([facts(ready=True), text("Listo, su cita queda agendada por $740.")])
+    rd = ag.decide(conv("Se ve bien, cuando pueden venir?"), NOW)
+    assert rd.written.template_used and any("agendada" in p for p in rd.written.problems)
+
+
+def test_text_offering_a_booking_as_a_question_passes():
+    ag, _ = agent([facts(ready=True), text("Shall I book Thursday Oct 29 at $740? Reply YES to confirm.")])
+    rd = ag.decide(conv("Looks good, when can you come?"), NOW)
+    assert not rd.written.template_used and rd.message.startswith("[Cool Air assistant, not a person] Shall I book")
+
+
+def test_writer_prompt_says_the_message_only_offers():
+    ag, fc = agent([facts(ready=True), text("Shall I book it?")])
+    ag.decide(conv("Looks good, when can you come?"), NOW)
+    assert "never say the job is booked, scheduled, confirmed or reserved" in fc.calls[1]["messages"][0]["content"]
+
+
+def test_claim_problems_catches_done_deals_and_lets_offers_through():
+    move = MN.Move("offer_slot", "offer_slot", "", frozenset(), 740, None, "email", proposes_booking=True)
+    assert D.CONFIRMING_KINDS == ()  # no menu move confirms a booking: the booking tool loop does, after a yes
+    for claim in ("You're booked for Thursday.", "Your appointment is scheduled.", "We've scheduled you.",
+                  "we have now scheduled the crew", "Your slot is confirmed.", "I reserved Thursday for you.",
+                  "Your price is locked in.", "Queda reservado.", "Ya está agendado.", "Precio confirmado.",
+                  "You're all scheduled."):
+        assert D.claim_problems(claim, move), claim
+    for offer in ("Shall I book it?", "Want us to book you for Thursday?", "Reply YES to confirm.",
+                  "Can we schedule you for Thursday?", "Should I reserve that slot?", "We can book you then.",
+                  "Reply YES to book."):
+        assert D.claim_problems(offer, move) == [], offer

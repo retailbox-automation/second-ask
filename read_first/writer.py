@@ -2,8 +2,10 @@
 
 One call, reasoning off (as the shipped label step), through a named tool. The text is checked by
 `second_ask.menu.check_message` (every $ amount and % must belong to the move; length) and by
-`read_first.decide.date_problems` (every date, weekday or span must be the move's slot day or check-in); any problem,
-a missing tool call or a platform error gives the move's code template (`second_ask.menu.template_message`).
+`read_first.decide.date_problems` (every date, weekday or span must be the move's slot day or check-in) and by
+`read_first.decide.claim_problems` (no move confirms a booking, so the text may not say it is booked, scheduled,
+confirmed or reserved); any problem, a missing tool call or a platform error gives the move's code template
+(`second_ask.menu.template_message`).
 """
 from dataclasses import dataclass, field
 
@@ -13,13 +15,14 @@ from second_ask.menu import check_message, template_message
 from second_ask.tf_client import TFError, tool_args
 from second_ask.trace import Step
 
-from .decide import date_problems
+from .decide import claim_problems, date_problems
 
 WRITER_MODEL = M.SUPER
 TOOL_NAME = "write_message"
 SYSTEM = """You write one short text message from {shop}, a home-service shop, to a customer who received an estimate.
 The shop's own code has already decided the offer from what the customer said. You cannot change it: do not add, change or hint at any other price, percentage, discount, item, date, weekday or time span.
 Answer what the customer actually said, in plain friendly words, and put the offer in it.
+The message is an offer: when it proposes a slot or a price, ask the customer to confirm (for example "Reply YES to book"). Nothing is booked until the customer says yes, so never say the job is booked, scheduled, confirmed or reserved.
 Plain text, under 300 characters, no greeting line of its own, no emoji, no signature. Do not say you are a person; the shop adds its own disclosure line.
 Call {tool} exactly once."""
 TOOL = {"type": "function", "function": {
@@ -106,6 +109,7 @@ def write(client, conv, move, now, trace, customer_amounts=(), facts=None, timin
         if not problems:
             problems += check_message(text, move, est, conv.offer, customer_amounts)
             problems += date_problems(text, move)
+            problems += claim_problems(text, move)
     trace.add(Step.from_reply("write", reply, ok=not problems, note="; ".join(problems)[:200] or "text passed the checks"))
     if problems:
         return Written(template, True, problems, reply.model, reply.seconds, reply.cost)

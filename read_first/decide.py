@@ -112,6 +112,26 @@ def map_offer(off, conv, menu, now, facts=None):
                              f"timing {timing}; code default {m.id} used", kept)
 
 
+# --- claims of a done booking in a written message -------------------------------------------------------------------
+# No move on the menu confirms a booking: every move offers, and the job is booked only by the booking tool loop after
+# the customer says yes (second_ask.agent.Agent.book). So a message never says it is booked, scheduled or confirmed.
+CONFIRMING_KINDS = ()
+_CLAIMS = re.compile(
+    r"\bbooked\b|\b(?:is|are|been|it's|you're|you are|now|all)\s+scheduled\b|\b(?:we|i)(?:'ve| have)\s+(?:\w+\s+)?scheduled\b|"
+    r"\bconfirmed\b|\breserved\b|\blocked in\b|\breservad[oa]s?\b|\bagendad[oa]s?\b|\bconfirmad[oa]s?\b", re.I)
+
+
+def claim_problems(text, move):
+    """Every phrase in `text` that says the job is already booked, scheduled, confirmed or reserved, unless the move
+    confirms a booking (no move kind does). "Shall I book it?" or "Reply YES to confirm" pass: only the done-deal
+    forms are matched."""
+    if move.kind in CONFIRMING_KINDS:
+        return []
+    norm = (text or "").translate(str.maketrans({"’": "'", "‘": "'", "ʼ": "'"}))
+    return [f'claims a done booking ("{(text or "")[m.start():m.end()]}") but move {move.id} only offers'
+            for m in _CLAIMS.finditer(norm)]
+
+
 # --- dates in a written message --------------------------------------------------------------------------------------
 _MONTHS = ("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec")
 _MONTH = r"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|" \

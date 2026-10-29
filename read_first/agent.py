@@ -182,7 +182,7 @@ class ReadFirstAgent:
         rd.stages.append(Stage("write", actor(self.cfg.writer_model), self.cfg.writer_model, w.seconds, round(w.usd, 6),
                                not w.template_used, "; ".join(w.problems)[:200] or "model text passed the checks"))
         if w.template_used:
-            flags.append(f"model's message replaced by the template: {w.problems}")
+            flags.append("model's message replaced by the template: " + "; ".join(w.problems))
         rd.decision = make_decision(conv, rd.mapping.move, w.text, now, self.cfg.shop_state, menu=menu, flags=flags)
         return rd
 
