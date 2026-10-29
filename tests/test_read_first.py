@@ -326,6 +326,56 @@ def test_date_problems_accepts_only_the_moves_own_day_and_span():
     assert D.date_problems("We'll check back in a week.", chk) and D.date_problems("See you Oct 29", chk)
 
 
+# --- months and month-relative phrases -------------------------------------------------------------------------------
+
+MORNING = datetime(2026, 11, 3, 12, 0, tzinfo=timezone.utc)  # the recorded morning of test-0003; +30 days = Thu Dec 3
+CHECKIN_30 = MN.Move("checkin_30", "checkin", "", frozenset(), 740, None, "email", checkin_days=30)
+SLOT_NOV_9 = MN.Move("earlier_slot_2", "earlier_slot", "", frozenset(), 750,
+                     MN.Slot("x", datetime(2026, 11, 9, 14, tzinfo=timezone.utc)), "email", proposes_booking=True)
+
+
+def test_live_test_0003_draft_with_months_the_code_never_chose_gets_the_template():
+    # the recorded draft (move checkin_30), its amount moved onto this estimate's $740 so that only the months differ
+    draft = ("Hi there! Just checking back as discussed—still good to proceed with your HVAC replacement (incl. smart "
+             "thermostat & UV purifier) for $740? We suggest revisiting in ~30 days to schedule around late Dec/early "
+             "Jan. Reply YES if this works, else let us know better timing!")
+    ag, _ = agent([facts(wait_weeks=4), text(draft)])
+    rd = ag.decide(conv("We want it, but not for about four weeks"), NOW)
+    assert rd.move.id == "checkin_30" and rd.written.template_used
+    assert rd.written.problems == ["month 'Dec' is not part of move checkin_30", "month 'Jan.' is not part of move checkin_30"]
+    assert "Dec" not in rd.message and any("month 'Dec'" in f for f in rd.flags)
+
+
+def test_month_names_and_month_relative_phrases_are_flagged():
+    for phrase, shown in (("around late Dec", "Dec"), ("early Jan", "Jan"), ("sometime in December", "December"),
+                          ("en diciembre", "diciembre"), ("a principios de enero", "enero"), ("dic. o ene.", "dic."),
+                          ("in mid-May", "mid-May"), ("early May", "early May"), ("in Sept", "Sept"),
+                          ("next month", "next month"), ("later this month", "this month"),
+                          ("in 2 months", "2 months"), ("after the holidays", "after the holidays"),
+                          ("after New Year", "New Year"), ("in 3 weeks", "3 weeks"), ("a fin de mes", "fin de mes"),
+                          ("el mes que viene", "el mes que viene"), ("Dec 10", "Dec 10")):
+        problems = D.date_problems(f"We will check back {phrase}.", CHECKIN_30, MORNING)
+        assert problems and any(repr(shown)[1:-1] in p for p in problems), (phrase, problems)
+
+
+def test_the_moves_own_span_and_day_pass_and_may_the_verb_passes():
+    for ok in ("We'll check back in about a month.", "We'll check back in 30 days.", "Talk in ~30 days.",
+               "We'll check back on Thursday, Dec 3.", "Nos vemos el 3 de diciembre.", "You may want to compare quotes.",
+               "May I ask what timing works?", "You may reply anytime."):
+        assert D.date_problems(ok, CHECKIN_30, MORNING) == [], ok
+    assert D.date_problems("We can come Monday, Nov 9 at 9.", SLOT_NOV_9) == []
+    assert D.date_problems("We're free Mon Nov 09.", SLOT_NOV_9) == []
+    for bad in ("We can come in November.", "late November works", "Monday, Nov 16", "the week of Nov 9 or next month"):
+        assert D.date_problems(bad, SLOT_NOV_9), bad
+    assert D.date_problems("We'll check back on Thursday, Dec 3.", CHECKIN_30)  # without `now` the check-in day is unknown
+
+
+def test_writer_passes_now_so_the_check_in_day_may_be_named():
+    ag, _ = agent([facts(wait_weeks=4), text("No rush. We'll check back in 30 days, around Saturday, Nov 21.")])
+    rd = ag.decide(conv("We want it, but not for about four weeks"), NOW)  # NOW is Thu Oct 22; +30 days = Sat Nov 21
+    assert rd.move.id == "checkin_30" and not rd.written.template_used
+
+
 # --- the text may offer a booking, never claim one -------------------------------------------------------------------
 
 def test_text_claiming_a_done_booking_is_replaced_by_the_template():

@@ -17,5 +17,6 @@ never edited, and a clean run of the full suite follows):
 | f skip the date check | test_model_text_with_a_percent_or_another_date_is_replaced |
 | g raise the price after a concession | test_a_price_already_conceded_is_never_raised_back_to_list |
 | h skip the done-booking claim check | test_text_claiming_a_done_booking_is_replaced_by_the_template |
+| i skip the month-name check | test_live_test_0003_draft_with_months_the_code_never_chose_gets_the_template |
 
 Open: no live recording yet (the orchestrator runs it through the key launcher); not wired into the demo (out of scope).

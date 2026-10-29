@@ -2,7 +2,7 @@
 
 One call, reasoning off (as the shipped label step), through a named tool. The text is checked by
 `second_ask.menu.check_message` (every $ amount and % must belong to the move; length) and by
-`read_first.decide.date_problems` (every date, weekday or span must be the move's slot day or check-in) and by
+`read_first.decide.date_problems` (every date, month, weekday or span must be the move's own slot day or check-in) and by
 `read_first.decide.claim_problems` (no move confirms a booking, so the text may not say it is booked, scheduled,
 confirmed or reserved); any problem, a missing tool call or a platform error gives the move's code template
 (`second_ask.menu.template_message`).
@@ -20,7 +20,7 @@ from .decide import claim_problems, date_problems
 WRITER_MODEL = M.SUPER
 TOOL_NAME = "write_message"
 SYSTEM = """You write one short text message from {shop}, a home-service shop, to a customer who received an estimate.
-The shop's own code has already decided the offer from what the customer said. You cannot change it: do not add, change or hint at any other price, percentage, discount, item, date, weekday or time span.
+The shop's own code has already decided the offer from what the customer said. You cannot change it: do not add, change or hint at any other price, percentage, discount, item, date, weekday, month or time span.
 Answer what the customer actually said, in plain friendly words, and put the offer in it.
 The message is an offer: when it proposes a slot or a price, ask the customer to confirm (for example "Reply YES to book"). Nothing is booked until the customer says yes, so never say the job is booked, scheduled, confirmed or reserved.
 Plain text, under 300 characters, no greeting line of its own, no emoji, no signature. Do not say you are a person; the shop adds its own disclosure line.
@@ -53,9 +53,9 @@ def describe(move, est, offer, facts=None, timing=None):
             "close_out": "Thank them and stop following up."}[move.kind]
     lines.append("Move: " + kind)
     if move.slot is not None:
-        lines.append(f"Slot: {move.slot.start:%A %b %d} (you may name this day; no other date or weekday).")
+        lines.append(f"Slot: {move.slot.start:%A %b %d} (you may name this day; no other date, weekday or month).")
     if move.checkin_days is not None:
-        lines.append(f"Check back in {move.checkin_days} days (you may say exactly that span; no other).")
+        lines.append(f"Check back in {move.checkin_days} days (you may say exactly that span; no other span, date or month).")
     if timing and timing.get("kind") == "slot" and timing.get("meets_deadline") is False:
         lines.append("That slot is the earliest open one and it is later than the customer needs: say so plainly, "
                      "without naming their date.")
@@ -108,7 +108,7 @@ def write(client, conv, move, now, trace, customer_amounts=(), facts=None, timin
         text = str(args.get("message") or "").strip() if isinstance(args, dict) else ""
         if not problems:
             problems += check_message(text, move, est, conv.offer, customer_amounts)
-            problems += date_problems(text, move)
+            problems += date_problems(text, move, now)
             problems += claim_problems(text, move)
     trace.add(Step.from_reply("write", reply, ok=not problems, note="; ".join(problems)[:200] or "text passed the checks"))
     if problems:
