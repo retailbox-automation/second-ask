@@ -49,11 +49,22 @@ const pw = require(process.env.PLAYWRIGHT_MODULE || "playwright");
         const cs = getComputedStyle(e), rc = e.getBoundingClientRect();
         return parseFloat(cs.borderTopLeftRadius) >= 8 && cs.backgroundColor !== "rgba(0, 0, 0, 0)" && rc.width > 120 && rc.height > 60;
       });
+      // the part of a card a visitor can see: its box cut by every scrolling or clipping ancestor (a thread scrolled to
+      // its end has messages far above the phone, hidden by the thread's own overflow)
+      const seen = e => {
+        const r = e.getBoundingClientRect(), v = { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
+        for (let p = e.parentElement; p; p = p.parentElement) {
+          if (getComputedStyle(p).overflow === "visible") continue;
+          const q = p.getBoundingClientRect();
+          v.left = Math.max(v.left, q.left); v.top = Math.max(v.top, q.top); v.right = Math.min(v.right, q.right); v.bottom = Math.min(v.bottom, q.bottom);
+        }
+        return v;
+      };
       const overlaps = [];
       for (let i = 0; i < cards.length; i++) for (let j = i + 1; j < cards.length; j++) {
         const a = cards[i], c = cards[j];
         if (a.contains(c) || c.contains(a) || a.closest("[data-overlap-ok]") || c.closest("[data-overlap-ok]")) continue;
-        const x = a.getBoundingClientRect(), y = c.getBoundingClientRect();
+        const x = seen(a), y = seen(c);
         const ow = Math.min(x.right, y.right) - Math.max(x.left, y.left), oh = Math.min(x.bottom, y.bottom) - Math.max(x.top, y.top);
         if (ow > 4 && oh > 4) overlaps.push((a.className || a.tagName) + " x " + (c.className || c.tagName));
       }

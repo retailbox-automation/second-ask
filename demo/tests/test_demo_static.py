@@ -52,7 +52,7 @@ def test_no_index_no_network_no_keys():
     assert "noindex" in (STATIC / "results.html").read_text()
     assert (STATIC / "robots.txt").read_text() == "User-agent: *\nDisallow: /\n"
     assert "X-Robots-Tag: noindex" in (STATIC / "_headers").read_text()
-    for f in ("index.html", "app.js", "app.css"):
+    for f in ("index.html", "app.js", "app.css", "morning.js", "morning.css"):
         t = (STATIC / f).read_text()
         if f == "index.html":  # the one exception: the visit counter, loaded only on the published https page
             assert 'if (location.protocol === "https:")' in t and t.count("https://") == 1
