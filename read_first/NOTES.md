@@ -18,5 +18,12 @@ never edited, and a clean run of the full suite follows):
 | g raise the price after a concession | test_a_price_already_conceded_is_never_raised_back_to_list |
 | h skip the done-booking claim check | test_text_claiming_a_done_booking_is_replaced_by_the_template |
 | i skip the month-name check | test_live_test_0003_draft_with_months_the_code_never_chose_gets_the_template |
+| j skip the "as discussed" check | test_0001_quoted_slot_remains_and_as_discussed_get_the_template |
+| k skip the "offered slot called the quoted one" check | test_offered_slot_called_the_quoted_one_is_flagged_only_when_it_is_another_day |
+| l skip the "check-in put on the customer" check | test_0003_check_back_put_on_the_customer_gets_the_template |
+| m writer falls back to the UTC template of second_ask | test_0006_template_shows_the_customers_local_time |
+
+Move descriptions on the menu (`second_ask.menu.build_menu`, pinned) still print UTC times; only the text sent to the
+customer (model text or `read_first.template.template`) is in local time.
 
 Open: no live recording yet (the orchestrator runs it through the key launcher); not wired into the demo (out of scope).
