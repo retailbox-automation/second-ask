@@ -1,12 +1,34 @@
 # Second Ask
 
-A follow-up agent for home-service shops, built on NVIDIA Nemotron models served by Nebius Token Factory, and a
-pre-registered test of whether it beats a good set of rules. Entry for the Nebius × NVIDIA Global AI Hackathon (track:
-Best Apps and Agents).
+A follow-up assistant for home-service shops. The shop's own code makes every money and timing decision; NVIDIA
+Nemotron 3 Super, served by Nebius Token Factory, reads what each customer wrote and drafts the reply. Entry for the
+Nebius × NVIDIA Global AI Hackathon (track: Best Apps and Agents).
 
-Demo: https://second-ask.retailbox-automation.com/ (a static replay of recorded conversations; it opens on the agent's
-next move and its dollar effect). Results: [RESULTS.md](RESULTS.md).
+Demo: https://second-ask.retailbox-automation.com/ (a static replay of recorded runs). Results, with every failure:
+[RESULTS.md](RESULTS.md).
 
+## The owner's morning
+
+A roofing, HVAC or plumbing shop sends estimates, and the answers come back in the evening, in any words and sometimes
+in Spanish: "no ridge vent, done by Tuesday, not over $2,750", "my landlord has to agree first", "please don't contact
+me again". In the morning the owner has to read each one, work out a fair offer, check the calendar and write back.
+
+Second Ask does that part before the owner wakes up:
+- Nemotron 3 Super reads each reply into a few facts: the price the customer can live with, items they don't want, a
+  deadline, a wait, someone else who must agree, a request to stop, ready to book.
+- The shop's code turns those facts into the offer: price from the shop's own menu and never below the owner's floor,
+  an open day that meets the deadline, a check-back date, or no message at all.
+- Nemotron 3 Super writes the message around that offer, and the code checks every amount and date in it; a text that
+  names another price or date, or claims a booking that has not happened, is replaced by the code's template.
+- Anything below the list price waits for the owner's one tap. Stop requests end the conversation, and no message goes out after one.
+
+A recorded morning (`demo/data/read_first_morning.json`, Token Factory, 2026-10-29): 8 replies read, 6 offers ready,
+2 of them discounts waiting for the owner's tap, 2 stop requests honoured, $0.0063 of Nemotron and 16.7 s of model
+time for the whole morning. The replies are synthetic (from our test set below), the shop is made up. One of the eight
+is a reply Nemotron misread in our test: it took a price the customer repeated as their limit; the code turned that into
+a discount, so it waits for the owner instead of going out.
+
+Why the code, and not the model, decides the price: we tested that four times, writing the rule down before each run.
 <!-- evidence:start -->
 | Evidence | Where | What it shows |
 |---|---|---|
@@ -26,24 +48,32 @@ next move and its dollar effect). Results: [RESULTS.md](RESULTS.md).
 Not in our pre-registered test: against a rulebook we wrote with full knowledge of the simulator, the routed design came out at -$181 [-$319, -$65] per customer [-$36,147 over 200 simulated customers; simulated margin on illustrative prices, not market data], Super-only showed no clear difference (-$84 [-$215, +$43] per customer), and the test switched the default label model to Super. A second pre-registered test, with customers wording the same facts freely, stopped before its main run: the buyer writer did not pass the vocabulary gate (L_own 71.8 % against at most 59.0 %). We also tested rules first, with Nemotron only where the rules don't know: -$71 [-$159, -$9] per customer, behind (third pre-registered test). A fourth test had Nemotron only read the customer while the rules decide: same offer as a perfect read on 99.0 % of 600 synthetic replies with Super, 99.33 % with the hardened rules, no clear difference (pre-registered).
 <!-- results:end -->
 
-We wrote the test down before running it, published it with its failures, and let it change the product: the default
-label model is now Super, because the cheaper Lightning design did not pass the rule we had set for it. What the test does
-support is that the menu matters. Every policy that asks why, offers an earlier slot or resends on the other channel
-earned more than a naive discount-first rule, the rulebook included. That gain comes from the menu, not from the model.
-Every number is in [`RESULTS.md`](RESULTS.md), with intervals and the limitations.
+When Nemotron chose the shop's next move (tests 1–3), it never beat a good rulebook, so the money decisions went back
+into code. When Nemotron only reads (test 4), it holds up: on 600 synthetic replies it led to the same offer as a perfect
+read as often as a rulebook tuned on the same writer did (no clear difference), and on those replies it missed none of
+the 48 requests to stop, where the rulebook missed 2. The replies are generated, so that count shows the kind of miss a
+rulebook makes, not a rate you would see in a real inbox. What the tests also support is that the menu matters: asking
+why, offering an earlier slot or resending earned more than a naive discount-first rule. Every number is in
+[`RESULTS.md`](RESULTS.md), with intervals and the limitations.
 
 ## What the agent does
 
-A shop sends an estimate and the customer goes quiet. For each reply, or each silence, the agent:
-1. labels why the customer has not booked: price, timing, a family decision, a missed message, ready, or opt-out;
-2. picks the next move from a menu the shop's own code builds. Options: answer, ask why, check back later, offer an
-   earlier slot, resend on the other channel, drop an optional item, or make a small concession that the owner approves
-   with one tap;
-3. writes the message, and books the job with a tool loop once the customer accepts.
+For each customer reply (`read_first/agent.py`, `ReadFirstAgent`):
+1. the opt-out check in code runs first (`second_ask/compliance.py`); a stop request in the usual stop words ends the
+   conversation with no model call (other wordings are caught by the read in step 2);
+2. Nemotron 3 Super reads the reply into Facts (`second_read/contract.py`), with the same prompt and settings that were
+   frozen for test 4 (`read_first/reader.py` feeds that reader from a live conversation; a test checks the input is
+   byte-identical on all 600 test lines);
+3. the shop's code turns the Facts into the offer (`second_read/offer.py`) and maps it to a move on the shop's menu
+   (`second_ask/menu.py`, `read_first/decide.py`); prices come only from the menu, never below the owner's floor;
+4. Nemotron 3 Super writes the message for that move (`read_first/writer.py`); the code checks amounts, dates and
+   booking claims, and sends its template when the text does not match;
+5. a price below the list waits for the owner's one tap; quiet hours, the Florida three-a-day cap and the disclosure
+   that it is an assistant are enforced in code before anything is sent;
+6. once the customer says yes, Nemotron 3 Super books the job with a tool loop (slots, book, record).
 
-Prices on the menu never go below the owner's floor. The messaging rules (quiet hours, message caps, opt-out, disclosure
-that it is an assistant) are enforced in code; the model only picks a move id and writes the text. In the shipped
-configuration Nemotron Super labels and chooses.
+Silence (no new reply) is decided by code only: the silence rules of `smart_rules`, no model. The earlier design, where
+Nemotron labelled the reason and picked the move (`second_ask/agent.py`), is kept as tested in tests 1–3.
 
 ## Nemotron on Token Factory: which model does what
 
@@ -51,15 +81,12 @@ Every model call goes to Nebius Token Factory (`second_ask/tf_client.py`; model 
 
 | Step | Model | How it is called | Why this model (measured) |
 |---|---|---|---|
-| Label why the customer is quiet | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off | spike S3: label right on 19/20 test states with a named tool; the tournament's pre-registered rule replaced Lightning with Super ([RESULTS.md](RESULTS.md)) |
-| Pick the next move from the code-built menu, write the message | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning on | spike S7: 0.950 of 60 calls right, against 0.883 for Ultra at about 3.9 times the cost per choice (`evidence/spikes/RESULTS.md`) |
+| Read the customer's reply into Facts | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off (the frozen test-4 reader) | test 4: same offer as a perfect read on 99.0 % of 600 synthetic replies, 0 of 48 stop requests missed, about $0.66 per 1,000 replies ([RESULTS.md](RESULTS.md)) |
+| Decide price, items, date, check-back, stop | none: the shop's code | `second_read/offer.py`, `second_ask/menu.py` | tests 1–3: when Nemotron chose the move, a good rulebook beat it |
+| Write the message for the chosen offer | `nvidia/nemotron-3-super-120b-a12b` | named tool, reasoning off; text checked by code | in the recorded morning, 1 of 6 drafts went to the code template (it claimed a booking) |
 | Book the accepted job (tool loop: slots, book, record) | `nvidia/nemotron-3-super-120b-a12b` | tools, reasoning on | spike: 20/20 tool calls parsed |
-| Comparison arms in the tests | Nemotron 3.5 Lightning, Nemotron 3 Ultra, Nemotron 3.5 Super-VL | as above, per policy | the first design labelled with Lightning; Ultra and Super-VL ran as policies of their own |
-| Simulated customers' words (test harness only) | `Qwen/Qwen3-30B-A3B-Instruct-2507` (v2: `deepseek-ai/DeepSeek-V4-Flash-0731`) | JSON object | deliberately not NVIDIA, so Nemotron never grades itself |
-
-Prices never come from a model: the shop's code builds the menu and enforces the owner's floor, quiet hours, message caps
-and opt-out before anything is sent. In the third test (v3), the rules decide and Super is called only where the rules
-do not recognise the reason in the customer's words.
+| Other readers in test 4 (descriptive) | Nemotron 3 Ultra, Nemotron 3.5 Super-VL, Nemotron 3.5 Lightning | same reader input | 100.0 %, 99.83 %, 96.17 % on the same 600 replies; Lightning missed 10 of 48 stops |
+| Test harness only | `deepseek-ai/DeepSeek-V4-Flash-0731` (test-4 replies), `Qwen/Qwen3-235B-A22B-Instruct-2507` (fidelity judge), `Qwen/Qwen3-30B-A3B-Instruct-2507` (tests 1–3 customers) | JSON | deliberately not NVIDIA, so Nemotron never grades itself |
 
 ## Demo
 
@@ -131,7 +158,9 @@ From our spikes and runs; evidence in `evidence/spikes/` and `evidence/platform/
 
 ## Layout
 
-- `second_ask/`: the agent.
+- `read_first/`: the product path: Nemotron reads, the code decides, Nemotron writes; `morning.py` builds the recorded morning.
+- `second_read/`: test 4 (contract, offer code, both readers, harness), frozen by `data/second_read/FREEZE.json`.
+- `second_ask/`: the agent of tests 1–3, the menu, compliance and the Token Factory client.
   - `classifier.py`: why the customer is quiet.
   - `menu.py`: moves and the owner's floor.
   - `chooser.py`, `compliance.py`, `agent.py`.
