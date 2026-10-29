@@ -9,6 +9,11 @@
 --card ID=TEXT        any buyer card of tournament/buyers.json; an empty TEXT is a silence.
 --ceiling USD         required: no run starts once the spend so far plus that run's worst case would pass it.
 --book                after a sent offer that proposes booking, the customer answers YES and the Super tool loop books.
+--morning             instead of --scenario/--card: the owner's morning (read_first/morning.py), eight overnight replies
+                      from the frozen v4 test split, one decision each, nothing sent and no owner tap given; writes
+                      demo/data/read_first_morning.json with the two frozen v4 reads per line and a summary block.
+
+    python3.14 tools/record_read_first.py --morning --ceiling 0.10
 
 Spend goes through the shared ledger with the tag "b2" (second_ask.tf_client: its own cap holds as well). Every step is
 written: model, seconds, $ (from the reply), the read Facts, the offer, the move, the message and the gate result.
@@ -28,12 +33,13 @@ from second_ask.tf_client import PRICES, BudgetExceeded, Client, Ledger  # noqa:
 from second_ask.trace import Trace  # noqa: E402
 from second_ask.tournament import buyers as B  # noqa: E402
 from read_first.agent import ReadFirstAgent, ReadFirstConfig  # noqa: E402
-from read_first import writer as W  # noqa: E402
+from read_first import morning as MO, writer as W  # noqa: E402
 
 TAG = "b2"
 REPLAY = ROOT / "demo" / "data" / "replay.json"
 BUYERS = ROOT / "tournament" / "buyers.json"
 OUT = ROOT / "demo" / "data" / "read_first_runs.json"
+MORNING_OUT = ROOT / "demo" / "data" / "read_first_morning.json"
 DEFAULT_DAY = 1 + 1 / 24  # the next morning after the estimate (09:00 + 1 h New York), inside messaging hours
 BOOK_ROUNDS = 8
 
@@ -74,30 +80,68 @@ def items_from(scenarios=(), cards=(), replay_path=REPLAY):
     return out
 
 
+def record(agent, conv, now, book=False, apply=True):
+    """One decision on `conv` at `now` (and, with `apply`, the stub owner's tap and the send; with `book`, the
+    booking after a YES), as a JSON-ready dict with every step."""
+    est = conv.estimate
+    rd = agent.decide(conv, now)
+    sent = agent.apply(conv, rd, OwnerTapStub()) if apply else False
+    job = None
+    if book and sent and rd.move.proposes_booking:
+        later = now + timedelta(hours=1)
+        conv.events.append(Event(later, "customer", rd.move.channel, "YES"))
+        job = agent.book(conv, later, rd)
+    rec = {"now": now.isoformat(),
+           "estimate": {"title": est.title, "items": [{"name": i.name, "price": i.price, "optional": i.optional}
+                                                      for i in est.items],
+                        "total": est.list_price(), "floor": est.floor(), "sent_by": est.channel,
+                        "sent_at": est.sent_at.isoformat(), "days_before": (now - est.sent_at).days},
+           **rd.to_dict(), "opted_out": conv.recipient.opted_out, "sent": sent, "job": job,
+           "offer_after": {"price": conv.offer.price, "dropped": sorted(conv.offer.dropped)},
+           "steps": [asdict(s) for s in conv.trace.steps]}
+    rec["seconds"] = round(sum(s.seconds for s in rd.stages), 3)
+    rec["usd"] = round(sum(s.cost for s in conv.trace.steps), 6)
+    return rec
+
+
 def run_one(agent, card, item, book=False):
     est = card.estimate()
     conv = Conversation(est, Recipient(card.tz, card.state), card.open_slots(), trace=Trace(sink=lambda _: None))
     at = est.sent_at + timedelta(days=item["day"])
     if item["text"]:
         conv.events.append(Event(at, "customer", est.channel, item["text"]))
-    now = at + timedelta(minutes=10)
-    rd = agent.decide(conv, now)
-    sent = agent.apply(conv, rd, OwnerTapStub())
-    job = None
-    if book and sent and rd.move.proposes_booking:
-        later = now + timedelta(hours=1)
-        conv.events.append(Event(later, "customer", rd.move.channel, "YES"))
-        job = agent.book(conv, later, rd)
-    rec = {"id": item["id"], "buyer": card.id, "reply": item["text"] or None, "now": now.isoformat(),
-           "estimate": {"title": est.title, "items": [{"name": i.name, "price": i.price, "optional": i.optional}
-                                                      for i in est.items],
-                        "total": est.list_price(), "floor": est.floor(), "sent_by": est.channel},
-           **rd.to_dict(), "sent": sent, "job": job, "offer_after": {"price": conv.offer.price,
-                                                                      "dropped": sorted(conv.offer.dropped)},
-           "steps": [asdict(s) for s in conv.trace.steps]}
-    rec["seconds"] = round(sum(s.seconds for s in rd.stages), 3)
-    rec["usd"] = round(sum(s.cost for s in conv.trace.steps), 6)
-    return rec
+    rec = record(agent, conv, at + timedelta(minutes=10), book)
+    return {"id": item["id"], "buyer": card.id, "reply": item["text"] or None, **rec}
+
+
+def run_morning(client, ceiling, spent=None, cfg=ReadFirstConfig(), inbox=None):
+    """The owner's morning (read_first.morning): one decision per overnight reply. Nothing is sent and no tap is
+    given: concessions wait for the owner, which is what the morning screen shows."""
+    inbox = inbox if inbox is not None else MO.inbox()
+    agent = ReadFirstAgent(client, cfg)
+    worst = worst_case_usd(cfg)
+    runs, stopped = [], None
+    for item in inbox:
+        so_far = spent() if spent else sum(r["usd"] for r in runs)
+        if so_far + worst > ceiling:
+            stopped = (f"ceiling: ${so_far:.4f} spent + ${worst:.4f} worst case for the next run > ${ceiling:.2f}; "
+                       f"{len(inbox) - len(runs)} run(s) not started")
+            break
+        try:
+            rec = record(agent, item["conv"], item["now"], apply=False)
+        except BudgetExceeded as e:
+            stopped = f"ledger cap: {e}"
+            break
+        runs.append({"id": item["id"], "pick_reason": item["reason"], "stratum": item["stratum"],
+                     "buyer": item["case"]["card_id"], "reply": item["case"]["text"], **rec, "v4": item["v4"]})
+    total = spent() if spent else sum(r["usd"] for r in runs)
+    return {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ledger_tag": TAG,
+            "ceiling_usd": ceiling, "worst_case_per_run_usd": worst, "spent_usd": round(total, 6), "stopped": stopped,
+            "rule": MO.__doc__.split("The rule", 1)[1].split("Each pick", 1)[0].strip(),
+            "source": {"replies": str(MO.TEST_SPLIT.relative_to(ROOT)), "v4_rows": str(MO.ROWS.relative_to(ROOT))},
+            "models": {"read": cfg.reader_model, "write": cfg.writer_model},
+            "owner": "no tap given: offers below list wait for the owner", "summary": MO.summary(runs),
+            "conversations": runs}
 
 
 def run(items, client, ceiling, book=False, cards=None, spent=None, cfg=ReadFirstConfig()):
@@ -132,29 +176,34 @@ def make_client(ledger=None):
     return Client(TAG, ledger=ledger or Ledger(), max_attempts=4, fallbacks={})
 
 
-def main(argv=None, client=None, out=OUT, replay_path=REPLAY):
+def main(argv=None, client=None, out=OUT, replay_path=REPLAY, morning_out=MORNING_OUT):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--scenario", action="append", default=[])
     ap.add_argument("--card", action="append", default=[])
     ap.add_argument("--ceiling", type=float, required=True, help="USD for this recording")
     ap.add_argument("--book", action="store_true")
-    ap.add_argument("--out", default=str(out))
+    ap.add_argument("--morning", action="store_true", help="record the owner's morning (read_first/morning.py)")
+    ap.add_argument("--out", default=None)
     a = ap.parse_args(argv)
     if a.ceiling <= 0:
         raise SystemExit("--ceiling must be above 0")
-    items = items_from(a.scenario, a.card, replay_path)
-    if not items:
-        raise SystemExit("nothing to record: give --scenario and/or --card")
+    if a.morning and (a.scenario or a.card or a.book):
+        raise SystemExit("--morning records exactly the morning: no --scenario, --card or --book")
+    items = None if a.morning else items_from(a.scenario, a.card, replay_path)
+    if not a.morning and not items:
+        raise SystemExit("nothing to record: give --scenario and/or --card, or --morning")
+    out_path = Path(a.out or (morning_out if a.morning else out))
     spent = None
     if client is None:
         client = make_client()
         start = client.ledger.spent()[1].get(TAG, 0.0)
         spent = lambda: client.ledger.spent()[1].get(TAG, 0.0) - start  # noqa: E731
     t0 = time.time()
-    data = run(items, client, a.ceiling, a.book, spent=spent)
+    data = run_morning(client, a.ceiling, spent=spent) if a.morning else run(items, client, a.ceiling, a.book, spent=spent)
     data["wall_seconds"] = round(time.time() - t0, 1)
-    Path(a.out).write_text(json.dumps(data, indent=1) + "\n")
-    print(f"wrote {a.out}: {len(data['runs'])} run(s), ${data['spent_usd']:.4f} on {TAG}"
+    out_path.write_text(json.dumps(data, indent=1) + "\n")
+    n = len(data["conversations"] if a.morning else data["runs"])
+    print(f"wrote {out_path}: {n} run(s), ${data['spent_usd']:.4f} on {TAG}"
           + (f"; stopped: {data['stopped']}" if data["stopped"] else ""))
     return data
 
