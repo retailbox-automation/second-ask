@@ -279,9 +279,11 @@
 
   function renderResult() {
     var R = D.results.rows;
-    $("result").innerHTML = "<span><b>Second Ask</b> picks the next move for a quiet home-service estimate, with NVIDIA Nemotron on Nebius Token Factory. <b>Main result, pre-registered:</b> Nemotron did not beat a good rulebook. First design (Lightning labels, Super chooses): " +
-      '<span class="neg">' + esc(R["routed - smart_rules"].per_customer) + "</span>, behind. Super alone: " +
-      '<span class="ncd">' + esc(R["super_only - smart_rules"].per_customer) + "</span>, no clear difference (not a tie). A third test, rules first with Nemotron only where they don't know, also came out behind. Simulated margin on illustrative prices; seeded demo shop.</span>" +
+    var P = window.SECOND_ASK.morning.proof;
+    $("result").innerHTML = "<span><b>Second Ask</b>: the shop's code sets price and date; NVIDIA Nemotron on Nebius Token Factory reads the reply and writes the draft. " +
+      esc(P.text) + " Earlier, when Nemotron chose the move: test 1 first design " +
+      '<span class="neg">' + esc(R["routed - smart_rules"].per_customer) + "</span>, behind; Super alone " +
+      '<span class="ncd">' + esc(R["super_only - smart_rules"].per_customer) + "</span>, no clear difference (not a tie); test 3 also behind. Simulated margin on illustrative prices; fictional shop.</span>" +
       '<span class="links"><a href="' + RESULTS_ANCHOR + '">Read RESULTS</a><a href="' + REPO + '">Repo</a></span>';
   }
 

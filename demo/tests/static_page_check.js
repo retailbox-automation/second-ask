@@ -71,8 +71,8 @@ const pw = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       return { steps, wrapped, clipped, overlaps, page_width: document.documentElement.scrollWidth, window_width: innerWidth,
                label: (document.getElementById("label") || {}).textContent, title: document.title,
                result_link: (document.querySelector("#result a") || {}).getAttribute && document.querySelector("#result a").getAttribute("href"),
-               seeded_tag: [...view.querySelectorAll(".tag, .foot")].some(e => vis(e) && /seeded demo shop/.test(e.textContent)) ||
-                 /seeded demo shop/.test(document.getElementById("result").textContent) };
+               seeded_tag: [...view.querySelectorAll(".tag, .foot")].some(e => vis(e) && /seeded demo shop|fictional shop/.test(e.textContent)) ||
+                 /seeded demo shop|fictional shop/.test(document.getElementById("result").textContent) };
     });
     out.push({ ...st, ...r });
   }

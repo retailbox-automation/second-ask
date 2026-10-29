@@ -85,7 +85,8 @@ def test_tiles_and_headline_are_the_summary():
     for k in ("replies_overnight", "ready_to_send_without_tap", "waiting_for_owner_tap", "stop_requests_honoured"):
         assert tiles[k] == str(s[k])
     assert tiles["total_usd"] == SB.usd_small(s["total_usd"])
-    assert f" {len(m['conversations'])} customers replied overnight" in v["headline"]
+    assert f" {len(m['conversations'])} customer replies are waiting" in v["headline"]
+    assert "each on its own test morning" in v["subline"]
     read = sum(1 for c in m["conversations"] if any(st["stage"] == "read" for st in c["stages"]))
     assert ("read every reply" in v["subline"]) == (read == len(m["conversations"]))
     if read < len(m["conversations"]):
@@ -139,7 +140,7 @@ def test_every_row_says_what_the_json_says():
             assert all(SB.plain_problem(p) in o["draft"]["head"] for p in c["writer"]["problems"])
             assert "move " not in o["draft"]["head"] and "concede_" not in o["draft"]["head"]  # no code names for the owner
         else:
-            assert o["draft"]["head"].startswith("Draft, written by ")
+            assert o["draft"]["head"].startswith("Draft by ") and "your code checked its prices, dates and booking words" in o["draft"]["head"]
         assert c["offer"]["price"] >= c["estimate"]["floor"] - 0.005  # never below the owner's floor
 
 
@@ -208,7 +209,7 @@ def test_template_and_model_drafts_are_both_handled():
             x["writer"] = {**x["writer"], "template_used": used, "problems": ["a made-up problem"] if used else []}
             o = next(r for r in SB.morning_view(mm, _t4())["rows"] if r["id"] == c["id"])["open"]
             assert o["draft"]["head"] == ("Draft replaced by the code template: a made-up problem" if used else
-                                          "Draft, written by Nemotron 3 Super, checked by your code".replace(
+                                          "Draft by Nemotron 3 Super; your code checked its prices, dates and booking words".replace(
                                               "Nemotron 3 Super", next(s["actor"] for s in x["stages"] if s["stage"] == "write")))
             assert any(s["text"] == ("Draft · code template" if used else "Draft · " + next(
                 st["actor"] for st in x["stages"] if st["stage"] == "write")) for s in o["steps"])

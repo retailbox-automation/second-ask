@@ -276,8 +276,8 @@ def _fact_value(key, v):
 def v4_markers(c):
     """The two honest markers from the frozen v4 run (rows.jsonl): which read missed this reply, and how."""
     out, v4 = [], c["v4"]
-    for arm, kind, tag, who in (("super", "misread", "v4 check: Nemotron misread this one", "Nemotron 3 Super"),
-                                ("rules", "rules", "v4 check: the rulebook missed this one", "The rulebook")):
+    for arm, kind, tag, who in (("super", "misread", "Test 4 check: Nemotron misread this one", "Nemotron 3 Super"),
+                                ("rules", "rules", "Test 4 check: the rulebook missed this one", "The rulebook")):
         if v4[arm]["match"] is False:
             diffs = [k for k in v4["true_facts"] if v4[arm]["facts"].get(k) != v4["true_facts"][k]]
             said = "; ".join(f"read {_fact_value(k, v4[arm]['facts'].get(k))}, the reply says "
@@ -340,7 +340,7 @@ def steps_strip(c, g):
             out.append({"who": "code", "text": "Stop · code" if g == "stopped" else "Price and date · code", "meta": meta})
         elif s["stage"] == "write":
             if c["writer"]["template_used"]:
-                out.append({"who": "code", "text": "Draft · code template", "meta": "draft by " + s["actor"] + " refused · " + meta})
+                out.append({"who": "code", "text": "Draft · code template", "meta": s["actor"] + "'s draft rejected by code · " + meta})
             else:
                 out.append({"who": "model", "text": "Draft · " + s["actor"], "meta": meta})
         else:
@@ -375,13 +375,13 @@ def open_item(c, g, markers):
                                                          for i, (_, t, k, _) in enumerate(chips)]}}
     if g == "stopped":
         who = (f"Stopped by {read['actor']}'s read; the shop's stop words did not match." if read else
-               "Stopped by the shop's code: its stop words matched before any model call.")
+               "Stopped by the shop's code: its opt-out phrases matched before any model call.")
         item["stopped"] = {"head": "Stopped: no more messages", "who": who, "reason": c["stop_reason"]}
         return item
     write = next(s for s in c["stages"] if s["stage"] == "write")
     item["decided"] = {"head": "Your code decided", "parts": offer_box(c)}
     item["draft"] = {"head": ("Draft replaced by the code template: " + "; ".join(plain_problem(x) for x in c["writer"]["problems"])
-                              if c["writer"]["template_used"] else f"Draft, written by {write['actor']}, checked by your code"),
+                              if c["writer"]["template_used"] else f"Draft by {write['actor']}; your code checked its prices, dates and booking words"),
                      "template": c["writer"]["template_used"], "text": c["message"]}
     item["buttons"] = {"primary": "Approve and send" if c["needs_owner"] else "Send now", "secondary": "Change",
                        "note": ("A discount: it goes out only after your tap." if c["needs_owner"] else
@@ -389,11 +389,19 @@ def open_item(c, g, markers):
     return item
 
 
+def morning_span(convs):
+    """'Nov 3–9': the first and last simulated mornings of the recorded replies."""
+    days = sorted(date.fromisoformat(c["now"][:10]) for c in convs)
+    a, b = days[0], days[-1]
+    return f"{a:%b} {a.day}" if a == b else (f"{a:%b} {a.day}–{b.day}" if a.month == b.month else f"{a:%b} {a.day}–{b:%b} {b.day}")
+
+
 def proof_strip(t4):
     sup, rules = t4["arms"]["super"]["match_rate_pct"], t4["arms"]["rules"]["match_rate_pct"]
     return {"text": f"Test 4, pre-registered, {t4['lines']} synthetic replies: same offer as a perfect read, "
-                    f"Nemotron 3 Super {sup} %, hardened rules {rules} % ({t4['verdict']}). Tests 1–3: when Nemotron chose "
-                    f"the price, it never beat the rules, so prices stay in code.",
+                    f"Nemotron 3 Super {sup} %, hardened rules {rules} % ({t4['verdict']}). Tests 1 and 3 (simulated customers): when "
+                    f"Nemotron chose the move, it never clearly beat our rulebook; test 2 stopped at its gate before the main run. "
+                    f"So prices stay in code.",
             "link": "See the tests", "href": RESULTS_URL}
 
 
@@ -424,12 +432,13 @@ def morning_view(m, t4):
                          "markers": [{"kind": x["kind"], "text": x["text"]} for x in mk], "open": open_item(c, g, mk)})
     return {
         "brand": "Second Ask",
-        "pills": ["Replay of recorded runs · synthetic replies", "NVIDIA Nemotron on Nebius Token Factory"],
-        "headline": f"Good morning. {n} customers replied overnight. Your offers are ready.",
-        "subline": who_read + " The shop's code set every price and date, never below your floor. Discounts wait for your tap.",
-        "tiles": [{"key": "replies_overnight", "value": str(s["replies_overnight"]), "label": "replies overnight"},
+        "pills": ["Replay of recorded runs · fictional shop, synthetic replies, illustrative prices", "NVIDIA Nemotron on Nebius Token Factory"],
+        "headline": f"Good morning. {n} customer replies are waiting. Your offers are ready.",
+        "subline": who_read + " The shop's code set every price and date, never below your floor. Discounts wait for your tap. "
+                   "Replies from our test set, each on its own test morning (" + morning_span(convs) + ").",
+        "tiles": [{"key": "replies_overnight", "value": str(s["replies_overnight"]), "label": "replies waiting"},
                   {"key": "ready_to_send_without_tap", "value": str(s["ready_to_send_without_tap"]),
-                   "label": "offers ready to send without a tap"},
+                   "label": "messages ready to send without a tap"},
                   {"key": "waiting_for_owner_tap", "value": str(s["waiting_for_owner_tap"]), "label": "discounts wait for your tap"},
                   {"key": "stop_requests_honoured", "value": str(s["stop_requests_honoured"]),
                    "label": "asked to stop · no more messages"},
@@ -439,7 +448,7 @@ def morning_view(m, t4):
         "hl_note": "highlights matched by code",
         "toast": "Replay: nothing is sent",
         "proof": proof_strip(t4),
-        "earlier": "Tests 1–3: the earlier design, where Nemotron chose the move",
+        "earlier": "Test 1 replays: the earlier design, where Nemotron chose the move",
     }
 
 
