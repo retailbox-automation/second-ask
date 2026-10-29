@@ -436,10 +436,10 @@ def morning_view(m, t4):
         "headline": f"Good morning. {n} customer replies are waiting. Your offers are ready.",
         "subline": who_read + " The shop's code set every price and date, never below your floor. Discounts wait for your tap. "
                    "Replies from our test set, each on its own test morning (" + morning_span(convs) + ").",
-        "tiles": [{"key": "replies_overnight", "value": str(s["replies_overnight"]), "label": "replies waiting"},
+        "tiles": [{"key": "replies_overnight", "value": str(s["replies_overnight"]), "label": "reply waiting" if s["replies_overnight"] == 1 else "replies waiting"},
                   {"key": "ready_to_send_without_tap", "value": str(s["ready_to_send_without_tap"]),
-                   "label": "messages ready to send without a tap"},
-                  {"key": "waiting_for_owner_tap", "value": str(s["waiting_for_owner_tap"]), "label": "discounts wait for your tap"},
+                   "label": ("message" if s["ready_to_send_without_tap"] == 1 else "messages") + " ready to send without a tap"},
+                  {"key": "waiting_for_owner_tap", "value": str(s["waiting_for_owner_tap"]), "label": "discount waits for your tap" if s["waiting_for_owner_tap"] == 1 else "discounts wait for your tap"},
                   {"key": "stop_requests_honoured", "value": str(s["stop_requests_honoured"]),
                    "label": "asked to stop · no more messages"},
                   {"key": "total_usd", "value": usd_small(s["total_usd"]), "label": "of Nemotron for the whole morning"}],

@@ -324,3 +324,13 @@ def test_morning_layout_has_no_defects(page):
            if s["wrapped"] or s["clipped"] or s["overlaps"]]
     assert bad == []
     assert all(s["page_width"] <= s["window_width"] for s in page["states"]), "horizontal scroll"
+
+
+def test_tile_labels_agree_with_the_number():
+    v = _view()
+    for tile in v["tiles"]:
+        if tile["value"] == "1":
+            assert not re.match(r"(replies|messages|discounts wait)\b", tile["label"]), tile
+        elif tile["value"].isdigit():
+            assert not re.match(r"(reply|message|discount waits)\b", tile["label"]), tile
+
