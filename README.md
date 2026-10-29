@@ -7,6 +7,8 @@ Nebius × NVIDIA Global AI Hackathon (track: Best Apps and Agents).
 Demo: https://second-ask.retailbox-automation.com/ (a static replay of recorded runs). Results, with every failure:
 [RESULTS.md](RESULTS.md).
 
+Video (2:23): https://youtu.be/JFwXhn1dC90
+
 ## The owner's morning
 
 A roofing, HVAC or plumbing shop sends estimates, and the answers come back in the evening, in any words and sometimes
