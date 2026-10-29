@@ -30,7 +30,9 @@ a discount waiting for the owner's tap, 2 stop requests honoured, $0.0065 of Nem
 whole morning. The replies are synthetic (from our test set below), the shop is made up, and each reply keeps its own test
 date (Nov 3–9 on the simulated clock). One of the eight is a reply Nemotron misread in test 4: it took a price the
 customer repeated as their limit. In this morning's run it read that reply right. When it does misread that way, the
-price falls below the list, and the code holds the offer for the owner's tap instead of sending it.
+price falls below the list, and the code holds the offer for the owner's tap instead of sending it. On another reply
+this morning it read a repeated list price ($750) as the customer's limit; that price was already the list, so the offer
+did not change.
 
 Why the code, and not the model, decides the price: we tested that four times, writing the rule down before each run.
 <!-- evidence:start -->
@@ -52,7 +54,7 @@ Why the code, and not the model, decides the price: we tested that four times, w
 Not in our pre-registered test: against a rulebook we wrote with full knowledge of the simulator, the routed design came out at -$181 [-$319, -$65] per customer [-$36,147 over 200 simulated customers; simulated margin on illustrative prices, not market data], Super-only showed no clear difference (-$84 [-$215, +$43] per customer), and the test switched the default label model to Super. A second pre-registered test, with customers wording the same facts freely, stopped before its main run: the buyer writer did not pass the vocabulary gate (L_own 71.8 % against at most 59.0 %). We also tested rules first, with Nemotron only where the rules don't know: -$71 [-$159, -$9] per customer, behind (third pre-registered test). A fourth test had Nemotron only read the customer while the rules decide: same offer as a perfect read on 99.0 % of 600 synthetic replies with Super, 99.33 % with the hardened rules, no clear difference (pre-registered).
 <!-- results:end -->
 
-When Nemotron chose the shop's next move (tests 1 and 3; test 2 stopped at its gate), it never beat a good rulebook,
+When Nemotron chose the shop's next move (tests 1 and 3; test 2 stopped at its gate), it never clearly beat a good rulebook,
 so the money decisions went back into code. When Nemotron only reads (test 4), it holds up: on 600 synthetic replies
 Nemotron 3 Super reached the same offer as a perfect read about as often as a rulebook tuned on the same writer
 (99.0 % against 99.33 %, no clear difference), and on those replies Super missed none of the 48 requests to stop,
@@ -75,7 +77,8 @@ For each customer reply (`read_first/agent.py`, `ReadFirstAgent`):
    dates, weekdays, months, day-counts and booking claims, and sends its template when the text does not match;
 5. a price below the list waits for the owner's one tap; quiet hours, the Florida three-a-day cap and the disclosure
    that it is an assistant are enforced in code before anything is sent;
-6. once the customer says yes, Nemotron 3 Super books the job with a tool loop (slots, book, record).
+6. once the customer says yes, Nemotron 3 Super books the job with a tool loop (slots, book, record); this step is
+   tested offline, and the recorded runs stop before booking.
 
 Silence (no new reply) is decided by code only: the silence rules of `smart_rules`, no model. The earlier design, where
 Nemotron labelled the reason and picked the move (`second_ask/agent.py`), is kept as tested in tests 1–3.

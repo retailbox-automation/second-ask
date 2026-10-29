@@ -1,6 +1,17 @@
 # Second Ask: tournament results
 
-**Second Ask, measured: in our pre-registered test, Nemotron did not beat a good rulebook. Against `smart_rules`, a rulebook we wrote with full knowledge of the simulator, the routed design (Lightning labels, Super chooses) came out at -$36,147 [-$63,856, -$13,051] against it over 200 simulated customers (-$181 [-$319, -$65] per customer): behind. Super-only: -$16,720 [-$43,004, +$8,643] (-$84 [-$215, +$43] per customer): no clear difference. The test changed what we ship: Super labels by default. All $ are simulated margin on illustrative prices (not market data).**
+## What ships now, and the four tests
+
+Second Ask now keeps every money and timing decision in the shop's code; Nemotron 3 Super reads the customer's reply into facts and drafts the message, and the code checks the draft before anything is sent (`read_first/`). Four pre-registered tests led there:
+
+- Test 1 (v1, below): Nemotron choosing the shop's move against a good rulebook: the routed design -$181 [-$319, -$65] per customer, behind; Super-only -$84 [-$215, +$43] per customer, no clear difference.
+- Test 2 (v2): stopped at its vocabulary gate before the main run (no policy results).
+- Test 3 (v3): rules first, Nemotron only where the rules do not know: -$71 [-$159, -$9] per customer, behind.
+- Test 4 (v4): Nemotron only reads, the code decides: same offer as a perfect read on 99.0 % of 600 synthetic replies with Nemotron 3 Super against 99.33 % for the hardened rulebook: no clear difference.
+
+The sections below follow the tests in order. All $ are simulated margin on illustrative prices (not market data).
+
+**Test 1 (v1): in our pre-registered test, Nemotron did not beat a good rulebook. Against `smart_rules`, a rulebook we wrote with full knowledge of the simulator, the routed design (Lightning labels, Super chooses) came out at -$36,147 [-$63,856, -$13,051] against it over 200 simulated customers (-$181 [-$319, -$65] per customer): behind. Super-only: -$16,720 [-$43,004, +$8,643] (-$84 [-$215, +$43] per customer): no clear difference. That test made Super the default label model of the earlier design. All $ are simulated margin on illustrative prices (not market data).**
 
 Pre-registered manifest `tournament/MANIFEST.json`: sha256 `1c231403c8fd5e1109ad1bad04ad411e0234be49e6f5c04a129260347c233a1e` of its canonical JSON (sorted keys, no spaces; the file's own sha256 is `e3551d565a561fd1…`). Frozen in commit `6d66d53` at 2026-10-24T10:35:38Z, pushed 2026-10-24T10:36:04Z; the run started 2026-10-24T10:58:31Z and finished 2026-10-24T11:37:04Z. `second_ask/**` and the manifest did not change between the freeze and the end of the run (the second test later changed three files; this run reproduces at commit `6d66d53`). Run: 2403 conversation rows (2400 clean, 3 errored and re-run clean), real Token Factory spend $5.78.
 

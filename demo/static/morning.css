@@ -21,6 +21,8 @@
 .m-hero h1,.m-hero p{position:relative;margin:0;max-width:min(1480px,calc(100% - 360px))}
 .m-hero h1{font-size:44px;line-height:1.12;font-weight:800;letter-spacing:-.8px;color:#1e2026}
 .m-hero p{margin-top:12px;font-size:21px;line-height:1.4;color:#454852}
+.m-hero p.m-result{margin-top:12px;display:inline-block;padding:6px 14px;border-radius:12px;background:rgba(255,255,255,.72);font-size:17px;color:#2f3240}
+.m-hero p.m-result a{color:#2f3240;font-weight:600}
 
 /* summary tiles */
 .m-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.25fr);gap:18px;padding:18px 40px 0}

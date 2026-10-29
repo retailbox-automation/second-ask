@@ -128,8 +128,9 @@ def main_comparison(text):
             rows[cells[0]] = {"total": cells[1], "per_customer": cells[2], "reading": cells[3]}
     if set(rows) != {"routed - smart_rules", "super_only - smart_rules"}:
         raise SystemExit("RESULTS.md: main comparison table not found")
-    headline = text.split("\n\n", 2)[1].strip().strip("*")
-    return {"rows": rows, "headline": headline, "label_default": "Super" if "Super labels by default" in headline else None}
+    headline = next(p for p in text.split("\n\n") if p.startswith("**")).strip().strip("*")  # the test-1 headline paragraph
+    return {"rows": rows, "headline": headline, "label_default": (m.group(1) if (m := re.search(r"made (\w+) the default label model", headline)) else
+                                                               "Super" if "Super labels by default" in headline else None)}
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -405,6 +406,15 @@ def proof_strip(t4):
             "link": "See the tests", "href": RESULTS_URL}
 
 
+def result_line(t4):
+    """The test result on the first screen, from results.json (the judge sees it without scrolling)."""
+    sup, rules = t4["arms"]["super"]["match_rate_pct"], t4["arms"]["rules"]["match_rate_pct"]
+    return {"text": f"Test 4, pre-registered, {t4['lines']} synthetic replies: same offer as a perfect read {sup} % of the time "
+                    f"with Nemotron 3 Super vs {rules} % with a hardened rulebook, {t4['verdict']}. When Nemotron chose the price "
+                    f"(tests 1 and 3), it never clearly beat the rulebook.",
+            "link": "See the tests", "href": RESULTS_URL + "#what-ships-now-and-the-four-tests"}
+
+
 def morning_view(m, t4):
     convs, s = m["conversations"], m["summary"]
     if len(convs) != s["replies_overnight"]:
@@ -448,6 +458,7 @@ def morning_view(m, t4):
         "hl_note": "highlights matched by code",
         "toast": "Replay: nothing is sent",
         "proof": proof_strip(t4),
+        "result_line": result_line(t4),
         "earlier": "Test 1 replays: the earlier design, where Nemotron chose the move",
     }
 

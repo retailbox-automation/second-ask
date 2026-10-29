@@ -67,6 +67,7 @@ def test_no_index_no_network_no_keys():
     assert not re.search(r"sk-[A-Za-z0-9]{16,}|eyJ[A-Za-z0-9_-]{20,}\.|Bearer\s+[A-Za-z0-9._-]{12,}|[A-Z_]*KEY\s*=\s*['\"]?[A-Za-z0-9]", every)
     assert re.search(r"seeded demo shop", html)
     assert 'id="main-comparison-pre-registered-nemotron-against-a-good-rulebook"' in (STATIC / "results.html").read_text()
+    assert 'id="what-ships-now-and-the-four-tests"' in (STATIC / "results.html").read_text()
 
 
 def _playwright():
@@ -135,7 +136,7 @@ def test_no_layout_defects(page):
 def test_seeded_tag_and_results_link_are_visible(page):
     for s in page["states"]:
         assert s["seeded_tag"], (s["view"], s["s"])
-        assert s["result_link"].startswith("results.html#main-comparison")
+        assert s["result_link"].startswith("results.html#what-ships-now-and-the-four-tests")
     b139 = [s for s in page["states"] if s["s"] == "B139-routed" and s["view"] == "why"][-1]
     assert b139["label"] == "Asked to stop"  # the published false opt-out is shown as it happened
 

@@ -616,6 +616,28 @@ def v4_section():
           f"{_usd(a['super']['usd_per_1000'], 2)} per 1,000 replies for Super.", ""]
     return L
 
+def lead_section(main_r, main_s, n):
+    """What ships now and the four tests in one place, from the run files (v1 tables, v3 and v4 results) only."""
+    L = ["## What ships now, and the four tests", "",
+         "Second Ask now keeps every money and timing decision in the shop's code; Nemotron 3 Super reads the customer's "
+         "reply into facts and drafts the message, and the code checks the draft before anything is sent (`read_first/`). "
+         "Four pre-registered tests led there:", "",
+         f"- Test 1 (v1, below): Nemotron choosing the shop's move against a good rulebook: the routed design "
+         f"{_per(main_r, n)}, behind; Super-only {_per(main_s, n)}, no clear difference.",
+         "- Test 2 (v2): stopped at its vocabulary gate before the main run (no policy results)."]
+    r3 = v3_results()
+    if r3:
+        L.append(f"- Test 3 (v3): rules first, Nemotron only where the rules do not know: {_per(r3['d3'], r3['d3']['buyers'])}, "
+                 f"{'behind' if r3['verdict'] == 'behind' else r3['verdict']}.")
+    r4 = v4_results()
+    if r4:
+        a = r4["arms"]
+        L.append(f"- Test 4 (v4): Nemotron only reads, the code decides: same offer as a perfect read on "
+                 f"{a['super']['match_rate_pct']} % of {r4['lines']} synthetic replies with Nemotron 3 Super against "
+                 f"{a['rules']['match_rate_pct']} % for the hardened rulebook: {r4['verdict']}.")
+    return L + ["", "The sections below follow the tests in order. All $ are simulated margin on illustrative prices "
+                "(not market data).", ""]
+
 def cmd_results_md(d, out_path=None):
     """RESULTS.md, every number computed here from the run files (rows, outcomes, results.json, smoke-b, manifest,
     buyers, ledger, git). The wording around the numbers is fixed in this function, written after the run."""
@@ -662,12 +684,12 @@ def cmd_results_md(d, out_path=None):
     testable = sum(cell_n[c] >= S.MIN_CELL_N for c in cells)
     ledg = ledger_summary(state.get("started"), ended)
     note = "simulated margin on illustrative prices (not market data)"
-    L = ["# Second Ask: tournament results", "",
-         f"**Second Ask, measured: in our pre-registered test, Nemotron did not beat a good rulebook. Against "
+    L = ["# Second Ask: tournament results", ""] + lead_section(main_r, main_s, n) + [
+         f"**Test 1 (v1): in our pre-registered test, Nemotron did not beat a good rulebook. Against "
          f"`smart_rules`, a rulebook we wrote with full knowledge of the simulator, the routed design (Lightning labels, "
          f"Super chooses) came out at {_ci_s(main_r)} against it over {n} simulated customers ({_per(main_r, n)}): "
-         f"behind. Super-only: {_ci_s(main_s)} ({_per(main_s, n)}): no clear difference. The test changed what "
-         f"we ship: {lab['default_label_model']} labels by default. All $ are {note}.**", "",
+         f"behind. Super-only: {_ci_s(main_s)} ({_per(main_s, n)}): no clear difference. That test made "
+         f"{lab['default_label_model']} the default label model of the earlier design. All $ are {note}.**", "",
          f"Pre-registered manifest `tournament/MANIFEST.json`: sha256 `{sha}` of its canonical JSON (sorted keys, no "
          f"spaces; the file's own sha256 is `{file_sha[:16]}…`). Frozen in commit `{freeze}` at {utc(freeze_t)}, pushed "
          f"{utc(push_t) if 'T' in push_t else push_t}; the run started {state.get('started')} and finished {ended}. "

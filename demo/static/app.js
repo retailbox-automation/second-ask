@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var D = window.SECOND_ASK, S = D.scenarios, T0 = Date.UTC(2026, 10, 2, 14, 0); // every estimate is sent Mon Nov 2
-  var RESULTS_ANCHOR = "results.html#main-comparison-pre-registered-nemotron-against-a-good-rulebook";
+  var RESULTS_ANCHOR = "results.html#what-ships-now-and-the-four-tests";
   var REPO = "https://github.com/retailbox-automation/second-ask";
   var $ = function (id) { return document.getElementById(id); };
   var LABELS = { price: "Price", timing: "Timing", family: "Family decision", channel: "Missed message",

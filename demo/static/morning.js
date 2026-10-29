@@ -16,6 +16,7 @@
     $("mPills").innerHTML = M.pills.map(function (p, i) { return '<span class="m-pill' + (i ? " nv" : "") + '">' + esc(p) + "</span>"; }).join("");
     $("mHead").textContent = M.headline;
     $("mSub").textContent = M.subline;
+    $("mResult").innerHTML = esc(M.result_line.text) + ' <a href="' + esc(M.result_line.href) + '">' + esc(M.result_line.link) + "</a>";
     $("mTiles").innerHTML = M.tiles.map(function (t) {
       return '<div class="m-tile" data-key="' + esc(t.key) + '"><b>' + esc(t.value) + "</b><span>" + esc(t.label) + "</span></div>";
     }).join("");
