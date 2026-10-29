@@ -348,8 +348,20 @@ def steps_strip(c, g):
     if not c["stages"]:
         out.append({"who": "code", "text": "Stop words · code", "meta": "no model call"})
     if g != "stopped":
-        out.append({"who": "you", "text": "Send · you", "meta": "after your tap" if c["needs_owner"] else "one click"})
+        out.append({"who": "you", "text": "Send · you", "meta": "after your tap"} if c["needs_owner"] else
+                   {"who": "code", "text": "Send · code", "meta": "no tap, when quiet hours end"})
     return out
+
+
+def plain_problem(x):
+    """The code's reason for refusing a draft, in words for the owner (the raw reason stays in the data file)."""
+    m = re.match(r"(.+?) '(.+?)' is not part of move \S+$", x)
+    if m:
+        return f"it named {m.group(1)} '{m.group(2)}', which the code did not choose"
+    m = re.match(r'claims a done booking \("(.+?)"\)', x)
+    if m:
+        return f"it said the job was booked ('{m.group(1)}'), which has not happened"
+    return re.sub(r"\bmove \S+", "the offer", x)
 
 
 def open_item(c, g, markers):
@@ -368,11 +380,12 @@ def open_item(c, g, markers):
         return item
     write = next(s for s in c["stages"] if s["stage"] == "write")
     item["decided"] = {"head": "Your code decided", "parts": offer_box(c)}
-    item["draft"] = {"head": ("Draft replaced by the code template: " + "; ".join(c["writer"]["problems"])
+    item["draft"] = {"head": ("Draft replaced by the code template: " + "; ".join(plain_problem(x) for x in c["writer"]["problems"])
                               if c["writer"]["template_used"] else f"Draft, written by {write['actor']}, checked by your code"),
                      "template": c["writer"]["template_used"], "text": c["message"]}
-    item["buttons"] = {"primary": "Approve and send" if c["needs_owner"] else "Send", "secondary": "Change",
-                       "note": "A discount: it goes out only after your tap." if c["needs_owner"] else None}
+    item["buttons"] = {"primary": "Approve and send" if c["needs_owner"] else "Send now", "secondary": "Change",
+                       "note": ("A discount: it goes out only after your tap." if c["needs_owner"] else
+                                "No tap needed: it goes out on its own when quiet hours end.")}
     return item
 
 
@@ -421,7 +434,8 @@ def morning_view(m, t4):
                   {"key": "stop_requests_honoured", "value": str(s["stop_requests_honoured"]),
                    "label": "asked to stop · no more messages"},
                   {"key": "total_usd", "value": usd_small(s["total_usd"]), "label": "of Nemotron for the whole morning"}],
-        "rows": rows, "default_open": by_group["ready"][0]["id"] if by_group["ready"] else rows[0]["id"],
+        "rows": rows, "default_open": (max(by_group["ready"], key=lambda c: len(fact_chips(c["facts"])))["id"]  # the ready reply with the most facts read
+                         if by_group["ready"] else rows[0]["id"]),
         "hl_note": "highlights matched by code",
         "toast": "Replay: nothing is sent",
         "proof": proof_strip(t4),

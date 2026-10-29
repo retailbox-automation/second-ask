@@ -92,11 +92,19 @@ def test_tiles_and_headline_are_the_summary():
         assert f"read {read} of {len(m['conversations'])} replies" in v["subline"]
 
 
-def test_rows_follow_the_rule_and_the_default_is_the_first_ready_row():
+def test_rows_follow_the_rule_and_the_default_is_the_ready_row_with_most_facts():
     m, v = _m(), _view()
     assert [r["id"] for r in v["rows"]] == _order(m)
-    ready = [c["id"] for c in m["conversations"] if _group(c) == 0]
-    assert v["default_open"] == (sorted(ready)[0] if ready else _order(m)[0])
+    ready = sorted((c for c in m["conversations"] if _group(c) == 0), key=lambda c: c["id"])
+    want = max(ready, key=lambda c: len(SB.fact_chips(c["facts"])))["id"] if ready else _order(m)[0]
+    assert v["default_open"] == want
+
+
+def test_plain_problem_words():
+    assert SB.plain_problem("relative day 'today' is not part of move concede_pkg_floor") == \
+        "it named relative day 'today', which the code did not choose"
+    assert "booked" in SB.plain_problem('claims a done booking ("booked") but move concede_pkg_floor only offers')
+    assert "concede" not in SB.plain_problem("something about move concede_pkg_floor")
 
 
 def test_every_row_says_what_the_json_says():
@@ -123,11 +131,13 @@ def test_every_row_says_what_the_json_says():
         else:
             assert f"{c['offer']['timing']['days']} days" in r["chip"]
         assert o["draft"]["text"] == c["message"]
-        assert o["buttons"]["primary"] == ("Approve and send" if c["needs_owner"] else "Send")
-        assert bool(o["buttons"]["note"]) == c["needs_owner"]
+        assert o["buttons"]["primary"] == ("Approve and send" if c["needs_owner"] else "Send now")
+        assert ("after your tap" in o["buttons"]["note"]) == c["needs_owner"]
+        assert ("No tap needed" in o["buttons"]["note"]) == (not c["needs_owner"])
         if c["writer"]["template_used"]:
             assert o["draft"]["head"].startswith("Draft replaced by the code template: ")
-            assert all(p in o["draft"]["head"] for p in c["writer"]["problems"])
+            assert all(SB.plain_problem(p) in o["draft"]["head"] for p in c["writer"]["problems"])
+            assert "move " not in o["draft"]["head"] and "concede_" not in o["draft"]["head"]  # no code names for the owner
         else:
             assert o["draft"]["head"].startswith("Draft, written by ")
         assert c["offer"]["price"] >= c["estimate"]["floor"] - 0.005  # never below the owner's floor
