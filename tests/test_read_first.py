@@ -77,7 +77,10 @@ def test_reader_call_is_the_frozen_reader_request():
     w = fc.calls[1]
     assert w["model"] == M.SUPER and w["params"]["reasoning_effort"] == "none"
     assert w["params"]["tool_choice"] == {"type": "function", "function": {"name": W.TOOL_NAME}}
-    assert "Price: $690" in w["messages"][1]["content"] and "Slot: Thursday Oct 29" in w["messages"][1]["content"]
+    user = w["messages"][1]["content"]
+    assert "Price: $690" in user and "Quoted slot on the estimate: Tuesday Oct 27." in user
+    assert "Offered slot: Thu Oct 29 09:00 AM local time, later than the quoted slot." in user
+    assert "never call it the quoted slot" in user and "as discussed" in w["messages"][0]["content"]
 
 
 def test_seconds_and_dollars_per_stage_come_from_the_replies():
@@ -342,7 +345,8 @@ def test_live_test_0003_draft_with_months_the_code_never_chose_gets_the_template
     ag, _ = agent([facts(wait_weeks=4), text(draft)])
     rd = ag.decide(conv("We want it, but not for about four weeks"), NOW)
     assert rd.move.id == "checkin_30" and rd.written.template_used
-    assert rd.written.problems == ["month 'Dec' is not part of move checkin_30", "month 'Jan.' is not part of move checkin_30"]
+    assert rd.written.problems[:2] == ["month 'Dec' is not part of move checkin_30", "month 'Jan.' is not part of move checkin_30"]
+    assert rd.written.problems[2:] == ['says "as discussed", which nothing in the conversation supports']
     assert "Dec" not in rd.message and any("month 'Dec'" in f for f in rd.flags)
 
 

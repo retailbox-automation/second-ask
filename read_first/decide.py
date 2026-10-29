@@ -24,6 +24,8 @@ from second_ask.chooser import default_move
 from second_ask.tournament.policies import SmartRules, _menu
 from second_read.offer import ANSWER, CHECKIN, SLOT
 
+from .template import local, slot_day, slot_text
+
 SILENCE_BRANCHES = ("silence_resend", "silence_checkin", "silence")
 
 
@@ -92,7 +94,7 @@ def map_offer(off, conv, menu, now, facts=None):
             if m is not None:
                 return Mapping(m, True, f"{m.id}: the slot offer() chose", kept)
             base = by["offer_slot"]
-            return Mapping(replace(base, slot=slot, description=f"Offer to book {slot.start:%a %b %d %I:%M %p} at "
+            return Mapping(replace(base, slot=slot, description=f"Offer to book {slot_text(slot, conv.recipient.tz)} at "
                                                                 f"{_money(base.price)}."),
                            True, "offer_slot carrying the slot offer() chose", kept)
         if timing["kind"] == CHECKIN and f"checkin_{timing['days']}" in by:
@@ -131,6 +133,41 @@ def claim_problems(text, move):
     norm = (text or "").translate(str.maketrans({"’": "'", "‘": "'", "ʼ": "'"}))
     return [f'claims a done booking ("{(text or "")[m.start():m.end()]}") but move {move.id} only offers'
             for m in _CLAIMS.finditer(norm)]
+
+
+# --- wording the facts do not support --------------------------------------------------------------------------------
+# Three narrow checks (each found in a recorded draft):
+# 1. "as discussed / as agreed / as promised": the shop's code knows only the conversation shown, so it is never
+#    supported (always flagged; no exception for the customer's own words, to keep the check simple and strict).
+# 2. a slot move whose day is not the quoted slot's day, described as the quoted slot or as unchanged ("the quoted slot
+#    remains Mon Nov 09", "same slot", "keep the original slot"); "earlier than your quoted slot" passes.
+# 3. a check-in move whose text asks the customer to do the checking back ("Check back in 30 days", "get back to us
+#    in a month", "feel free to reach out in 30 days"); "we'll check back in 30 days" / "I will reach out in 30 days"
+#    pass (we or I as the subject just before the verb, up to four words between, none of them "you").
+_AS_SAID = re.compile(r"\bas (?:we )?(?:discussed|agreed|promised)\b", re.I)
+_DAY_WORD = r"(?:mon|tue|wed|thu|fri|sat|sun|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)"
+_SAME_SLOT = re.compile(
+    r"\bquoted (?:slot|date|day|time)\s+(?:still\s+)?(?:is|remains|stays)\b|"
+    r"\bquoted slot[,:]?\s+(?:on\s+)?" + _DAY_WORD + r"|"
+    r"\b(?:slot|appointment|date|day|time|visit)(?:\s+still)?\s+(?:remains|stays)\b|"
+    r"\bsame (?:slot|day|date|time)\b|"
+    r"\b(?:keep|keeping|kept)\s+(?:the\s+|your\s+)?(?:quoted|original) (?:slot|date|day|time)\b", re.I)
+_CHECK_BACK = re.compile(r"\b(?:check back|get back to (?:us|me)|reach out(?: to us)?|follow up(?: with us)?)\s+in\b", re.I)
+_SHOP_SUBJECT = re.compile(r"\b(?:we|i)(?:'ll|'d|'re|'m)?(?:\s+(?!you\b)[\w']+){0,4}\s*$", re.I)
+
+
+def wording_problems(text, move, est, tz=None):
+    """Phrases in `text` that the facts of this move do not support (the three checks above)."""
+    norm = (text or "").translate(str.maketrans({"’": "'", "‘": "'", "ʼ": "'"}))
+    problems = [f'says "{m.group(0)}", which nothing in the conversation supports' for m in _AS_SAID.finditer(norm)]
+    if move.slot is not None and slot_day(move.slot, tz) != slot_day(est.default_slot, tz):
+        problems += [f'calls the offered slot the quoted or same one ("{m.group(0)}"); move {move.id} is another day'
+                     for m in _SAME_SLOT.finditer(norm)]
+    if move.checkin_days is not None:
+        for m in _CHECK_BACK.finditer(norm):
+            if not _SHOP_SUBJECT.search(norm[max(0, m.start() - 60):m.start()]):
+                problems.append(f'asks the customer to check back ("{m.group(0)}"); the shop checks back in move {move.id}')
+    return problems
 
 
 # --- dates in a written message --------------------------------------------------------------------------------------
@@ -180,22 +217,23 @@ def _month(s):
     return (_MONTHS.index(s[:3]) if s[:3] in _MONTHS else _ES_MONTHS.index(s[:3])) + 1
 
 
-def own_days(move, now=None):
-    """The days a message for this move may name: the slot's day, and the check-in day when `now` is known."""
+def own_days(move, now=None, tz=None):
+    """The days a message for this move may name: the slot's day, and the check-in day when `now` is known; calendar
+    days in the customer's zone `tz` (UTC when unknown)."""
     days = set()
     if move.slot is not None:
-        days.add(move.slot.start.date())
+        days.add(slot_day(move.slot, tz))
     if move.checkin_days is not None and now is not None:
-        days.add((now + timedelta(days=move.checkin_days)).date())
+        days.add(local(now + timedelta(days=move.checkin_days), tz).date())
     return days
 
 
-def date_problems(text, move, now=None):
+def date_problems(text, move, now=None, tz=None):
     """Every date, month, weekday, relative day or span of days in `text` that is not the move's own (see the comment
     above). Conservative on purpose: a mention the code cannot match to the move is a problem, and the message falls
     back to the template."""
     text = (text or "").translate(str.maketrans({"’": "'", "‘": "'"}))
-    days = own_days(move, now)
+    days = own_days(move, now, tz)
     md = {(d.month, d.day) for d in days}
     span_days = move.checkin_days
     problems, taken = [], []

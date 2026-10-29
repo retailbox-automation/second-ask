@@ -25,12 +25,13 @@ from second_ask import models as M
 from second_ask.agent import Agent, AgentConfig, Decision, _stop, apply_decision, make_decision
 from second_ask.chooser import default_move
 from second_ask.compliance import opt_out_status
-from second_ask.menu import amounts_in, template_message
+from second_ask.menu import amounts_in
 from second_ask.trace import Step
 from second_read.offer import offer as decide_offer
 
 from . import reader as R
 from .decide import map_offer, menu_for, silence_move
+from .template import template
 from .writer import write
 
 ACTORS = {M.SUPER: "Nemotron 3 Super", M.ULTRA: "Nemotron 3 Ultra", M.LIGHTNING: "Nemotron 3.5 Lightning",
@@ -156,7 +157,7 @@ class ReadFirstAgent:
             menu = menu_for(conv, now)
             move = default_move(None, menu)
             flags.append(f"read failed ({meta['error_kind']}: {meta['error']}); code default {move.id} used")
-            rd.decision = make_decision(conv, move, template_message(move, conv.estimate, conv.offer), now,
+            rd.decision = make_decision(conv, move, template(move, conv.estimate, conv.offer, conv.recipient.tz), now,
                                         self.cfg.shop_state, menu=menu, flags=flags)
             self._decided(conv, rd, t0, {"read": "failed", "move": move.id})
             return rd
@@ -210,7 +211,7 @@ class ReadFirstAgent:
         menu = menu_for(conv, now)
         move, branch = silence_move(conv, menu)
         rd = ReadFirstDecision(None, "silence", branch=branch)
-        rd.decision = make_decision(conv, move, template_message(move, conv.estimate, conv.offer), now,
+        rd.decision = make_decision(conv, move, template(move, conv.estimate, conv.offer, conv.recipient.tz), now,
                                     self.cfg.shop_state, menu=menu, flags=[f"silence: rule branch {branch}"])
         self._decided(conv, rd, t0, {"silence": branch, "move": move.id})
         return rd
