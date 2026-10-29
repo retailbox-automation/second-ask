@@ -18,6 +18,7 @@ Mapping (offer -> move):
 """
 import re
 from dataclasses import dataclass, replace
+from datetime import timedelta
 
 from second_ask.chooser import default_move
 from second_ask.tournament.policies import SmartRules, _menu
@@ -133,18 +134,40 @@ def claim_problems(text, move):
 
 
 # --- dates in a written message --------------------------------------------------------------------------------------
+# A message may name only the move's own day: the slot's day, or the check-in day (now + the check-in span), written as a
+# date ("Monday, Nov 9", "11/9", "the 9th", "9 de noviembre"), its weekday, or the move's own span ("in 30 days",
+# "in about a month"). Anything else that places the job in time is a problem: another date, a bare month name
+# ("late Dec", "early Jan", "en diciembre"), a month-relative phrase ("next month", "the holidays", "after New Year"),
+# a relative day ("tomorrow") or another span ("in 3 weeks").
 _MONTHS = ("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec")
-_MONTH = r"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|" \
+_ES_MONTHS = ("ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic")
+_MONTH = r"\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|" \
          r"oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?"
+_ES_MONTH = r"(enero|ene|febrero|feb|marzo|mar|abril|abr|mayo|may|junio|jun|julio|jul|agosto|ago|septiembre|setiembre|" \
+            r"sept?|set|octubre|oct|noviembre|nov|diciembre|dic)\.?"
 _MONTH_DAY = re.compile(_MONTH + r"\s+(\d{1,2})(?:st|nd|rd|th)?\b", re.I)
-_DAY_MONTH = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?" + _MONTH + r"(?![a-z])", re.I)
+_DAY_MONTH = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?" + _MONTH[2:] + r"(?![a-z])", re.I)
+_ES_DAY_MONTH = re.compile(r"\b(\d{1,2})\s+de\s+" + _ES_MONTH + r"(?![a-z])", re.I)
 _ISO = re.compile(r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b")
 _NUMERIC = re.compile(r"(?<![\d$.,])(\d{1,2})/(\d{1,2})(?:/\d{2,4})?\b")
 _ORDINAL = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)\b", re.I)
+# a month named without its day: English and Spanish names and abbreviations. "May" alone is the modal verb ("you may
+# want to"), so it counts only after a month word such as "in", "early", "mid", "late", "end of", "by"; "ago" is the
+# English word, so the Spanish abbreviation counts only inside a date.
+_BARE_MONTH = re.compile(
+    r"\b(january|february|march|april|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|"
+    r"aug|sept|sep|oct|nov|dec|enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|"
+    r"noviembre|diciembre|ene|abr|dic)\b\.?|"
+    r"\b(?:in|early|mid|late|end of|beginning of|start of|since|until|till|by|before|after|through|this|next|last)[\s-]+may\b",
+    re.I)
 _WEEKDAYS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
 _WEEKDAY = re.compile(r"\b(mon(?:day)?|tue(?:s(?:day)?)?|wed(?:nesday)?|thu(?:r(?:s(?:day)?)?)?|fri(?:day)?|"
                       r"sat(?:urday)?|sun(?:day)?)\b", re.I)
-_RELATIVE = re.compile(r"\b(today|tonight|tomorrow|yesterday|this weekend|next week|next month)\b", re.I)
+_RELATIVE = re.compile(
+    r"\b(today|tonight|tomorrow|yesterday|this weekend|next weekend|next week|this week|next month|this month|"
+    r"last month|end of (?:the )?month|beginning of (?:the )?month|start of (?:the )?month|next year|this year|"
+    r"end of (?:the )?year|the holidays|holiday season|after the holidays|new year'?s?|christmas|thanksgiving|"
+    r"pr[oó]ximo mes|el mes que viene|este mes|fin de mes|fin de a[nñ]o|navidad|a[nñ]o nuevo)\b", re.I)
 _NUMBER_WORDS = {"a": 1, "an": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
                  "eight": 8, "nine": 9, "ten": 10, "a couple of": 2, "a couple": 2, "a few": 3, "few": 3}
 _SPAN = re.compile(r"\b(\d+|a couple of|a couple|a few|few|an|a|one|two|three|four|five|six|seven|eight|nine|ten)\s+"
@@ -153,48 +176,62 @@ _UNIT_DAYS = {"day": 1, "week": 7, "month": 30}
 
 
 def _month(s):
-    return _MONTHS.index(s[:3].lower()) + 1
+    s = s.lower()
+    return (_MONTHS.index(s[:3]) if s[:3] in _MONTHS else _ES_MONTHS.index(s[:3])) + 1
 
 
-def date_problems(text, move):
-    """Every date, weekday, relative day or span of days in `text` that is not the move's own: the slot's day (when the
-    move has a slot) and the check-in span (when it has one). Conservative on purpose: a mention the code cannot match
-    to the move is a problem, and the message falls back to the template."""
-    text = text or ""
-    slot = move.slot.start.date() if move.slot is not None else None
-    days = move.checkin_days
-    problems = []
+def own_days(move, now=None):
+    """The days a message for this move may name: the slot's day, and the check-in day when `now` is known."""
+    days = set()
+    if move.slot is not None:
+        days.add(move.slot.start.date())
+    if move.checkin_days is not None and now is not None:
+        days.add((now + timedelta(days=move.checkin_days)).date())
+    return days
+
+
+def date_problems(text, move, now=None):
+    """Every date, month, weekday, relative day or span of days in `text` that is not the move's own (see the comment
+    above). Conservative on purpose: a mention the code cannot match to the move is a problem, and the message falls
+    back to the template."""
+    text = (text or "").translate(str.maketrans({"’": "'", "‘": "'"}))
+    days = own_days(move, now)
+    md = {(d.month, d.day) for d in days}
+    span_days = move.checkin_days
+    problems, taken = [], []
 
     def bad(what):
         problems.append(f"{what} is not part of move {move.id}")
 
-    spans = []
-    for m in _MONTH_DAY.finditer(text):
-        spans.append(m.span())
-        if slot is None or (_month(m.group(1)), int(m.group(2))) != (slot.month, slot.day):
-            bad(f"date {m.group(0)!r}")
-    for m in _DAY_MONTH.finditer(text):
-        if any(a <= m.start() < b or m.start() <= a < m.end() for a, b in spans):
-            continue
-        spans.append(m.span())
-        if slot is None or (_month(m.group(2)), int(m.group(1))) != (slot.month, slot.day):
-            bad(f"date {m.group(0)!r}")
+    def inside(m):
+        return any(a <= m.start() < b or m.start() <= a < m.end() for a, b in taken)
+
+    for pattern, mo, dy in ((_MONTH_DAY, 1, 2), (_DAY_MONTH, 2, 1), (_ES_DAY_MONTH, 2, 1)):
+        for m in pattern.finditer(text):
+            if inside(m):
+                continue
+            taken.append(m.span())
+            if (_month(m.group(mo)), int(m.group(dy))) not in md:
+                bad(f"date {m.group(0)!r}")
     for m in _ISO.finditer(text):
-        spans.append(m.span())
-        if slot is None or (int(m.group(1)), int(m.group(2)), int(m.group(3))) != (slot.year, slot.month, slot.day):
+        taken.append(m.span())
+        if not any((int(m.group(1)), int(m.group(2)), int(m.group(3))) == (d.year, d.month, d.day) for d in days):
             bad(f"date {m.group(0)!r}")
     for m in _NUMERIC.finditer(text):
-        spans.append(m.span())
-        if slot is None or (int(m.group(1)), int(m.group(2))) != (slot.month, slot.day):
+        taken.append(m.span())
+        if (int(m.group(1)), int(m.group(2))) not in md:
             bad(f"date {m.group(0)!r}")
     for m in _ORDINAL.finditer(text):
-        if any(a <= m.start() < b for a, b in spans):
+        if inside(m):
             continue
-        if slot is None or int(m.group(1)) != slot.day:
+        if int(m.group(1)) not in {d.day for d in days}:
             bad(f"day {m.group(0)!r}")
+    for m in _BARE_MONTH.finditer(text):
+        if not inside(m):
+            bad(f"month {m.group(0)!r}")
     for m in _WEEKDAY.finditer(text):
         w = next(i for i, d in enumerate(_WEEKDAYS) if d.startswith(m.group(1).lower()[:3]))
-        if slot is None or w != slot.weekday():
+        if w not in {d.weekday() for d in days}:
             bad(f"weekday {m.group(0)!r}")
     for m in _RELATIVE.finditer(text):
         bad(f"relative day {m.group(0)!r}")
@@ -202,6 +239,6 @@ def date_problems(text, move):
         n = m.group(1).lower()
         count = int(n) if n.isdigit() else _NUMBER_WORDS[n]
         unit = m.group(2).lower().rstrip("s")
-        if days is None or count * _UNIT_DAYS[unit] != days:
+        if span_days is None or count * _UNIT_DAYS[unit] != span_days:
             bad(f"span {m.group(0)!r}")
     return problems
